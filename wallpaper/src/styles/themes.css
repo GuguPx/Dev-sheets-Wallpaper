@@ -1,0 +1,164 @@
+/* =========================================================================
+   themes.css — paletas de terminal (seção 20). Cada tema define bg/fg/accent
+   e as elevações/bordas derivadas (sem gradientes chamativos). Aplicado via
+   [data-theme] pela SettingsStore.
+   ========================================================================= */
+
+:root[data-theme='graphite'] {
+  --bg: #090b0d;
+  --bg-elev: #0f1215;
+  --bg-elev2: #14181c;
+  --fg: #d5d7da;
+  --muted: #8a9199;
+  --dim: #565d64;
+  --border: #222831;
+  --sel: #182029;
+  --accent: #8a9199;
+}
+
+:root[data-theme='ice'] {
+  --bg: #061018;
+  --bg-elev: #0a1822;
+  --bg-elev2: #0f2230;
+  --fg: #d8f3ff;
+  --muted: #7fb6cc;
+  --dim: #4e7488;
+  --border: #123244;
+  --sel: #0f2c3e;
+  --accent: #64d8ff;
+}
+
+:root[data-theme='mint'] {
+  --bg: #06100c;
+  --bg-elev: #0a1813;
+  --bg-elev2: #0f2219;
+  --fg: #d5f5e5;
+  --muted: #79c6a0;
+  --dim: #4e7b63;
+  --border: #143528;
+  --sel: #0f2c20;
+  --accent: #58d68d;
+}
+
+:root[data-theme='amber'] {
+  --bg: #110d05;
+  --bg-elev: #1a130a;
+  --bg-elev2: #22190d;
+  --fg: #ffe1a3;
+  --muted: #c7a66a;
+  --dim: #856f45;
+  --border: #33280f;
+  --sel: #2a2010;
+  --accent: #f5b041;
+}
+
+:root[data-theme='violet'] {
+  --bg: #0e0914;
+  --bg-elev: #150e1e;
+  --bg-elev2: #1c1428;
+  --fg: #e8d8ff;
+  --muted: #b49ad6;
+  --dim: #7a6499;
+  --border: #2a1e3c;
+  --sel: #1f1630;
+  --accent: #bb86fc;
+}
+
+:root[data-theme='vscode'] {
+  /* VS Code Dark+ — bg do editor, azul de status e o realce de sintaxe base
+     (que já é Dark+), para o wallpaper parecer o próprio editor. */
+  --bg: #1e1e1e;
+  --bg-elev: #252526;
+  --bg-elev2: #2d2d30;
+  --fg: #d4d4d4;
+  --muted: #858585;
+  --dim: #6e7681;
+  --border: #3c3c3c;
+  --sel: #264f78;
+  --accent: #3794ff;
+  --safe: #4ec9b0;
+  --warning: #d7ba7d;
+  --danger: #f14c4c;
+  /* --syn-* herdados da base (terminal.css) = paleta Dark+ */
+}
+
+:root[data-theme='caderno'] {
+  /* "Caderno" — tema claro de papel (inspirado em cheat sheets de caderno):
+     fundo creme, tinta escura, títulos/acento quentes e código colorido numa
+     paleta clara (estilo marcador). Único tema light — força color-scheme e
+     desliga o CRT (overlays escuros não combinam com papel). */
+  color-scheme: light;
+  --crt: 0 !important;
+
+  --bg: #f7f2e6;
+  --bg-elev: #fdf9ef;
+  --bg-elev2: #efe7d3;
+  --fg: #3c3a33;
+  --muted: #6f6857;
+  --dim: #8f8168;
+  --border: #ded3bb;
+  --sel: #fde7bd; /* marca-texto */
+  --accent: #c2410c; /* laranja queimado (marcador) */
+
+  --safe: #2e7d32;
+  --warning: #b45309;
+  --danger: #c0392b;
+
+  /* realce de sintaxe — paleta clara colorida (legível no creme) */
+  --syn-cmd: #8250df; /* comando/palavra-chave — roxo */
+  --syn-sub: #0f766e; /* subcomando — teal */
+  --syn-flag: #be185d; /* flags --x — rosa */
+  --syn-str: #b45309; /* strings — âmbar */
+  --syn-ph: #2563eb; /* placeholders <x> — azul */
+  --syn-var: #1d4ed8; /* variáveis $x — azul */
+  --syn-op: #6b7280; /* operadores — cinza */
+  --syn-num: #15803d; /* números — verde */
+  --syn-comment: #16a34a; /* comentários — verde */
+  --syn-arg: var(--fg);
+
+  text-shadow: none;
+}
+
+/* Toques de "papel de caderno": frame com cantos suaves, leve sombra de página
+   e linhas pautadas discretas atrás do conteúdo. */
+:root[data-theme='caderno'] .term-frame {
+  border-radius: 8px;
+  border-color: #d8ccb0;
+  box-shadow: 0 2px 14px rgba(60, 50, 30, 0.14);
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.6em - 1px),
+      rgba(120, 150, 180, 0.14) calc(1.6em - 1px),
+      rgba(120, 150, 180, 0.14) 1.6em
+    ),
+    var(--bg);
+}
+
+:root[data-theme='classic-green'] {
+  --bg: #020702;
+  --bg-elev: #05140a;
+  --bg-elev2: #08200e;
+  --fg: #8aff80;
+  --muted: #57c24e;
+  --dim: #2f7a2c;
+  --border: #0c3a12;
+  --sel: #08260f;
+  --accent: #39ff14;
+  --safe: #39ff14;
+  --warning: #e6d24a;
+  --danger: #ff6b6b;
+  text-shadow: 0 0 2px rgba(57, 255, 20, 0.25);
+
+  /* mantém o realce monocromático (fósforo verde) neste tema */
+  --syn-cmd: #b6ffab;
+  --syn-sub: #6ee067;
+  --syn-flag: #39ff14;
+  --syn-str: #c6ffb0;
+  --syn-ph: #7dff72;
+  --syn-var: #9cff8c;
+  --syn-op: #57c24e;
+  --syn-num: #d6ffc6;
+  --syn-comment: #2f7a2c;
+}

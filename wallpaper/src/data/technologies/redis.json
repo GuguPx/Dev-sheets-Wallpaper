@@ -1,0 +1,343 @@
+{
+  "id": "redis",
+  "name": "Redis",
+  "shortName": "Redis",
+  "prompt": "redis",
+  "icon": "redis",
+  "color": "#FF4438",
+  "description": "Banco de dados chave-valor em memória — strings, hashes, listas, sets, expiração e pub/sub.",
+  "documentationUrl": "https://redis.io/docs/latest/commands/",
+  "version": "7.x",
+  "lastReviewedAt": "2026-07-18",
+  "categories": ["conexao", "strings", "keys", "hashes", "lists", "sets", "sorted-sets", "pubsub", "server"],
+  "entries": [
+    {
+      "id": "redis-cli",
+      "title": "Abrir o CLI",
+      "command": "redis-cli",
+      "description": "Abre o cliente interativo conectado ao Redis local (porta 6379).",
+      "category": "conexao",
+      "tags": ["cli", "conectar"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "redis-cli -h 10.0.0.5 -p 6379 -a <senha>", "explanation": "Conecta a um host/porta com autenticação." }
+      ],
+      "arguments": [
+        { "flag": "-h", "description": "Host do servidor." },
+        { "flag": "-p", "description": "Porta (padrão 6379)." },
+        { "flag": "-n", "description": "Número do banco (0-15)." }
+      ],
+      "warnings": ["Passar -a <senha> pode expor a senha no histórico do shell."],
+      "relatedCommands": ["ping", "info"]
+    },
+    {
+      "id": "ping",
+      "title": "Testar conexão",
+      "command": "PING",
+      "description": "Verifica se o servidor responde; retorna PONG quando está saudável.",
+      "category": "conexao",
+      "tags": ["healthcheck"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["redis-cli", "info"]
+    },
+    {
+      "id": "set",
+      "title": "Definir valor",
+      "command": "SET chave valor",
+      "description": "Grava uma string em uma chave. Opções: EX segundos, NX (só se não existir).",
+      "category": "strings",
+      "tags": ["set", "string"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "intermediario", "code": "SET sessao:1 dados EX 3600 NX", "explanation": "Grava com TTL de 1h apenas se a chave não existir." }
+      ],
+      "arguments": [
+        { "flag": "EX", "description": "Expiração em segundos." },
+        { "flag": "NX", "description": "Só define se a chave não existir." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["get", "setex", "expire"]
+    },
+    {
+      "id": "get",
+      "title": "Obter valor",
+      "command": "GET chave",
+      "description": "Lê o valor string de uma chave; retorna nil se não existir.",
+      "category": "strings",
+      "tags": ["get", "string"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["set", "mget"]
+    },
+    {
+      "id": "incr",
+      "title": "Incrementar contador",
+      "command": "INCR chave",
+      "description": "Incrementa atomicamente um valor numérico; ideal para contadores e rate limiting.",
+      "category": "strings",
+      "tags": ["contador", "atomico"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "INCRBY visitas 10", "explanation": "Incrementa por um valor específico." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["set", "expire"]
+    },
+    {
+      "id": "del",
+      "title": "Remover chave",
+      "command": "DEL chave",
+      "description": "Remove uma ou mais chaves. Retorna quantas foram removidas.",
+      "category": "keys",
+      "tags": ["del", "remover"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [],
+      "arguments": [],
+      "warnings": ["A remoção é imediata e irreversível."],
+      "relatedCommands": ["exists", "expire"]
+    },
+    {
+      "id": "exists",
+      "title": "Verificar existência",
+      "command": "EXISTS chave",
+      "description": "Retorna 1 se a chave existe, 0 caso contrário.",
+      "category": "keys",
+      "tags": ["exists"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["del", "type"]
+    },
+    {
+      "id": "expire",
+      "title": "Definir expiração",
+      "command": "EXPIRE chave 3600",
+      "description": "Define um tempo de vida (TTL) em segundos, após o qual a chave é removida.",
+      "category": "keys",
+      "tags": ["ttl", "expiracao"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["ttl", "persist"]
+    },
+    {
+      "id": "ttl",
+      "title": "Consultar TTL",
+      "command": "TTL chave",
+      "description": "Retorna os segundos restantes até a expiração (-1 sem TTL, -2 inexistente).",
+      "category": "keys",
+      "tags": ["ttl"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["expire", "persist"]
+    },
+    {
+      "id": "scan",
+      "title": "Iterar chaves (SCAN)",
+      "command": "SCAN 0 MATCH usuario:* COUNT 100",
+      "description": "Percorre o keyspace de forma incremental e não-bloqueante. Prefira SCAN a KEYS em produção.",
+      "category": "keys",
+      "tags": ["scan", "iterar"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [
+        { "flag": "MATCH", "description": "Filtra por padrão glob." },
+        { "flag": "COUNT", "description": "Dica de quantidade por iteração." }
+      ],
+      "warnings": ["Evite KEYS * em produção: ele bloqueia o servidor durante a varredura."],
+      "relatedCommands": ["del", "exists"]
+    },
+    {
+      "id": "hset",
+      "title": "Hash: definir campos",
+      "command": "HSET usuario:1 nome Ana idade 30",
+      "description": "Grava campos em um hash (objeto). Use HGETALL para ler tudo.",
+      "category": "hashes",
+      "tags": ["hash", "objeto"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "HGETALL usuario:1", "explanation": "Retorna todos os campos e valores do hash." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["get", "set"]
+    },
+    {
+      "id": "lpush",
+      "title": "Lista: adicionar",
+      "command": "LPUSH fila tarefa1",
+      "description": "Insere no início de uma lista. Combine com RPOP/BRPOP para filas.",
+      "category": "lists",
+      "tags": ["lista", "fila"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "intermediario", "code": "LRANGE fila 0 -1", "explanation": "Lista todos os itens (0 até o fim)." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["sadd", "zadd"]
+    },
+    {
+      "id": "sadd",
+      "title": "Set: adicionar",
+      "command": "SADD tags redis cache db",
+      "description": "Adiciona membros únicos a um conjunto. SMEMBERS lista, SISMEMBER testa pertinência.",
+      "category": "sets",
+      "tags": ["set", "unico"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "SMEMBERS tags", "explanation": "Retorna todos os membros do set." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["lpush", "zadd"]
+    },
+    {
+      "id": "zadd",
+      "title": "Sorted set: ranking",
+      "command": "ZADD placar 100 ana 90 bruno",
+      "description": "Adiciona membros com pontuação. Ideal para rankings e leaderboards.",
+      "category": "sorted-sets",
+      "tags": ["zset", "ranking", "score"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "avancado", "code": "ZREVRANGE placar 0 9 WITHSCORES", "explanation": "Top 10 com pontuações, do maior para o menor." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["sadd"]
+    },
+    {
+      "id": "subscribe",
+      "title": "Pub/Sub",
+      "command": "SUBSCRIBE canal",
+      "description": "Assina um canal; use PUBLISH canal mensagem em outra conexão para enviar.",
+      "category": "pubsub",
+      "tags": ["pubsub", "mensageria"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "avancado", "code": "PUBLISH canal \"ola\"", "explanation": "Publica uma mensagem no canal." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["info"]
+    },
+    {
+      "id": "info",
+      "title": "Estado do servidor",
+      "command": "INFO",
+      "description": "Retorna métricas do servidor: memória, clientes, persistência, estatísticas.",
+      "category": "server",
+      "tags": ["metricas", "diagnostico"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "INFO memory", "explanation": "Mostra apenas a seção de memória." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["dbsize", "config-get"]
+    },
+    {
+      "id": "dbsize",
+      "title": "Número de chaves",
+      "command": "DBSIZE",
+      "description": "Retorna a quantidade de chaves no banco atual.",
+      "category": "server",
+      "tags": ["contagem"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["info", "scan"]
+    },
+    {
+      "id": "config-get",
+      "title": "Ler configuração",
+      "command": "CONFIG GET maxmemory",
+      "description": "Lê parâmetros de configuração em tempo de execução (ex.: limite de memória).",
+      "category": "server",
+      "tags": ["config"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["info"]
+    },
+    {
+      "id": "flushdb",
+      "title": "Limpar banco atual",
+      "command": "FLUSHDB",
+      "description": "Remove TODAS as chaves do banco selecionado. Ação destrutiva e imediata.",
+      "category": "server",
+      "tags": ["limpar", "reset"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "perigoso",
+      "examples": [],
+      "arguments": [],
+      "warnings": ["Apaga todas as chaves do banco atual sem confirmação e sem desfazer."],
+      "relatedCommands": ["flushall", "del"]
+    },
+    {
+      "id": "flushall",
+      "title": "Limpar TODOS os bancos",
+      "command": "FLUSHALL",
+      "description": "Remove todas as chaves de TODOS os bancos da instância. Extremamente destrutivo.",
+      "category": "server",
+      "tags": ["limpar", "reset", "perigoso"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos"],
+      "risk": "perigoso",
+      "examples": [],
+      "arguments": [],
+      "warnings": ["Apaga TODA a instância. Nunca execute em produção sem certeza absoluta."],
+      "relatedCommands": ["flushdb"]
+    }
+  ]
+}

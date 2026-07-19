@@ -1,0 +1,7 @@
+{
+  "name": "@devsheet/wallpaper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Aplicação do wallpaper devsheet. As dependências e scripts vivem na raiz do projeto (devsheet-wallpaper/package.json); este arquivo apenas descreve a pasta do app."
+}

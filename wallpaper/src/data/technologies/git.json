@@ -1,0 +1,788 @@
+{
+  "id": "git",
+  "name": "Git",
+  "shortName": "Git",
+  "icon": "terminal",
+  "color": "#f05133",
+  "description": "Sistema de controle de versão distribuído para rastrear alterações no código.",
+  "documentationUrl": "https://git-scm.com/doc",
+  "version": "2.x",
+  "lastReviewedAt": "2026-07-17",
+  "categories": [
+    "Inicialização",
+    "Status",
+    "Staging",
+    "Commits",
+    "Branches",
+    "Merge",
+    "Rebase",
+    "Remoto",
+    "Histórico",
+    "Tags",
+    "Stash",
+    "Recuperação",
+    "Configuração",
+    "Diagnóstico"
+  ],
+  "entries": [
+    {
+      "id": "git-init",
+      "title": "Inicializar repositório",
+      "command": "git init",
+      "description": "Cria um novo repositório Git vazio no diretório atual, gerando a pasta .git que armazena todo o histórico.",
+      "category": "Inicialização",
+      "tags": ["init", "repositorio", "novo"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git init", "explanation": "Inicializa o repositório no diretório atual." },
+        { "level": "intermediario", "code": "git init -b main meu-projeto", "explanation": "Cria a pasta meu-projeto já com a branch inicial chamada main." }
+      ],
+      "arguments": [
+        { "flag": "-b <nome>", "description": "Define o nome da branch inicial (ex.: main)." },
+        { "flag": "--bare", "description": "Cria um repositório sem árvore de trabalho, usado em servidores." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git clone", "git status"],
+      "documentationUrl": "https://git-scm.com/docs/git-init"
+    },
+    {
+      "id": "git-clone",
+      "title": "Clonar repositório",
+      "command": "git clone <url>",
+      "description": "Copia um repositório remoto para a máquina local, incluindo todo o histórico e configurando o remote origin automaticamente.",
+      "category": "Inicialização",
+      "tags": ["clone", "remoto", "origin"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git clone https://github.com/user/repo.git", "explanation": "Clona o repositório na pasta repo." },
+        { "level": "intermediario", "code": "git clone --depth 1 <url>", "explanation": "Clone raso: baixa só o commit mais recente, útil para CI." }
+      ],
+      "arguments": [
+        { "flag": "--depth <n>", "description": "Limita o histórico aos últimos n commits (shallow clone)." },
+        { "flag": "-b <branch>", "description": "Clona diretamente uma branch específica." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git init", "git remote"],
+      "documentationUrl": "https://git-scm.com/docs/git-clone"
+    },
+    {
+      "id": "git-status",
+      "title": "Verificar estado do repositório",
+      "command": "git status",
+      "description": "Mostra a branch atual, os arquivos modificados, os preparados para commit (staged) e os ainda não rastreados.",
+      "category": "Status",
+      "tags": ["status", "arquivos", "branch"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git status", "explanation": "Exibe o estado completo da árvore de trabalho." },
+        { "level": "intermediario", "code": "git status -s", "explanation": "Formato curto: uma linha por arquivo (M, A, ??)." }
+      ],
+      "arguments": [
+        { "flag": "-s", "description": "Saída curta e compacta." },
+        { "flag": "-b", "description": "Mostra a branch mesmo no formato curto." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git diff", "git add"],
+      "documentationUrl": "https://git-scm.com/docs/git-status"
+    },
+    {
+      "id": "git-add",
+      "title": "Adicionar ao staging",
+      "command": "git add <arquivo>",
+      "description": "Move alterações para a área de staging, marcando-as para inclusão no próximo commit.",
+      "category": "Staging",
+      "tags": ["add", "staging", "index"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git add arquivo.ts", "explanation": "Adiciona um arquivo específico ao staging." },
+        { "level": "intermediario", "code": "git add .", "explanation": "Adiciona todas as alterações do diretório atual." },
+        { "level": "avancado", "code": "git add -p", "explanation": "Modo interativo: escolhe pedaço por pedaço (hunk) o que entra no commit." }
+      ],
+      "arguments": [
+        { "flag": "-A", "description": "Adiciona todas as mudanças, incluindo remoções, em todo o repositório." },
+        { "flag": "-p", "description": "Seleciona interativamente os trechos a adicionar." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git reset", "git commit"],
+      "documentationUrl": "https://git-scm.com/docs/git-add"
+    },
+    {
+      "id": "git-reset-file",
+      "title": "Remover do staging",
+      "command": "git restore --staged <arquivo>",
+      "description": "Tira um arquivo da área de staging sem descartar as alterações no arquivo. Substitui o antigo git reset <arquivo>.",
+      "category": "Staging",
+      "tags": ["unstage", "restore", "staging"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git restore --staged app.ts", "explanation": "Remove app.ts do staging, mantendo as edições." }
+      ],
+      "arguments": [
+        { "flag": "--staged", "description": "Opera na área de staging (index) em vez da árvore de trabalho." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git add", "git restore"],
+      "documentationUrl": "https://git-scm.com/docs/git-restore"
+    },
+    {
+      "id": "git-restore",
+      "title": "Descartar alterações locais",
+      "command": "git restore <arquivo>",
+      "description": "Desfaz alterações não commitadas de um arquivo na árvore de trabalho, voltando ao último estado commitado.",
+      "category": "Staging",
+      "tags": ["restore", "descartar", "checkout"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git restore config.json", "explanation": "Descarta as mudanças não salvas de config.json." },
+        { "level": "intermediario", "code": "git restore .", "explanation": "Descarta as mudanças de todos os arquivos rastreados." }
+      ],
+      "arguments": [
+        { "flag": "--source <commit>", "description": "Restaura a partir de um commit específico." }
+      ],
+      "warnings": ["As alterações descartadas não podem ser recuperadas, pois não estavam commitadas."],
+      "relatedCommands": ["git restore --staged", "git checkout"],
+      "documentationUrl": "https://git-scm.com/docs/git-restore"
+    },
+    {
+      "id": "git-commit",
+      "title": "Criar commit",
+      "command": "git commit -m \"mensagem\"",
+      "description": "Registra as alterações da área de staging no histórico do repositório com uma mensagem descritiva.",
+      "category": "Commits",
+      "tags": ["commit", "mensagem", "historico"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git commit -m \"feat: adiciona login\"", "explanation": "Cria um commit com a mensagem informada." },
+        { "level": "intermediario", "code": "git commit -am \"fix: corrige validação\"", "explanation": "Adiciona arquivos já rastreados e commita em um passo." }
+      ],
+      "arguments": [
+        { "flag": "-m", "description": "Define a mensagem do commit na linha de comando." },
+        { "flag": "-a", "description": "Inclui automaticamente arquivos rastreados modificados." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git add", "git commit --amend"],
+      "documentationUrl": "https://git-scm.com/docs/git-commit"
+    },
+    {
+      "id": "git-commit-amend",
+      "title": "Corrigir último commit",
+      "command": "git commit --amend",
+      "description": "Substitui o commit mais recente, permitindo alterar a mensagem ou incluir novas mudanças do staging.",
+      "category": "Commits",
+      "tags": ["amend", "corrigir", "reescrever"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git commit --amend -m \"nova mensagem\"", "explanation": "Reescreve a mensagem do último commit." },
+        { "level": "intermediario", "code": "git commit --amend --no-edit", "explanation": "Acrescenta o staging ao último commit sem mudar a mensagem." }
+      ],
+      "arguments": [
+        { "flag": "--no-edit", "description": "Mantém a mensagem atual." }
+      ],
+      "warnings": ["Reescreve o hash do commit; nunca faça amend em commits já enviados a uma branch compartilhada."],
+      "relatedCommands": ["git commit", "git rebase -i"],
+      "documentationUrl": "https://git-scm.com/docs/git-commit"
+    },
+    {
+      "id": "git-branch-list",
+      "title": "Listar branches",
+      "command": "git branch",
+      "description": "Lista as branches locais, destacando a branch atual com um asterisco.",
+      "category": "Branches",
+      "tags": ["branch", "listar"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git branch", "explanation": "Lista as branches locais." },
+        { "level": "intermediario", "code": "git branch -a", "explanation": "Lista branches locais e remotas." }
+      ],
+      "arguments": [
+        { "flag": "-a", "description": "Inclui branches remotas." },
+        { "flag": "-r", "description": "Mostra apenas branches remotas." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git switch", "git branch -d"],
+      "documentationUrl": "https://git-scm.com/docs/git-branch"
+    },
+    {
+      "id": "git-switch-create",
+      "title": "Criar e trocar de branch",
+      "command": "git switch -c <branch>",
+      "description": "Cria uma nova branch a partir da atual e já muda para ela. Alternativa mais clara ao git checkout -b.",
+      "category": "Branches",
+      "tags": ["switch", "branch", "criar"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git switch -c feature/login", "explanation": "Cria e entra na branch feature/login." }
+      ],
+      "arguments": [
+        { "flag": "-c <nome>", "description": "Cria a branch antes de trocar." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git switch", "git branch"],
+      "documentationUrl": "https://git-scm.com/docs/git-switch"
+    },
+    {
+      "id": "git-switch",
+      "title": "Trocar de branch",
+      "command": "git switch <branch>",
+      "description": "Muda a árvore de trabalho para outra branch existente. Substitui o uso de git checkout para trocar de branch.",
+      "category": "Branches",
+      "tags": ["switch", "checkout", "branch"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git switch main", "explanation": "Volta para a branch main." },
+        { "level": "intermediario", "code": "git switch -", "explanation": "Alterna para a branch anterior." }
+      ],
+      "arguments": [],
+      "warnings": ["Alterações não commitadas podem impedir a troca; use git stash antes se necessário."],
+      "relatedCommands": ["git switch -c", "git stash"],
+      "documentationUrl": "https://git-scm.com/docs/git-switch"
+    },
+    {
+      "id": "git-branch-delete",
+      "title": "Excluir branch",
+      "command": "git branch -d <branch>",
+      "description": "Remove uma branch local já mesclada. Use -D para forçar a exclusão de branch não mesclada.",
+      "category": "Branches",
+      "tags": ["branch", "excluir", "delete"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git branch -d feature/antiga", "explanation": "Exclui a branch se ela já foi mesclada." },
+        { "level": "intermediario", "code": "git branch -D feature/descartada", "explanation": "Força a exclusão mesmo sem merge (perde os commits exclusivos)." }
+      ],
+      "arguments": [
+        { "flag": "-d", "description": "Exclui apenas se a branch estiver mesclada." },
+        { "flag": "-D", "description": "Força a exclusão (atalho para --delete --force)." }
+      ],
+      "warnings": ["-D descarta commits exclusivos da branch que não estejam em outro lugar."],
+      "relatedCommands": ["git branch", "git push origin --delete"],
+      "documentationUrl": "https://git-scm.com/docs/git-branch"
+    },
+    {
+      "id": "git-merge",
+      "title": "Mesclar branch",
+      "command": "git merge <branch>",
+      "description": "Integra as alterações de outra branch na branch atual, criando um commit de merge quando necessário.",
+      "category": "Merge",
+      "tags": ["merge", "integrar", "branch"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git merge feature/login", "explanation": "Traz os commits de feature/login para a branch atual." },
+        { "level": "intermediario", "code": "git merge --no-ff feature/x", "explanation": "Cria commit de merge mesmo quando um fast-forward seria possível." }
+      ],
+      "arguments": [
+        { "flag": "--no-ff", "description": "Sempre cria um commit de merge, preservando o histórico da branch." },
+        { "flag": "--abort", "description": "Cancela um merge com conflitos e volta ao estado anterior." }
+      ],
+      "warnings": ["Pode gerar conflitos que precisam ser resolvidos manualmente antes de concluir."],
+      "relatedCommands": ["git rebase", "git merge --abort"],
+      "documentationUrl": "https://git-scm.com/docs/git-merge"
+    },
+    {
+      "id": "git-merge-abort",
+      "title": "Cancelar merge com conflito",
+      "command": "git merge --abort",
+      "description": "Interrompe um merge em andamento com conflitos e restaura a branch ao estado anterior ao merge.",
+      "category": "Merge",
+      "tags": ["merge", "abort", "conflito"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git merge --abort", "explanation": "Desfaz o merge conflitante." }
+      ],
+      "arguments": [],
+      "warnings": ["Descarta as resoluções de conflito feitas até o momento."],
+      "relatedCommands": ["git merge", "git status"],
+      "documentationUrl": "https://git-scm.com/docs/git-merge"
+    },
+    {
+      "id": "git-rebase",
+      "title": "Rebasear branch",
+      "command": "git rebase <base>",
+      "description": "Reaplica os commits da branch atual sobre outra base, criando um histórico linear sem commits de merge.",
+      "category": "Rebase",
+      "tags": ["rebase", "historico", "linear"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git rebase main", "explanation": "Reaplica os commits da branch atual sobre main." },
+        { "level": "avancado", "code": "git rebase -i HEAD~3", "explanation": "Rebase interativo dos últimos 3 commits (reordenar, squash, editar)." }
+      ],
+      "arguments": [
+        { "flag": "-i", "description": "Rebase interativo: edita, reordena ou combina commits." },
+        { "flag": "--onto", "description": "Rebaseia sobre um ponto específico." }
+      ],
+      "warnings": ["Reescreve hashes; não rebaseie commits já publicados em branches compartilhadas."],
+      "relatedCommands": ["git merge", "git rebase --continue"],
+      "documentationUrl": "https://git-scm.com/docs/git-rebase"
+    },
+    {
+      "id": "git-rebase-continue",
+      "title": "Continuar rebase após conflito",
+      "command": "git rebase --continue",
+      "description": "Prossegue com o rebase depois de resolver os conflitos e adicionar os arquivos ao staging.",
+      "category": "Rebase",
+      "tags": ["rebase", "continue", "conflito"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git add . && git rebase --continue", "explanation": "Marca os conflitos como resolvidos e continua o rebase." }
+      ],
+      "arguments": [
+        { "flag": "--abort", "description": "Cancela o rebase e volta ao estado inicial." },
+        { "flag": "--skip", "description": "Pula o commit atual em conflito." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git rebase", "git status"],
+      "documentationUrl": "https://git-scm.com/docs/git-rebase"
+    },
+    {
+      "id": "git-remote-add",
+      "title": "Adicionar repositório remoto",
+      "command": "git remote add <nome> <url>",
+      "description": "Vincula um repositório remoto a um nome curto (geralmente origin) para enviar e receber alterações.",
+      "category": "Remoto",
+      "tags": ["remote", "origin", "url"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git remote add origin https://github.com/user/repo.git", "explanation": "Define origin como o remoto principal." },
+        { "level": "intermediario", "code": "git remote -v", "explanation": "Lista os remotos configurados e suas URLs." }
+      ],
+      "arguments": [
+        { "flag": "-v", "description": "Mostra as URLs (verbose) ao listar." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git push", "git fetch"],
+      "documentationUrl": "https://git-scm.com/docs/git-remote"
+    },
+    {
+      "id": "git-fetch",
+      "title": "Buscar alterações remotas",
+      "command": "git fetch",
+      "description": "Baixa commits, branches e tags do remoto sem alterar sua árvore de trabalho nem fazer merge automático.",
+      "category": "Remoto",
+      "tags": ["fetch", "remoto", "atualizar"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git fetch origin", "explanation": "Atualiza as referências remotas de origin." },
+        { "level": "intermediario", "code": "git fetch --prune", "explanation": "Remove referências locais de branches que já não existem no remoto." }
+      ],
+      "arguments": [
+        { "flag": "--prune", "description": "Limpa branches remotas que foram apagadas." },
+        { "flag": "--all", "description": "Busca de todos os remotos." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git pull", "git merge"],
+      "documentationUrl": "https://git-scm.com/docs/git-fetch"
+    },
+    {
+      "id": "git-pull",
+      "title": "Atualizar branch local",
+      "command": "git pull",
+      "description": "Combina fetch e merge: busca as alterações do remoto e as integra na branch atual.",
+      "category": "Remoto",
+      "tags": ["pull", "fetch", "merge"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git pull", "explanation": "Atualiza a branch atual com o remoto rastreado." },
+        { "level": "intermediario", "code": "git pull --rebase", "explanation": "Aplica seus commits locais por cima dos remotos, evitando commit de merge." }
+      ],
+      "arguments": [
+        { "flag": "--rebase", "description": "Usa rebase em vez de merge para integrar." }
+      ],
+      "warnings": ["Pode gerar conflitos se houver alterações divergentes."],
+      "relatedCommands": ["git fetch", "git push"],
+      "documentationUrl": "https://git-scm.com/docs/git-pull"
+    },
+    {
+      "id": "git-push",
+      "title": "Enviar commits ao remoto",
+      "command": "git push",
+      "description": "Envia os commits locais da branch atual para o repositório remoto correspondente.",
+      "category": "Remoto",
+      "tags": ["push", "enviar", "remoto"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git push", "explanation": "Envia a branch atual para o remoto já rastreado." },
+        { "level": "intermediario", "code": "git push -u origin main", "explanation": "Envia e passa a rastrear origin/main como upstream." }
+      ],
+      "arguments": [
+        { "flag": "-u", "description": "Define o upstream (rastreamento) da branch." },
+        { "flag": "--force-with-lease", "description": "Força o push com segurança, abortando se o remoto mudou." }
+      ],
+      "warnings": ["Evite --force em branches compartilhadas; prefira --force-with-lease."],
+      "relatedCommands": ["git pull", "git push --force-with-lease"],
+      "documentationUrl": "https://git-scm.com/docs/git-push"
+    },
+    {
+      "id": "git-log",
+      "title": "Ver histórico de commits",
+      "command": "git log",
+      "description": "Exibe o histórico de commits com autor, data e mensagem, do mais recente ao mais antigo.",
+      "category": "Histórico",
+      "tags": ["log", "historico", "commits"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git log --oneline", "explanation": "Uma linha por commit, resumido." },
+        { "level": "intermediario", "code": "git log --oneline --graph --all", "explanation": "Visualiza branches e merges em forma de grafo." }
+      ],
+      "arguments": [
+        { "flag": "--oneline", "description": "Formato compacto de uma linha." },
+        { "flag": "--graph", "description": "Desenha o grafo de branches." },
+        { "flag": "-n <n>", "description": "Limita ao número de commits." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git show", "git diff"],
+      "documentationUrl": "https://git-scm.com/docs/git-log"
+    },
+    {
+      "id": "git-diff",
+      "title": "Comparar alterações",
+      "command": "git diff",
+      "description": "Mostra as diferenças entre a árvore de trabalho e o staging, ou entre commits e branches.",
+      "category": "Histórico",
+      "tags": ["diff", "comparar", "alteracoes"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git diff", "explanation": "Mostra mudanças ainda não adicionadas ao staging." },
+        { "level": "intermediario", "code": "git diff --staged", "explanation": "Mostra o que já está no staging (será commitado)." },
+        { "level": "avancado", "code": "git diff main..feature", "explanation": "Compara duas branches." }
+      ],
+      "arguments": [
+        { "flag": "--staged", "description": "Compara staging com o último commit." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git log", "git status"],
+      "documentationUrl": "https://git-scm.com/docs/git-diff"
+    },
+    {
+      "id": "git-show",
+      "title": "Inspecionar um commit",
+      "command": "git show <commit>",
+      "description": "Exibe os detalhes e o diff de um commit específico, incluindo metadados e alterações.",
+      "category": "Histórico",
+      "tags": ["show", "commit", "inspecionar"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git show HEAD", "explanation": "Mostra o commit mais recente e suas mudanças." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["git log", "git diff"],
+      "documentationUrl": "https://git-scm.com/docs/git-show"
+    },
+    {
+      "id": "git-tag",
+      "title": "Criar tag",
+      "command": "git tag -a <nome> -m \"mensagem\"",
+      "description": "Cria uma tag anotada, geralmente usada para marcar versões de release (ex.: v1.0.0).",
+      "category": "Tags",
+      "tags": ["tag", "release", "versao"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git tag -a v1.0.0 -m \"Primeira versão\"", "explanation": "Cria uma tag anotada v1.0.0." },
+        { "level": "intermediario", "code": "git push origin v1.0.0", "explanation": "Envia a tag para o remoto (tags não vão no push comum)." }
+      ],
+      "arguments": [
+        { "flag": "-a", "description": "Cria uma tag anotada (com autor e mensagem)." },
+        { "flag": "-m", "description": "Mensagem da tag." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git push", "git tag -d"],
+      "documentationUrl": "https://git-scm.com/docs/git-tag"
+    },
+    {
+      "id": "git-stash",
+      "title": "Guardar alterações temporariamente",
+      "command": "git stash",
+      "description": "Salva alterações não commitadas em uma pilha e limpa a árvore de trabalho, permitindo trocar de contexto.",
+      "category": "Stash",
+      "tags": ["stash", "guardar", "temporario"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git stash", "explanation": "Guarda as alterações atuais." },
+        { "level": "intermediario", "code": "git stash push -m \"wip login\"", "explanation": "Guarda com uma descrição." }
+      ],
+      "arguments": [
+        { "flag": "-u", "description": "Inclui arquivos não rastreados." },
+        { "flag": "push -m", "description": "Adiciona uma mensagem ao stash." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git stash pop", "git stash list"],
+      "documentationUrl": "https://git-scm.com/docs/git-stash"
+    },
+    {
+      "id": "git-stash-pop",
+      "title": "Restaurar alterações guardadas",
+      "command": "git stash pop",
+      "description": "Reaplica o stash mais recente na árvore de trabalho e o remove da pilha.",
+      "category": "Stash",
+      "tags": ["stash", "pop", "restaurar"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git stash pop", "explanation": "Restaura e remove o último stash." },
+        { "level": "intermediario", "code": "git stash apply stash@{1}", "explanation": "Aplica um stash específico sem removê-lo." }
+      ],
+      "arguments": [
+        { "flag": "apply", "description": "Aplica sem remover da pilha." }
+      ],
+      "warnings": ["Pode gerar conflitos ao reaplicar sobre um estado alterado."],
+      "relatedCommands": ["git stash", "git stash list"],
+      "documentationUrl": "https://git-scm.com/docs/git-stash"
+    },
+    {
+      "id": "git-reset-soft",
+      "title": "Desfazer commit mantendo mudanças",
+      "command": "git reset --soft HEAD~1",
+      "description": "Remove o último commit do histórico, mas mantém suas alterações no staging para recomitá-las.",
+      "category": "Recuperação",
+      "tags": ["reset", "soft", "desfazer"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git reset --soft HEAD~1", "explanation": "Desfaz o último commit, preservando as mudanças no staging." }
+      ],
+      "arguments": [
+        { "flag": "--soft", "description": "Mantém as alterações no staging." }
+      ],
+      "warnings": ["Altera o histórico local; não use em commits já enviados."],
+      "relatedCommands": ["git reset --hard", "git revert"],
+      "documentationUrl": "https://git-scm.com/docs/git-reset"
+    },
+    {
+      "id": "git-reset-hard",
+      "title": "Descartar commits e alterações",
+      "command": "git reset --hard <commit>",
+      "description": "Move a branch para um commit e descarta TODAS as alterações locais e commits posteriores.",
+      "category": "Recuperação",
+      "tags": ["reset", "hard", "descartar"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "perigoso",
+      "examples": [
+        { "level": "basico", "code": "git reset --hard HEAD", "explanation": "Descarta todas as mudanças não commitadas." },
+        { "level": "avancado", "code": "git reset --hard origin/main", "explanation": "Força a branch local a ficar idêntica ao remoto." }
+      ],
+      "arguments": [
+        { "flag": "--hard", "description": "Descarta staging e árvore de trabalho." }
+      ],
+      "warnings": ["Perde permanentemente alterações não commitadas.", "Reescreve o histórico local; use git reflog para tentar recuperar."],
+      "relatedCommands": ["git reflog", "git revert"],
+      "documentationUrl": "https://git-scm.com/docs/git-reset"
+    },
+    {
+      "id": "git-revert",
+      "title": "Reverter commit com segurança",
+      "command": "git revert <commit>",
+      "description": "Cria um novo commit que desfaz as alterações de um commit anterior, sem reescrever o histórico.",
+      "category": "Recuperação",
+      "tags": ["revert", "desfazer", "seguro"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git revert HEAD", "explanation": "Cria um commit que desfaz o último commit." }
+      ],
+      "arguments": [
+        { "flag": "--no-commit", "description": "Aplica a reversão sem commitar imediatamente." }
+      ],
+      "warnings": ["Ideal para branches compartilhadas, pois não reescreve o histórico."],
+      "relatedCommands": ["git reset", "git revert --abort"],
+      "documentationUrl": "https://git-scm.com/docs/git-revert"
+    },
+    {
+      "id": "git-reflog",
+      "title": "Recuperar commits perdidos",
+      "command": "git reflog",
+      "description": "Mostra o histórico de onde o HEAD esteve, permitindo recuperar commits após reset ou rebase.",
+      "category": "Recuperação",
+      "tags": ["reflog", "recuperar", "head"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git reflog", "explanation": "Lista as posições anteriores do HEAD." },
+        { "level": "avancado", "code": "git reset --hard HEAD@{2}", "explanation": "Volta o HEAD a um estado listado no reflog." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["git reset", "git checkout"],
+      "documentationUrl": "https://git-scm.com/docs/git-reflog"
+    },
+    {
+      "id": "git-cherry-pick",
+      "title": "Aplicar commit específico",
+      "command": "git cherry-pick <commit>",
+      "description": "Aplica as alterações de um commit específico de outra branch na branch atual.",
+      "category": "Recuperação",
+      "tags": ["cherry-pick", "commit", "aplicar"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "git cherry-pick a1b2c3d", "explanation": "Traz o commit a1b2c3d para a branch atual." }
+      ],
+      "arguments": [
+        { "flag": "-x", "description": "Registra o hash original na mensagem." }
+      ],
+      "warnings": ["Pode gerar conflitos; resolva e use git cherry-pick --continue."],
+      "relatedCommands": ["git rebase", "git revert"],
+      "documentationUrl": "https://git-scm.com/docs/git-cherry-pick"
+    },
+    {
+      "id": "git-config-user",
+      "title": "Configurar identidade",
+      "command": "git config --global user.name \"Nome\"",
+      "description": "Define nome e e-mail usados nos commits. Com --global vale para todos os repositórios do usuário.",
+      "category": "Configuração",
+      "tags": ["config", "user", "identidade"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git config --global user.email \"eu@exemplo.com\"", "explanation": "Define o e-mail global dos commits." },
+        { "level": "intermediario", "code": "git config user.name \"Nome do Projeto\"", "explanation": "Define o nome só neste repositório." }
+      ],
+      "arguments": [
+        { "flag": "--global", "description": "Aplica a configuração para o usuário atual." },
+        { "flag": "--list", "description": "Lista todas as configurações ativas." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git config --list"],
+      "documentationUrl": "https://git-scm.com/docs/git-config"
+    },
+    {
+      "id": "git-blame",
+      "title": "Descobrir autor de cada linha",
+      "command": "git blame <arquivo>",
+      "description": "Mostra, linha a linha, qual commit e autor alteraram cada parte de um arquivo.",
+      "category": "Diagnóstico",
+      "tags": ["blame", "autor", "linha"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git blame src/app.ts", "explanation": "Exibe o autor e o commit de cada linha do arquivo." },
+        { "level": "intermediario", "code": "git blame -L 10,20 src/app.ts", "explanation": "Limita às linhas 10 a 20." }
+      ],
+      "arguments": [
+        { "flag": "-L <a,b>", "description": "Restringe a um intervalo de linhas." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git log", "git show"],
+      "documentationUrl": "https://git-scm.com/docs/git-blame"
+    },
+    {
+      "id": "git-clean",
+      "title": "Remover arquivos não rastreados",
+      "command": "git clean -fd",
+      "description": "Apaga arquivos e diretórios não rastreados da árvore de trabalho. Útil para limpar artefatos de build.",
+      "category": "Diagnóstico",
+      "tags": ["clean", "limpar", "untracked"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "perigoso",
+      "examples": [
+        { "level": "basico", "code": "git clean -n", "explanation": "Simula (dry-run): mostra o que seria removido, sem apagar." },
+        { "level": "avancado", "code": "git clean -fd", "explanation": "Remove arquivos e diretórios não rastreados de fato." }
+      ],
+      "arguments": [
+        { "flag": "-n", "description": "Dry-run: apenas mostra o que removeria." },
+        { "flag": "-f", "description": "Força a remoção." },
+        { "flag": "-d", "description": "Inclui diretórios." }
+      ],
+      "warnings": ["Remove arquivos permanentemente; rode com -n antes para conferir."],
+      "relatedCommands": ["git status", "git restore"],
+      "documentationUrl": "https://git-scm.com/docs/git-clean"
+    },
+    {
+      "id": "git-log-search",
+      "title": "Pesquisar no histórico",
+      "command": "git log -S\"<texto>\"",
+      "description": "Encontra commits que adicionaram ou removeram uma string específica no código (pickaxe), útil para rastrear quando algo surgiu.",
+      "category": "Histórico",
+      "tags": ["log", "pesquisar", "pickaxe", "grep"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git log -S\"TODO\"", "explanation": "Lista commits que introduziram ou removeram a palavra TODO." },
+        { "level": "intermediario", "code": "git log --grep=\"fix\" --oneline", "explanation": "Filtra commits cuja mensagem contém 'fix'." }
+      ],
+      "arguments": [
+        { "flag": "-S<texto>", "description": "Busca por mudanças que adicionam/removem o texto." },
+        { "flag": "--grep=<regex>", "description": "Filtra pela mensagem do commit." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["git log", "git blame"],
+      "documentationUrl": "https://git-scm.com/docs/git-log"
+    },
+    {
+      "id": "git-remote-set-url",
+      "title": "Alterar URL do remoto",
+      "command": "git remote set-url origin <url>",
+      "description": "Atualiza o endereço de um remoto existente, por exemplo ao migrar de HTTPS para SSH.",
+      "category": "Remoto",
+      "tags": ["remote", "url", "ssh"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "git remote set-url origin git@github.com:user/repo.git", "explanation": "Troca a URL de origin para SSH." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["git remote add", "git remote -v"],
+      "documentationUrl": "https://git-scm.com/docs/git-remote"
+    }
+  ]
+}

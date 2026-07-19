@@ -1,0 +1,303 @@
+{
+  "id": "ssh",
+  "name": "SSH (OpenSSH)",
+  "shortName": "SSH",
+  "prompt": "ssh",
+  "icon": "ssh",
+  "color": "#2E9Bda",
+  "description": "OpenSSH — conexões seguras, chaves, cópia de arquivos e túneis.",
+  "documentationUrl": "https://man.openbsd.org/ssh",
+  "version": "9.x",
+  "lastReviewedAt": "2026-07-18",
+  "categories": ["conexao", "chaves", "copia", "tuneis", "config"],
+  "entries": [
+    {
+      "id": "ssh-connect",
+      "title": "Conectar a um host",
+      "command": "ssh usuario@host",
+      "description": "Abre uma sessão de shell remota autenticada por SSH.",
+      "category": "conexao",
+      "tags": ["conectar", "remoto"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [
+        { "flag": "-p", "description": "Porta do servidor (padrão 22)." },
+        { "flag": "-v", "description": "Modo verboso para depurar a conexão." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["ssh-port", "ssh-identity", "ssh-config"]
+    },
+    {
+      "id": "ssh-port",
+      "title": "Conectar em porta específica",
+      "command": "ssh -p 2222 usuario@host",
+      "description": "Conecta quando o servidor SSH escuta em uma porta diferente da 22.",
+      "category": "conexao",
+      "tags": ["porta"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["ssh-connect", "ssh-config"]
+    },
+    {
+      "id": "ssh-identity",
+      "title": "Usar chave específica",
+      "command": "ssh -i ~/.ssh/id_ed25519 usuario@host",
+      "description": "Especifica o arquivo de chave privada usado para autenticar.",
+      "category": "conexao",
+      "tags": ["chave", "identidade"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [{ "flag": "-i", "description": "Caminho da chave privada." }],
+      "warnings": ["A chave privada deve ter permissão 600 (chmod 600) ou o SSH a recusa."],
+      "relatedCommands": ["ssh-keygen", "ssh-config"]
+    },
+    {
+      "id": "ssh-jump",
+      "title": "Host de salto (ProxyJump)",
+      "command": "ssh -J bastion usuario@interno",
+      "description": "Conecta a um host interno passando por um bastion/jump host em uma única linha.",
+      "category": "conexao",
+      "tags": ["bastion", "jump", "proxy"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [{ "flag": "-J", "description": "Host(s) intermediário(s)." }],
+      "warnings": [],
+      "relatedCommands": ["ssh-connect", "ssh-config"]
+    },
+    {
+      "id": "ssh-keygen",
+      "title": "Gerar par de chaves",
+      "command": "ssh-keygen -t ed25519 -C \"email@exemplo.com\"",
+      "description": "Cria um par de chaves pública/privada. ed25519 é o algoritmo recomendado.",
+      "category": "chaves",
+      "tags": ["gerar", "chave", "ed25519"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [
+        { "flag": "-t", "description": "Tipo do algoritmo (ed25519, rsa)." },
+        { "flag": "-C", "description": "Comentário (geralmente o e-mail)." },
+        { "flag": "-f", "description": "Arquivo de saída da chave." }
+      ],
+      "warnings": ["Proteja a chave privada com uma passphrase; nunca a compartilhe."],
+      "relatedCommands": ["ssh-copy-id", "ssh-add"]
+    },
+    {
+      "id": "ssh-copy-id",
+      "title": "Instalar chave no servidor",
+      "command": "ssh-copy-id usuario@host",
+      "description": "Copia sua chave pública para o authorized_keys do servidor, habilitando login sem senha.",
+      "category": "chaves",
+      "tags": ["autorizar", "chave-publica"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [{ "flag": "-i", "description": "Chave pública específica a instalar." }],
+      "warnings": [],
+      "relatedCommands": ["ssh-keygen", "ssh-connect"]
+    },
+    {
+      "id": "ssh-add",
+      "title": "Adicionar chave ao agente",
+      "command": "ssh-add ~/.ssh/id_ed25519",
+      "description": "Carrega a chave privada no ssh-agent para não digitar a passphrase a cada conexão.",
+      "category": "chaves",
+      "tags": ["agente", "passphrase"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "ssh-add -l", "explanation": "Lista as chaves carregadas no agente." }
+      ],
+      "arguments": [
+        { "flag": "-l", "description": "Lista as identidades carregadas." },
+        { "flag": "-D", "description": "Remove todas as identidades do agente." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["ssh-agent", "ssh-keygen"]
+    },
+    {
+      "id": "ssh-agent",
+      "title": "Iniciar o agente",
+      "command": "eval \"$(ssh-agent -s)\"",
+      "description": "Inicia o ssh-agent na sessão atual para gerenciar chaves em memória.",
+      "category": "chaves",
+      "tags": ["agente"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["ssh-add"]
+    },
+    {
+      "id": "scp",
+      "title": "Copiar arquivo (scp)",
+      "command": "scp arquivo.txt usuario@host:/destino/",
+      "description": "Copia arquivos entre máquinas local e remota por SSH.",
+      "category": "copia",
+      "tags": ["copiar", "transferir"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "scp usuario@host:/remoto/arq.txt .", "explanation": "Baixa um arquivo remoto para o diretório atual." }
+      ],
+      "arguments": [
+        { "flag": "-r", "description": "Copia diretórios recursivamente." },
+        { "flag": "-P", "description": "Porta (maiúsculo no scp)." }
+      ],
+      "warnings": ["Sobrescreve o destino sem avisar."],
+      "relatedCommands": ["rsync", "sftp"]
+    },
+    {
+      "id": "rsync-ssh",
+      "title": "Sincronizar (rsync)",
+      "command": "rsync -avz -e ssh ./ usuario@host:/destino/",
+      "description": "Sincroniza diretórios de forma incremental sobre SSH, transferindo apenas diferenças.",
+      "category": "copia",
+      "tags": ["sincronizar", "incremental", "backup"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [
+        {
+          "level": "avancado",
+          "code": "rsync -avz --delete ./ usuario@host:/destino/",
+          "explanation": "Espelha a origem, removendo no destino o que não existe mais na origem."
+        }
+      ],
+      "arguments": [
+        { "flag": "-a", "description": "Modo arquivo (preserva permissões, links, tempos)." },
+        { "flag": "-z", "description": "Comprime durante a transferência." },
+        { "flag": "--delete", "description": "Remove no destino arquivos ausentes na origem." }
+      ],
+      "warnings": ["--delete apaga arquivos no destino; teste antes com --dry-run."],
+      "relatedCommands": ["scp", "sftp"]
+    },
+    {
+      "id": "sftp",
+      "title": "Sessão SFTP",
+      "command": "sftp usuario@host",
+      "description": "Abre uma sessão interativa de transferência de arquivos sobre SSH (get/put/ls).",
+      "category": "copia",
+      "tags": ["sftp", "interativo"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["scp", "rsync-ssh"]
+    },
+    {
+      "id": "ssh-local-tunnel",
+      "title": "Túnel local (-L)",
+      "command": "ssh -L 5432:localhost:5432 usuario@host",
+      "description": "Encaminha uma porta local para um serviço acessível a partir do host remoto (ex.: banco de dados).",
+      "category": "tuneis",
+      "tags": ["tunel", "port-forward", "local"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "atencao",
+      "examples": [],
+      "arguments": [{ "flag": "-L", "description": "portaLocal:hostDestino:portaDestino" }],
+      "warnings": ["Exponha portas sensíveis apenas em localhost, nunca em 0.0.0.0."],
+      "relatedCommands": ["ssh-remote-tunnel", "ssh-dynamic-tunnel"]
+    },
+    {
+      "id": "ssh-remote-tunnel",
+      "title": "Túnel reverso (-R)",
+      "command": "ssh -R 8080:localhost:3000 usuario@host",
+      "description": "Expõe um serviço local em uma porta do host remoto (túnel reverso).",
+      "category": "tuneis",
+      "tags": ["tunel", "reverso"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "atencao",
+      "examples": [],
+      "arguments": [{ "flag": "-R", "description": "portaRemota:hostLocal:portaLocal" }],
+      "warnings": ["Cuidado ao expor serviços internos em servidores públicos."],
+      "relatedCommands": ["ssh-local-tunnel"]
+    },
+    {
+      "id": "ssh-dynamic-tunnel",
+      "title": "Proxy SOCKS (-D)",
+      "command": "ssh -D 1080 usuario@host",
+      "description": "Cria um proxy SOCKS dinâmico, roteando o tráfego de aplicativos pelo host remoto.",
+      "category": "tuneis",
+      "tags": ["socks", "proxy", "dinamico"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "avancado", "code": "ssh -fND 1080 usuario@host", "explanation": "Sobe o proxy em segundo plano, sem abrir shell." }
+      ],
+      "arguments": [
+        { "flag": "-D", "description": "Porta local do proxy SOCKS." },
+        { "flag": "-N", "description": "Não executa comando remoto (só túnel)." },
+        { "flag": "-f", "description": "Vai para segundo plano." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["ssh-local-tunnel"]
+    },
+    {
+      "id": "ssh-config",
+      "title": "Arquivo ~/.ssh/config",
+      "command": "Host prod\\n  HostName 10.0.0.5\\n  User deploy\\n  Port 2222",
+      "description": "Define apelidos e opções por host, permitindo 'ssh prod' em vez de linha longa.",
+      "category": "config",
+      "tags": ["config", "alias", "boas-praticas"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos", "windows"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["ssh-connect", "ssh-identity"]
+    },
+    {
+      "id": "ssh-known-hosts-remove",
+      "title": "Remover host conhecido",
+      "command": "ssh-keygen -R host",
+      "description": "Remove a chave de um host do known_hosts (após reinstalação/mudança de chave do servidor).",
+      "category": "config",
+      "tags": ["known_hosts", "chave-servidor"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [],
+      "arguments": [{ "flag": "-R", "description": "Remove entradas do host do known_hosts." }],
+      "warnings": ["Só remova se você confia na mudança da chave do servidor; senão pode indicar ataque MITM."],
+      "relatedCommands": ["ssh-keyscan"]
+    },
+    {
+      "id": "ssh-keyscan",
+      "title": "Coletar chave do host",
+      "command": "ssh-keyscan -H host >> ~/.ssh/known_hosts",
+      "description": "Obtém a chave pública de um host e a adiciona ao known_hosts (útil em automação).",
+      "category": "config",
+      "tags": ["known_hosts", "automacao"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [],
+      "arguments": [{ "flag": "-H", "description": "Faz hash dos nomes de host no arquivo." }],
+      "warnings": ["Verifique o fingerprint por um canal confiável antes de confiar na chave."],
+      "relatedCommands": ["ssh-known-hosts-remove"]
+    }
+  ]
+}

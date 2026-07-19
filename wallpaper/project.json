@@ -1,0 +1,222 @@
+{
+  "title": "devsheet",
+  "description": "Terminal de consulta de cheat sheets de desenvolvimento e DevOps. Navegação por teclado (estilo Tmux/Neovim/FZF), busca offline, favoritos, histórico e notas. Não executa comandos.",
+  "type": "web",
+  "file": "index.html",
+  "preview": "preview.jpg",
+  "visibility": "private",
+  "tags": ["Web", "Interactive", "Productivity", "Developer", "Dark", "Terminal"],
+  "general": {
+    "properties": {
+      "username": {
+        "order": 0,
+        "text": "Usuário do prompt",
+        "type": "textinput",
+        "value": "augusto"
+      },
+      "theme": {
+        "order": 1,
+        "text": "Tema",
+        "type": "combo",
+        "value": "graphite",
+        "options": [
+          { "label": "Graphite", "value": "graphite" },
+          { "label": "Ice", "value": "ice" },
+          { "label": "Mint", "value": "mint" },
+          { "label": "Amber", "value": "amber" },
+          { "label": "Violet", "value": "violet" },
+          { "label": "VS Code (Dark+)", "value": "vscode" },
+          { "label": "Caderno (claro)", "value": "caderno" },
+          { "label": "Classic Green", "value": "classic-green" }
+        ]
+      },
+      "language": {
+        "order": 2,
+        "text": "Idioma",
+        "type": "combo",
+        "value": "pt-BR",
+        "options": [
+          { "label": "Português (Brasil)", "value": "pt-BR" },
+          { "label": "English", "value": "en" }
+        ]
+      },
+      "initialTechnology": {
+        "order": 3,
+        "text": "Tecnologia inicial",
+        "type": "textinput",
+        "value": "git"
+      },
+      "fontFamily": {
+        "order": 4,
+        "text": "Fonte monoespaçada (vazio = padrão)",
+        "type": "textinput",
+        "value": ""
+      },
+      "fontScale": {
+        "order": 5,
+        "text": "Tamanho da fonte",
+        "type": "slider",
+        "value": 1.0,
+        "min": 0.8,
+        "max": 1.5,
+        "step": 0.05
+      },
+      "uiScale": {
+        "order": 6,
+        "text": "Escala da interface",
+        "type": "slider",
+        "value": 1.0,
+        "min": 0.7,
+        "max": 1.6,
+        "step": 0.05
+      },
+      "safeBottom": {
+        "order": 31,
+        "text": "Margem da barra de tarefas (px)",
+        "type": "slider",
+        "value": 48,
+        "min": 0,
+        "max": 120,
+        "step": 4
+      },
+      "safeLeft": {
+        "order": 32,
+        "text": "Margem esquerda — ícones da área de trabalho (px)",
+        "type": "slider",
+        "value": 160,
+        "min": 0,
+        "max": 600,
+        "step": 8
+      },
+      "safeRight": {
+        "order": 33,
+        "text": "Margem direita — ícones da área de trabalho (px)",
+        "type": "slider",
+        "value": 0,
+        "min": 0,
+        "max": 600,
+        "step": 8
+      },
+      "idleTimeout": {
+        "order": 34,
+        "text": "Tela de descanso após (min sem interação, 0 = desligada)",
+        "type": "slider",
+        "value": 5,
+        "min": 0,
+        "max": 60,
+        "step": 1
+      },
+      "crtLevel": {
+        "order": 7,
+        "text": "Qualidade do efeito CRT",
+        "type": "combo",
+        "value": "low",
+        "options": [
+          { "label": "Desligado", "value": "off" },
+          { "label": "Baixo", "value": "low" },
+          { "label": "Balanceado", "value": "balanced" },
+          { "label": "Alto", "value": "high" }
+        ]
+      },
+      "scanlines": { "order": 8, "text": "Scanlines", "type": "bool", "value": true },
+      "flicker": { "order": 9, "text": "Flicker", "type": "bool", "value": false },
+      "glow": { "order": 10, "text": "Glow", "type": "bool", "value": true },
+      "noise": { "order": 11, "text": "Ruído", "type": "bool", "value": false },
+      "vignette": { "order": 12, "text": "Vinheta", "type": "bool", "value": true },
+      "chromatic": { "order": 13, "text": "Aberração cromática", "type": "bool", "value": false },
+      "curvature": { "order": 14, "text": "Curvatura", "type": "bool", "value": false },
+      "bootAnimation": {
+        "order": 15,
+        "text": "Animação inicial",
+        "type": "bool",
+        "value": true
+      },
+      "showClock": { "order": 16, "text": "Mostrar relógio", "type": "bool", "value": true },
+      "clock24h": { "order": 17, "text": "Relógio 24h", "type": "bool", "value": true },
+      "showTabs": { "order": 18, "text": "Barra de tecnologias", "type": "bool", "value": true },
+      "showCategoryPane": {
+        "order": 19,
+        "text": "Painel de categorias",
+        "type": "bool",
+        "value": true
+      },
+      "showDetailsPane": {
+        "order": 20,
+        "text": "Painel de detalhes",
+        "type": "bool",
+        "value": false
+      },
+      "showCommandLine": {
+        "order": 21,
+        "text": "Linha de comando",
+        "type": "bool",
+        "value": true
+      },
+      "showStatusBar": {
+        "order": 22,
+        "text": "Barra de estado",
+        "type": "bool",
+        "value": true
+      },
+      "enableHistory": {
+        "order": 23,
+        "text": "Registrar histórico",
+        "type": "bool",
+        "value": true
+      },
+      "showFavorites": {
+        "order": 24,
+        "text": "Mostrar favoritos",
+        "type": "bool",
+        "value": true
+      },
+      "lines": {
+        "order": 25,
+        "text": "Quantidade de linhas (0 = automático)",
+        "type": "slider",
+        "value": 0,
+        "min": 0,
+        "max": 40,
+        "step": 1
+      },
+      "density": {
+        "order": 26,
+        "text": "Densidade",
+        "type": "combo",
+        "value": "normal",
+        "options": [
+          { "label": "Compacta", "value": "compact" },
+          { "label": "Normal", "value": "normal" },
+          { "label": "Relaxada", "value": "relaxed" }
+        ]
+      },
+      "maxFps": {
+        "order": 27,
+        "text": "FPS máximo",
+        "type": "slider",
+        "value": 30,
+        "min": 15,
+        "max": 60,
+        "step": 5
+      },
+      "reducedMotion": {
+        "order": 28,
+        "text": "Reduzir movimento",
+        "type": "bool",
+        "value": false
+      },
+      "keyboardShortcuts": {
+        "order": 29,
+        "text": "Atalhos de teclado",
+        "type": "bool",
+        "value": true
+      },
+      "syntaxHighlight": {
+        "order": 30,
+        "text": "Realce de sintaxe (cores nos comandos)",
+        "type": "bool",
+        "value": true
+      }
+    }
+  }
+}

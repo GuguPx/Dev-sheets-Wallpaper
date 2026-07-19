@@ -1,0 +1,54 @@
+/* =========================================================================
+   responsive.css — escalonamento para as resoluções alvo (seção 3). Mantém a
+   densidade de terminal legível de 1366×768 até 3840×2160 (4K) e em ultrawide.
+   O tamanho base ainda respeita font-scale/ui-scale definidos pelo usuário.
+   ========================================================================= */
+
+/* Telas menores (1366×768, 1600×900) */
+@media (max-width: 1500px) {
+  :root {
+    --fs: calc(13.5px * var(--font-scale) * var(--ui-scale));
+  }
+}
+
+/* 2560×1440 (QHD) */
+@media (min-width: 2200px) {
+  :root {
+    --fs: calc(18px * var(--font-scale) * var(--ui-scale));
+  }
+}
+
+/* 3840×2160 (4K) */
+@media (min-width: 3200px) {
+  :root {
+    --fs: calc(23px * var(--font-scale) * var(--ui-scale));
+  }
+  .term {
+    padding: clamp(12px, 1vmin, 28px);
+  }
+}
+
+/* Ultrawide (3440×1440): limita a largura útil dos overlays já feita via min(). */
+@media (min-aspect-ratio: 21/9) {
+  .term-main {
+    /* mais espaço para detalhes em telas muito largas */
+    --cat-w: 280px;
+  }
+}
+
+/* Janelas estreitas (preview em navegador pequeno): colapsa painéis laterais. */
+@media (max-width: 860px) {
+  .term-main {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .pane-categories,
+  .pane-details {
+    display: none !important;
+  }
+}
+
+@media (max-height: 560px) {
+  .cmd-desc {
+    display: none;
+  }
+}

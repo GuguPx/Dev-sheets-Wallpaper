@@ -1,0 +1,14 @@
+# Normaliza fim de linha: o repo guarda LF, o checkout usa o nativo do SO.
+# Sem isso, clonar no Windows gera diffs inteiros só de CRLF.
+* text=auto eol=lf
+
+*.ts   text eol=lf
+*.mjs  text eol=lf
+*.json text eol=lf
+*.css  text eol=lf
+*.md   text eol=lf
+
+# Binários: nunca normalizar
+*.jpg binary
+*.png binary
+*.ico binary

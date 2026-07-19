@@ -1,0 +1,19 @@
+node_modules/
+dist/
+*.local
+*.log
+.DS_Store
+.vite/
+coverage/
+
+# Config pessoal do Claude Code (launch.json é compartilhado de propósito)
+.claude/settings.local.json
+
+# Artefato gerado por `npm run gen:index` — não é consumido pelo bundle
+search-index.json
+
+# Editores
+.vscode/
+.idea/
+*.swp
+Thumbs.db

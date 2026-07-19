@@ -1,0 +1,40 @@
+{
+  "name": "devsheet-wallpaper",
+  "version": "1.0.0",
+  "description": "devsheet — terminal de consulta de cheat sheets de desenvolvimento e DevOps para o Wallpaper Engine. Consulta/busca/cópia offline. Não executa comandos.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vite --config wallpaper/vite.config.ts",
+    "build": "tsc -p wallpaper/tsconfig.json --noEmit && vite build --config wallpaper/vite.config.ts",
+    "preview": "vite preview --config wallpaper/vite.config.ts",
+    "typecheck": "tsc -p wallpaper/tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"wallpaper/src/**/*.{ts,css}\" \"tests/**/*.ts\" \"scripts/**/*.ts\"",
+    "validate:content": "tsx scripts/validate-content.ts",
+    "gen:index": "tsx scripts/generate-search-index.ts",
+    "build:wallpaper": "npm run build && node scripts/copy-to-wallpaper.mjs"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "jsdom": "^24.1.1",
+    "prettier": "^3.3.3",
+    "tsx": "^4.16.5",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2",
+    "vite-plugin-singlefile": "^2.0.2",
+    "vitest": "^2.0.5"
+  }
+}

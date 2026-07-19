@@ -1,0 +1,539 @@
+{
+  "id": "docker",
+  "name": "Docker",
+  "shortName": "Docker",
+  "icon": "cpu",
+  "color": "#2496ed",
+  "description": "Plataforma de containers para empacotar, distribuir e executar aplicações isoladas.",
+  "documentationUrl": "https://docs.docker.com/",
+  "version": "27.x",
+  "lastReviewedAt": "2026-07-17",
+  "categories": [
+    "Containers",
+    "Imagens",
+    "Volumes",
+    "Redes",
+    "Logs",
+    "Build",
+    "Limpeza",
+    "Inspeção",
+    "Registro",
+    "Segurança"
+  ],
+  "entries": [
+    {
+      "id": "docker-run",
+      "title": "Executar container",
+      "command": "docker run <imagem>",
+      "description": "Cria e inicia um container a partir de uma imagem, baixando-a do registro se necessário.",
+      "category": "Containers",
+      "tags": ["run", "container", "iniciar"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker run hello-world", "explanation": "Executa a imagem de teste do Docker." },
+        { "level": "intermediario", "code": "docker run -d -p 8080:80 --name web nginx", "explanation": "Sobe nginx em segundo plano, publicando a porta 80 em 8080." }
+      ],
+      "arguments": [
+        { "flag": "-d", "description": "Modo desacoplado (background)." },
+        { "flag": "-p <host>:<cont>", "description": "Publica uma porta." },
+        { "flag": "--name", "description": "Nomeia o container." },
+        { "flag": "--rm", "description": "Remove o container ao encerrar." },
+        { "flag": "-e", "description": "Define variável de ambiente." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker ps", "docker stop"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/run/"
+    },
+    {
+      "id": "docker-ps",
+      "title": "Listar containers",
+      "command": "docker ps",
+      "description": "Lista os containers em execução, com id, imagem, portas e status.",
+      "category": "Containers",
+      "tags": ["ps", "listar", "status"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker ps", "explanation": "Mostra os containers ativos." },
+        { "level": "intermediario", "code": "docker ps -a", "explanation": "Inclui containers parados." }
+      ],
+      "arguments": [
+        { "flag": "-a", "description": "Inclui containers parados." },
+        { "flag": "-q", "description": "Mostra apenas os IDs." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker run", "docker rm"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/ls/"
+    },
+    {
+      "id": "docker-exec",
+      "title": "Executar comando em container",
+      "command": "docker exec -it <container> <cmd>",
+      "description": "Executa um comando dentro de um container em execução, útil para abrir um shell interativo.",
+      "category": "Containers",
+      "tags": ["exec", "shell", "bash"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker exec -it web sh", "explanation": "Abre um shell dentro do container web." },
+        { "level": "intermediario", "code": "docker exec -it db psql -U postgres", "explanation": "Abre o psql dentro do container do banco." }
+      ],
+      "arguments": [
+        { "flag": "-i", "description": "Mantém a entrada padrão aberta (interativo)." },
+        { "flag": "-t", "description": "Aloca um pseudo-terminal." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker attach", "docker logs"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/exec/"
+    },
+    {
+      "id": "docker-stop",
+      "title": "Parar container",
+      "command": "docker stop <container>",
+      "description": "Envia SIGTERM ao processo principal do container e, após o timeout, SIGKILL, parando-o com segurança.",
+      "category": "Containers",
+      "tags": ["stop", "parar"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "docker stop web", "explanation": "Para o container web." },
+        { "level": "intermediario", "code": "docker stop $(docker ps -q)", "explanation": "Para todos os containers em execução." }
+      ],
+      "arguments": [
+        { "flag": "-t <seg>", "description": "Segundos a esperar antes do SIGKILL." }
+      ],
+      "warnings": ["Processos sem tratamento de SIGTERM podem perder dados não salvos."],
+      "relatedCommands": ["docker start", "docker kill"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/stop/"
+    },
+    {
+      "id": "docker-rm",
+      "title": "Remover container",
+      "command": "docker rm <container>",
+      "description": "Remove um ou mais containers parados. Use -f para forçar a remoção de containers em execução.",
+      "category": "Containers",
+      "tags": ["rm", "remover"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "docker rm web", "explanation": "Remove o container parado web." },
+        { "level": "intermediario", "code": "docker rm -f $(docker ps -aq)", "explanation": "Força a remoção de todos os containers." }
+      ],
+      "arguments": [
+        { "flag": "-f", "description": "Força a remoção mesmo em execução." },
+        { "flag": "-v", "description": "Remove volumes anônimos associados." }
+      ],
+      "warnings": ["Remover um container apaga seu sistema de arquivos interno (dados fora de volumes se perdem)."],
+      "relatedCommands": ["docker stop", "docker container prune"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/rm/"
+    },
+    {
+      "id": "docker-logs",
+      "title": "Ver logs do container",
+      "command": "docker logs <container>",
+      "description": "Exibe a saída padrão e de erro de um container, útil para depuração.",
+      "category": "Logs",
+      "tags": ["logs", "debug", "saida"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker logs web", "explanation": "Mostra os logs do container web." },
+        { "level": "intermediario", "code": "docker logs -f --tail 100 web", "explanation": "Acompanha em tempo real as últimas 100 linhas." }
+      ],
+      "arguments": [
+        { "flag": "-f", "description": "Segue a saída (follow)." },
+        { "flag": "--tail <n>", "description": "Mostra apenas as últimas n linhas." },
+        { "flag": "-t", "description": "Adiciona timestamps." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker exec", "docker stats"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/logs/"
+    },
+    {
+      "id": "docker-stats",
+      "title": "Monitorar uso de recursos",
+      "command": "docker stats",
+      "description": "Mostra o consumo de CPU, memória, rede e I/O dos containers em tempo real.",
+      "category": "Inspeção",
+      "tags": ["stats", "recursos", "monitorar"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker stats", "explanation": "Exibe recursos de todos os containers ativos." },
+        { "level": "intermediario", "code": "docker stats --no-stream", "explanation": "Mostra um snapshot único, sem atualizar." }
+      ],
+      "arguments": [
+        { "flag": "--no-stream", "description": "Exibe uma leitura e encerra." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker logs", "docker inspect"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/stats/"
+    },
+    {
+      "id": "docker-inspect",
+      "title": "Inspecionar objeto",
+      "command": "docker inspect <objeto>",
+      "description": "Retorna metadados detalhados em JSON de containers, imagens, volumes ou redes.",
+      "category": "Inspeção",
+      "tags": ["inspect", "json", "metadados"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker inspect web", "explanation": "Mostra todos os metadados do container web." },
+        { "level": "avancado", "code": "docker inspect -f '{{.NetworkSettings.IPAddress}}' web", "explanation": "Extrai apenas o IP usando um template Go." }
+      ],
+      "arguments": [
+        { "flag": "-f", "description": "Formata a saída com um template Go." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker stats", "docker network inspect"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/inspect/"
+    },
+    {
+      "id": "docker-images",
+      "title": "Listar imagens",
+      "command": "docker images",
+      "description": "Lista as imagens armazenadas localmente, com repositório, tag, id e tamanho.",
+      "category": "Imagens",
+      "tags": ["images", "listar"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker images", "explanation": "Lista as imagens locais." }
+      ],
+      "arguments": [
+        { "flag": "-q", "description": "Mostra apenas os IDs." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker pull", "docker rmi"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/image/ls/"
+    },
+    {
+      "id": "docker-pull",
+      "title": "Baixar imagem",
+      "command": "docker pull <imagem>:<tag>",
+      "description": "Baixa uma imagem de um registro (por padrão o Docker Hub) para uso local.",
+      "category": "Imagens",
+      "tags": ["pull", "baixar", "registro"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker pull node:20-alpine", "explanation": "Baixa a imagem do Node 20 na variante alpine." }
+      ],
+      "arguments": [],
+      "warnings": ["Sempre fixe uma tag específica; a tag latest muda com o tempo e quebra reprodutibilidade."],
+      "relatedCommands": ["docker images", "docker push"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/image/pull/"
+    },
+    {
+      "id": "docker-build",
+      "title": "Construir imagem",
+      "command": "docker build -t <nome>:<tag> .",
+      "description": "Constrói uma imagem a partir de um Dockerfile no contexto atual, aplicando um nome e tag.",
+      "category": "Build",
+      "tags": ["build", "dockerfile", "imagem"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker build -t minha-app:1.0 .", "explanation": "Constrói a imagem minha-app:1.0 usando o Dockerfile atual." },
+        { "level": "avancado", "code": "docker build --target prod --build-arg NODE_ENV=production -t app .", "explanation": "Build multi-stage mirando o estágio prod, com argumento de build." }
+      ],
+      "arguments": [
+        { "flag": "-t", "description": "Define nome:tag da imagem." },
+        { "flag": "-f", "description": "Aponta um Dockerfile alternativo." },
+        { "flag": "--target", "description": "Constrói até um estágio específico (multi-stage)." },
+        { "flag": "--build-arg", "description": "Passa argumentos de build." }
+      ],
+      "warnings": ["Evite copiar arquivos sensíveis; use .dockerignore para reduzir o contexto e proteger segredos."],
+      "relatedCommands": ["docker buildx", "docker push"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/buildx/build/"
+    },
+    {
+      "id": "docker-tag",
+      "title": "Renomear/marcar imagem",
+      "command": "docker tag <origem> <alvo>",
+      "description": "Cria uma nova referência (tag) para uma imagem existente, geralmente antes de enviar a um registro.",
+      "category": "Imagens",
+      "tags": ["tag", "marcar"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker tag app:1.0 registry.exemplo.com/app:1.0", "explanation": "Prepara a imagem para push ao registro privado." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["docker push", "docker images"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/image/tag/"
+    },
+    {
+      "id": "docker-push",
+      "title": "Enviar imagem ao registro",
+      "command": "docker push <imagem>:<tag>",
+      "description": "Envia uma imagem local para um registro remoto, exigindo login prévio quando privado.",
+      "category": "Registro",
+      "tags": ["push", "registro", "publicar"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "docker push registry.exemplo.com/app:1.0", "explanation": "Publica a imagem no registro." }
+      ],
+      "arguments": [],
+      "warnings": ["Confirme que a imagem não contém segredos antes de publicá-la."],
+      "relatedCommands": ["docker login", "docker tag"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/image/push/"
+    },
+    {
+      "id": "docker-login",
+      "title": "Autenticar em registro",
+      "command": "docker login <registro>",
+      "description": "Autentica no registro para permitir pull e push de imagens privadas.",
+      "category": "Registro",
+      "tags": ["login", "auth", "registro"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "docker login", "explanation": "Autentica no Docker Hub." },
+        { "level": "intermediario", "code": "echo $TOKEN | docker login ghcr.io -u user --password-stdin", "explanation": "Login não interativo lendo o token da entrada padrão." }
+      ],
+      "arguments": [
+        { "flag": "--password-stdin", "description": "Lê a senha/token da stdin (evita expor no histórico)." }
+      ],
+      "warnings": ["Não passe a senha em --password na linha de comando; ela fica no histórico do shell."],
+      "relatedCommands": ["docker push", "docker pull"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/login/"
+    },
+    {
+      "id": "docker-rmi",
+      "title": "Remover imagem",
+      "command": "docker rmi <imagem>",
+      "description": "Remove uma ou mais imagens locais. Falha se houver containers usando a imagem.",
+      "category": "Imagens",
+      "tags": ["rmi", "remover", "imagem"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "docker rmi node:18", "explanation": "Remove a imagem node:18." }
+      ],
+      "arguments": [
+        { "flag": "-f", "description": "Força a remoção." }
+      ],
+      "warnings": ["Imagens removidas precisam ser baixadas ou reconstruídas novamente."],
+      "relatedCommands": ["docker images", "docker image prune"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/image/rm/"
+    },
+    {
+      "id": "docker-volume-create",
+      "title": "Criar volume",
+      "command": "docker volume create <nome>",
+      "description": "Cria um volume gerenciado pelo Docker para persistir dados fora do ciclo de vida do container.",
+      "category": "Volumes",
+      "tags": ["volume", "persistencia", "dados"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker volume create db-data", "explanation": "Cria o volume db-data." },
+        { "level": "intermediario", "code": "docker run -v db-data:/var/lib/postgresql/data postgres", "explanation": "Monta o volume no diretório de dados do Postgres." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["docker volume ls", "docker volume rm"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/volume/create/"
+    },
+    {
+      "id": "docker-volume-ls",
+      "title": "Listar volumes",
+      "command": "docker volume ls",
+      "description": "Lista os volumes gerenciados pelo Docker.",
+      "category": "Volumes",
+      "tags": ["volume", "listar"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker volume ls", "explanation": "Lista todos os volumes." }
+      ],
+      "arguments": [
+        { "flag": "-q", "description": "Apenas os nomes." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker volume create", "docker volume prune"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/volume/ls/"
+    },
+    {
+      "id": "docker-network-ls",
+      "title": "Listar redes",
+      "command": "docker network ls",
+      "description": "Lista as redes Docker, incluindo as padrão (bridge, host, none) e as personalizadas.",
+      "category": "Redes",
+      "tags": ["network", "listar", "rede"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker network ls", "explanation": "Lista as redes disponíveis." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["docker network create", "docker network inspect"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/network/ls/"
+    },
+    {
+      "id": "docker-network-create",
+      "title": "Criar rede",
+      "command": "docker network create <nome>",
+      "description": "Cria uma rede bridge personalizada, permitindo que containers se comuniquem pelo nome do serviço.",
+      "category": "Redes",
+      "tags": ["network", "criar", "bridge"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker network create app-net", "explanation": "Cria a rede app-net." },
+        { "level": "intermediario", "code": "docker run --network app-net --name api app", "explanation": "Conecta o container à rede app-net." }
+      ],
+      "arguments": [
+        { "flag": "-d", "description": "Driver da rede (bridge, overlay...)." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker network ls", "docker network connect"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/network/create/"
+    },
+    {
+      "id": "docker-cp",
+      "title": "Copiar arquivos do/para container",
+      "command": "docker cp <origem> <destino>",
+      "description": "Copia arquivos ou diretórios entre o host e um container.",
+      "category": "Containers",
+      "tags": ["cp", "copiar", "arquivos"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker cp web:/app/log.txt ./log.txt", "explanation": "Copia um arquivo do container para o host." },
+        { "level": "intermediario", "code": "docker cp ./config.json web:/app/config.json", "explanation": "Copia do host para o container." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["docker exec", "docker run -v"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/cp/"
+    },
+    {
+      "id": "docker-restart",
+      "title": "Reiniciar container",
+      "command": "docker restart <container>",
+      "description": "Para e inicia novamente um container, aplicando novas variáveis do ambiente do host quando necessário.",
+      "category": "Containers",
+      "tags": ["restart", "reiniciar"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "docker restart web", "explanation": "Reinicia o container web." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["docker stop", "docker start"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/container/restart/"
+    },
+    {
+      "id": "docker-system-df",
+      "title": "Ver uso de disco",
+      "command": "docker system df",
+      "description": "Mostra quanto espaço imagens, containers, volumes e cache estão ocupando.",
+      "category": "Limpeza",
+      "tags": ["system", "disco", "espaco"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker system df", "explanation": "Resumo do uso de disco do Docker." },
+        { "level": "intermediario", "code": "docker system df -v", "explanation": "Detalha por imagem e volume." }
+      ],
+      "arguments": [
+        { "flag": "-v", "description": "Saída detalhada." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["docker system prune", "docker image prune"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/system/df/"
+    },
+    {
+      "id": "docker-image-prune",
+      "title": "Limpar imagens não usadas",
+      "command": "docker image prune",
+      "description": "Remove imagens pendentes (dangling). Com -a, remove todas as imagens sem container associado.",
+      "category": "Limpeza",
+      "tags": ["prune", "limpar", "imagens"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "docker image prune", "explanation": "Remove apenas imagens dangling." },
+        { "level": "intermediario", "code": "docker image prune -a", "explanation": "Remove todas as imagens não utilizadas por containers." }
+      ],
+      "arguments": [
+        { "flag": "-a", "description": "Remove todas as imagens não usadas." },
+        { "flag": "-f", "description": "Não pede confirmação." }
+      ],
+      "warnings": ["-a remove imagens que você talvez precise baixar de novo."],
+      "relatedCommands": ["docker system prune", "docker rmi"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/image/prune/"
+    },
+    {
+      "id": "docker-system-prune",
+      "title": "Limpeza geral do Docker",
+      "command": "docker system prune -a",
+      "description": "Remove containers parados, redes não usadas, imagens pendentes e, com -a, todas as imagens sem uso.",
+      "category": "Limpeza",
+      "tags": ["prune", "limpeza", "system"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "perigoso",
+      "examples": [
+        { "level": "basico", "code": "docker system prune", "explanation": "Limpeza básica de containers parados e redes órfãs." },
+        { "level": "avancado", "code": "docker system prune -a --volumes", "explanation": "Limpeza agressiva incluindo imagens e volumes não usados." }
+      ],
+      "arguments": [
+        { "flag": "-a", "description": "Inclui todas as imagens não usadas." },
+        { "flag": "--volumes", "description": "Inclui volumes não usados (apaga dados!)." }
+      ],
+      "warnings": ["--volumes apaga dados persistidos que não estejam em uso.", "Não use indiscriminadamente em servidores de produção."],
+      "relatedCommands": ["docker system df", "docker volume prune"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/system/prune/"
+    },
+    {
+      "id": "docker-scout",
+      "title": "Analisar vulnerabilidades",
+      "command": "docker scout cves <imagem>",
+      "description": "Analisa uma imagem em busca de vulnerabilidades conhecidas (CVEs), auxiliando a segurança da supply chain.",
+      "category": "Segurança",
+      "tags": ["scout", "cve", "seguranca"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "docker scout cves minha-app:1.0", "explanation": "Lista CVEs encontradas na imagem." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["docker build", "docker inspect"],
+      "documentationUrl": "https://docs.docker.com/reference/cli/docker/scout/"
+    }
+  ]
+}

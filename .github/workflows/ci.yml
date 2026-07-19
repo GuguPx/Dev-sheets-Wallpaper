@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Formatação
+        run: npx prettier --check "wallpaper/src/**/*.{ts,css}" "tests/**/*.ts" "scripts/**/*.ts"
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tipos
+        run: npm run typecheck
+
+      - name: Conteúdo (schemas Zod)
+        run: npm run validate:content
+
+      - name: Testes
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Guardar o wallpaper montado
+        uses: actions/upload-artifact@v4
+        with:
+          name: devsheet-dist
+          path: dist/index.html

@@ -1,0 +1,425 @@
+{
+  "id": "postgresql",
+  "name": "PostgreSQL",
+  "shortName": "PostgreSQL",
+  "icon": "cpu",
+  "color": "#336791",
+  "description": "Banco de dados relacional avançado, open source, com foco em conformidade e extensibilidade.",
+  "documentationUrl": "https://www.postgresql.org/docs/",
+  "version": "16.x",
+  "lastReviewedAt": "2026-07-17",
+  "categories": [
+    "Conexão",
+    "Databases",
+    "Tabelas",
+    "Consultas",
+    "Índices",
+    "Usuários",
+    "Backup",
+    "Diagnóstico",
+    "psql"
+  ],
+  "entries": [
+    {
+      "id": "pg-connect",
+      "title": "Conectar ao banco",
+      "command": "psql -U <usuário> -d <database> -h <host>",
+      "description": "Abre o cliente interativo psql conectado a um banco, usuário e host específicos.",
+      "category": "Conexão",
+      "tags": ["psql", "conectar", "conexao"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "psql -U postgres -d meuapp", "explanation": "Conecta ao banco meuapp como postgres." },
+        { "level": "intermediario", "code": "psql \"postgresql://user:senha@localhost:5432/meuapp\"", "explanation": "Conecta usando uma URL de conexão." }
+      ],
+      "arguments": [
+        { "flag": "-U", "description": "Usuário." },
+        { "flag": "-d", "description": "Banco de dados." },
+        { "flag": "-h", "description": "Host." },
+        { "flag": "-p", "description": "Porta (padrão 5432)." }
+      ],
+      "warnings": ["Evite colocar a senha na URL em ambientes compartilhados; use a variável PGPASSWORD ou ~/.pgpass."],
+      "relatedCommands": ["\\l", "\\c"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/app-psql.html"
+    },
+    {
+      "id": "pg-list-databases",
+      "title": "Listar bancos de dados",
+      "command": "\\l",
+      "description": "Meta-comando do psql que lista todos os bancos de dados do servidor.",
+      "category": "psql",
+      "tags": ["listar", "databases", "psql"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [{ "level": "basico", "code": "\\l", "explanation": "Lista os bancos com dono e codificação." }],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["\\c", "\\dt"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/app-psql.html"
+    },
+    {
+      "id": "pg-connect-db",
+      "title": "Trocar de banco no psql",
+      "command": "\\c <database>",
+      "description": "Conecta a outro banco de dados dentro da sessão atual do psql.",
+      "category": "psql",
+      "tags": ["conectar", "trocar", "psql"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [{ "level": "basico", "code": "\\c meuapp", "explanation": "Passa a usar o banco meuapp." }],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["\\l", "\\dt"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/app-psql.html"
+    },
+    {
+      "id": "pg-list-tables",
+      "title": "Listar tabelas",
+      "command": "\\dt",
+      "description": "Lista as tabelas do schema atual. Use \\d <tabela> para ver as colunas de uma tabela.",
+      "category": "psql",
+      "tags": ["tabelas", "listar", "psql"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "\\dt", "explanation": "Lista as tabelas." },
+        { "level": "intermediario", "code": "\\d usuarios", "explanation": "Mostra colunas, tipos e índices da tabela usuarios." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["\\l", "\\di"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/app-psql.html"
+    },
+    {
+      "id": "pg-create-database",
+      "title": "Criar banco de dados",
+      "command": "CREATE DATABASE <nome>;",
+      "description": "Cria um novo banco de dados. Pode definir dono e codificação.",
+      "category": "Databases",
+      "tags": ["create", "database"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [{ "level": "intermediario", "code": "CREATE DATABASE meuapp OWNER app_user ENCODING 'UTF8';", "explanation": "Cria o banco com dono e codificação definidos." }],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["DROP DATABASE", "CREATE USER"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-createdatabase.html"
+    },
+    {
+      "id": "pg-drop-database",
+      "title": "Remover banco de dados",
+      "command": "DROP DATABASE <nome>;",
+      "description": "Exclui permanentemente um banco de dados e todo o seu conteúdo.",
+      "category": "Databases",
+      "tags": ["drop", "database", "remover"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "perigoso",
+      "examples": [{ "level": "avancado", "code": "DROP DATABASE IF EXISTS temp_db;", "explanation": "Remove o banco se existir." }],
+      "arguments": [],
+      "warnings": ["Apaga TODOS os dados do banco de forma irreversível.", "Não pode ser executado enquanto houver conexões ativas ao banco."],
+      "relatedCommands": ["CREATE DATABASE", "pg_dump"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-dropdatabase.html"
+    },
+    {
+      "id": "pg-create-table",
+      "title": "Criar tabela",
+      "command": "CREATE TABLE <nome> (...);",
+      "description": "Cria uma tabela com colunas, tipos e restrições (chave primária, not null, etc.).",
+      "category": "Tabelas",
+      "tags": ["create", "table", "tabela"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "intermediario", "code": "CREATE TABLE usuarios (\n  id SERIAL PRIMARY KEY,\n  email TEXT UNIQUE NOT NULL,\n  criado_em TIMESTAMPTZ DEFAULT now()\n);", "explanation": "Cria a tabela usuarios com id auto-incremento e email único." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["ALTER TABLE", "DROP TABLE"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-createtable.html"
+    },
+    {
+      "id": "pg-alter-table",
+      "title": "Alterar tabela",
+      "command": "ALTER TABLE <nome> ADD COLUMN ...;",
+      "description": "Modifica a estrutura de uma tabela: adiciona/remove colunas, altera tipos ou restrições.",
+      "category": "Tabelas",
+      "tags": ["alter", "table", "coluna"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "intermediario", "code": "ALTER TABLE usuarios ADD COLUMN ativo BOOLEAN DEFAULT true;", "explanation": "Adiciona a coluna ativo." }
+      ],
+      "arguments": [],
+      "warnings": ["Em tabelas grandes, algumas alterações travam a tabela; planeje janelas de manutenção."],
+      "relatedCommands": ["CREATE TABLE", "CREATE INDEX"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-altertable.html"
+    },
+    {
+      "id": "pg-select",
+      "title": "Consultar dados",
+      "command": "SELECT ... FROM <tabela> WHERE ...;",
+      "description": "Recupera linhas de uma ou mais tabelas, com filtros, ordenação e limite.",
+      "category": "Consultas",
+      "tags": ["select", "consulta", "query"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "SELECT id, email FROM usuarios WHERE ativo = true ORDER BY criado_em DESC LIMIT 10;", "explanation": "Últimos 10 usuários ativos." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["INSERT", "UPDATE"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-select.html"
+    },
+    {
+      "id": "pg-insert",
+      "title": "Inserir dados",
+      "command": "INSERT INTO <tabela> (...) VALUES (...);",
+      "description": "Adiciona novas linhas a uma tabela. RETURNING devolve valores gerados como o id.",
+      "category": "Consultas",
+      "tags": ["insert", "inserir"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "intermediario", "code": "INSERT INTO usuarios (email) VALUES ('a@b.com') RETURNING id;", "explanation": "Insere e retorna o id gerado." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["SELECT", "UPDATE"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-insert.html"
+    },
+    {
+      "id": "pg-update",
+      "title": "Atualizar dados",
+      "command": "UPDATE <tabela> SET ... WHERE ...;",
+      "description": "Altera valores de linhas existentes. O WHERE é essencial para não atualizar a tabela inteira.",
+      "category": "Consultas",
+      "tags": ["update", "atualizar"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "perigoso",
+      "examples": [
+        { "level": "intermediario", "code": "UPDATE usuarios SET ativo = false WHERE id = 42;", "explanation": "Desativa apenas o usuário 42." }
+      ],
+      "arguments": [],
+      "warnings": ["UPDATE sem WHERE altera TODAS as linhas da tabela."],
+      "relatedCommands": ["SELECT", "DELETE"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-update.html"
+    },
+    {
+      "id": "pg-delete",
+      "title": "Excluir dados",
+      "command": "DELETE FROM <tabela> WHERE ...;",
+      "description": "Remove linhas de uma tabela. Sem WHERE, apaga todas as linhas.",
+      "category": "Consultas",
+      "tags": ["delete", "excluir"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "perigoso",
+      "examples": [
+        { "level": "intermediario", "code": "DELETE FROM sessoes WHERE expira_em < now();", "explanation": "Remove sessões expiradas." }
+      ],
+      "arguments": [],
+      "warnings": ["DELETE sem WHERE apaga TODAS as linhas.", "Considere uma transação (BEGIN) para poder reverter com ROLLBACK."],
+      "relatedCommands": ["TRUNCATE", "UPDATE"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-delete.html"
+    },
+    {
+      "id": "pg-join",
+      "title": "Juntar tabelas (JOIN)",
+      "command": "SELECT ... FROM a JOIN b ON a.id = b.a_id;",
+      "description": "Combina linhas de duas tabelas com base em uma condição de relacionamento.",
+      "category": "Consultas",
+      "tags": ["join", "relacionamento"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "avancado", "code": "SELECT u.email, COUNT(p.id) AS pedidos\nFROM usuarios u\nLEFT JOIN pedidos p ON p.usuario_id = u.id\nGROUP BY u.email;", "explanation": "Conta pedidos por usuário, incluindo os sem pedidos (LEFT JOIN)." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["SELECT", "CREATE INDEX"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/queries-table-expressions.html"
+    },
+    {
+      "id": "pg-create-index",
+      "title": "Criar índice",
+      "command": "CREATE INDEX ON <tabela> (<coluna>);",
+      "description": "Cria um índice para acelerar buscas em colunas usadas em WHERE e JOIN.",
+      "category": "Índices",
+      "tags": ["index", "indice", "performance"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "intermediario", "code": "CREATE INDEX idx_usuarios_email ON usuarios (email);", "explanation": "Acelera buscas por email." },
+        { "level": "avancado", "code": "CREATE INDEX CONCURRENTLY idx_pedidos_data ON pedidos (criado_em);", "explanation": "Cria o índice sem travar escritas na tabela." }
+      ],
+      "arguments": [
+        { "flag": "CONCURRENTLY", "description": "Cria sem bloquear a tabela (mais lento)." }
+      ],
+      "warnings": ["Índices aceleram leituras, mas deixam escritas mais lentas e ocupam espaço."],
+      "relatedCommands": ["EXPLAIN ANALYZE", "\\di"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-createindex.html"
+    },
+    {
+      "id": "pg-explain",
+      "title": "Analisar plano de consulta",
+      "command": "EXPLAIN ANALYZE <query>;",
+      "description": "Mostra o plano de execução real de uma query com tempos, revelando gargalos e uso de índices.",
+      "category": "Diagnóstico",
+      "tags": ["explain", "analyze", "performance"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "avancado", "code": "EXPLAIN ANALYZE SELECT * FROM pedidos WHERE usuario_id = 42;", "explanation": "Revela se a query usa índice ou faz varredura sequencial." }
+      ],
+      "arguments": [],
+      "warnings": ["Com ANALYZE, a query é REALMENTE executada; cuidado com INSERT/UPDATE/DELETE."],
+      "relatedCommands": ["CREATE INDEX", "VACUUM"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-explain.html"
+    },
+    {
+      "id": "pg-create-user",
+      "title": "Criar usuário/role",
+      "command": "CREATE USER <nome> WITH PASSWORD '<senha>';",
+      "description": "Cria uma role de login (usuário). Depois, conceda privilégios com GRANT.",
+      "category": "Usuários",
+      "tags": ["user", "role", "criar"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "intermediario", "code": "CREATE USER app_user WITH PASSWORD 'senha-forte';", "explanation": "Cria o usuário app_user." }
+      ],
+      "arguments": [],
+      "warnings": ["Use senhas fortes e conceda apenas os privilégios necessários (princípio do menor privilégio)."],
+      "relatedCommands": ["GRANT", "ALTER USER"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-createrole.html"
+    },
+    {
+      "id": "pg-grant",
+      "title": "Conceder privilégios",
+      "command": "GRANT <privilégios> ON <objeto> TO <role>;",
+      "description": "Concede permissões (SELECT, INSERT, ALL, etc.) sobre tabelas ou bancos a uma role.",
+      "category": "Usuários",
+      "tags": ["grant", "privilegios", "permissoes"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "avancado", "code": "GRANT SELECT, INSERT, UPDATE ON ALL TABLES IN SCHEMA public TO app_user;", "explanation": "Concede permissões de leitura e escrita ao app_user." }
+      ],
+      "arguments": [],
+      "warnings": ["Evite conceder ALL PRIVILEGES quando permissões específicas bastam."],
+      "relatedCommands": ["REVOKE", "CREATE USER"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-grant.html"
+    },
+    {
+      "id": "pg-dump",
+      "title": "Backup do banco",
+      "command": "pg_dump -U <user> <database> > backup.sql",
+      "description": "Exporta a estrutura e os dados de um banco para um arquivo, permitindo backup e migração.",
+      "category": "Backup",
+      "tags": ["pg_dump", "backup", "export"],
+      "difficulty": "intermediario",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "pg_dump -U postgres meuapp > backup.sql", "explanation": "Backup em formato SQL." },
+        { "level": "avancado", "code": "pg_dump -Fc -U postgres meuapp > meuapp.dump", "explanation": "Formato custom (comprimido), restaurável com pg_restore." }
+      ],
+      "arguments": [
+        { "flag": "-Fc", "description": "Formato custom (comprimido)." },
+        { "flag": "-t <tabela>", "description": "Faz dump só de uma tabela." }
+      ],
+      "warnings": ["O arquivo pode conter dados sensíveis; armazene-o com segurança."],
+      "relatedCommands": ["pg_restore", "psql"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/app-pgdump.html"
+    },
+    {
+      "id": "pg-restore",
+      "title": "Restaurar backup",
+      "command": "pg_restore -U <user> -d <database> <arquivo.dump>",
+      "description": "Restaura um banco a partir de um dump em formato custom criado pelo pg_dump.",
+      "category": "Backup",
+      "tags": ["pg_restore", "restaurar", "import"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "avancado", "code": "pg_restore -U postgres -d meuapp_novo meuapp.dump", "explanation": "Restaura o dump em um banco existente." }
+      ],
+      "arguments": [
+        { "flag": "-d", "description": "Banco de destino." },
+        { "flag": "--clean", "description": "Remove objetos antes de recriá-los." }
+      ],
+      "warnings": ["--clean apaga objetos existentes no destino antes de restaurar."],
+      "relatedCommands": ["pg_dump", "psql"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/app-pgrestore.html"
+    },
+    {
+      "id": "pg-vacuum",
+      "title": "Manutenção (VACUUM)",
+      "command": "VACUUM ANALYZE;",
+      "description": "Recupera espaço de linhas mortas e atualiza estatísticas usadas pelo planejador de consultas.",
+      "category": "Diagnóstico",
+      "tags": ["vacuum", "manutencao", "analyze"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [{ "level": "avancado", "code": "VACUUM ANALYZE usuarios;", "explanation": "Limpa e atualiza estatísticas da tabela usuarios." }],
+      "arguments": [],
+      "warnings": ["VACUUM FULL trava a tabela; evite em horários de pico."],
+      "relatedCommands": ["EXPLAIN ANALYZE", "ANALYZE"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/sql-vacuum.html"
+    },
+    {
+      "id": "pg-active-queries",
+      "title": "Ver conexões ativas",
+      "command": "SELECT * FROM pg_stat_activity;",
+      "description": "Mostra as conexões atuais, as queries em execução e seu estado, útil para diagnóstico.",
+      "category": "Diagnóstico",
+      "tags": ["pg_stat_activity", "conexoes", "diagnostico"],
+      "difficulty": "avancado",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "avancado", "code": "SELECT pid, state, query FROM pg_stat_activity WHERE state = 'active';", "explanation": "Lista queries em execução no momento." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["EXPLAIN ANALYZE", "VACUUM"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/monitoring-stats.html"
+    },
+    {
+      "id": "pg-createdb-cli",
+      "title": "Criar banco pela linha de comando",
+      "command": "createdb -U <user> <nome>",
+      "description": "Utilitário de linha de comando para criar um banco sem abrir o psql.",
+      "category": "Databases",
+      "tags": ["createdb", "cli"],
+      "difficulty": "basico",
+      "platforms": ["all"],
+      "risk": "seguro",
+      "examples": [{ "level": "basico", "code": "createdb -U postgres meuapp", "explanation": "Cria o banco meuapp." }],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["dropdb", "CREATE DATABASE"],
+      "documentationUrl": "https://www.postgresql.org/docs/current/app-createdb.html"
+    }
+  ]
+}

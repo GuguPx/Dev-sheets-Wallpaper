@@ -1,0 +1,437 @@
+{
+  "id": "bash",
+  "name": "Bash",
+  "shortName": "Bash",
+  "prompt": "bash",
+  "icon": "bash",
+  "color": "#4EAA25",
+  "description": "Shell GNU Bash — navegação, manipulação de arquivos, texto, variáveis e scripting.",
+  "documentationUrl": "https://www.gnu.org/software/bash/manual/bash.html",
+  "version": "5.x",
+  "lastReviewedAt": "2026-07-18",
+  "categories": [
+    "navegacao",
+    "arquivos",
+    "texto",
+    "redirecionamento",
+    "variaveis",
+    "controle",
+    "processos",
+    "permissoes",
+    "scripting"
+  ],
+  "entries": [
+    {
+      "id": "pwd",
+      "title": "Diretório atual",
+      "command": "pwd",
+      "description": "Imprime o caminho absoluto do diretório de trabalho atual.",
+      "category": "navegacao",
+      "tags": ["diretorio", "caminho"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["cd", "ls"]
+    },
+    {
+      "id": "cd",
+      "title": "Mudar de diretório",
+      "command": "cd <caminho>",
+      "description": "Muda o diretório de trabalho atual. Sem argumentos vai para o HOME; 'cd -' volta ao anterior.",
+      "category": "navegacao",
+      "tags": ["diretorio", "navegar"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        { "level": "basico", "code": "cd ..", "explanation": "Sobe um nível de diretório." },
+        { "level": "basico", "code": "cd -", "explanation": "Volta para o diretório anterior." }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["pwd", "pushd"]
+    },
+    {
+      "id": "ls",
+      "title": "Listar arquivos",
+      "command": "ls -lah",
+      "description": "Lista o conteúdo do diretório em formato longo, incluindo ocultos e tamanhos legíveis.",
+      "category": "navegacao",
+      "tags": ["listar", "arquivos"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [
+        { "flag": "-l", "description": "Formato longo (permissões, dono, tamanho, data)." },
+        { "flag": "-a", "description": "Inclui arquivos ocultos (iniciados por ponto)." },
+        { "flag": "-h", "description": "Tamanhos legíveis (K, M, G)." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["find", "tree"]
+    },
+    {
+      "id": "cp",
+      "title": "Copiar arquivos",
+      "command": "cp -r <origem> <destino>",
+      "description": "Copia arquivos ou diretórios; -r copia diretórios recursivamente.",
+      "category": "arquivos",
+      "tags": ["copiar", "recursivo"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [
+        { "flag": "-r", "description": "Copia diretórios recursivamente." },
+        { "flag": "-i", "description": "Pergunta antes de sobrescrever." }
+      ],
+      "warnings": ["Sem -i, cp sobrescreve o destino sem avisar."],
+      "relatedCommands": ["mv", "rsync"]
+    },
+    {
+      "id": "mv",
+      "title": "Mover ou renomear",
+      "command": "mv <origem> <destino>",
+      "description": "Move ou renomeia arquivos e diretórios. É a forma padrão de renomear no shell.",
+      "category": "arquivos",
+      "tags": ["mover", "renomear"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [],
+      "arguments": [{ "flag": "-i", "description": "Pergunta antes de sobrescrever o destino." }],
+      "warnings": ["Sobrescreve o destino silenciosamente se ele já existir."],
+      "relatedCommands": ["cp", "rename"]
+    },
+    {
+      "id": "rm-rf",
+      "title": "Remover recursivamente",
+      "command": "rm -rf <caminho>",
+      "description": "Remove arquivos e diretórios recursivamente e sem confirmação. Irreversível.",
+      "category": "arquivos",
+      "tags": ["remover", "apagar", "recursivo"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "perigoso",
+      "examples": [],
+      "arguments": [
+        { "flag": "-r", "description": "Recursivo (diretórios)." },
+        { "flag": "-f", "description": "Força, sem perguntar." }
+      ],
+      "warnings": [
+        "Não há lixeira: a remoção é permanente.",
+        "Nunca rode 'rm -rf /' ou com variáveis vazias (ex.: rm -rf $DIR/)."
+      ],
+      "relatedCommands": ["rm", "trash-cli"]
+    },
+    {
+      "id": "mkdir-p",
+      "title": "Criar diretórios",
+      "command": "mkdir -p <a>/<b>/<c>",
+      "description": "Cria diretórios; -p cria os intermediários e não falha se já existirem.",
+      "category": "arquivos",
+      "tags": ["criar", "diretorio"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [{ "flag": "-p", "description": "Cria diretórios pais conforme necessário." }],
+      "warnings": [],
+      "relatedCommands": ["rmdir", "touch"]
+    },
+    {
+      "id": "find",
+      "title": "Localizar arquivos",
+      "command": "find . -name \"*.log\" -type f",
+      "description": "Percorre a árvore de diretórios buscando por nome, tipo, tamanho ou data.",
+      "category": "arquivos",
+      "tags": ["buscar", "localizar"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        {
+          "level": "intermediario",
+          "code": "find . -name \"*.tmp\" -mtime +7 -delete",
+          "explanation": "Remove .tmp modificados há mais de 7 dias.",
+          "expected": ""
+        }
+      ],
+      "arguments": [
+        { "flag": "-name", "description": "Filtra pelo nome (glob)." },
+        { "flag": "-type", "description": "f (arquivo) ou d (diretório)." },
+        { "flag": "-exec", "description": "Executa um comando por resultado." }
+      ],
+      "warnings": ["'-delete' e '-exec rm' apagam sem confirmação."],
+      "relatedCommands": ["grep", "ls"]
+    },
+    {
+      "id": "grep",
+      "title": "Buscar em texto",
+      "command": "grep -rin \"padrao\" <dir>",
+      "description": "Busca linhas que casam com um padrão (regex), recursivamente e sem diferenciar maiúsculas.",
+      "category": "texto",
+      "tags": ["buscar", "regex", "texto"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [
+        { "flag": "-r", "description": "Recursivo em diretórios." },
+        { "flag": "-i", "description": "Ignora maiúsculas/minúsculas." },
+        { "flag": "-n", "description": "Mostra o número da linha." },
+        { "flag": "-v", "description": "Inverte: linhas que NÃO casam." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["sed", "awk", "rg"]
+    },
+    {
+      "id": "sed",
+      "title": "Substituir texto (sed)",
+      "command": "sed -i 's/antigo/novo/g' <arquivo>",
+      "description": "Editor de fluxo. Com -i edita o arquivo no lugar, substituindo todas as ocorrências.",
+      "category": "texto",
+      "tags": ["substituir", "stream", "editar"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [],
+      "arguments": [
+        { "flag": "-i", "description": "Edita o arquivo no lugar (in-place)." },
+        { "flag": "-E", "description": "Regex estendida." }
+      ],
+      "warnings": ["-i altera o arquivo original; no macOS exige um sufixo: sed -i ''."],
+      "relatedCommands": ["awk", "grep", "tr"]
+    },
+    {
+      "id": "awk",
+      "title": "Processar colunas (awk)",
+      "command": "awk '{print $1}' <arquivo>",
+      "description": "Processa texto por campos/colunas. Ideal para extrair e formatar dados tabulares.",
+      "category": "texto",
+      "tags": ["colunas", "campos", "relatorio"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        {
+          "level": "intermediario",
+          "code": "awk -F: '{print $1}' /etc/passwd",
+          "explanation": "Lista os usuários usando ':' como separador de campos."
+        }
+      ],
+      "arguments": [{ "flag": "-F", "description": "Define o separador de campos." }],
+      "warnings": [],
+      "relatedCommands": ["sed", "cut", "grep"]
+    },
+    {
+      "id": "tail-f",
+      "title": "Acompanhar arquivo",
+      "command": "tail -f <arquivo>",
+      "description": "Exibe o fim do arquivo e continua acompanhando novas linhas (útil para logs).",
+      "category": "texto",
+      "tags": ["logs", "monitorar"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [
+        { "flag": "-f", "description": "Segue o arquivo em tempo real." },
+        { "flag": "-n", "description": "Número de linhas iniciais (ex.: -n 100)." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["head", "less", "cat"]
+    },
+    {
+      "id": "pipe",
+      "title": "Encadear comandos (pipe)",
+      "command": "cat <arquivo> | grep erro | wc -l",
+      "description": "Encadeia comandos enviando a saída de um como entrada do próximo.",
+      "category": "redirecionamento",
+      "tags": ["pipe", "stdin", "stdout"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["xargs", "tee"]
+    },
+    {
+      "id": "redirect",
+      "title": "Redirecionar saída",
+      "command": "comando > saida.txt 2>&1",
+      "description": "Redireciona stdout para um arquivo; 2>&1 envia também o stderr. '>>' anexa em vez de sobrescrever.",
+      "category": "redirecionamento",
+      "tags": ["stdout", "stderr", "arquivo"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "basico", "code": "echo linha >> log.txt", "explanation": "Anexa ao final do arquivo." }
+      ],
+      "arguments": [],
+      "warnings": ["'>' sobrescreve o arquivo de destino sem avisar."],
+      "relatedCommands": ["pipe", "tee"]
+    },
+    {
+      "id": "xargs",
+      "title": "Construir comandos (xargs)",
+      "command": "find . -name '*.log' | xargs rm",
+      "description": "Lê itens da entrada padrão e os passa como argumentos para outro comando.",
+      "category": "redirecionamento",
+      "tags": ["xargs", "batch"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [
+        {
+          "level": "avancado",
+          "code": "find . -name '*.log' -print0 | xargs -0 rm",
+          "explanation": "Usa -print0/-0 para lidar com espaços em nomes com segurança."
+        }
+      ],
+      "arguments": [
+        { "flag": "-0", "description": "Entrada separada por NUL (par de find -print0)." },
+        { "flag": "-I{}", "description": "Substitui {} pelo item em cada execução." }
+      ],
+      "warnings": ["Encadeado com rm/mv pode apagar muitos arquivos de uma vez."],
+      "relatedCommands": ["find", "pipe"]
+    },
+    {
+      "id": "export",
+      "title": "Variável de ambiente",
+      "command": "export VAR=valor",
+      "description": "Define uma variável e a exporta para os processos filhos do shell.",
+      "category": "variaveis",
+      "tags": ["env", "variavel"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": ["Não exporte segredos em histórico compartilhado; prefira arquivos .env fora do versionamento."],
+      "relatedCommands": ["env", "printenv"]
+    },
+    {
+      "id": "command-substitution",
+      "title": "Substituição de comando",
+      "command": "hoje=$(date +%F)",
+      "description": "Captura a saída de um comando em uma variável usando $(...).",
+      "category": "variaveis",
+      "tags": ["substituicao", "captura"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["export", "echo"]
+    },
+    {
+      "id": "for-loop",
+      "title": "Laço for",
+      "command": "for f in *.txt; do echo \"$f\"; done",
+      "description": "Itera sobre uma lista de itens (arquivos, palavras, sequências) executando comandos.",
+      "category": "controle",
+      "tags": ["loop", "iteracao"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [
+        {
+          "level": "intermediario",
+          "code": "for i in {1..5}; do echo $i; done",
+          "explanation": "Itera de 1 a 5 usando brace expansion."
+        }
+      ],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["while-loop", "if"]
+    },
+    {
+      "id": "if",
+      "title": "Condicional if",
+      "command": "if [ -f arquivo ]; then echo existe; fi",
+      "description": "Executa comandos condicionalmente. [ -f ] testa arquivo; [ -d ] testa diretório; [ -z ] string vazia.",
+      "category": "controle",
+      "tags": ["condicional", "teste"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": ["Sempre cite variáveis em testes: [ -n \"$VAR\" ] evita erros com valores vazios."],
+      "relatedCommands": ["for-loop", "function"]
+    },
+    {
+      "id": "function",
+      "title": "Definir função",
+      "command": "deploy() { echo \"deploy $1\"; }",
+      "description": "Cria uma função reutilizável no script ou no shell interativo; $1..$n são os argumentos.",
+      "category": "scripting",
+      "tags": ["funcao", "reuso"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [],
+      "warnings": [],
+      "relatedCommands": ["if", "for-loop"]
+    },
+    {
+      "id": "shebang",
+      "title": "Shebang e set -euo",
+      "command": "#!/usr/bin/env bash\nset -euo pipefail",
+      "description": "Cabeçalho recomendado de scripts: define o interpretador e ativa modo estrito (erros, variáveis não definidas e falhas em pipes abortam).",
+      "category": "scripting",
+      "tags": ["script", "boas-praticas", "set"],
+      "difficulty": "avancado",
+      "platforms": ["linux", "macos"],
+      "risk": "seguro",
+      "examples": [],
+      "arguments": [
+        { "flag": "-e", "description": "Aborta em qualquer comando que falhe." },
+        { "flag": "-u", "description": "Erro ao usar variável não definida." },
+        { "flag": "-o pipefail", "description": "Falha se qualquer etapa do pipe falhar." }
+      ],
+      "warnings": [],
+      "relatedCommands": ["function", "chmod-x"]
+    },
+    {
+      "id": "chmod-x",
+      "title": "Tornar executável",
+      "command": "chmod +x <script.sh>",
+      "description": "Adiciona permissão de execução a um arquivo para poder rodá-lo diretamente.",
+      "category": "permissoes",
+      "tags": ["permissao", "executar"],
+      "difficulty": "basico",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [],
+      "arguments": [],
+      "warnings": ["Evite 'chmod 777'; conceda apenas as permissões necessárias."],
+      "relatedCommands": ["chown", "shebang"]
+    },
+    {
+      "id": "ps-kill",
+      "title": "Processos e encerrar",
+      "command": "ps aux | grep node",
+      "description": "Lista processos em execução. Combine com kill <PID> para encerrar um processo.",
+      "category": "processos",
+      "tags": ["processos", "kill"],
+      "difficulty": "intermediario",
+      "platforms": ["linux", "macos"],
+      "risk": "atencao",
+      "examples": [
+        { "level": "intermediario", "code": "kill -9 <PID>", "explanation": "Força o encerramento (SIGKILL) — use como último recurso." }
+      ],
+      "arguments": [],
+      "warnings": ["kill -9 não permite ao processo salvar estado; prefira kill (SIGTERM) primeiro."],
+      "relatedCommands": ["top", "jobs"]
+    }
+  ]
+}
