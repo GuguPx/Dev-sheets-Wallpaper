@@ -1,0 +1,25 @@
+name: "💡 Ideia / funcionalidade"
+description: Sugerir uma melhoria ou recurso novo.
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Qual o problema ou a vontade
+      description: O que te incomoda hoje, ou o que você gostaria de poder fazer.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Ideia de solução
+      description: Como você imagina que isso funcionaria. Tudo bem não ter certeza.
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Encaixa nos limites do projeto?
+      description: >
+        O devsheet é TypeScript puro (sem framework), vira um HTML único e nunca executa
+        comandos do sistema. Ideias que respeitam isso entram mais fácil.
+      options:
+        - label: Acho que dá para fazer sem framework novo nem executar comandos

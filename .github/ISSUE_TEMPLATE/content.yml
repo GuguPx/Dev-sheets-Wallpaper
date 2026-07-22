@@ -1,0 +1,44 @@
+name: "📝 Conteúdo (cheat sheet)"
+description: Adicionar uma tecnologia, corrigir um comando ou sugerir novos comandos.
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Valeu por melhorar o conteúdo! Se você já sabe editar o JSON, um **Pull Request**
+        costuma ser mais rápido — veja o
+        [CONTENT_GUIDE](https://github.com/AugustoCASAC/devsheet-wallpaper/blob/main/CONTENT_GUIDE.md).
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Tipo
+      options:
+        - Corrigir um comando existente (errado/desatualizado)
+        - Adicionar comandos a uma tecnologia que já existe
+        - Adicionar uma tecnologia nova
+    validations:
+      required: true
+  - type: input
+    id: tech
+    attributes:
+      label: Tecnologia
+      description: Ex.- git, docker, "GitHub Actions" (uma nova)
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: Detalhes
+      description: Quais comandos, o que está errado, ou o que deveria ser adicionado.
+      placeholder: |
+        Ex.: `git restore --staged` está descrito como destrutivo, mas não é.
+        Ex.: faltam os comandos de stash (git stash push/pop/list).
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Fonte oficial
+      description: Link da documentação que embasa o conteúdo (não inventamos comandos).
+    validations:
+      required: true

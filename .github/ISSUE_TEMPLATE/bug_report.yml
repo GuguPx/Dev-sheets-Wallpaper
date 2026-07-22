@@ -1,0 +1,43 @@
+name: "🐛 Bug"
+description: Algo não funciona como deveria.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: O que aconteceu
+      description: Descreva o problema e o que você esperava que acontecesse.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Como reproduzir
+      placeholder: |
+        1. Abra a aba '…'
+        2. Aperte '…'
+        3. Veja o erro
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Onde ocorre
+      options:
+        - No Wallpaper Engine
+        - No navegador (npm run dev / build)
+        - Nos dois
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Ambiente
+      description: SO, resolução da tela e (se souber) versão do navegador/Wallpaper Engine.
+      placeholder: "Windows 11, 2560x1440, Wallpaper Engine 2.x"
+  - type: textarea
+    id: console
+    attributes:
+      label: Erros no console (se houver)
+      description: No navegador, F12 → Console. Cole aqui mensagens de erro.
+      render: text

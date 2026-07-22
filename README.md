@@ -149,6 +149,14 @@ devsheet-wallpaper/
 > na raiz (o `wallpaper/package.json` é apenas um marcador). Um segundo tree de
 > dependências seria redundante para um wallpaper.
 
+## Contribuindo
+
+Contribuições são bem-vindas — sobretudo **conteúdo** (novos comandos ou correções). Veja o
+**[guia de contribuição](CONTRIBUTING.md)** para preparar o ambiente e o fluxo de PR, o
+**[guia de conteúdo](CONTENT_GUIDE.md)** para o formato dos JSONs, e o
+**[código de conduta](CODE_OF_CONDUCT.md)**. Use as [issues](../../issues/new/choose) para
+relatar bugs, sugerir ideias ou propor conteúdo.
+
 ## Segurança
 
 O terminal é **apenas visual**. Ele **não** implementa: execução de comandos, shell,
