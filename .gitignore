@@ -17,3 +17,6 @@ search-index.json
 .idea/
 *.swp
 Thumbs.db
+
+# Screenshots soltos na raiz — os prints do README ficam em docs/screenshots/
+/Captura de tela*.png

@@ -23,6 +23,33 @@ estilo **Neovim**, busca estilo **FZF** e detalhes estilo **man page**.
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
+## Prévia
+
+![Visão geral do devsheet rodando como papel de parede](docs/screenshots/overview.png)
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/git-categorias.png" alt="Aba git com os comandos agrupados por categoria" /><br />
+      <sub><b>Por categoria</b> — cada tecnologia abre em abas estilo Tmux.</sub>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/manual.png" alt="Detalhe de um comando no formato man page" /><br />
+      <sub><b>Manual</b> — <code>Enter</code> abre o comando no formato <i>man page</i>.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/tty-descanso.png" alt="Aba tty com terminal fictício em loop" /><br />
+      <sub><b>Aba <code>tty</code></b> — terminal fictício em loop / tela de descanso.</sub>
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/boot.png" alt="Sequência de boot do devsheet" /><br />
+      <sub><b>Boot</b> — sequência de inicialização estilo terminal.</sub>
+    </td>
+  </tr>
+</table>
+
 ## Requisitos
 
 - Node.js **18+**
