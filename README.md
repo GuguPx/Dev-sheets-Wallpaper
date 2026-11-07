@@ -251,10 +251,13 @@ incríveis como este. Muito obrigado! 💛
 > dollar — **US$ 1 is about R$ 5** — so any help, however small, makes a real difference
 > and gives me the strength to make more amazing wallpapers like this one. Thank you!*
 
-<!-- Links de apoio: mantenha em sincronia com wallpaper/src/config/support.ts e .github/FUNDING.yml -->
+<!-- Links de apoio: mantenha em sincronia com wallpaper/src/config/support.ts, .github/FUNDING.yml e scripts/we-localization.mjs -->
+<a href="https://ko-fi.com/gataodemane"><img src="docs/support/support-card.png" alt="QR codes do Ko-fi e do Buy Me a Coffee" width="420" /></a>
+
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/gataodemane)
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/gataodemane)
 
+Os mesmos links e QR codes aparecem no fim do painel de propriedades do Wallpaper Engine.
 Dentro do wallpaper, digite **`:support`** (ou `:apoiar`, `:donate`) para ver esta mensagem
 no seu idioma e copiar o link com um clique. Também ajuda muito: deixar uma ⭐ no repositório
 e avaliar/favoritar o wallpaper na Steam Workshop.

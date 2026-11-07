@@ -4,6 +4,13 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ## [Não lançado]
 
+### Adicionado — apoio no painel do Wallpaper Engine
+
+- Bloco **"Apoie o autor"** no fim do painel de propriedades: mensagem traduzida (10 idiomas),
+  cartão com QR codes do Ko-fi e do Buy Me a Coffee (`docs/support/support-card.png`, servido
+  do repositório) e links clicáveis para Ko-fi, Buy Me a Coffee, editor de sheets e GitHub.
+  Gerado por `npm run i18n:we`.
+
 ### Adicionado — contribuições fáceis
 
 - **Editor web de sheets** (`docs/editor/`, publicado via GitHub Pages): formulário em PT/EN

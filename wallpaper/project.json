@@ -16,13 +16,15 @@
   "general": {
     "properties": {
       "username": {
-        "order": 0,
+        "index": 0,
+        "order": 100,
         "text": "ui_username",
         "type": "textinput",
         "value": "augusto"
       },
       "theme": {
-        "order": 1,
+        "index": 1,
+        "order": 101,
         "text": "ui_theme",
         "type": "combo",
         "value": "graphite",
@@ -62,7 +64,8 @@
         ]
       },
       "language": {
-        "order": 2,
+        "index": 2,
+        "order": 102,
         "text": "ui_language",
         "type": "combo",
         "value": "auto",
@@ -114,19 +117,22 @@
         ]
       },
       "initialTechnology": {
-        "order": 3,
+        "index": 3,
+        "order": 103,
         "text": "ui_initial_technology",
         "type": "textinput",
         "value": "git"
       },
       "fontFamily": {
-        "order": 4,
+        "index": 4,
+        "order": 104,
         "text": "ui_font_family",
         "type": "textinput",
         "value": ""
       },
       "fontScale": {
-        "order": 5,
+        "index": 5,
+        "order": 105,
         "text": "ui_font_scale",
         "type": "slider",
         "value": 1,
@@ -135,7 +141,8 @@
         "step": 0.05
       },
       "uiScale": {
-        "order": 6,
+        "index": 6,
+        "order": 106,
         "text": "ui_ui_scale",
         "type": "slider",
         "value": 1,
@@ -143,44 +150,9 @@
         "max": 1.6,
         "step": 0.05
       },
-      "safeBottom": {
-        "order": 31,
-        "text": "ui_safe_bottom",
-        "type": "slider",
-        "value": 48,
-        "min": 0,
-        "max": 120,
-        "step": 4
-      },
-      "safeLeft": {
-        "order": 32,
-        "text": "ui_safe_left",
-        "type": "slider",
-        "value": 160,
-        "min": 0,
-        "max": 600,
-        "step": 8
-      },
-      "safeRight": {
-        "order": 33,
-        "text": "ui_safe_right",
-        "type": "slider",
-        "value": 0,
-        "min": 0,
-        "max": 600,
-        "step": 8
-      },
-      "idleTimeout": {
-        "order": 34,
-        "text": "ui_idle_timeout",
-        "type": "slider",
-        "value": 5,
-        "min": 0,
-        "max": 60,
-        "step": 1
-      },
       "crtLevel": {
-        "order": 7,
+        "index": 7,
+        "order": 107,
         "text": "ui_crt_level",
         "type": "combo",
         "value": "low",
@@ -204,109 +176,127 @@
         ]
       },
       "scanlines": {
-        "order": 8,
+        "index": 8,
+        "order": 108,
         "text": "ui_scanlines",
         "type": "bool",
         "value": true
       },
       "flicker": {
-        "order": 9,
+        "index": 9,
+        "order": 109,
         "text": "ui_flicker",
         "type": "bool",
         "value": false
       },
       "glow": {
-        "order": 10,
+        "index": 10,
+        "order": 110,
         "text": "ui_glow",
         "type": "bool",
         "value": true
       },
       "noise": {
-        "order": 11,
+        "index": 11,
+        "order": 111,
         "text": "ui_noise",
         "type": "bool",
         "value": false
       },
       "vignette": {
-        "order": 12,
+        "index": 12,
+        "order": 112,
         "text": "ui_vignette",
         "type": "bool",
         "value": true
       },
       "chromatic": {
-        "order": 13,
+        "index": 13,
+        "order": 113,
         "text": "ui_chromatic",
         "type": "bool",
         "value": false
       },
       "curvature": {
-        "order": 14,
+        "index": 14,
+        "order": 114,
         "text": "ui_curvature",
         "type": "bool",
         "value": false
       },
       "bootAnimation": {
-        "order": 15,
+        "index": 15,
+        "order": 115,
         "text": "ui_boot_animation",
         "type": "bool",
         "value": true
       },
       "showClock": {
-        "order": 16,
+        "index": 16,
+        "order": 116,
         "text": "ui_show_clock",
         "type": "bool",
         "value": true
       },
       "clock24h": {
-        "order": 17,
+        "index": 17,
+        "order": 117,
         "text": "ui_clock_24h",
         "type": "bool",
         "value": true
       },
       "showTabs": {
-        "order": 18,
+        "index": 18,
+        "order": 118,
         "text": "ui_show_tabs",
         "type": "bool",
         "value": true
       },
       "showCategoryPane": {
-        "order": 19,
+        "index": 19,
+        "order": 119,
         "text": "ui_show_category_pane",
         "type": "bool",
         "value": true
       },
       "showDetailsPane": {
-        "order": 20,
+        "index": 20,
+        "order": 120,
         "text": "ui_show_details_pane",
         "type": "bool",
         "value": false
       },
       "showCommandLine": {
-        "order": 21,
+        "index": 21,
+        "order": 121,
         "text": "ui_show_command_line",
         "type": "bool",
         "value": true
       },
       "showStatusBar": {
-        "order": 22,
+        "index": 22,
+        "order": 122,
         "text": "ui_show_status_bar",
         "type": "bool",
         "value": true
       },
       "enableHistory": {
-        "order": 23,
+        "index": 23,
+        "order": 123,
         "text": "ui_enable_history",
         "type": "bool",
         "value": true
       },
       "showFavorites": {
-        "order": 24,
+        "index": 24,
+        "order": 124,
         "text": "ui_show_favorites",
         "type": "bool",
         "value": true
       },
       "lines": {
-        "order": 25,
+        "index": 25,
+        "order": 125,
         "text": "ui_lines",
         "type": "slider",
         "value": 0,
@@ -315,7 +305,8 @@
         "step": 1
       },
       "density": {
-        "order": 26,
+        "index": 26,
+        "order": 126,
         "text": "ui_density",
         "type": "combo",
         "value": "normal",
@@ -335,7 +326,8 @@
         ]
       },
       "maxFps": {
-        "order": 27,
+        "index": 27,
+        "order": 127,
         "text": "ui_max_fps",
         "type": "slider",
         "value": 30,
@@ -344,22 +336,119 @@
         "step": 5
       },
       "reducedMotion": {
-        "order": 28,
+        "index": 28,
+        "order": 128,
         "text": "ui_reduced_motion",
         "type": "bool",
         "value": false
       },
       "keyboardShortcuts": {
-        "order": 29,
+        "index": 29,
+        "order": 129,
         "text": "ui_keyboard_shortcuts",
         "type": "bool",
         "value": true
       },
       "syntaxHighlight": {
-        "order": 30,
+        "index": 30,
+        "order": 130,
         "text": "ui_syntax_highlight",
         "type": "bool",
         "value": true
+      },
+      "safeBottom": {
+        "index": 31,
+        "order": 131,
+        "text": "ui_safe_bottom",
+        "type": "slider",
+        "value": 48,
+        "min": 0,
+        "max": 120,
+        "step": 4
+      },
+      "safeLeft": {
+        "index": 32,
+        "order": 132,
+        "text": "ui_safe_left",
+        "type": "slider",
+        "value": 160,
+        "min": 0,
+        "max": 600,
+        "step": 8
+      },
+      "safeRight": {
+        "index": 33,
+        "order": 133,
+        "text": "ui_safe_right",
+        "type": "slider",
+        "value": 0,
+        "min": 0,
+        "max": 600,
+        "step": 8
+      },
+      "idleTimeout": {
+        "index": 34,
+        "order": 134,
+        "text": "ui_idle_timeout",
+        "type": "slider",
+        "value": 5,
+        "min": 0,
+        "max": 60,
+        "step": 1
+      },
+      "supportRule": {
+        "index": 35,
+        "order": 135,
+        "text": "<hr>",
+        "type": "text"
+      },
+      "supportTitle": {
+        "index": 36,
+        "order": 136,
+        "text": "ui_support_title",
+        "type": "text"
+      },
+      "supportMessage": {
+        "index": 37,
+        "order": 137,
+        "text": "ui_support_message",
+        "type": "text"
+      },
+      "supportCard": {
+        "index": 38,
+        "order": 138,
+        "text": "<center><a href='https://ko-fi.com/gataodemane'><img src='https://raw.githubusercontent.com/GuguPx/Dev-sheets-Wallpaper/main/docs/support/support-card.png'></a></center>",
+        "type": "text"
+      },
+      "supportKofi": {
+        "index": 39,
+        "order": 139,
+        "text": "<a href='https://ko-fi.com/gataodemane'>☕ Ko-fi — ko-fi.com/gataodemane</a>",
+        "type": "text"
+      },
+      "supportBmc": {
+        "index": 40,
+        "order": 140,
+        "text": "<a href='https://buymeacoffee.com/gataodemane'>🍵 Buy Me a Coffee — buymeacoffee.com/gataodemane</a>",
+        "type": "text"
+      },
+      "supportContribute": {
+        "index": 41,
+        "order": 141,
+        "text": "ui_support_contribute",
+        "type": "text"
+      },
+      "supportEditor": {
+        "index": 42,
+        "order": 142,
+        "text": "<a href='https://gugupx.github.io/Dev-sheets-Wallpaper/editor/'>✍️ devsheet editor ↗</a>",
+        "type": "text"
+      },
+      "supportRepo": {
+        "index": 43,
+        "order": 143,
+        "text": "<a href='https://github.com/GuguPx/Dev-sheets-Wallpaper'>⭐ GitHub · Dev-sheets-Wallpaper ↗</a>",
+        "type": "text"
       }
     },
     "localization": {
@@ -407,7 +496,10 @@
         "ui_max_fps": "FPS máximo",
         "ui_reduced_motion": "Reduzir movimento",
         "ui_keyboard_shortcuts": "Atalhos de teclado",
-        "ui_syntax_highlight": "Realce de sintaxe (cores nos comandos)"
+        "ui_syntax_highlight": "Realce de sintaxe (cores nos comandos)",
+        "ui_support_title": "☕ Apoie o autor ♥",
+        "ui_support_message": "Sou brasileiro e moro no interior da Bahia. Como o real vale bem menos que o dólar (US$ 1 ≈ R$ 5), qualquer ajuda é muito bem-vinda e me fortalece a produzir mais wallpapers incríveis como este!",
+        "ui_support_contribute": "Falta algum comando? Adicione você mesmo, sem git:"
       },
       "en-us": {
         "ui_username": "Prompt user name",
@@ -453,7 +545,10 @@
         "ui_max_fps": "Max FPS",
         "ui_reduced_motion": "Reduce motion",
         "ui_keyboard_shortcuts": "Keyboard shortcuts",
-        "ui_syntax_highlight": "Syntax highlighting (colored commands)"
+        "ui_syntax_highlight": "Syntax highlighting (colored commands)",
+        "ui_support_title": "☕ Support the author ♥",
+        "ui_support_message": "I'm a Brazilian developer living in the countryside of Bahia. The real is worth far less than the dollar (US$ 1 ≈ R$ 5), so any help is truly welcome and keeps more amazing wallpapers like this one coming!",
+        "ui_support_contribute": "Missing a command? Add it yourself, no git needed:"
       },
       "es-es": {
         "ui_username": "Usuario del prompt",
@@ -499,7 +594,10 @@
         "ui_max_fps": "FPS máximos",
         "ui_reduced_motion": "Reducir movimiento",
         "ui_keyboard_shortcuts": "Atajos de teclado",
-        "ui_syntax_highlight": "Resaltado de sintaxis (comandos en color)"
+        "ui_syntax_highlight": "Resaltado de sintaxis (comandos en color)",
+        "ui_support_title": "☕ Apoya al autor ♥",
+        "ui_support_message": "Soy un desarrollador brasileño del interior de Bahía. El real vale mucho menos que el dólar (US$ 1 ≈ R$ 5), así que cualquier ayuda es bienvenida y me impulsa a crear más wallpapers increíbles como este.",
+        "ui_support_contribute": "¿Falta algún comando? Añádelo tú mismo, sin git:"
       },
       "fr-fr": {
         "ui_username": "Nom d'utilisateur du prompt",
@@ -545,7 +643,10 @@
         "ui_max_fps": "FPS maximum",
         "ui_reduced_motion": "Réduire les animations",
         "ui_keyboard_shortcuts": "Raccourcis clavier",
-        "ui_syntax_highlight": "Coloration syntaxique (commandes en couleur)"
+        "ui_syntax_highlight": "Coloration syntaxique (commandes en couleur)",
+        "ui_support_title": "☕ Soutenir l'auteur ♥",
+        "ui_support_message": "Je suis un développeur brésilien qui vit dans l'intérieur de Bahia. Le real vaut bien moins que le dollar (US$ 1 ≈ R$ 5) : toute aide est la bienvenue et m'encourage à créer d'autres fonds d'écran comme celui-ci !",
+        "ui_support_contribute": "Il manque une commande ? Ajoutez-la vous-même, sans git :"
       },
       "de-de": {
         "ui_username": "Benutzername im Prompt",
@@ -591,7 +692,10 @@
         "ui_max_fps": "Max. FPS",
         "ui_reduced_motion": "Bewegung reduzieren",
         "ui_keyboard_shortcuts": "Tastenkürzel",
-        "ui_syntax_highlight": "Syntaxhervorhebung (farbige Befehle)"
+        "ui_syntax_highlight": "Syntaxhervorhebung (farbige Befehle)",
+        "ui_support_title": "☕ Unterstütze den Autor ♥",
+        "ui_support_message": "Ich bin ein brasilianischer Entwickler aus dem Hinterland von Bahia. Der Real ist viel weniger wert als der Dollar (US$ 1 ≈ R$ 5) – jede Hilfe ist willkommen und motiviert mich zu weiteren Wallpapern wie diesem!",
+        "ui_support_contribute": "Fehlt ein Befehl? Füg ihn selbst hinzu – ohne Git:"
       },
       "it-it": {
         "ui_username": "Utente del prompt",
@@ -637,7 +741,10 @@
         "ui_max_fps": "FPS massimi",
         "ui_reduced_motion": "Riduci movimento",
         "ui_keyboard_shortcuts": "Scorciatoie da tastiera",
-        "ui_syntax_highlight": "Evidenziazione sintassi (comandi colorati)"
+        "ui_syntax_highlight": "Evidenziazione sintassi (comandi colorati)",
+        "ui_support_title": "☕ Sostieni l'autore ♥",
+        "ui_support_message": "Sono uno sviluppatore brasiliano che vive nell'entroterra di Bahia. Il real vale molto meno del dollaro (US$ 1 ≈ R$ 5): ogni aiuto è benvenuto e mi spinge a creare altri wallpaper come questo!",
+        "ui_support_contribute": "Manca un comando? Aggiungilo tu, senza git:"
       },
       "ru-ru": {
         "ui_username": "Имя пользователя в приглашении",
@@ -683,7 +790,10 @@
         "ui_max_fps": "Макс. FPS",
         "ui_reduced_motion": "Уменьшить анимацию",
         "ui_keyboard_shortcuts": "Сочетания клавиш",
-        "ui_syntax_highlight": "Подсветка синтаксиса (цветные команды)"
+        "ui_syntax_highlight": "Подсветка синтаксиса (цветные команды)",
+        "ui_support_title": "☕ Поддержать автора ♥",
+        "ui_support_message": "Я разработчик из глубинки штата Баия, Бразилия. Реал стоит намного меньше доллара (US$ 1 ≈ R$ 5), поэтому любая помощь очень ценна и помогает делать новые обои вроде этих!",
+        "ui_support_contribute": "Не хватает команды? Добавьте сами, без git:"
       },
       "zh-chs": {
         "ui_username": "提示符用户名",
@@ -729,7 +839,10 @@
         "ui_max_fps": "最大 FPS",
         "ui_reduced_motion": "减少动态效果",
         "ui_keyboard_shortcuts": "键盘快捷键",
-        "ui_syntax_highlight": "语法高亮（彩色命令）"
+        "ui_syntax_highlight": "语法高亮（彩色命令）",
+        "ui_support_title": "☕ 支持作者 ♥",
+        "ui_support_message": "我是住在巴西巴伊亚州内陆的开发者。雷亚尔远不如美元值钱（US$ 1 ≈ R$ 5），所以任何支持都意义重大，能让我做出更多这样的壁纸！",
+        "ui_support_contribute": "缺少命令？无需 git，自己添加："
       },
       "ja-jp": {
         "ui_username": "プロンプトのユーザー名",
@@ -775,7 +888,10 @@
         "ui_max_fps": "最大FPS",
         "ui_reduced_motion": "動きを減らす",
         "ui_keyboard_shortcuts": "キーボードショートカット",
-        "ui_syntax_highlight": "シンタックスハイライト（コマンドを色付け）"
+        "ui_syntax_highlight": "シンタックスハイライト（コマンドを色付け）",
+        "ui_support_title": "☕ 作者を応援 ♥",
+        "ui_support_message": "ブラジル・バイーア州の田舎に住む開発者です。レアルはドルよりずっと安く（US$ 1 ≈ R$ 5）、どんな支援も大きな力になり、こんな壁紙をもっと作る励みになります！",
+        "ui_support_contribute": "足りないコマンドは？ git なしで自分で追加できます："
       },
       "ko-kr": {
         "ui_username": "프롬프트 사용자 이름",
@@ -821,7 +937,10 @@
         "ui_max_fps": "최대 FPS",
         "ui_reduced_motion": "움직임 줄이기",
         "ui_keyboard_shortcuts": "키보드 단축키",
-        "ui_syntax_highlight": "구문 강조(명령어 색상)"
+        "ui_syntax_highlight": "구문 강조(명령어 색상)",
+        "ui_support_title": "☕ 제작자 후원하기 ♥",
+        "ui_support_message": "브라질 바이아주 시골에 사는 개발자입니다. 헤알은 달러보다 가치가 훨씬 낮아서(US$ 1 ≈ R$ 5) 작은 후원도 큰 힘이 되고, 이런 배경화면을 더 만드는 원동력이 됩니다!",
+        "ui_support_contribute": "필요한 명령어가 없나요? git 없이 직접 추가하세요:"
       }
     }
   }

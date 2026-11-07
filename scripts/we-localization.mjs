@@ -82,6 +82,21 @@ const T = {
   ui_reduced_motion: ['Reduzir movimento', 'Reduce motion', 'Reducir movimiento', 'Réduire les animations', 'Bewegung reduzieren', 'Riduci movimento', 'Уменьшить анимацию', '减少动态效果', '動きを減らす', '움직임 줄이기'],
   ui_keyboard_shortcuts: ['Atalhos de teclado', 'Keyboard shortcuts', 'Atajos de teclado', 'Raccourcis clavier', 'Tastenkürzel', 'Scorciatoie da tastiera', 'Сочетания клавиш', '键盘快捷键', 'キーボードショートカット', '키보드 단축키'],
   ui_syntax_highlight: ['Realce de sintaxe (cores nos comandos)', 'Syntax highlighting (colored commands)', 'Resaltado de sintaxis (comandos en color)', 'Coloration syntaxique (commandes en couleur)', 'Syntaxhervorhebung (farbige Befehle)', 'Evidenziazione sintassi (comandi colorati)', 'Подсветка синтаксиса (цветные команды)', '语法高亮（彩色命令）', 'シンタックスハイライト（コマンドを色付け）', '구문 강조(명령어 색상)'],
+  // ---- bloco "apoie o autor" (fim do painel) — texto puro; links/imagem ficam em SUPPORT_PROPS
+  ui_support_title: ['☕ Apoie o autor ♥', '☕ Support the author ♥', '☕ Apoya al autor ♥', "☕ Soutenir l'auteur ♥", '☕ Unterstütze den Autor ♥', "☕ Sostieni l'autore ♥", '☕ Поддержать автора ♥', '☕ 支持作者 ♥', '☕ 作者を応援 ♥', '☕ 제작자 후원하기 ♥'],
+  ui_support_message: [
+    'Sou brasileiro e moro no interior da Bahia. Como o real vale bem menos que o dólar (US$ 1 ≈ R$ 5), qualquer ajuda é muito bem-vinda e me fortalece a produzir mais wallpapers incríveis como este!',
+    "I'm a Brazilian developer living in the countryside of Bahia. The real is worth far less than the dollar (US$ 1 ≈ R$ 5), so any help is truly welcome and keeps more amazing wallpapers like this one coming!",
+    'Soy un desarrollador brasileño del interior de Bahía. El real vale mucho menos que el dólar (US$ 1 ≈ R$ 5), así que cualquier ayuda es bienvenida y me impulsa a crear más wallpapers increíbles como este.',
+    "Je suis un développeur brésilien qui vit dans l'intérieur de Bahia. Le real vaut bien moins que le dollar (US$ 1 ≈ R$ 5) : toute aide est la bienvenue et m'encourage à créer d'autres fonds d'écran comme celui-ci !",
+    'Ich bin ein brasilianischer Entwickler aus dem Hinterland von Bahia. Der Real ist viel weniger wert als der Dollar (US$ 1 ≈ R$ 5) – jede Hilfe ist willkommen und motiviert mich zu weiteren Wallpapern wie diesem!',
+    "Sono uno sviluppatore brasiliano che vive nell'entroterra di Bahia. Il real vale molto meno del dollaro (US$ 1 ≈ R$ 5): ogni aiuto è benvenuto e mi spinge a creare altri wallpaper come questo!",
+    'Я разработчик из глубинки штата Баия, Бразилия. Реал стоит намного меньше доллара (US$ 1 ≈ R$ 5), поэтому любая помощь очень ценна и помогает делать новые обои вроде этих!',
+    '我是住在巴西巴伊亚州内陆的开发者。雷亚尔远不如美元值钱（US$ 1 ≈ R$ 5），所以任何支持都意义重大，能让我做出更多这样的壁纸！',
+    'ブラジル・バイーア州の田舎に住む開発者です。レアルはドルよりずっと安く（US$ 1 ≈ R$ 5）、どんな支援も大きな力になり、こんな壁紙をもっと作る励みになります！',
+    '브라질 바이아주 시골에 사는 개발자입니다. 헤알은 달러보다 가치가 훨씬 낮아서(US$ 1 ≈ R$ 5) 작은 후원도 큰 힘이 되고, 이런 배경화면을 더 만드는 원동력이 됩니다!',
+  ],
+  ui_support_contribute: ['Falta algum comando? Adicione você mesmo, sem git:', 'Missing a command? Add it yourself, no git needed:', '¿Falta algún comando? Añádelo tú mismo, sin git:', 'Il manque une commande ? Ajoutez-la vous-même, sans git :', 'Fehlt ein Befehl? Füg ihn selbst hinzu – ohne Git:', 'Manca un comando? Aggiungilo tu, senza git:', 'Не хватает команды? Добавьте сами, без git:', '缺少命令？无需 git，自己添加：', '足りないコマンドは？ git なしで自分で追加できます：', '필요한 명령어가 없나요? git 없이 직접 추가하세요:'],
 };
 
 /** propriedade -> chave do `text`. */
@@ -130,6 +145,31 @@ const OPTION_LABELS = {
   density: { compact: 'ui_density_compact', normal: 'ui_density_normal', relaxed: 'ui_density_relaxed' },
 };
 
+
+/**
+ * Bloco "apoie o autor" no fim do painel de propriedades. O WE renderiza HTML no
+ * `text` de propriedades `type: "text"` (links abrem no navegador; imagens por URL).
+ * Links e imagem ficam fora da tradução (marcas + URLs); título e mensagem usam ui_*.
+ * A imagem é servida do próprio repositório (docs/support/support-card.png).
+ * Orders 1000+ garantem que o bloco fique sempre no fim do painel (ver renumeração abaixo).
+ */
+const KOFI = 'https://ko-fi.com/gataodemane';
+const BMC = 'https://buymeacoffee.com/gataodemane';
+const REPO = 'https://github.com/GuguPx/Dev-sheets-Wallpaper';
+const EDITOR = 'https://gugupx.github.io/Dev-sheets-Wallpaper/editor/';
+const CARD = 'https://raw.githubusercontent.com/GuguPx/Dev-sheets-Wallpaper/main/docs/support/support-card.png';
+const SUPPORT_PROPS = {
+  supportRule: { order: 10000, text: '<hr>' },
+  supportTitle: { order: 10001, text: 'ui_support_title' },
+  supportMessage: { order: 10002, text: 'ui_support_message' },
+  supportCard: { order: 10003, text: `<center><a href='${KOFI}'><img src='${CARD}'></a></center>` },
+  supportKofi: { order: 10004, text: `<a href='${KOFI}'>☕ Ko-fi — ko-fi.com/gataodemane</a>` },
+  supportBmc: { order: 10005, text: `<a href='${BMC}'>🍵 Buy Me a Coffee — buymeacoffee.com/gataodemane</a>` },
+  supportContribute: { order: 10006, text: 'ui_support_contribute' },
+  supportEditor: { order: 10007, text: `<a href='${EDITOR}'>✍️ devsheet editor ↗</a>` },
+  supportRepo: { order: 10008, text: `<a href='${REPO}'>⭐ GitHub · Dev-sheets-Wallpaper ↗</a>` },
+};
+
 // ---------------------------------------------------------------------------
 
 for (const [key, row] of Object.entries(T)) {
@@ -138,6 +178,10 @@ for (const [key, row] of Object.entries(T)) {
 
 const project = JSON.parse(readFileSync(projectPath, 'utf8'));
 const props = project.general.properties;
+
+for (const [key, prop] of Object.entries(SUPPORT_PROPS)) {
+  props[key] = { order: prop.order, text: prop.text, type: 'text' };
+}
 
 for (const [prop, key] of Object.entries(PROPERTY_TEXT)) {
   if (!props[prop]) throw new Error(`propriedade inexistente no project.json: ${prop}`);
@@ -159,7 +203,21 @@ LOCALES.forEach((loc, i) => {
   localization[loc] = Object.fromEntries(Object.entries(T).map(([k, row]) => [k, row[i]]));
 });
 
+// Ordem do painel: o WE só respeita a ordem de forma confiável quando as chaves já
+// estão na ordem de exibição e cada propriedade tem `index` 0..N e `order` = 100 + index
+// (convenção do próprio editor do WE). Sem isso, os textos de apoio saíam intercalados
+// com as configurações. Ordena pelo `order` atual (o bloco de apoio, 100+, fica no fim)
+// e renumera — idempotente.
+const ordered = Object.entries(props).sort(
+  ([, a], [, b]) => (a.order ?? 0) - (b.order ?? 0) || (a.index ?? 0) - (b.index ?? 0),
+);
+const sortedProps = {};
+ordered.forEach(([key, prop], index) => {
+  const { order: _o, index: _i, ...rest } = prop;
+  sortedProps[key] = { index, order: 100 + index, ...rest };
+});
+
 // `localization` fica ao lado de `properties`, como na documentação do WE.
-project.general = { properties: props, localization };
+project.general = { properties: sortedProps, localization };
 writeFileSync(projectPath, JSON.stringify(project, null, 2) + '\n');
 console.log(`✓ project.json: ${Object.keys(T).length} rótulos × ${LOCALES.length} idiomas`);
