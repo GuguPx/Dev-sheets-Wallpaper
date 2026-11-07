@@ -4,6 +4,16 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ## [Não lançado]
 
+## [1.1.0] — 2026-11-07
+
+### Adicionado — distribuição fora da Workshop
+
+- `npm run package` gera `release/devsheet-wallpaper-v<versão>.zip` (pasta `devsheet/` com
+  `index.html`, `project.json`, `preview.jpg` e guia de instalação PT/EN) e as notas do
+  Release a partir deste CHANGELOG. Zip feito com zlib, sem dependências.
+- Workflow `release.yml`: ao enviar uma tag `v*` igual à versão do `package.json`, valida,
+  testa, empacota e publica o Release no GitHub com o `.zip`.
+
 ### Adicionado — apoio no painel do Wallpaper Engine
 
 - Bloco **"Apoie o autor"** no fim do painel de propriedades: mensagem traduzida (10 idiomas),

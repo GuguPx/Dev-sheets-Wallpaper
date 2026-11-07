@@ -10,7 +10,8 @@ estilo **Neovim**, busca estilo **FZF** e detalhes estilo **man page**.
 
 🌎 **10 idiomas** — Português (Brasil), English, Español, Français, Deutsch, Italiano,
 Русский, 简体中文, 日本語, 한국어 · ☕ [Apoie o projeto](#-apoie-o-projeto--support-the-project) ·
-✍️ [Adicione um comando](https://gugupx.github.io/Dev-sheets-Wallpaper/editor/) (sem git)
+✍️ [Adicione um comando](https://gugupx.github.io/Dev-sheets-Wallpaper/editor/) (sem git) ·
+⬇️ [Baixar](https://github.com/GuguPx/Dev-sheets-Wallpaper/releases/latest)
 
 ```
 ┌─ devsheet ─────────────────────────────────────────────────────────────────┐
@@ -54,6 +55,28 @@ estilo **Neovim**, busca estilo **FZF** e detalhes estilo **man page**.
   </tr>
 </table>
 
+## Baixar e instalar
+
+Para **usar** o wallpaper (sem compilar nada):
+
+1. Baixe o `devsheet-wallpaper-v….zip` na **[página de Releases](https://github.com/GuguPx/Dev-sheets-Wallpaper/releases/latest)** e extraia — sai a
+   pasta `devsheet`. Deixe-a num lugar fixo (ex.: `Documentos\devsheet`).
+2. No Wallpaper Engine: **Abrir Papel de Parede → Abrir papel de parede offline (animado)**
+   (*Open Wallpaper → Open offline wallpaper (animated)*) e escolha o `project.json` da pasta.
+   Ou copie a pasta para `…\wallpaper_engine\projects\myprojects\` e reinicie o WE.
+3. Ajuste idioma, tema e margens no painel de propriedades. O guia completo vai dentro do zip.
+
+**Publicar uma versão nova** (mantenedor): atualize `version` no `package.json` e a seção
+`## [x.y.z]` do CHANGELOG, faça commit e envie a tag — o GitHub Actions monta o `.zip` e
+publica o Release sozinho:
+
+```bash
+git tag v1.1.0
+git push origin v1.1.0
+```
+
+Para gerar o `.zip` localmente: `npm run package` (sai em `release/`).
+
 ## Requisitos
 
 - Node.js **18+**
@@ -74,6 +97,7 @@ Abra a URL no navegador. Tudo funciona **offline**, sem back-end.
 | --- | --- |
 | `npm run dev` | Dev server (Vite) com HMR. |
 | `npm run build` | Typecheck + build **single-file** em `dist/index.html`. |
+| `npm run package` | Build + `.zip` para distribuir fora da Workshop em `release/` (e notas do Release). |
 | `npm run build:wallpaper` | Build + monta o pacote do Wallpaper Engine em `dist/`. |
 | `npm test` | Testes (Vitest). |
 | `npm run typecheck` | Checagem de tipos (sem emitir). |

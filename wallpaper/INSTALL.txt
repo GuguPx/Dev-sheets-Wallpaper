@@ -1,0 +1,69 @@
+devsheet — cheat sheets de dev & DevOps para o Wallpaper Engine
+==================================================================
+(English below)
+
+COMO INSTALAR
+-------------
+Você precisa do Wallpaper Engine (Steam).
+
+Jeito 1 — abrir direto
+  1. Extraia este .zip. Vai aparecer a pasta "devsheet".
+     Deixe-a num lugar fixo (ex.: Documentos\devsheet) — o Wallpaper Engine
+     lê os arquivos dali.
+  2. Abra o Wallpaper Engine e clique em "Abrir Papel de Parede"
+     (canto inferior esquerdo) -> "Abrir papel de parede offline (animado)".
+  3. Escolha o arquivo project.json dentro da pasta "devsheet".
+
+Jeito 2 — deixar na sua biblioteca
+  1. Copie a pasta "devsheet" para:
+     ...\Steam\steamapps\common\wallpaper_engine\projects\myprojects\
+  2. Reinicie o Wallpaper Engine: o devsheet aparece na aba "Instalados".
+
+DEPOIS DE INSTALAR
+  - Ajuste idioma, tema, margens etc. no painel de propriedades à direita.
+    O idioma "Automático" segue o sistema; troque se preferir.
+  - Dentro do wallpaper: digite :help para ver os comandos,
+    :lang <código> para trocar o idioma e :support para apoiar o autor.
+  - Nenhum comando é executado: o devsheet só consulta e copia texto.
+
+ATUALIZAR
+  Baixe o .zip novo e substitua os arquivos da pasta "devsheet".
+
+APOIE O AUTOR ♥
+  Sou o Augusto, desenvolvedor brasileiro do interior da Bahia.
+  Ko-fi:            https://ko-fi.com/gataodemane
+  Buy Me a Coffee:  https://buymeacoffee.com/gataodemane
+  Código e novidades: https://github.com/GuguPx/Dev-sheets-Wallpaper
+  Adicione comandos (sem git): https://gugupx.github.io/Dev-sheets-Wallpaper/editor/
+
+
+HOW TO INSTALL
+--------------
+You need Wallpaper Engine (Steam).
+
+Option 1 — open it directly
+  1. Extract this .zip. You get a "devsheet" folder. Keep it somewhere
+     permanent (e.g. Documents\devsheet) — Wallpaper Engine reads it from there.
+  2. Open Wallpaper Engine and click "Open Wallpaper" (bottom left)
+     -> "Open offline wallpaper (animated)".
+  3. Pick the project.json file inside the "devsheet" folder.
+
+Option 2 — keep it in your library
+  1. Copy the "devsheet" folder to:
+     ...\Steam\steamapps\common\wallpaper_engine\projects\myprojects\
+  2. Restart Wallpaper Engine: devsheet shows up under "Installed".
+
+AFTER INSTALLING
+  - Set language, theme, margins etc. in the properties panel on the right.
+    "Automatic" language follows your system; change it if you like.
+  - Inside the wallpaper: type :help for commands, :lang <code> to switch
+    language and :support to support the author.
+  - No command is ever executed: devsheet only looks up and copies text.
+
+UPDATING
+  Download the new .zip and replace the files in the "devsheet" folder.
+
+SUPPORT THE AUTHOR ♥
+  Ko-fi:            https://ko-fi.com/gataodemane
+  Buy Me a Coffee:  https://buymeacoffee.com/gataodemane
+  Source & news:    https://github.com/GuguPx/Dev-sheets-Wallpaper

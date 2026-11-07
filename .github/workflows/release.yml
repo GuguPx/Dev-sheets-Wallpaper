@@ -1,0 +1,54 @@
+name: Release
+
+# Publica um Release no GitHub com o .zip do wallpaper sempre que uma tag de
+# versão é enviada:
+#
+#   git tag v1.1.0 && git push origin v1.1.0
+#
+# A tag precisa bater com "version" do package.json e o CHANGELOG precisa ter a
+# seção "## [1.1.0]" (vira a descrição do Release).
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Tag confere com a versão do package.json
+        run: |
+          expected="v$(node -p "require('./package.json').version")"
+          if [ "$GITHUB_REF_NAME" != "$expected" ]; then
+            echo "::error::A tag $GITHUB_REF_NAME não bate com package.json ($expected)"
+            exit 1
+          fi
+
+      - name: Validação e testes
+        run: |
+          npm run validate:content
+          npm run validate:i18n
+          npm test
+
+      - name: Build + pacote .zip
+        run: npm run package
+
+      - name: Publicar Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" release/*.zip \
+            --title "devsheet $GITHUB_REF_NAME" \
+            --notes-file release/NOTES.md

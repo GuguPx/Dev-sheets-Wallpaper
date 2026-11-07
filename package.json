@@ -1,6 +1,6 @@
 {
   "name": "devsheet-wallpaper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "devsheet — terminal de consulta de cheat sheets de desenvolvimento e DevOps para o Wallpaper Engine. Consulta/busca/cópia offline. Não executa comandos.",
   "type": "module",
   "private": true,
@@ -26,7 +26,8 @@
     "new:sheet": "tsx scripts/new-content.ts sheet",
     "editor": "vite docs --port 5175 --open /editor/",
     "gen:index": "tsx scripts/generate-search-index.ts",
-    "build:wallpaper": "npm run build && node scripts/copy-to-wallpaper.mjs"
+    "build:wallpaper": "npm run build && node scripts/copy-to-wallpaper.mjs",
+    "package": "npm run build && node scripts/package-zip.mjs"
   },
   "dependencies": {
     "zod": "^3.23.8"
