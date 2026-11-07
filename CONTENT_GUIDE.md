@@ -6,10 +6,24 @@ código muda. Tudo é validado por Zod; conteúdo inválido não entra em silên
 
 ## Passo a passo
 
-1. Crie `wallpaper/src/data/technologies/<id>.json` (id em kebab-case: `github-actions`).
-2. Preencha os campos abaixo.
-3. Rode `npm run validate:content` — corrija o que for apontado.
-4. `npm run dev` e a nova aba aparece.
+> **Atalho:** o [editor web](https://gugupx.github.io/Dev-sheets-Wallpaper/editor/) e o assistente `npm run new` geram os arquivos abaixo
+> prontos e validados. Este guia é para quem quer entender ou editar à mão.
+
+**Comando novo numa sheet que já existe** — crie um arquivo por comando:
+
+1. `wallpaper/src/data/entries/<tech>/<id>.json` — `<tech>` é o id da sheet (`git`,
+   `docker`…) e o nome do arquivo é o `id` do comando.
+2. O conteúdo é **um objeto de comando** (os mesmos campos de um item de `entries`, abaixo).
+   Categoria nova é aceita e vai para o fim da lista da sheet.
+
+**Tecnologia nova (sheet):**
+
+1. Crie `wallpaper/src/data/technologies/<id>.json` (id em kebab-case: `github-actions`)
+   com pelo menos um comando em `entries`.
+2. Os próximos comandos podem ir em `entries/<id>/` (acima).
+
+Depois, nos dois casos: `npm run validate:content` (corrija o que for apontado) e
+`npm run dev` — o comando/aba aparece.
 
 ## Formato
 

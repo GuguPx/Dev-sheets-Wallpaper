@@ -92,3 +92,4 @@ Sem `eval`, sem shell — apenas a whitelist abaixo. Aceita aliases.
 | `about` | — | Sobre o devsheet |
 | `lang <código>` | `language`, `idioma`, `locale` | Troca o idioma: `lang en`, `lang ja`, `lang auto`. Sem argumento lista os códigos (`pt-BR en es fr de it ru zh-CN ja ko`) |
 | `support` | `donate`, `coffee`, `sponsor`, `apoiar`, `apoio` | Mensagem do autor e links de apoio (clique copia o link) |
+| `contribute` | `contrib`, `contribuir`, `add-sheet` | Como adicionar comandos/sheets: link do editor web e do repositório (clique copia) |

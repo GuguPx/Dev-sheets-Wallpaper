@@ -27,6 +27,7 @@ export type ParsedCommand =
   /** `name` vazio = listar idiomas disponíveis. */
   | { kind: 'lang'; name: string }
   | { kind: 'support' }
+  | { kind: 'contribute' }
   | { kind: 'unknown'; input: string };
 
 /** Nome canônico -> aliases aceitos. */
@@ -45,6 +46,7 @@ export const COMMANDS: Record<string, string[]> = {
   about: ['about'],
   lang: ['lang', 'language', 'idioma', 'locale'],
   support: ['support', 'donate', 'sponsor', 'coffee', 'apoiar', 'apoio'],
+  contribute: ['contribute', 'contrib', 'contribuir', 'add-sheet'],
 };
 
 /** Aliases de lado aceitos por `margin` (PT e EN). */
@@ -125,6 +127,8 @@ export function parseCommand(line: string): ParsedCommand {
       return { kind: 'lang', name: rest };
     case 'support':
       return { kind: 'support' };
+    case 'contribute':
+      return { kind: 'contribute' };
     default:
       return { kind: 'unknown', input: trimmed };
   }

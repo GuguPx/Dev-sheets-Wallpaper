@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: ✍️ Adicionar um comando ou uma sheet (editor web, sem git)
+    url: https://gugupx.github.io/Dev-sheets-Wallpaper/editor/
+    about: Preencha um formulário e o GitHub abre o Pull Request para você.
   - name: Dúvida ou ideia para conversar
-    url: https://github.com/AugustoCASAC/devsheet-wallpaper/discussions
+    url: https://github.com/GuguPx/Dev-sheets-Wallpaper/discussions
     about: Para perguntas abertas e ideias antes de virar uma issue, use as Discussions.

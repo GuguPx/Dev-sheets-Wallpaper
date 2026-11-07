@@ -136,6 +136,14 @@ export const messages: Messages = {
   'support.copied': '[ 链接已复制 ] {url}',
   'support.noLinks': '（尚未配置支持链接）',
 
+  'info.contribute': '参与贡献',
+  'contribute.intro': '缺少某个命令或技术？任何人都可以添加——无需了解 git。',
+  'contribute.how': '打开编辑器，填写表单并通过 GitHub 提交：你的建议经审核后会出现在后续版本中。',
+  'contribute.links': '链接（点击复制）：',
+  'contribute.editor': '编辑器',
+  'contribute.repo': '源码',
+  'help.contribute': '贡献命令（:contribute）',
+
   'help.title': '快捷键',
   'help.navigation': '导航',
   'help.tabs': '标签页（技术）',

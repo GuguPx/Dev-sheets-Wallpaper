@@ -5,9 +5,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        Valeu por melhorar o conteúdo! Se você já sabe editar o JSON, um **Pull Request**
-        costuma ser mais rápido — veja o
-        [CONTENT_GUIDE](https://github.com/AugustoCASAC/devsheet-wallpaper/blob/main/CONTENT_GUIDE.md).
+        Valeu por melhorar o conteúdo! 💡 **Quer adicionar um comando ou uma sheet?** O
+        [editor web](https://gugupx.github.io/Dev-sheets-Wallpaper/editor/) gera o arquivo pronto e abre o Pull Request para você — sem
+        git e sem JSON. Esta issue serve para correções e sugestões que você não quer
+        escrever. Formato completo no
+        [CONTENT_GUIDE](https://github.com/GuguPx/Dev-sheets-Wallpaper/blob/main/CONTENT_GUIDE.md).
   - type: dropdown
     id: kind
     attributes:

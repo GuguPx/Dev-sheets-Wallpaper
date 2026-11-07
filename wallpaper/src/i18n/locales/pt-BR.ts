@@ -155,6 +155,16 @@ export const ptBR = {
   'support.copied': '[ link copiado ] {url}',
   'support.noLinks': '(links de apoio ainda não configurados)',
 
+  'info.contribute': 'CONTRIBUTE',
+  'contribute.intro':
+    'Sentiu falta de um comando ou de uma tecnologia? Qualquer pessoa pode adicionar — sem precisar saber git.',
+  'contribute.how':
+    'Abra o editor, preencha o formulário e envie pelo GitHub: a sugestão passa por revisão e entra numa próxima versão.',
+  'contribute.links': 'Links (clique para copiar):',
+  'contribute.editor': 'editor',
+  'contribute.repo': 'código',
+  'help.contribute': 'Contribuir com comandos (:contribute)',
+
   // ------------------------------ ajuda ------------------------------------
   'help.title': 'KEYBINDINGS',
   'help.navigation': 'NAVIGATION',

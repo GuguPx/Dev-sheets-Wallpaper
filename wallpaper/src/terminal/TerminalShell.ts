@@ -42,6 +42,7 @@ import { NotesPane } from '@/panes/NotesPane';
 import { showInfo, type InfoLine } from '@/panes/InfoOverlay';
 import { t, LANGUAGES, languageName, resolveLocale } from '@/i18n';
 import { activeSupportLinks } from '@/config/support';
+import { EDITOR_URL, REPO_URL } from '@/config/links';
 import { copyToClipboard } from '@/services/ClipboardService';
 
 /**
@@ -367,6 +368,11 @@ export class TerminalShell {
         modes.toNormal();
         this.showSupport();
         break;
+      case 'contribute':
+        appStore.setState({ commandLine: '' });
+        modes.toNormal();
+        this.showContribute();
+        break;
       case 'unknown':
         bus.emit('toast', {
           message: t('toast.unknownCommand', { input: p.input }),
@@ -421,6 +427,41 @@ export class TerminalShell {
       t('about.builtWith'),
       '',
       { text: t('about.supportHint'), cls: 'info-support', onClick: () => this.showSupport() },
+      {
+        text: `+ ${t('help.contribute')}`,
+        cls: 'info-support',
+        onClick: () => this.showContribute(),
+      },
+    ]);
+  }
+
+  /** Linha clicável que copia `value` (links não abrem dentro do Wallpaper Engine). */
+  private copyLine(label: string, value: string): InfoLine {
+    return {
+      text: `  › ${label.padEnd(10)} ${value}`,
+      cls: 'info-support-link',
+      title: value,
+      onClick: () => {
+        void copyToClipboard(value).then((ok) => {
+          bus.emit('toast', {
+            message: ok ? t('support.copied', { url: value }) : t('toast.copyFailed'),
+            kind: ok ? 'success' : 'danger',
+          });
+        });
+      },
+    };
+  }
+
+  /** `:contribute` — como qualquer pessoa adiciona comandos/sheets. */
+  private showContribute(): void {
+    showInfo(t('info.contribute'), [
+      t('contribute.intro'),
+      '',
+      t('contribute.how'),
+      '',
+      t('contribute.links'),
+      this.copyLine(t('contribute.editor'), EDITOR_URL),
+      this.copyLine(t('contribute.repo'), REPO_URL),
     ]);
   }
 

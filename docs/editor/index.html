@@ -1,0 +1,1319 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>devsheet · editor de sheets</title>
+    <meta
+      name="description"
+      content="Adicione comandos e cheat sheets ao devsheet sem editar JSON e sem precisar de git."
+    />
+    <style>
+      :root {
+        --bg: #0e1116;
+        --panel: #151a21;
+        --panel-2: #1b222b;
+        --border: #2a323d;
+        --fg: #d5d7da;
+        --dim: #8b949e;
+        --accent: #e5b567;
+        --accent-fg: #1a1408;
+        --ok: #7ec27e;
+        --warn: #e5c07b;
+        --err: #f07178;
+        --code: #9cdcfe;
+        --radius: 6px;
+        --font: ui-monospace, 'Cascadia Code', 'JetBrains Mono', Consolas, 'Liberation Mono', monospace;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font: 14px/1.5 var(--font);
+      }
+      a {
+        color: var(--accent);
+      }
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--border);
+        background: var(--panel);
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+      header h1 {
+        font-size: 15px;
+        margin: 0;
+        font-weight: 600;
+      }
+      header h1 .p {
+        color: var(--accent);
+      }
+      header .sub {
+        color: var(--dim);
+        font-size: 12px;
+      }
+      header .spacer {
+        flex: 1;
+      }
+      .seg {
+        display: inline-flex;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+      }
+      .seg button {
+        font: inherit;
+        background: none;
+        color: var(--dim);
+        border: 0;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      .seg button[aria-pressed='true'] {
+        background: var(--accent);
+        color: var(--accent-fg);
+        font-weight: 600;
+      }
+      main {
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+        gap: 16px;
+        padding: 16px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      @media (max-width: 960px) {
+        main {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+      section {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 14px 16px;
+        margin-bottom: 16px;
+      }
+      section h2 {
+        margin: 0 0 10px;
+        font-size: 13px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .intro {
+        color: var(--dim);
+      }
+      .intro b {
+        color: var(--fg);
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 14px;
+      }
+      @media (max-width: 560px) {
+        .grid2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      label.f {
+        display: block;
+        margin: 0 0 10px;
+      }
+      label.f > span {
+        display: block;
+        font-size: 12px;
+        color: var(--dim);
+        margin-bottom: 3px;
+      }
+      label.f > span b {
+        color: var(--fg);
+        font-weight: 600;
+      }
+      input[type='text'],
+      input[type='url'],
+      select,
+      textarea {
+        width: 100%;
+        font: inherit;
+        color: var(--fg);
+        background: var(--panel-2);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 6px 8px;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 64px;
+      }
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid var(--accent);
+        border-color: var(--accent);
+      }
+      input.code {
+        color: var(--code);
+      }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        padding: 4px 0 2px;
+      }
+      .chips label {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+      }
+      .rows .row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto;
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+      .rows .row.single {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+      @media (max-width: 560px) {
+        .rows .row {
+          grid-template-columns: minmax(0, 1fr) auto;
+        }
+        .rows .row > :nth-child(2) {
+          grid-column: 1 / 2;
+        }
+      }
+      button.btn {
+        font: inherit;
+        cursor: pointer;
+        border-radius: 4px;
+        border: 1px solid var(--border);
+        background: var(--panel-2);
+        color: var(--fg);
+        padding: 6px 12px;
+      }
+      button.btn:hover {
+        border-color: var(--accent);
+      }
+      button.btn.primary {
+        background: var(--accent);
+        color: var(--accent-fg);
+        border-color: var(--accent);
+        font-weight: 700;
+      }
+      button.btn:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+      button.x {
+        font: inherit;
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--dim);
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 0 9px;
+      }
+      button.add {
+        font: inherit;
+        background: none;
+        border: 1px dashed var(--border);
+        color: var(--dim);
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 4px 10px;
+      }
+      .hint {
+        color: var(--dim);
+        font-size: 12px;
+        margin: -4px 0 10px;
+      }
+      .badge {
+        display: inline-block;
+        font-size: 11px;
+        padding: 0 6px;
+        border-radius: 3px;
+        border: 1px solid currentColor;
+        margin-left: 6px;
+      }
+      .r-seguro {
+        color: var(--ok);
+      }
+      .r-atencao {
+        color: var(--warn);
+      }
+      .r-perigoso {
+        color: var(--err);
+      }
+      .side {
+        position: sticky;
+        top: 70px;
+        align-self: start;
+      }
+      @media (max-width: 960px) {
+        .side {
+          position: static;
+        }
+      }
+      .path {
+        word-break: break-all;
+        color: var(--code);
+      }
+      pre.json {
+        margin: 0;
+        max-height: 46vh;
+        overflow: auto;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 12px;
+        white-space: pre;
+      }
+      ul.issues {
+        list-style: none;
+        margin: 0 0 12px;
+        padding: 0;
+      }
+      ul.issues li {
+        padding: 2px 0;
+      }
+      ul.issues li.err {
+        color: var(--err);
+      }
+      ul.issues li.ok {
+        color: var(--ok);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0 8px;
+      }
+      .note {
+        color: var(--dim);
+        font-size: 12px;
+      }
+      .note ol {
+        margin: 6px 0 0;
+        padding-left: 18px;
+      }
+      .status {
+        font-size: 12px;
+        color: var(--dim);
+      }
+      .status.err {
+        color: var(--warn);
+      }
+      .toast {
+        position: fixed;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--panel-2);
+        border: 1px solid var(--accent);
+        padding: 8px 14px;
+        border-radius: var(--radius);
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+        max-width: calc(100vw - 32px);
+      }
+      .toast.show {
+        opacity: 1;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1><span class="p">$</span> devsheet <span data-t="appTitle">· editor de sheets</span></h1>
+      <span class="sub" data-t="appSub">sem JSON, sem git — só preencher</span>
+      <span class="spacer"></span>
+      <div class="seg" role="group" aria-label="mode">
+        <button type="button" data-mode="cmd" aria-pressed="true" data-t="modeCmd">+ comando</button>
+        <button type="button" data-mode="sheet" aria-pressed="false" data-t="modeSheet">
+          + nova sheet
+        </button>
+      </div>
+      <div class="seg" role="group" aria-label="language">
+        <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <section>
+          <p class="intro" data-t-html="intro"></p>
+        </section>
+
+        <!-- ------------------------------ tecnologia existente -->
+        <section id="sec-tech">
+          <h2 data-t="secTech">Tecnologia</h2>
+          <label class="f">
+            <span data-t="fTech">Em qual sheet o comando entra?</span>
+            <select id="tech"></select>
+          </label>
+          <div class="status" id="tech-status"></div>
+        </section>
+
+        <!-- ------------------------------ sheet nova -->
+        <section id="sec-sheet" hidden>
+          <h2 data-t="secSheet">Nova tecnologia (sheet)</h2>
+          <div class="grid2">
+            <label class="f"><span data-t="fName">Nome</span><input type="text" id="s-name" placeholder="Kubernetes" /></label>
+            <label class="f"><span data-t="fSheetId">Id (arquivo/aba)</span><input type="text" id="s-id" class="code" placeholder="kubernetes" /></label>
+            <label class="f"><span data-t="fShort">Nome curto (máx. 24)</span><input type="text" id="s-short" maxlength="24" /></label>
+            <label class="f"><span data-t="fPrompt">Prompt da aba (máx. 24)</span><input type="text" id="s-prompt" class="code" maxlength="24" placeholder="kubectl" /></label>
+            <label class="f"><span data-t="fColor">Cor de destaque</span><input type="text" id="s-color" class="code" value="#61afef" /></label>
+            <label class="f"><span data-t="fVersion">Versão de referência</span><input type="text" id="s-version" value="latest" /></label>
+          </div>
+          <label class="f"><span data-t="fTechDesc">Descrição da tecnologia</span><input type="text" id="s-desc" /></label>
+          <label class="f"><span data-t="fTechDoc">Documentação oficial (URL)</span><input type="url" id="s-doc" placeholder="https://" /></label>
+          <label class="f"><span data-t="fCats">Categorias (separadas por vírgula)</span><input type="text" id="s-cats" placeholder="Pods, Deployments, Logs" /></label>
+          <p class="hint" data-t="sheetHint">A sheet nasce com o comando abaixo. Depois, adicione mais pelo modo “+ comando”.</p>
+        </section>
+
+        <!-- ------------------------------ comando -->
+        <section>
+          <h2 data-t="secCmd">Comando</h2>
+          <p class="hint" data-t="langHint">Escreva em português se puder — inglês também é aceito (a gente traduz).</p>
+          <label class="f"><span data-t-html="fTitle">Título curto</span><input type="text" id="e-title" data-ph="phTitle" /></label>
+          <label class="f"><span data-t-html="fCommand">Comando</span><input type="text" id="e-command" class="code" data-ph="phCommand" /></label>
+          <p class="hint" data-t="commandHint">Use &lt;nome&gt; para as partes que a pessoa troca.</p>
+          <label class="f"><span data-t-html="fDesc">Descrição — o que faz e quando usar</span><textarea id="e-desc" rows="3"></textarea></label>
+
+          <div class="grid2">
+            <label class="f">
+              <span data-t="fCategory">Categoria</span>
+              <select id="e-cat"></select>
+            </label>
+            <label class="f" id="e-newcat-wrap" hidden>
+              <span data-t="fNewCat">Nome da nova categoria</span>
+              <input type="text" id="e-newcat" />
+            </label>
+            <label class="f">
+              <span data-t="fDifficulty">Dificuldade</span>
+              <select id="e-diff">
+                <option value="basico" data-t="dBasic">básico — uso diário (aparece em ★ rec)</option>
+                <option value="intermediario" data-t="dInter">intermediário</option>
+                <option value="avancado" data-t="dAdv">avançado</option>
+              </select>
+            </label>
+            <label class="f">
+              <span><span data-t="fRisk">Risco</span><span id="risk-sug" class="badge"></span></span>
+              <select id="e-risk">
+                <option value="seguro" data-t="rSafe">seguro — só lê/consulta</option>
+                <option value="atencao" data-t="rWarn">atenção — altera, mas dá para desfazer</option>
+                <option value="perigoso" data-t="rDanger">perigoso — apaga/sobrescreve sem volta</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="f">
+            <span data-t="fPlatforms">Plataformas</span>
+            <span class="chips" id="e-plat">
+              <label><input type="checkbox" value="all" checked /> <span data-t="pAll">todas</span></label>
+              <label><input type="checkbox" value="linux" /> linux</label>
+              <label><input type="checkbox" value="macos" /> macos</label>
+              <label><input type="checkbox" value="windows" /> windows</label>
+            </span>
+          </label>
+          <label class="f"><span data-t="fTags">Tags (vírgula) — palavras para a busca</span><input type="text" id="e-tags" /></label>
+        </section>
+
+        <section>
+          <h2 data-t="secExamples">Exemplos</h2>
+          <div class="rows" id="ex-rows"></div>
+          <button type="button" class="add" id="ex-add" data-t="addExample">+ exemplo</button>
+        </section>
+
+        <section>
+          <h2 data-t="secArgs">Opções / flags</h2>
+          <div class="rows" id="arg-rows"></div>
+          <button type="button" class="add" id="arg-add" data-t="addArg">+ opção</button>
+        </section>
+
+        <section>
+          <h2 data-t="secWarn">Avisos</h2>
+          <p class="hint" data-t="warnHint">O que pode dar errado? Importante para comandos de atenção/perigosos.</p>
+          <div class="rows" id="warn-rows"></div>
+          <button type="button" class="add" id="warn-add" data-t="addWarn">+ aviso</button>
+        </section>
+
+        <section>
+          <h2 data-t="secMore">Mais</h2>
+          <label class="f"><span data-t="fRelated">Comandos relacionados (vírgula)</span><input type="text" id="e-related" class="code" /></label>
+          <label class="f"><span data-t="fDoc">Link da documentação oficial (recomendado)</span><input type="url" id="e-doc" placeholder="https://" /></label>
+          <label class="f"><span data-t="fId">Id do comando (vira o nome do arquivo)</span><input type="text" id="e-id" class="code" /></label>
+          <p class="hint" data-t="idHint">Gerado a partir do título — só mude se quiser.</p>
+        </section>
+      </div>
+
+      <!-- ------------------------------ saída -->
+      <aside class="side">
+        <section>
+          <h2 data-t="secSend">Enviar</h2>
+          <ul class="issues" id="issues"></ul>
+          <div class="note"><span data-t="fileLabel">Arquivo:</span> <span class="path" id="out-path"></span></div>
+          <div class="actions">
+            <button type="button" class="btn primary" id="btn-github" data-t="btnGithub">Enviar pelo GitHub ↗</button>
+            <button type="button" class="btn" id="btn-copy" data-t="btnCopy">Copiar JSON</button>
+            <button type="button" class="btn" id="btn-download" data-t="btnDownload">Baixar .json</button>
+          </div>
+          <div class="note" data-t-html="howTo"></div>
+        </section>
+        <section>
+          <h2 data-t="secPreview">Prévia do arquivo</h2>
+          <pre class="json" id="out-json"></pre>
+          <p class="note"><button type="button" class="add" id="btn-reset" data-t="btnReset">limpar formulário</button></p>
+        </section>
+      </aside>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script>
+      'use strict';
+      // ------------------------------------------------------------ config
+      const REPO = { owner: 'GuguPx', name: 'Dev-sheets-Wallpaper', branch: 'main' };
+      const DATA = 'wallpaper/src/data';
+      const API = `https://api.github.com/repos/${REPO.owner}/${REPO.name}/contents`;
+      const DRAFT_KEY = 'devsheet-editor-draft-v1';
+
+      // ------------------------------------------------------------ textos
+      const T = {
+        pt: {
+          appTitle: '· editor de sheets',
+          appSub: 'sem JSON, sem git — só preencher',
+          modeCmd: '+ comando',
+          modeSheet: '+ nova sheet',
+          intro:
+            'Preencha o formulário e clique em <b>Enviar pelo GitHub</b>: o GitHub abre o arquivo pronto e cria o <i>Pull Request</i> para você (precisa de uma conta GitHub, grátis). Nenhum comando é executado — o devsheet só consulta.',
+          secTech: 'Tecnologia',
+          fTech: 'Em qual sheet o comando entra?',
+          secSheet: 'Nova tecnologia (sheet)',
+          fName: 'Nome',
+          fSheetId: 'Id (arquivo/aba)',
+          fShort: 'Nome curto (máx. 24)',
+          fPrompt: 'Prompt da aba (máx. 24)',
+          fColor: 'Cor de destaque (#hex)',
+          fVersion: 'Versão de referência',
+          fTechDesc: 'Descrição da tecnologia',
+          fTechDoc: 'Documentação oficial (URL)',
+          fCats: 'Categorias (separadas por vírgula)',
+          sheetHint: 'A sheet nasce com o comando abaixo. Depois, adicione mais pelo modo “+ comando”.',
+          secCmd: 'Comando',
+          langHint: 'Escreva em português se puder — inglês também é aceito (a gente traduz).',
+          fTitle: '<b>Título curto</b>',
+          phTitle: 'Listar branches remotas',
+          fCommand: '<b>Comando</b>',
+          phCommand: 'git branch -r',
+          commandHint: 'Use <nome> para as partes que a pessoa troca.',
+          fDesc: '<b>Descrição</b> — o que faz e quando usar',
+          fCategory: 'Categoria',
+          newCatOpt: '+ nova categoria…',
+          fNewCat: 'Nome da nova categoria',
+          fDifficulty: 'Dificuldade',
+          dBasic: 'básico — uso diário (aparece em ★ rec)',
+          dInter: 'intermediário',
+          dAdv: 'avançado',
+          fRisk: 'Risco',
+          suggested: 'sugerido: {r}',
+          rSafe: 'seguro — só lê/consulta',
+          rWarn: 'atenção — altera, mas dá para desfazer',
+          rDanger: 'perigoso — apaga/sobrescreve sem volta',
+          fPlatforms: 'Plataformas',
+          pAll: 'todas',
+          fTags: 'Tags (vírgula) — palavras para a busca',
+          secExamples: 'Exemplos',
+          addExample: '+ exemplo',
+          exCode: 'código do exemplo',
+          exExp: 'o que acontece',
+          secArgs: 'Opções / flags',
+          addArg: '+ opção',
+          argFlag: '--flag',
+          argDesc: 'o que faz',
+          secWarn: 'Avisos',
+          warnHint: 'O que pode dar errado? Importante para comandos de atenção/perigosos.',
+          addWarn: '+ aviso',
+          warnPh: 'ex.: apaga os dados sem confirmação',
+          secMore: 'Mais',
+          fRelated: 'Comandos relacionados (vírgula)',
+          fDoc: 'Link da documentação oficial (recomendado)',
+          fId: 'Id do comando (vira o nome do arquivo)',
+          idHint: 'Gerado a partir do título — só mude se quiser.',
+          secSend: 'Enviar',
+          fileLabel: 'Arquivo:',
+          btnGithub: 'Enviar pelo GitHub ↗',
+          btnCopy: 'Copiar JSON',
+          btnDownload: 'Baixar .json',
+          btnReset: 'limpar formulário',
+          secPreview: 'Prévia do arquivo',
+          howTo:
+            'Como funciona:<ol><li>Clique em <b>Enviar pelo GitHub</b> (o JSON também vai para a sua área de transferência).</li><li>No GitHub, se o editor abrir vazio, cole com <b>Ctrl+V</b>.</li><li>Clique em <b>Commit changes… → Propose changes</b> e depois em <b>Create pull request</b>.</li></ol>A gente revisa, traduz para os outros 9 idiomas e publica no wallpaper. Obrigado! ♥',
+          loading: 'carregando tecnologias do GitHub…',
+          loadFail:
+            'Não deu para ler as tecnologias do GitHub (sem internet ou limite da API). Digite o id da tecnologia.',
+          techManual: 'id da tecnologia (ex.: git)',
+          techInfo: '{n} comandos · {c} categorias',
+          okAll: '✓ pronto para enviar',
+          copied: 'JSON copiado ✓',
+          copyFail: 'não deu para copiar — selecione a prévia e copie',
+          tooLong: 'arquivo grande demais para o link — o JSON foi copiado: cole no editor do GitHub',
+          confirmReset: 'Limpar todo o formulário?',
+          e: {
+            title: 'Título é obrigatório',
+            command: 'Comando é obrigatório',
+            desc: 'Descrição precisa de pelo menos 10 caracteres',
+            category: 'Escolha ou crie uma categoria',
+            platforms: 'Marque pelo menos uma plataforma',
+            id: 'Id deve usar só a-z, 0-9 e hífen',
+            idTaken: 'Já existe um comando com esse id nessa tecnologia',
+            doc: 'Link da documentação inválido (use https://)',
+            exHalf: 'Exemplo {n}: preencha código e explicação',
+            argHalf: 'Opção {n}: preencha flag e descrição',
+            tech: 'Escolha a tecnologia',
+            sName: 'Nome da tecnologia é obrigatório',
+            sId: 'Id da tecnologia deve usar só a-z, 0-9 e hífen',
+            sIdTaken: 'Essa tecnologia já existe — use o modo “+ comando”',
+            sShort: 'Nome curto: 1 a 24 caracteres',
+            sPrompt: 'Prompt: até 24 caracteres',
+            sColor: 'Cor deve ser hex (#rrggbb)',
+            sDesc: 'Descrição da tecnologia é obrigatória',
+            sDoc: 'Documentação oficial: URL obrigatória (https://)',
+            sVersion: 'Versão é obrigatória',
+            sCats: 'Informe pelo menos uma categoria',
+          },
+        },
+        en: {
+          appTitle: '· sheet editor',
+          appSub: 'no JSON, no git — just fill it in',
+          modeCmd: '+ command',
+          modeSheet: '+ new sheet',
+          intro:
+            'Fill in the form and click <b>Send via GitHub</b>: GitHub opens the ready-made file and creates the <i>Pull Request</i> for you (you need a free GitHub account). No command is ever executed — devsheet only looks things up.',
+          secTech: 'Technology',
+          fTech: 'Which sheet does the command go into?',
+          secSheet: 'New technology (sheet)',
+          fName: 'Name',
+          fSheetId: 'Id (file/tab)',
+          fShort: 'Short name (max 24)',
+          fPrompt: 'Tab prompt (max 24)',
+          fColor: 'Accent color (#hex)',
+          fVersion: 'Reference version',
+          fTechDesc: 'Technology description',
+          fTechDoc: 'Official documentation (URL)',
+          fCats: 'Categories (comma-separated)',
+          sheetHint: 'The sheet starts with the command below. Add more later with “+ command”.',
+          secCmd: 'Command',
+          langHint: 'Portuguese is preferred, but English is welcome too (we translate).',
+          fTitle: '<b>Short title</b>',
+          phTitle: 'List remote branches',
+          fCommand: '<b>Command</b>',
+          phCommand: 'git branch -r',
+          commandHint: 'Use <name> for the parts people replace.',
+          fDesc: '<b>Description</b> — what it does and when to use it',
+          fCategory: 'Category',
+          newCatOpt: '+ new category…',
+          fNewCat: 'New category name',
+          fDifficulty: 'Difficulty',
+          dBasic: 'basic — everyday use (shows in ★ rec)',
+          dInter: 'intermediate',
+          dAdv: 'advanced',
+          fRisk: 'Risk',
+          suggested: 'suggested: {r}',
+          rSafe: 'safe — read-only',
+          rWarn: 'warning — changes things, but reversible',
+          rDanger: 'danger — deletes/overwrites for good',
+          fPlatforms: 'Platforms',
+          pAll: 'all',
+          fTags: 'Tags (comma) — words for search',
+          secExamples: 'Examples',
+          addExample: '+ example',
+          exCode: 'example code',
+          exExp: 'what happens',
+          secArgs: 'Options / flags',
+          addArg: '+ option',
+          argFlag: '--flag',
+          argDesc: 'what it does',
+          secWarn: 'Warnings',
+          warnHint: 'What can go wrong? Important for warning/danger commands.',
+          addWarn: '+ warning',
+          warnPh: 'e.g. deletes data without asking',
+          secMore: 'More',
+          fRelated: 'Related commands (comma)',
+          fDoc: 'Official documentation link (recommended)',
+          fId: 'Command id (becomes the file name)',
+          idHint: 'Generated from the title — change only if you want.',
+          secSend: 'Send',
+          fileLabel: 'File:',
+          btnGithub: 'Send via GitHub ↗',
+          btnCopy: 'Copy JSON',
+          btnDownload: 'Download .json',
+          btnReset: 'clear form',
+          secPreview: 'File preview',
+          howTo:
+            'How it works:<ol><li>Click <b>Send via GitHub</b> (the JSON is also copied to your clipboard).</li><li>On GitHub, if the editor opens empty, paste with <b>Ctrl+V</b>.</li><li>Click <b>Commit changes… → Propose changes</b>, then <b>Create pull request</b>.</li></ol>We review it, translate it into the other 9 languages and ship it in the wallpaper. Thank you! ♥',
+          loading: 'loading technologies from GitHub…',
+          loadFail:
+            "Couldn't read the technologies from GitHub (offline or API limit). Type the technology id.",
+          techManual: 'technology id (e.g. git)',
+          techInfo: '{n} commands · {c} categories',
+          okAll: '✓ ready to send',
+          copied: 'JSON copied ✓',
+          copyFail: "couldn't copy — select the preview and copy it",
+          tooLong: 'file too large for the link — the JSON was copied: paste it in the GitHub editor',
+          confirmReset: 'Clear the whole form?',
+          e: {
+            title: 'Title is required',
+            command: 'Command is required',
+            desc: 'Description needs at least 10 characters',
+            category: 'Pick or create a category',
+            platforms: 'Check at least one platform',
+            id: 'Id must use only a-z, 0-9 and hyphen',
+            idTaken: 'A command with this id already exists in this technology',
+            doc: 'Invalid documentation link (use https://)',
+            exHalf: 'Example {n}: fill in code and explanation',
+            argHalf: 'Option {n}: fill in flag and description',
+            tech: 'Pick the technology',
+            sName: 'Technology name is required',
+            sId: 'Technology id must use only a-z, 0-9 and hyphen',
+            sIdTaken: 'This technology already exists — use “+ command”',
+            sShort: 'Short name: 1 to 24 characters',
+            sPrompt: 'Prompt: up to 24 characters',
+            sColor: 'Color must be hex (#rrggbb)',
+            sDesc: 'Technology description is required',
+            sDoc: 'Official documentation: URL required (https://)',
+            sVersion: 'Version is required',
+            sCats: 'Add at least one category',
+          },
+        },
+      };
+
+      // Mesmos padrões de utils/risk.ts (o app ainda recalcula: o maior risco vence).
+      const DANGER = [
+        /\brm\s+-[a-z]*r[a-z]*f|\brm\s+-[a-z]*f[a-z]*r/i,
+        /\brm\s+-rf\b/i,
+        /\bmkfs\b/i,
+        /\bdd\s+if=/i,
+        /:\(\)\s*\{.*\|.*&.*\}/,
+        /\bdocker\s+system\s+prune\s+-a/i,
+        /\bdocker\s+(rm|rmi)\s+-f/i,
+        /\bgit\s+reset\s+--hard/i,
+        /\bgit\s+clean\s+-[a-z]*f/i,
+        /\bgit\s+push\s+.*--force(?!-with-lease)/i,
+        /\bDROP\s+(DATABASE|TABLE|SCHEMA)/i,
+        /\bTRUNCATE\b/i,
+        /\bDELETE\s+FROM\b(?![\s\S]*\bWHERE\b)/i,
+        /\bUPDATE\b(?![\s\S]*\bWHERE\b)[\s\S]*\bSET\b/i,
+        /\bpm2\s+delete\s+all/i,
+        /\bFLUSHALL\b/i,
+        /\bFLUSHDB\b/i,
+        /\bkubectl\s+delete\b/i,
+        /\bchmod\s+-R\s+777/i,
+        /\b>\s*\/dev\/sd[a-z]/i,
+      ];
+      const CAUTION = [
+        /\bgit\s+rebase\b/i,
+        /\bgit\s+push\b/i,
+        /\bgit\s+reset\b/i,
+        /\bdocker\s+(rm|rmi|prune|stop|kill)\b/i,
+        /\bkill\b/i,
+        /\bchmod\b/i,
+        /\bchown\b/i,
+        /\bALTER\s+(TABLE|DATABASE)\b/i,
+        /\bDELETE\s+FROM\b/i,
+        /\bUPDATE\b/i,
+        /\bmv\b/i,
+        /\bsystemctl\s+(stop|restart|disable)\b/i,
+        /\bnpm\s+(uninstall|prune)\b/i,
+      ];
+      const detectRisk = (cmd) =>
+        DANGER.some((p) => p.test(cmd))
+          ? 'perigoso'
+          : CAUTION.some((p) => p.test(cmd))
+            ? 'atencao'
+            : 'seguro';
+
+      // ------------------------------------------------------------ util
+      const $ = (id) => document.getElementById(id);
+      const KEBAB = /^[a-z0-9-]+$/;
+      const slugify = (s) =>
+        s
+          .normalize('NFD')
+          .replace(/\p{Diacritic}/gu, '')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '')
+          .slice(0, 48)
+          .replace(/-+$/g, '');
+      const list = (s) =>
+        s
+          .split(',')
+          .map((x) => x.trim())
+          .filter(Boolean);
+      const isUrl = (v) => {
+        try {
+          const u = new URL(v);
+          return u.protocol === 'https:' || u.protocol === 'http:';
+        } catch {
+          return false;
+        }
+      };
+      const fmt = (s, p) => s.replace(/\{(\w+)\}/g, (m, k) => (k in p ? p[k] : m));
+      const store = {
+        get(k) {
+          try {
+            return localStorage.getItem(k);
+          } catch {
+            return null;
+          }
+        },
+        set(k, v) {
+          try {
+            localStorage.setItem(k, v);
+          } catch {
+            /* sem storage: segue sem rascunho */
+          }
+        },
+        del(k) {
+          try {
+            localStorage.removeItem(k);
+          } catch {
+            /* idem */
+          }
+        },
+      };
+
+      // ------------------------------------------------------------ estado
+      let lang = (navigator.language || 'pt').toLowerCase().startsWith('pt') ? 'pt' : 'en';
+      let mode = 'cmd';
+      /** id -> { name, categories, ids:Set, count } */
+      const techs = new Map();
+      let techListOk = false;
+      let idTouched = false;
+      let current = { json: '', path: '', valid: false };
+      /** Categoria do rascunho, aplicada quando as categorias chegarem do GitHub. */
+      let pendingCat = null;
+
+      const t = (k) => T[lang][k] ?? T.pt[k] ?? k;
+      const te = (k, p) => fmt(T[lang].e[k], p || {});
+
+      function applyLang() {
+        document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+        document.querySelectorAll('[data-t]').forEach((el) => (el.textContent = t(el.dataset.t)));
+        document.querySelectorAll('[data-t-html]').forEach((el) => (el.innerHTML = t(el.dataset.tHtml)));
+        document.querySelectorAll('[data-ph]').forEach((el) => (el.placeholder = t(el.dataset.ph)));
+        document.querySelectorAll('[data-lang]').forEach((b) =>
+          b.setAttribute('aria-pressed', String(b.dataset.lang === lang)),
+        );
+        document.title = `devsheet ${t('appTitle')}`;
+        renderRows();
+        fillCategories();
+        update();
+      }
+
+      // ------------------------------------------------------------ linhas dinâmicas
+      const rows = { ex: [], arg: [], warn: [] };
+
+      function renderRows() {
+        const mk = (kind, container, fields) => {
+          const box = $(container);
+          box.innerHTML = '';
+          rows[kind].forEach((r, i) => {
+            const row = document.createElement('div');
+            row.className = fields.length === 1 ? 'row single' : 'row';
+            fields.forEach(([key, ph, cls]) => {
+              const inp = document.createElement('input');
+              inp.type = 'text';
+              inp.value = r[key] || '';
+              inp.placeholder = ph;
+              if (cls) inp.className = cls;
+              inp.addEventListener('input', () => {
+                r[key] = inp.value;
+                update();
+              });
+              row.appendChild(inp);
+            });
+            const del = document.createElement('button');
+            del.type = 'button';
+            del.className = 'x';
+            del.textContent = '×';
+            del.title = 'remover';
+            del.addEventListener('click', () => {
+              rows[kind].splice(i, 1);
+              renderRows();
+              update();
+            });
+            row.appendChild(del);
+            box.appendChild(row);
+          });
+        };
+        mk('ex', 'ex-rows', [
+          ['code', t('exCode'), 'code'],
+          ['explanation', t('exExp')],
+        ]);
+        mk('arg', 'arg-rows', [
+          ['flag', t('argFlag'), 'code'],
+          ['description', t('argDesc')],
+        ]);
+        mk('warn', 'warn-rows', [['text', t('warnPh')]]);
+      }
+
+      $('ex-add').onclick = () => {
+        rows.ex.push({ code: rows.ex.length ? '' : $('e-command').value, explanation: '' });
+        renderRows();
+        update();
+      };
+      $('arg-add').onclick = () => {
+        rows.arg.push({ flag: '', description: '' });
+        renderRows();
+        update();
+      };
+      $('warn-add').onclick = () => {
+        rows.warn.push({ text: '' });
+        renderRows();
+        update();
+      };
+
+      // ------------------------------------------------------------ tecnologias (GitHub)
+      async function loadTechs() {
+        const status = $('tech-status');
+        status.textContent = t('loading');
+        status.className = 'status';
+        try {
+          const cached = sessionStorage.getItem('devsheet-techs');
+          let files;
+          if (cached) files = JSON.parse(cached);
+          else {
+            const res = await fetch(`${API}/${DATA}/technologies?ref=${REPO.branch}`);
+            if (!res.ok) throw new Error(String(res.status));
+            files = (await res.json())
+              .filter((f) => f.name.endsWith('.json'))
+              .map((f) => ({ id: f.name.replace(/\.json$/, ''), url: f.download_url }));
+            sessionStorage.setItem('devsheet-techs', JSON.stringify(files));
+          }
+          await Promise.all(
+            files.map(async (f) => {
+              const r = await fetch(f.url);
+              const data = await r.json();
+              techs.set(f.id, {
+                name: data.name,
+                categories: [...data.categories],
+                ids: new Set(data.entries.map((e) => e.id)),
+                count: data.entries.length,
+                extraLoaded: false,
+              });
+            }),
+          );
+          techListOk = true;
+          status.textContent = '';
+        } catch (err) {
+          techListOk = false;
+          status.textContent = t('loadFail');
+          status.className = 'status err';
+        }
+        fillTechSelect();
+      }
+
+      /** Comandos avulsos já enviados (entries/<tech>/): ids e categorias novas. */
+      async function loadExtra(id) {
+        const tech = techs.get(id);
+        if (!tech || tech.extraLoaded) return;
+        tech.extraLoaded = true;
+        try {
+          const res = await fetch(`${API}/${DATA}/entries/${id}?ref=${REPO.branch}`);
+          if (!res.ok) return; // 404 = ainda não há comandos avulsos
+          const files = (await res.json()).filter((f) => f.name.endsWith('.json'));
+          await Promise.all(
+            files.map(async (f) => {
+              const e = await (await fetch(f.download_url)).json();
+              tech.ids.add(e.id);
+              tech.count++;
+              if (e.category && !tech.categories.includes(e.category)) tech.categories.push(e.category);
+            }),
+          );
+          fillTechSelect();
+          fillCategories();
+          update();
+        } catch {
+          /* sem rede: segue com o que tem */
+        }
+      }
+
+      function fillTechSelect() {
+        const sel = $('tech');
+        const prev = sel.value || store.get('devsheet-editor-tech') || 'git';
+        sel.innerHTML = '';
+        if (!techListOk) {
+          const wrap = sel.parentElement;
+          if (!$('tech-manual')) {
+            const inp = document.createElement('input');
+            inp.type = 'text';
+            inp.id = 'tech-manual';
+            inp.className = 'code';
+            inp.placeholder = t('techManual');
+            inp.addEventListener('input', () => {
+              fillCategories();
+              update();
+            });
+            wrap.appendChild(inp);
+          }
+          sel.hidden = true;
+          return;
+        }
+        sel.hidden = false;
+        [...techs.entries()]
+          .sort((a, b) => a[1].name.localeCompare(b[1].name))
+          .forEach(([id, info]) => {
+            const o = document.createElement('option');
+            o.value = id;
+            o.textContent = `${info.name} — ${fmt(t('techInfo'), { n: info.count, c: info.categories.length })}`;
+            sel.appendChild(o);
+          });
+        sel.value = techs.has(prev) ? prev : sel.options[0]?.value || '';
+        fillCategories();
+        update();
+      }
+
+      function selectedTechId() {
+        if (mode === 'sheet') return $('s-id').value.trim();
+        return techListOk ? $('tech').value : ($('tech-manual')?.value || '').trim();
+      }
+
+      function availableCategories() {
+        if (mode === 'sheet') return list($('s-cats').value);
+        return techs.get(selectedTechId())?.categories || [];
+      }
+
+      const NEWCAT = '__new__';
+      function fillCategories() {
+        const sel = $('e-cat');
+        const prev = sel.value;
+        const cats = availableCategories();
+        sel.innerHTML = '';
+        cats.forEach((c) => {
+          const o = document.createElement('option');
+          o.value = c;
+          o.textContent = c;
+          sel.appendChild(o);
+        });
+        if (mode === 'cmd') {
+          const o = document.createElement('option');
+          o.value = NEWCAT;
+          o.textContent = t('newCatOpt');
+          sel.appendChild(o);
+        }
+        let want = pendingCat ?? prev;
+        // "+ nova" vazio só porque a lista ainda não tinha chegado: usa a 1ª categoria.
+        if (want === NEWCAT && !$('e-newcat').value.trim() && cats.length) want = cats[0];
+        if (!want && cats.length) want = cats[0];
+        if ([...sel.options].some((o) => o.value === want)) {
+          sel.value = want;
+          if (want === pendingCat) pendingCat = null;
+        } else if (!cats.length && mode === 'cmd') sel.value = NEWCAT;
+        $('e-newcat-wrap').hidden = sel.value !== NEWCAT;
+      }
+
+      // ------------------------------------------------------------ montar + validar
+      function buildEntry(errors) {
+        const title = $('e-title').value.trim();
+        const command = $('e-command').value.trim();
+        const description = $('e-desc').value.trim();
+        const catSel = $('e-cat').value;
+        const category = catSel === NEWCAT ? $('e-newcat').value.trim() : catSel || '';
+        const platforms = [...document.querySelectorAll('#e-plat input:checked')].map((i) => i.value);
+        const examples = [];
+        rows.ex.forEach((r, i) => {
+          const code = (r.code || '').trim();
+          const explanation = (r.explanation || '').trim();
+          if (!code && !explanation) return;
+          if (!code || !explanation) errors.push(te('exHalf', { n: i + 1 }));
+          examples.push({ level: i === 0 ? 'basico' : 'intermediario', code, explanation });
+        });
+        const args = [];
+        rows.arg.forEach((r, i) => {
+          const flag = (r.flag || '').trim();
+          const desc = (r.description || '').trim();
+          if (!flag && !desc) return;
+          if (!flag || !desc) errors.push(te('argHalf', { n: i + 1 }));
+          args.push({ flag, description: desc });
+        });
+        const warnings = rows.warn.map((r) => (r.text || '').trim()).filter(Boolean);
+        const doc = $('e-doc').value.trim();
+        const id = $('e-id').value.trim();
+
+        if (!title) errors.push(te('title'));
+        if (!command) errors.push(te('command'));
+        if (description.length < 10) errors.push(te('desc'));
+        if (!category) errors.push(te('category'));
+        if (!platforms.length) errors.push(te('platforms'));
+        if (!KEBAB.test(id)) errors.push(te('id'));
+        else if (mode === 'cmd' && techs.get(selectedTechId())?.ids.has(id)) errors.push(te('idTaken'));
+        if (doc && !isUrl(doc)) errors.push(te('doc'));
+
+        const entry = {
+          id,
+          title,
+          command,
+          description,
+          category,
+          tags: list($('e-tags').value),
+          difficulty: $('e-diff').value,
+          platforms,
+          risk: $('e-risk').value,
+          examples,
+          arguments: args,
+          warnings,
+          relatedCommands: list($('e-related').value),
+        };
+        if (doc) entry.documentationUrl = doc;
+        return entry;
+      }
+
+      function buildSheet(entry, errors) {
+        const id = $('s-id').value.trim();
+        const name = $('s-name').value.trim();
+        const shortName = $('s-short').value.trim() || name.slice(0, 24);
+        const prompt = $('s-prompt').value.trim() || id.slice(0, 24);
+        const color = $('s-color').value.trim();
+        const description = $('s-desc').value.trim();
+        const documentationUrl = $('s-doc').value.trim();
+        const version = $('s-version').value.trim();
+        const categories = list($('s-cats').value);
+        if (entry.category && !categories.includes(entry.category)) categories.push(entry.category);
+
+        if (!name) errors.push(te('sName'));
+        if (!KEBAB.test(id)) errors.push(te('sId'));
+        else if (techs.has(id)) errors.push(te('sIdTaken'));
+        if (!shortName || shortName.length > 24) errors.push(te('sShort'));
+        if (prompt.length > 24) errors.push(te('sPrompt'));
+        if (!/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(color)) errors.push(te('sColor'));
+        if (!description) errors.push(te('sDesc'));
+        if (!isUrl(documentationUrl)) errors.push(te('sDoc'));
+        if (!version) errors.push(te('sVersion'));
+        if (!categories.length) errors.push(te('sCats'));
+
+        return {
+          id,
+          name,
+          shortName,
+          prompt,
+          icon: 'terminal',
+          color,
+          description,
+          documentationUrl,
+          version,
+          lastReviewedAt: new Date().toISOString().slice(0, 10),
+          categories,
+          entries: [entry],
+        };
+      }
+
+      function update() {
+        // id automático a partir do título
+        const techId = selectedTechId();
+        if (!idTouched) {
+          let base = slugify(`${techId ? techId + '-' : ''}${$('e-title').value}`);
+          let id = base;
+          const taken = techs.get(techId)?.ids;
+          for (let n = 2; taken && taken.has(id); n++) id = `${base}-${n}`;
+          $('e-id').value = id;
+        }
+        if (mode === 'sheet' && !$('s-id').dataset.touched) $('s-id').value = slugify($('s-name').value);
+
+        // risco sugerido
+        const sug = detectRisk($('e-command').value);
+        const badge = $('risk-sug');
+        badge.textContent = fmt(t('suggested'), { r: sug });
+        badge.className = `badge r-${sug}`;
+        $('e-risk').className = `r-${$('e-risk').value}`;
+
+        const errors = [];
+        if (mode === 'cmd' && !techId) errors.push(te('tech'));
+        const entry = buildEntry(errors);
+        let data, path;
+        if (mode === 'sheet') {
+          data = buildSheet(entry, errors);
+          path = `${DATA}/technologies/${data.id || '<id>'}.json`;
+        } else {
+          data = entry;
+          path = `${DATA}/entries/${techId || '<tech>'}/${entry.id || '<id>'}.json`;
+        }
+        const json = JSON.stringify(data, null, 2) + '\n';
+        current = { json, path, valid: errors.length === 0, file: path.split('/').pop() };
+
+        $('out-json').textContent = json;
+        $('out-path').textContent = path;
+        const ul = $('issues');
+        ul.innerHTML = '';
+        if (errors.length) {
+          [...new Set(errors)].forEach((msg) => {
+            const li = document.createElement('li');
+            li.className = 'err';
+            li.textContent = `✗ ${msg}`;
+            ul.appendChild(li);
+          });
+        } else {
+          const li = document.createElement('li');
+          li.className = 'ok';
+          li.textContent = t('okAll');
+          ul.appendChild(li);
+        }
+        ['btn-github', 'btn-copy', 'btn-download'].forEach((b) => ($(b).disabled = !current.valid));
+        saveDraft();
+      }
+
+      // ------------------------------------------------------------ ações
+      function toast(msg) {
+        const el = $('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(toast.timer);
+        toast.timer = setTimeout(() => el.classList.remove('show'), 3200);
+      }
+
+      async function copyJson(silent) {
+        try {
+          await navigator.clipboard.writeText(current.json);
+          if (!silent) toast(t('copied'));
+          return true;
+        } catch {
+          if (!silent) toast(t('copyFail'));
+          return false;
+        }
+      }
+
+      $('btn-copy').onclick = () => copyJson(false);
+
+      $('btn-download').onclick = () => {
+        const blob = new Blob([current.json], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = current.file;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      };
+
+      $('btn-github').onclick = async () => {
+        const base = `https://github.com/${REPO.owner}/${REPO.name}/new/${REPO.branch}`;
+        const withValue = `${base}?filename=${encodeURIComponent(current.path)}&value=${encodeURIComponent(current.json)}`;
+        const copied = await copyJson(true);
+        if (withValue.length <= 7500) {
+          window.open(withValue, '_blank', 'noopener');
+          if (copied) toast(t('copied'));
+        } else {
+          window.open(`${base}?filename=${encodeURIComponent(current.path)}`, '_blank', 'noopener');
+          toast(t('tooLong'));
+        }
+      };
+
+      $('btn-reset').onclick = () => {
+        if (!confirm(t('confirmReset'))) return;
+        store.del(DRAFT_KEY);
+        location.reload();
+      };
+
+      // ------------------------------------------------------------ rascunho (por navegador)
+      const FIELDS = [
+        'e-title', 'e-command', 'e-desc', 'e-newcat', 'e-diff', 'e-risk', 'e-tags', 'e-related',
+        'e-doc', 'e-id', 's-name', 's-id', 's-short', 's-prompt', 's-color', 's-version', 's-desc',
+        's-doc', 's-cats',
+      ];
+      function saveDraft() {
+        const d = { mode, idTouched, rows, cat: $('e-cat').value, tech: selectedTechId(), f: {} };
+        FIELDS.forEach((id) => (d.f[id] = $(id).value));
+        d.plat = [...document.querySelectorAll('#e-plat input')].map((i) => i.checked);
+        store.set(DRAFT_KEY, JSON.stringify(d));
+        if (mode === 'cmd' && d.tech) store.set('devsheet-editor-tech', d.tech);
+      }
+      function loadDraft() {
+        const raw = store.get(DRAFT_KEY);
+        if (!raw) return;
+        try {
+          const d = JSON.parse(raw);
+          FIELDS.forEach((id) => d.f && id in d.f && ($(id).value = d.f[id]));
+          if (d.rows) Object.assign(rows, d.rows);
+          idTouched = Boolean(d.idTouched);
+          if (Array.isArray(d.plat))
+            document.querySelectorAll('#e-plat input').forEach((i, k) => (i.checked = Boolean(d.plat[k])));
+          if (d.mode) setMode(d.mode, true);
+          if (d.cat) pendingCat = d.cat;
+        } catch {
+          /* rascunho corrompido: ignora */
+        }
+      }
+
+      // ------------------------------------------------------------ eventos
+      function setMode(m, silent) {
+        mode = m;
+        document.querySelectorAll('[data-mode]').forEach((b) =>
+          b.setAttribute('aria-pressed', String(b.dataset.mode === m)),
+        );
+        $('sec-tech').hidden = m !== 'cmd';
+        $('sec-sheet').hidden = m !== 'sheet';
+        fillCategories();
+        if (!silent) update();
+      }
+      document.querySelectorAll('[data-mode]').forEach((b) => (b.onclick = () => setMode(b.dataset.mode)));
+      document.querySelectorAll('[data-lang]').forEach(
+        (b) =>
+          (b.onclick = () => {
+            lang = b.dataset.lang;
+            store.set('devsheet-editor-lang', lang);
+            applyLang();
+          }),
+      );
+
+      document.querySelector('main').addEventListener('input', (e) => {
+        if (e.target.id === 'e-id') idTouched = Boolean(e.target.value);
+        if (e.target.id === 's-id') e.target.dataset.touched = e.target.value ? '1' : '';
+        if (e.target.id === 's-cats') fillCategories();
+        update();
+      });
+      document.querySelector('main').addEventListener('change', (e) => {
+        if (e.target.id === 'tech') {
+          loadExtra(e.target.value);
+          fillCategories();
+        }
+        if (e.target.id === 'e-cat') $('e-newcat-wrap').hidden = e.target.value !== NEWCAT;
+        if (e.target.closest && e.target.closest('#e-plat')) {
+          const boxes = [...document.querySelectorAll('#e-plat input')];
+          if (e.target.value === 'all' && e.target.checked) boxes.slice(1).forEach((b) => (b.checked = false));
+          if (e.target.value !== 'all' && e.target.checked) boxes[0].checked = false;
+        }
+        update();
+      });
+      // risco: começa no sugerido enquanto a pessoa não escolher outro
+      let riskTouched = false;
+      $('e-risk').addEventListener('change', () => (riskTouched = true));
+      $('e-command').addEventListener('input', () => {
+        if (!riskTouched) $('e-risk').value = detectRisk($('e-command').value);
+      });
+
+      // ------------------------------------------------------------ início
+      const savedLang = store.get('devsheet-editor-lang');
+      if (savedLang === 'pt' || savedLang === 'en') lang = savedLang;
+      if (!rows.ex.length) rows.ex.push({ code: '', explanation: '' });
+      loadDraft();
+      applyLang();
+      loadTechs().then(() => loadExtra(selectedTechId()));
+    </script>
+  </body>
+</html>

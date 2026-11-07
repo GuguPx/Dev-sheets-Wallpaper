@@ -41,6 +41,7 @@ function groups(): HelpGroup[] {
         ['?', t('help.thisHelp')],
         [':lang', t('help.language')],
         [':support', t('help.support')],
+        [':contribute', t('help.contribute')],
       ],
     },
     {

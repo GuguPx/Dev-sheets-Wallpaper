@@ -57,6 +57,17 @@ para o Wallpaper Engine.
 - **Pausa quando oculto**: `visibilitychange` marca `data-paused`, congelando animações e o
   relógio (seção 28).
 
+## Conteúdo e contribuições
+
+- `data/technologies/<tech>.json` — sheet completa; `data/entries/<tech>/<id>.json` — um
+  comando por arquivo (porta de entrada da comunidade: PRs nunca conflitam).
+- `data/merge.ts` (`mergeContent`) junta os dois com validação Zod — função pura usada no
+  runtime (`ContentService`) e nos scripts (`scripts/lib/content.ts`), então app, CI,
+  `validate:i18n` e o índice enxergam exatamente o mesmo conteúdo.
+- Ferramentas: `scripts/new-content.ts` (`npm run new`, assistente no terminal) e
+  `docs/editor/index.html` (editor web estático no GitHub Pages; lê as sheets atuais pela
+  API do GitHub e abre o arquivo pronto em `github.com/<repo>/new/main?filename=…&value=…`).
+
 ## Idiomas (i18n)
 
 - **Interface:** `i18n/index.ts` expõe `t(chave, params)`. Os catálogos ficam em

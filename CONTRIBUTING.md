@@ -12,6 +12,7 @@ talvez não entre.
 
 | Quero… | Vá para |
 | --- | --- |
+| Adicionar um comando ou uma sheet **sem saber git** | **[Editor web](https://gugupx.github.io/Dev-sheets-Wallpaper/editor/)** |
 | Adicionar/corrigir comandos de uma tecnologia | [Contribuir com conteúdo](#contribuir-com-conteúdo) |
 | Corrigir um bug ou mexer no código | [Contribuir com código](#contribuir-com-código) |
 | Sugerir uma ideia | Abra uma [issue de feature](../../issues/new/choose) |
@@ -33,12 +34,25 @@ navegador basta. Você não precisa do Wallpaper Engine instalado para contribui
 
 ## Contribuir com conteúdo
 
-Cada tecnologia é **um arquivo JSON** em `wallpaper/src/data/technologies/`. O Vite
-descobre os arquivos sozinho, então **basta criar/editar o JSON** — nenhum código muda.
+O conteúdo mora em `wallpaper/src/data/` e é descoberto sozinho pelo Vite — **nenhum
+código muda** para adicionar comandos:
 
-1. Leia o **[Guia de conteúdo](CONTENT_GUIDE.md)** — ele tem o formato completo, os enums e
-   as boas práticas.
-2. Crie ou edite `wallpaper/src/data/technologies/<id>.json`.
+- `technologies/<tech>.json` — a sheet (metadados + comandos originais);
+- `entries/<tech>/<id>.json` — **um comando por arquivo**, somado à sheet `<tech>`. É aqui
+  que entram as contribuições novas: cada uma é um arquivo, então nunca há conflito.
+
+**Jeito fácil (recomendado):**
+
+- **Sem git:** abra o **[editor web](https://gugupx.github.io/Dev-sheets-Wallpaper/editor/)**, preencha e clique em **Enviar pelo GitHub**.
+  O GitHub faz o fork e abre o Pull Request para você.
+- **Com o repositório clonado:** `npm run new:cmd` (novo comando) ou `npm run new:sheet`
+  (tecnologia nova). O assistente pergunta tudo, sugere id e risco, valida e grava o arquivo.
+  Depois: `npm run dev` para conferir, `git add` / `git commit` e abra o PR.
+
+**Jeito manual:**
+
+1. Leia o **[Guia de conteúdo](CONTENT_GUIDE.md)** — formato completo, enums e boas práticas.
+2. Crie `wallpaper/src/data/entries/<tech>/<id>.json` (ou edite `technologies/<tech>.json`).
 3. Valide: `npm run validate:content` — corrija o que for apontado (tudo passa por Zod).
 4. Confira no navegador: `npm run dev`.
 

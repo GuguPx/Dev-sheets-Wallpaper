@@ -137,6 +137,16 @@ export const messages: Messages = {
   'support.copied': '[ ссылка скопирована ] {url}',
   'support.noLinks': '(ссылки для поддержки пока не настроены)',
 
+  'info.contribute': 'УЧАСТИЕ',
+  'contribute.intro':
+    'Не хватает команды или технологии? Добавить может любой — знать git не нужно.',
+  'contribute.how':
+    'Откройте редактор, заполните форму и отправьте её через GitHub: предложение проверят и добавят в одну из следующих версий.',
+  'contribute.links': 'Ссылки (нажмите, чтобы скопировать):',
+  'contribute.editor': 'редактор',
+  'contribute.repo': 'код',
+  'help.contribute': 'Добавить команды (:contribute)',
+
   'help.title': 'СОЧЕТАНИЯ КЛАВИШ',
   'help.navigation': 'НАВИГАЦИЯ',
   'help.tabs': 'ВКЛАДКИ (технологии)',

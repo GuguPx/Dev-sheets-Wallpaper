@@ -1,10 +1,10 @@
 import type { CheatEntry, FlatEntry, Technology } from '@/types';
-import { technologySchema } from '@/schemas/technology.schema';
 import {
   technologyTranslationSchema,
   type TechnologyTranslation,
 } from '@/schemas/translation.schema';
-import { loadRawTechnologies, loadRawTranslations } from '@/data';
+import { loadRawEntries, loadRawTechnologies, loadRawTranslations } from '@/data';
+import { mergeContent } from '@/data/merge';
 import { buildSearchableText } from '@/utils/normalize';
 import { effectiveRisk } from '@/utils/risk';
 import { titleCase } from '@/utils/format';
@@ -49,27 +49,18 @@ export class ContentService {
     this.base = [];
     this.errors = [];
 
-    const raws = loadRawTechnologies().map((m) => ({ source: m.path, data: m.data }));
-
-    const seenIds = new Set<string>();
-    for (const raw of raws) {
-      const parsed = technologySchema.safeParse(raw.data);
-      if (!parsed.success) {
-        const first = parsed.error.issues[0];
-        this.errors.push({
-          source: raw.source,
-          message: first ? `${first.path.join('.')}: ${first.message}` : 'inválido',
-        });
-        continue;
-      }
-      const tech = parsed.data as unknown as Technology;
-      if (seenIds.has(tech.id)) {
-        const idx = this.base.findIndex((t) => t.id === tech.id);
-        if (idx >= 0) this.base.splice(idx, 1);
-      }
-      seenIds.add(tech.id);
-      this.base.push(this.finalize(tech));
-    }
+    // Sheets completas + comandos avulsos (entries/<tech>/<id>.json), validados.
+    const merged = mergeContent(
+      loadRawTechnologies().map((m) => ({ source: m.path, data: m.data })),
+      loadRawEntries().map((m) => ({
+        source: m.path,
+        technologyId: m.technologyId,
+        fileId: m.fileId,
+        data: m.data,
+      })),
+    );
+    this.errors.push(...merged.errors);
+    this.base = merged.technologies.map((t) => this.finalize(t as unknown as Technology));
 
     this.base.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
     this.loadTranslations();

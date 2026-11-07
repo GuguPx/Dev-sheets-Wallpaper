@@ -15,7 +15,8 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
-import { technologySchema } from '../wallpaper/src/schemas/technology.schema';
+import type { TechnologyParsed } from '../wallpaper/src/schemas/technology.schema';
+import { readContent } from './lib/content';
 import {
   technologyTranslationSchema,
   type TechnologyTranslation,
@@ -23,18 +24,18 @@ import {
 import { LANGUAGES, SOURCE_LOCALE } from '../wallpaper/src/i18n/languages';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const srcDir = resolve(here, '../wallpaper/src/data/technologies');
 const i18nDir = resolve(here, '../wallpaper/src/data/i18n');
 
-type Tech = ReturnType<typeof technologySchema.parse>;
+type Tech = TechnologyParsed;
 
+/** Sheets + comandos avulsos (entries/), como o runtime enxerga. */
 function loadSources(): Map<string, Tech> {
-  const map = new Map<string, Tech>();
-  for (const f of readdirSync(srcDir).filter((x) => x.endsWith('.json'))) {
-    const t = technologySchema.parse(JSON.parse(readFileSync(join(srcDir, f), 'utf8')));
-    map.set(t.id, t);
+  const content = readContent();
+  if (content.errors.length) {
+    console.error('conteúdo-fonte inválido — rode `npm run validate:content` primeiro');
+    process.exit(1);
   }
-  return map;
+  return new Map(content.technologies.map((t) => [t.id, t]));
 }
 
 function template(t: Tech): TechnologyTranslation {

@@ -21,6 +21,10 @@
     "validate:i18n": "tsx scripts/i18n-content.ts check",
     "i18n:extract": "tsx scripts/i18n-content.ts extract",
     "i18n:we": "node scripts/we-localization.mjs",
+    "new": "tsx scripts/new-content.ts",
+    "new:cmd": "tsx scripts/new-content.ts cmd",
+    "new:sheet": "tsx scripts/new-content.ts sheet",
+    "editor": "vite docs --port 5175 --open /editor/",
     "gen:index": "tsx scripts/generate-search-index.ts",
     "build:wallpaper": "npm run build && node scripts/copy-to-wallpaper.mjs"
   },

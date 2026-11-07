@@ -4,6 +4,21 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ## [Não lançado]
 
+### Adicionado — contribuições fáceis
+
+- **Editor web de sheets** (`docs/editor/`, publicado via GitHub Pages): formulário em PT/EN
+  que lê as tecnologias atuais do GitHub, sugere id e risco, valida e abre o arquivo pronto
+  no GitHub — que faz o fork e o Pull Request sozinho. Sem git, sem JSON.
+- **Assistente no terminal**: `npm run new` / `new:cmd` / `new:sheet`.
+- **Um comando por arquivo**: `wallpaper/src/data/entries/<tech>/<id>.json` é somado à sheet
+  (`data/merge.ts`), com categoria nova automática. Contribuições não conflitam entre si.
+- Comando interno **`:contribute`** (10 idiomas) com os links do editor e do repositório.
+- `npm run editor` abre o editor localmente.
+
+### Corrigido
+
+- Links dos templates de issue apontavam para um repositório antigo.
+
 ### Adicionado — idiomas e apoio
 
 - **10 idiomas** na interface e no conteúdo: pt-BR, en, es, fr, de, it, ru, zh-CN, ja, ko.

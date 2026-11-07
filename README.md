@@ -9,7 +9,8 @@ estilo **Neovim**, busca estilo **FZF** e detalhes estilo **man page**.
 > apenas navega, exibe e copia texto (ver [Segurança](#segurança)).
 
 🌎 **10 idiomas** — Português (Brasil), English, Español, Français, Deutsch, Italiano,
-Русский, 简体中文, 日本語, 한국어 · ☕ [Apoie o projeto](#-apoie-o-projeto--support-the-project)
+Русский, 简体中文, 日本語, 한국어 · ☕ [Apoie o projeto](#-apoie-o-projeto--support-the-project) ·
+✍️ [Adicione um comando](https://gugupx.github.io/Dev-sheets-Wallpaper/editor/) (sem git)
 
 ```
 ┌─ devsheet ─────────────────────────────────────────────────────────────────┐
@@ -77,6 +78,8 @@ Abra a URL no navegador. Tudo funciona **offline**, sem back-end.
 | `npm test` | Testes (Vitest). |
 | `npm run typecheck` | Checagem de tipos (sem emitir). |
 | `npm run validate:content` | Valida todos os JSONs de conteúdo com Zod. |
+| `npm run new` | Assistente: cria um comando (`new:cmd`) ou uma sheet nova (`new:sheet`) sem editar JSON. |
+| `npm run editor` | Abre o editor web de sheets localmente (`docs/editor/`). |
 | `npm run validate:i18n` | Valida as traduções de conteúdo e mostra a cobertura por idioma. |
 | `npm run i18n:extract -- <pasta>` | Gera modelos de tradução (texto pt-BR) por tecnologia. |
 | `npm run i18n:we` | Regera os rótulos traduzidos do painel do Wallpaper Engine (`project.json`). |
@@ -107,7 +110,8 @@ O build é um **único HTML** com JS, CSS e dados embutidos: nada é baixado em 
 - **Mouse** (fallback): tudo é clicável — abas, categorias, comandos e os botões
   `man`/`copy`/`fav` de cada linha. Importante no Wallpaper Engine (ver abaixo).
 - **Linha de comando interna** (`:`): `open docker`, `search rebase`, `theme ice`,
-  `lang en`, `favorites`, `history`, `about`, `support`… (whitelist; nunca toca no sistema).
+  `lang en`, `favorites`, `history`, `about`, `support`, `contribute`… (whitelist; nunca
+  toca no sistema).
 
 ### Aba `tty` — esconder os sheets
 
@@ -199,10 +203,12 @@ devsheet-wallpaper/
 │       ├── stores/       # settings, app, favorites, history, notes
 │       ├── i18n/         # t(), idiomas suportados, catálogos da interface (locales/*.ts)
 │       ├── config/       # links de apoio (support.ts)
-│       ├── data/         # technologies/*.json (fonte pt-BR) + i18n/<idioma>/*.json
+│       ├── data/         # technologies/*.json (sheets) · entries/<tech>/*.json (comandos
+│       │                 #   avulsos) · i18n/<idioma>/*.json (traduções) · merge.ts
 │       ├── schemas/ · types/ · utils/ · styles/
 ├── scripts/             # validate-content, i18n-content, we-localization, build.ps1, copy-to-wallpaper…
-├── tests/               # parser, keyboard, search, storage, schemas, modes, i18n
+├── docs/editor/         # editor web de sheets (GitHub Pages)
+├── tests/               # parser, keyboard, search, storage, schemas, modes, i18n, contribution
 └── README · ARCHITECTURE · CONTENT_GUIDE · KEYBINDINGS · CHANGELOG
 ```
 
@@ -234,11 +240,24 @@ e avaliar/favoritar o wallpaper na Steam Workshop.
 
 ## Contribuindo
 
-Contribuições são bem-vindas — sobretudo **conteúdo** (novos comandos ou correções). Veja o
-**[guia de contribuição](CONTRIBUTING.md)** para preparar o ambiente e o fluxo de PR, o
-**[guia de conteúdo](CONTENT_GUIDE.md)** para o formato dos JSONs, e o
+Contribuições são bem-vindas — sobretudo **conteúdo**: novos comandos, dicas e sheets.
+
+### ✍️ Adicionar um comando ou uma sheet (3 jeitos)
+
+| Jeito | Para quem | Como |
+| --- | --- | --- |
+| **[Editor web](https://gugupx.github.io/Dev-sheets-Wallpaper/editor/)** | Qualquer pessoa — **sem git, sem JSON** | Preencha o formulário → **Enviar pelo GitHub**. O GitHub abre o arquivo pronto e cria o Pull Request para você. |
+| **`npm run new`** | Quem clonou o repositório | Assistente no terminal: pergunta campo a campo, sugere id e risco, valida e grava o arquivo. |
+| **JSON à mão** | Quem prefere editar direto | Veja o [guia de conteúdo](CONTENT_GUIDE.md). |
+
+Cada comando novo vira **um arquivo** em `wallpaper/src/data/entries/<tecnologia>/<id>.json`
+(uma sheet nova vira `technologies/<id>.json`) — então contribuições de pessoas diferentes
+nunca conflitam. O CI valida tudo; a gente revisa, traduz para os outros 9 idiomas e publica.
+Dentro do wallpaper, `:contribute` mostra esses links.
+
+Veja também o **[guia de contribuição](CONTRIBUTING.md)** (ambiente e fluxo de PR) e o
 **[código de conduta](CODE_OF_CONDUCT.md)**. Use as [issues](../../issues/new/choose) para
-relatar bugs, sugerir ideias ou propor conteúdo.
+relatar bugs ou sugerir ideias.
 
 ## Segurança
 

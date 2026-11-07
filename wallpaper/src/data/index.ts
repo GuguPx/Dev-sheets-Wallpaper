@@ -23,6 +23,32 @@ export function loadRawTechnologies(): RawTechnologyModule[] {
 }
 
 /**
+ * Comandos avulsos (contribuições): `./entries/<tech>/<id>.json`, um comando
+ * por arquivo, somados à sheet `<tech>` pelo `mergeContent` (ver merge.ts).
+ */
+const entryModules = import.meta.glob('./entries/*/*.json', { eager: true });
+
+export interface RawEntryModule {
+  path: string;
+  technologyId: string;
+  fileId: string;
+  data: unknown;
+}
+
+export function loadRawEntries(): RawEntryModule[] {
+  return Object.entries(entryModules).map(([path, mod]) => {
+    const [, technologyId = '', fileId = ''] =
+      path.match(/\.\/entries\/([^/]+)\/([^/]+)\.json$/) ?? [];
+    return {
+      path,
+      technologyId,
+      fileId,
+      data: (mod as { default: unknown }).default ?? mod,
+    };
+  });
+}
+
+/**
  * Traduções de conteúdo: `./i18n/<idioma>/<tech>.json` (ver
  * schemas/translation.schema.ts). Também descobertas automaticamente.
  */

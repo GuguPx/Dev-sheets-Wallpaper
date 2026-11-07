@@ -4,15 +4,12 @@
  * constrói o índice ao iniciar; este artefato é útil para inspeção/CI e para
  * ferramentas externas. Não é consumido pelo bundle.
  */
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, join, resolve } from 'node:path';
-import { technologySchema } from '../wallpaper/src/schemas/technology.schema';
+import { writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { buildSearchableText } from '../wallpaper/src/utils/normalize';
+import { ROOT, readContent } from './lib/content';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const dir = resolve(here, '../wallpaper/src/data/technologies');
-const out = resolve(here, '../search-index.json');
+const out = resolve(ROOT, 'search-index.json');
 
 interface IndexRow {
   technologyId: string;
@@ -27,13 +24,12 @@ interface IndexRow {
 }
 
 const rows: IndexRow[] = [];
-for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
-  const parsed = technologySchema.safeParse(JSON.parse(readFileSync(join(dir, file), 'utf8')));
-  if (!parsed.success) {
-    console.error(`✗ ${file}: inválido (rode validate:content)`);
-    process.exit(1);
-  }
-  const tech = parsed.data;
+const content = readContent();
+if (content.errors.length) {
+  console.error('✗ conteúdo inválido (rode validate:content)');
+  process.exit(1);
+}
+for (const tech of content.technologies) {
   for (const e of tech.entries) {
     rows.push({
       technologyId: tech.id,

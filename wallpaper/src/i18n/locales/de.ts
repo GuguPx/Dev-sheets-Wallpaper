@@ -138,6 +138,16 @@ export const messages: Messages = {
   'support.copied': '[ Link kopiert ] {url}',
   'support.noLinks': '(Support-Links noch nicht konfiguriert)',
 
+  'info.contribute': 'MITMACHEN',
+  'contribute.intro':
+    'Fehlt ein Befehl oder eine Technologie? Jeder kann etwas hinzufügen – ganz ohne Git-Kenntnisse.',
+  'contribute.how':
+    'Öffne den Editor, füll das Formular aus und sende es über GitHub: Dein Vorschlag wird geprüft und kommt in eine der nächsten Versionen.',
+  'contribute.links': 'Links (zum Kopieren klicken):',
+  'contribute.editor': 'Editor',
+  'contribute.repo': 'Code',
+  'help.contribute': 'Befehle beitragen (:contribute)',
+
   'help.title': 'TASTENBELEGUNG',
   'help.navigation': 'NAVIGATION',
   'help.tabs': 'TABS (Technologien)',

@@ -139,6 +139,16 @@ export const messages: Messages = {
   'support.copied': '[ リンクをコピーしました ] {url}',
   'support.noLinks': '(支援リンクはまだ設定されていません)',
 
+  'info.contribute': 'コントリビュート',
+  'contribute.intro':
+    '足りないコマンドやテクノロジーはありますか？ git を知らなくても、誰でも追加できます。',
+  'contribute.how':
+    'エディターを開いてフォームに入力し、GitHub から送信してください。レビュー後、今後のバージョンに追加されます。',
+  'contribute.links': 'リンク（クリックでコピー）：',
+  'contribute.editor': 'エディター',
+  'contribute.repo': 'ソース',
+  'help.contribute': 'コマンドを投稿（:contribute）',
+
   'help.title': 'キー操作',
   'help.navigation': '移動',
   'help.tabs': 'タブ (テクノロジー)',

@@ -138,6 +138,15 @@ export const messages: Messages = {
   'support.copied': '[ 링크 복사됨 ] {url}',
   'support.noLinks': '(후원 링크가 아직 설정되지 않았습니다)',
 
+  'info.contribute': '기여하기',
+  'contribute.intro': '필요한 명령어나 기술이 없나요? git을 몰라도 누구나 추가할 수 있습니다.',
+  'contribute.how':
+    '에디터를 열어 양식을 작성하고 GitHub로 보내 주세요. 검토 후 다음 버전에 반영됩니다.',
+  'contribute.links': '링크(클릭하여 복사):',
+  'contribute.editor': '에디터',
+  'contribute.repo': '소스',
+  'help.contribute': '명령어 기여하기(:contribute)',
+
   'help.title': '단축키',
   'help.navigation': '탐색',
   'help.tabs': '탭 (기술)',
