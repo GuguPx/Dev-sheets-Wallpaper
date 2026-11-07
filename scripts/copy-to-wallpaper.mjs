@@ -10,7 +10,7 @@
  * wallpaper prontos — o código-fonte vive em outro lugar (ex.: Área de Trabalho).
  * O destino pode ser sobrescrito via variável de ambiente `WE_OUT`.
  */
-import { copyFileSync, existsSync, mkdirSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, join } from 'node:path';
 
@@ -43,7 +43,28 @@ const WE_OUT =
 try {
   mkdirSync(WE_OUT, { recursive: true });
   copyFileSync(indexHtml, join(WE_OUT, 'index.html'));
-  copyFileSync(resolve(dist, 'project.json'), join(WE_OUT, 'project.json'));
+
+  // Ao publicar, o Wallpaper Engine grava `workshopid` no project.json da pasta.
+  // Sobrescrever sem ele faria a próxima publicação criar um item NOVO na
+  // Workshop em vez de atualizar o existente — então ele é preservado.
+  const project = JSON.parse(readFileSync(resolve(dist, 'project.json'), 'utf8'));
+  const destProject = join(WE_OUT, 'project.json');
+  if (existsSync(destProject)) {
+    try {
+      const old = JSON.parse(readFileSync(destProject, 'utf8'));
+      for (const key of ['workshopid', 'workshopurl']) {
+        if (old[key] !== undefined && project[key] === undefined) project[key] = old[key];
+      }
+      if (old.workshopid !== undefined) {
+        console.log(
+          `workshopid ${old.workshopid} preservado (a publicação atualiza o mesmo item).`,
+        );
+      }
+    } catch {
+      console.warn('project.json existente ilegível — sobrescrevendo.');
+    }
+  }
+  writeFileSync(destProject, JSON.stringify(project, null, 2) + '\n');
   if (hasPreview) copyFileSync(resolve(dist, 'preview.jpg'), join(WE_OUT, 'preview.jpg'));
   console.log('Wallpaper atualizado no Wallpaper Engine:', WE_OUT);
 } catch (err) {

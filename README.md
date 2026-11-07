@@ -93,15 +93,36 @@ Também há um script único: `pwsh scripts/build.ps1` (valida, testa, builda e 
 
 ## Importar no Wallpaper Engine
 
-1. `npm run build:wallpaper` — gera `dist/` com `index.html` (app autocontido) + `project.json`.
-2. (Opcional) coloque uma imagem `wallpaper/preview.jpg` antes do build para virar o thumbnail.
-3. Copie o **conteúdo de `dist/`** para uma pasta em
-   `Steam/steamapps/common/wallpaper_engine/projects/myprojects/devsheet/`
-   **ou** no Wallpaper Engine use *Create Wallpaper → Files* e aponte para `dist/index.html`.
-4. O projeto aparece na sua biblioteca. As propriedades (tema, CRT, painéis, etc.) ficam
-   em *Customize* — ver [seção 26](#propriedades-do-wallpaper-engine).
+### No seu PC
 
-O build é um **único HTML** com JS, CSS e dados embutidos: nada é baixado em runtime.
+```bash
+npm run build:wallpaper
+```
+
+Valida, gera `dist/` (um **único HTML** com JS, CSS e dados embutidos — nada é baixado em
+runtime) e **copia sozinho** `index.html`, `project.json` e `preview.jpg` para
+`Steam/steamapps/common/wallpaper_engine/projects/myprojects/Cheat-sheet/`. Se o seu Steam
+estiver em outro lugar, defina a pasta com a variável `WE_OUT`.
+
+1. Abra o Wallpaper Engine → o **devsheet** aparece na aba **Instalados** (se não aparecer,
+   reinicie o WE ou use **Abrir Papel de Parede** e escolha o `project.json` da pasta).
+2. Selecione e ajuste as propriedades à direita (idioma, tema, CRT, margens…).
+3. A cada mudança no código, rode `npm run build:wallpaper` de novo e reaplique o wallpaper.
+
+O thumbnail vem de `wallpaper/preview.jpg`.
+
+### Publicar ou atualizar na Steam Workshop (Oficina)
+
+1. No Wallpaper Engine, clique em **Editor de Papel de Parede** (*Wallpaper Editor*) e, no
+   editor, **Arquivo → Abrir** (*File → Open*) → `myprojects/Cheat-sheet/project.json`.
+2. **Arquivo → Compartilhar papel de parede na Oficina** (*File → Share Wallpaper on
+   Workshop*): revise título, descrição, tags, visibilidade e o preview, aceite o acordo da
+   Oficina Steam se ele aparecer e publique.
+3. Para **atualizar** depois: `npm run build:wallpaper`, reabra no editor e publique de novo
+   — o WE grava o `workshopid` no `project.json` da pasta e o script **preserva** esse id,
+   então a publicação atualiza o mesmo item em vez de criar outro. Dica: copie o
+   `workshopid` também para `wallpaper/project.json` e faça commit, para não perdê-lo se
+   trocar de PC.
 
 ## Uso
 
