@@ -1,0 +1,190 @@
+{
+  "description": "OpenSSH — 安全な接続、鍵、ファイルコピー、トンネル。",
+  "categories": {
+    "conexao": "接続",
+    "chaves": "鍵",
+    "copia": "コピー",
+    "tuneis": "トンネル",
+    "config": "設定"
+  },
+  "entries": {
+    "ssh-connect": {
+      "title": "ホストに接続",
+      "description": "SSH で認証されたリモートシェルセッションを開く。",
+      "examples": [],
+      "arguments": [
+        "サーバーのポート (デフォルトは 22)。",
+        "接続のデバッグ用の詳細モード。"
+      ],
+      "warnings": []
+    },
+    "ssh-port": {
+      "title": "特定のポートで接続",
+      "description": "SSH サーバーが 22 以外のポートで待ち受けている場合に接続する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-identity": {
+      "title": "特定の鍵を使用",
+      "description": "認証に使う秘密鍵ファイルを指定する。",
+      "examples": [],
+      "arguments": [
+        "秘密鍵のパス。"
+      ],
+      "warnings": [
+        "秘密鍵のパーミッションは 600 (chmod 600) にすること。さもないと SSH に拒否される。"
+      ]
+    },
+    "ssh-jump": {
+      "title": "踏み台ホスト (ProxyJump)",
+      "description": "bastion/踏み台ホストを経由して、内部ホストに 1 行で接続する。",
+      "examples": [],
+      "arguments": [
+        "中継ホスト。"
+      ],
+      "warnings": []
+    },
+    "ssh-keygen": {
+      "title": "鍵ペアを生成",
+      "description": "公開鍵/秘密鍵のペアを作成する。推奨アルゴリズムは ed25519。",
+      "examples": [],
+      "arguments": [
+        "アルゴリズムの種類 (ed25519、rsa)。",
+        "コメント (通常はメールアドレス)。",
+        "鍵の出力ファイル。"
+      ],
+      "warnings": [
+        "秘密鍵はパスフレーズで保護し、決して共有しないこと。"
+      ]
+    },
+    "ssh-copy-id": {
+      "title": "鍵をサーバーにインストール",
+      "description": "自分の公開鍵をサーバーの authorized_keys にコピーし、パスワードなしのログインを可能にする。",
+      "examples": [],
+      "arguments": [
+        "インストールする特定の公開鍵。"
+      ],
+      "warnings": []
+    },
+    "ssh-add": {
+      "title": "鍵をエージェントに追加",
+      "description": "接続のたびにパスフレーズを入力せずに済むよう、秘密鍵を ssh-agent に読み込む。",
+      "examples": [
+        "エージェントに読み込まれている鍵を一覧表示する。"
+      ],
+      "arguments": [
+        "読み込まれているアイデンティティを一覧表示する。",
+        "エージェントからすべてのアイデンティティを削除する。"
+      ],
+      "warnings": []
+    },
+    "ssh-agent": {
+      "title": "エージェントを起動",
+      "description": "現在のセッションで ssh-agent を起動し、メモリ上で鍵を管理する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scp": {
+      "title": "ファイルをコピー (scp)",
+      "description": "SSH 経由で、ローカルとリモートのマシン間でファイルをコピーする。",
+      "examples": [
+        "リモートのファイルをカレントディレクトリにダウンロードする。"
+      ],
+      "arguments": [
+        "ディレクトリを再帰的にコピーする。",
+        "ポート (scp では大文字)。"
+      ],
+      "warnings": [
+        "コピー先を警告なしに上書きする。"
+      ]
+    },
+    "rsync-ssh": {
+      "title": "同期 (rsync)",
+      "description": "SSH 経由でディレクトリを増分同期し、差分のみを転送する。",
+      "examples": [
+        "コピー元をミラーリングし、コピー元にもうないものはコピー先から削除する。"
+      ],
+      "arguments": [
+        "アーカイブモード (パーミッション、リンク、タイムスタンプを保持)。",
+        "転送中に圧縮する。",
+        "コピー元にないファイルをコピー先から削除する。"
+      ],
+      "warnings": [
+        "--delete はコピー先のファイルを削除する。先に --dry-run で試すこと。"
+      ]
+    },
+    "sftp": {
+      "title": "SFTP セッション",
+      "description": "SSH 経由の対話的なファイル転送セッションを開く (get/put/ls)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-local-tunnel": {
+      "title": "ローカルトンネル (-L)",
+      "description": "ローカルのポートを、リモートホストからアクセスできるサービス (例: データベース) に転送する。",
+      "examples": [],
+      "arguments": [
+        "ローカルポート:転送先ホスト:転送先ポート"
+      ],
+      "warnings": [
+        "機密性の高いポートは localhost のみで公開し、0.0.0.0 では決して公開しないこと。"
+      ]
+    },
+    "ssh-remote-tunnel": {
+      "title": "リバーストンネル (-R)",
+      "description": "ローカルのサービスを、リモートホストのポートで公開する (リバーストンネル)。",
+      "examples": [],
+      "arguments": [
+        "リモートポート:ローカルホスト:ローカルポート"
+      ],
+      "warnings": [
+        "公開サーバー上で内部サービスを公開する際は注意すること。"
+      ]
+    },
+    "ssh-dynamic-tunnel": {
+      "title": "SOCKS プロキシ (-D)",
+      "description": "動的な SOCKS プロキシを作成し、アプリケーションの通信をリモートホスト経由にする。",
+      "examples": [
+        "シェルを開かず、バックグラウンドでプロキシを起動する。"
+      ],
+      "arguments": [
+        "SOCKS プロキシのローカルポート。",
+        "リモートコマンドを実行しない (トンネルのみ)。",
+        "バックグラウンドに移行する。"
+      ],
+      "warnings": []
+    },
+    "ssh-config": {
+      "title": "~/.ssh/config ファイル",
+      "description": "ホストごとのエイリアスとオプションを定義し、長いコマンドの代わりに 'ssh prod' で接続できるようにする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-known-hosts-remove": {
+      "title": "既知のホストを削除",
+      "description": "known_hosts からホストの鍵を削除する (サーバーの再インストールや鍵の変更後)。",
+      "examples": [],
+      "arguments": [
+        "known_hosts からそのホストのエントリを削除する。"
+      ],
+      "warnings": [
+        "サーバーの鍵の変更が信頼できる場合のみ削除すること。そうでないと中間者 (MITM) 攻撃の兆候かもしれない。"
+      ]
+    },
+    "ssh-keyscan": {
+      "title": "ホストの鍵を取得",
+      "description": "ホストの公開鍵を取得して known_hosts に追加する (自動化に便利)。",
+      "examples": [],
+      "arguments": [
+        "ファイル内のホスト名をハッシュ化する。"
+      ],
+      "warnings": [
+        "鍵を信頼する前に、信頼できる経路でフィンガープリントを確認すること。"
+      ]
+    }
+  }
+}

@@ -1,0 +1,257 @@
+{
+  "description": "先进的开源关系型数据库，注重标准合规性和可扩展性。",
+  "categories": {
+    "Conexão": "连接",
+    "Databases": "数据库",
+    "Tabelas": "表",
+    "Consultas": "查询",
+    "Índices": "索引",
+    "Usuários": "用户",
+    "Backup": "备份",
+    "Diagnóstico": "诊断",
+    "psql": "psql"
+  },
+  "entries": {
+    "pg-connect": {
+      "title": "连接数据库",
+      "description": "打开交互式客户端 psql，连接到指定的数据库、用户和主机。",
+      "examples": [
+        "以 postgres 身份连接到 meuapp 数据库。",
+        "使用连接 URL 连接。"
+      ],
+      "arguments": [
+        "用户。",
+        "数据库。",
+        "主机。",
+        "端口（默认 5432）。"
+      ],
+      "warnings": [
+        "在共享环境中避免把密码放在 URL 里；请使用 PGPASSWORD 变量或 ~/.pgpass。"
+      ]
+    },
+    "pg-list-databases": {
+      "title": "列出数据库",
+      "description": "psql 的元命令，列出服务器上的所有数据库。",
+      "examples": [
+        "列出数据库及其所有者和编码。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-connect-db": {
+      "title": "在 psql 中切换数据库",
+      "description": "在当前 psql 会话内连接到另一个数据库。",
+      "examples": [
+        "切换到 meuapp 数据库。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-list-tables": {
+      "title": "列出表",
+      "description": "列出当前 schema 中的表。使用 \\d <表> 查看表的列。",
+      "examples": [
+        "列出表。",
+        "显示 usuarios 表的列、类型和索引。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-database": {
+      "title": "创建数据库",
+      "description": "创建新数据库。可以指定所有者和编码。",
+      "examples": [
+        "创建数据库并指定所有者和编码。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-drop-database": {
+      "title": "删除数据库",
+      "description": "永久删除数据库及其全部内容。",
+      "examples": [
+        "若数据库存在则删除。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "不可逆地删除数据库中的所有数据。",
+        "当仍有到该数据库的活动连接时无法执行。"
+      ]
+    },
+    "pg-create-table": {
+      "title": "创建表",
+      "description": "创建带有列、类型和约束（主键、not null 等）的表。",
+      "examples": [
+        "创建 usuarios 表，含自增 id 和唯一的 email。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-alter-table": {
+      "title": "修改表",
+      "description": "修改表的结构：添加/删除列，更改类型或约束。",
+      "examples": [
+        "添加 ativo 列。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "在大表上，某些修改会锁表；请规划维护窗口。"
+      ]
+    },
+    "pg-select": {
+      "title": "查询数据",
+      "description": "从一张或多张表中取出行，支持过滤、排序和限制数量。",
+      "examples": [
+        "最近 10 个活跃用户。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-insert": {
+      "title": "插入数据",
+      "description": "向表中添加新行。RETURNING 会返回生成的值，例如 id。",
+      "examples": [
+        "插入并返回生成的 id。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-update": {
+      "title": "更新数据",
+      "description": "修改现有行的值。WHERE 至关重要，否则会更新整张表。",
+      "examples": [
+        "仅停用 42 号用户。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "不带 WHERE 的 UPDATE 会修改表中的所有行。"
+      ]
+    },
+    "pg-delete": {
+      "title": "删除数据",
+      "description": "从表中删除行。不带 WHERE 时会删除所有行。",
+      "examples": [
+        "删除已过期的会话。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "不带 WHERE 的 DELETE 会删除所有行。",
+        "建议使用事务 (BEGIN)，以便用 ROLLBACK 回滚。"
+      ]
+    },
+    "pg-join": {
+      "title": "连接表 (JOIN)",
+      "description": "基于关联条件组合两张表的行。",
+      "examples": [
+        "统计每个用户的订单数，包括没有订单的用户 (LEFT JOIN)。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-index": {
+      "title": "创建索引",
+      "description": "为 WHERE 和 JOIN 中使用的列创建索引，以加速查询。",
+      "examples": [
+        "加速按 email 的查询。",
+        "创建索引时不阻塞表的写入。"
+      ],
+      "arguments": [
+        "创建时不锁表（更慢）。"
+      ],
+      "warnings": [
+        "索引能加速读取，但会拖慢写入并占用空间。"
+      ]
+    },
+    "pg-explain": {
+      "title": "分析查询计划",
+      "description": "显示查询带耗时的实际执行计划，揭示瓶颈和索引使用情况。",
+      "examples": [
+        "查看查询是使用了索引还是做了顺序扫描。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "使用 ANALYZE 时，查询会被真正执行；对 INSERT/UPDATE/DELETE 要小心。"
+      ]
+    },
+    "pg-create-user": {
+      "title": "创建用户/role",
+      "description": "创建可登录的 role（用户）。之后用 GRANT 授予权限。",
+      "examples": [
+        "创建用户 app_user。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "使用强密码，只授予必要的权限（最小权限原则）。"
+      ]
+    },
+    "pg-grant": {
+      "title": "授予权限",
+      "description": "向 role 授予对表或数据库的权限（SELECT、INSERT、ALL 等）。",
+      "examples": [
+        "授予 app_user 读写权限。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "当特定权限足够时，避免授予 ALL PRIVILEGES。"
+      ]
+    },
+    "pg-dump": {
+      "title": "备份数据库",
+      "description": "将数据库的结构和数据导出到文件，用于备份和迁移。",
+      "examples": [
+        "SQL 格式备份。",
+        "custom 格式（压缩），可用 pg_restore 恢复。"
+      ],
+      "arguments": [
+        "custom 格式（压缩）。",
+        "仅转储某一张表。"
+      ],
+      "warnings": [
+        "该文件可能包含敏感数据；请妥善存放。"
+      ]
+    },
+    "pg-restore": {
+      "title": "恢复备份",
+      "description": "从 pg_dump 创建的 custom 格式转储中恢复数据库。",
+      "examples": [
+        "将转储恢复到已有的数据库中。"
+      ],
+      "arguments": [
+        "目标数据库。",
+        "重新创建前先移除对象。"
+      ],
+      "warnings": [
+        "--clean 会在恢复前删除目标中已有的对象。"
+      ]
+    },
+    "pg-vacuum": {
+      "title": "维护 (VACUUM)",
+      "description": "回收死行占用的空间，并更新查询规划器使用的统计信息。",
+      "examples": [
+        "清理并更新 usuarios 表的统计信息。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "VACUUM FULL 会锁表；请避开高峰时段。"
+      ]
+    },
+    "pg-active-queries": {
+      "title": "查看活动连接",
+      "description": "显示当前的连接、正在执行的查询及其状态，便于诊断。",
+      "examples": [
+        "列出当前正在执行的查询。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-createdb-cli": {
+      "title": "通过命令行创建数据库",
+      "description": "无需打开 psql 即可创建数据库的命令行工具。",
+      "examples": [
+        "创建 meuapp 数据库。"
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

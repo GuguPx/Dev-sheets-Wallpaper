@@ -1,4 +1,5 @@
 import { h, clear } from '@/core/dom';
+import { t } from '@/i18n';
 import { focusedFlat } from '@/terminal/actions';
 import { RISK_DISPLAY } from '@/utils/risk';
 import { renderCommandInto } from '@/utils/syntax';
@@ -14,7 +15,7 @@ export class DetailsPane {
     clear(this.el);
     const flat = focusedFlat();
 
-    this.el.appendChild(h('div', { class: 'pane-title' }, h('span', { text: 'DETAILS' })));
+    this.el.appendChild(h('div', { class: 'pane-title' }, h('span', { text: t('pane.details') })));
 
     if (!flat) {
       this.el.appendChild(h('div', { class: 'empty', text: '—' }));
@@ -35,7 +36,7 @@ export class DetailsPane {
     body.appendChild(h('div', { class: 'details-desc', text: e.description }));
 
     if (e.arguments.length) {
-      body.appendChild(h('div', { class: 'details-h', text: 'OPTIONS' }));
+      body.appendChild(h('div', { class: 'details-h', text: t('manual.options') }));
       for (const a of e.arguments.slice(0, 6)) {
         body.appendChild(
           h(
@@ -49,14 +50,14 @@ export class DetailsPane {
     }
 
     if (e.examples.length) {
-      body.appendChild(h('div', { class: 'details-h', text: 'EXAMPLE' }));
+      body.appendChild(h('div', { class: 'details-h', text: t('pane.example') }));
       const dex = h('pre', { class: 'details-ex' });
       renderCommandInto(dex, e.examples[0].code);
       body.appendChild(dex);
     }
 
     if (e.warnings.length) {
-      body.appendChild(h('div', { class: 'details-h details-h-warn', text: 'WARNINGS' }));
+      body.appendChild(h('div', { class: 'details-h details-h-warn', text: t('manual.warnings') }));
       for (const w of e.warnings)
         body.appendChild(h('div', { class: 'details-warn', text: `! ${w}` }));
     }

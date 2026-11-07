@@ -24,6 +24,9 @@ export type ParsedCommand =
   | { kind: 'margin'; side: MarginSide | null; px: number }
   | { kind: 'clear' }
   | { kind: 'about' }
+  /** `name` vazio = listar idiomas disponíveis. */
+  | { kind: 'lang'; name: string }
+  | { kind: 'support' }
   | { kind: 'unknown'; input: string };
 
 /** Nome canônico -> aliases aceitos. */
@@ -40,6 +43,8 @@ export const COMMANDS: Record<string, string[]> = {
   margin: ['margin', 'margem', 'm'],
   clear: ['clear', 'cls'],
   about: ['about'],
+  lang: ['lang', 'language', 'idioma', 'locale'],
+  support: ['support', 'donate', 'sponsor', 'coffee', 'apoiar', 'apoio'],
 };
 
 /** Aliases de lado aceitos por `margin` (PT e EN). */
@@ -116,6 +121,10 @@ export function parseCommand(line: string): ParsedCommand {
       return { kind: 'clear' };
     case 'about':
       return { kind: 'about' };
+    case 'lang':
+      return { kind: 'lang', name: rest };
+    case 'support':
+      return { kind: 'support' };
     default:
       return { kind: 'unknown', input: trimmed };
   }

@@ -1,0 +1,194 @@
+{
+  "description": "In-Memory-Key-Value-Datenbank — Strings, Hashes, Listen, Sets, Ablauf und Pub/Sub.",
+  "categories": {
+    "conexao": "Verbindung",
+    "strings": "Strings",
+    "keys": "Keys",
+    "hashes": "Hashes",
+    "lists": "Listen",
+    "sets": "Sets",
+    "sorted-sets": "Sorted Sets",
+    "pubsub": "Pub/Sub",
+    "server": "Server"
+  },
+  "entries": {
+    "redis-cli": {
+      "title": "CLI öffnen",
+      "description": "Öffnet den interaktiven Client, verbunden mit dem lokalen Redis (Port 6379).",
+      "examples": [
+        "Verbindet mit Host/Port samt Authentifizierung."
+      ],
+      "arguments": [
+        "Host des Servers.",
+        "Port (Standard 6379).",
+        "Nummer der Datenbank (0-15)."
+      ],
+      "warnings": [
+        "Die Übergabe von -a <Passwort> kann das Passwort im Shell-Verlauf preisgeben."
+      ]
+    },
+    "ping": {
+      "title": "Verbindung testen",
+      "description": "Prüft, ob der Server antwortet; liefert PONG, wenn er gesund ist.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "set": {
+      "title": "Wert setzen",
+      "description": "Schreibt einen String in einen Key. Optionen: EX Sekunden, NX (nur wenn nicht vorhanden).",
+      "examples": [
+        "Schreibt mit 1 h TTL, nur wenn der Key nicht existiert."
+      ],
+      "arguments": [
+        "Ablauf in Sekunden.",
+        "Setzt nur, wenn der Key nicht existiert."
+      ],
+      "warnings": []
+    },
+    "get": {
+      "title": "Wert abrufen",
+      "description": "Liest den String-Wert eines Keys; liefert nil, wenn er nicht existiert.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "incr": {
+      "title": "Zähler erhöhen",
+      "description": "Erhöht einen numerischen Wert atomar; ideal für Zähler und Rate Limiting.",
+      "examples": [
+        "Erhöht um einen bestimmten Wert."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "del": {
+      "title": "Key entfernen",
+      "description": "Entfernt einen oder mehrere Keys. Liefert, wie viele entfernt wurden.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Das Entfernen erfolgt sofort und ist unwiderruflich."
+      ]
+    },
+    "exists": {
+      "title": "Existenz prüfen",
+      "description": "Liefert 1, wenn der Key existiert, sonst 0.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expire": {
+      "title": "Ablauf setzen",
+      "description": "Legt eine Lebensdauer (TTL) in Sekunden fest, nach der der Key entfernt wird.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ttl": {
+      "title": "TTL abfragen",
+      "description": "Liefert die verbleibenden Sekunden bis zum Ablauf (-1 ohne TTL, -2 nicht vorhanden).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scan": {
+      "title": "Keys durchlaufen (SCAN)",
+      "description": "Durchläuft den Keyspace inkrementell und nicht blockierend. Bevorzuge SCAN gegenüber KEYS in Produktion.",
+      "examples": [],
+      "arguments": [
+        "Filtert nach Glob-Muster.",
+        "Mengenhinweis pro Iteration."
+      ],
+      "warnings": [
+        "Vermeide KEYS * in Produktion: Es blockiert den Server während des Durchlaufs."
+      ]
+    },
+    "hset": {
+      "title": "Hash: Felder setzen",
+      "description": "Schreibt Felder in einen Hash (Objekt). Nutze HGETALL, um alles zu lesen.",
+      "examples": [
+        "Liefert alle Felder und Werte des Hashes."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "lpush": {
+      "title": "Liste: hinzufügen",
+      "description": "Fügt am Anfang einer Liste ein. Kombiniere mit RPOP/BRPOP für Warteschlangen.",
+      "examples": [
+        "Listet alle Einträge auf (0 bis zum Ende)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "sadd": {
+      "title": "Set: hinzufügen",
+      "description": "Fügt einer Menge eindeutige Mitglieder hinzu. SMEMBERS listet auf, SISMEMBER prüft die Zugehörigkeit.",
+      "examples": [
+        "Liefert alle Mitglieder des Sets."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "zadd": {
+      "title": "Sorted Set: Ranking",
+      "description": "Fügt Mitglieder mit Punktzahl hinzu. Ideal für Rankings und Leaderboards.",
+      "examples": [
+        "Top 10 mit Punktzahlen, vom höchsten zum niedrigsten."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "subscribe": {
+      "title": "Pub/Sub",
+      "description": "Abonniert einen Kanal; nutze PUBLISH Kanal Nachricht in einer anderen Verbindung zum Senden.",
+      "examples": [
+        "Veröffentlicht eine Nachricht im Kanal."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "info": {
+      "title": "Serverstatus",
+      "description": "Liefert Servermetriken: Speicher, Clients, Persistenz, Statistiken.",
+      "examples": [
+        "Zeigt nur den Speicherabschnitt."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "dbsize": {
+      "title": "Anzahl der Keys",
+      "description": "Liefert die Anzahl der Keys in der aktuellen Datenbank.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "config-get": {
+      "title": "Konfiguration lesen",
+      "description": "Liest Konfigurationsparameter zur Laufzeit (z. B. Speicherlimit).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "flushdb": {
+      "title": "Aktuelle Datenbank leeren",
+      "description": "Entfernt ALLE Keys der ausgewählten Datenbank. Destruktive Aktion, sofort wirksam.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Löscht alle Keys der aktuellen Datenbank ohne Bestätigung und ohne Rückgängig-Möglichkeit."
+      ]
+    },
+    "flushall": {
+      "title": "ALLE Datenbanken leeren",
+      "description": "Entfernt alle Keys ALLER Datenbanken der Instanz. Extrem destruktiv.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Löscht die GESAMTE Instanz. Führe es in Produktion niemals ohne absolute Gewissheit aus."
+      ]
+    }
+  }
+}

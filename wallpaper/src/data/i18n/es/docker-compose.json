@@ -1,0 +1,156 @@
+{
+  "description": "Orquestación multi-container con Docker Compose v2 — ciclo de vida, servicios, logs y build.",
+  "categories": {
+    "ciclo-de-vida": "Ciclo de vida",
+    "servicos": "Servicios",
+    "build": "Build",
+    "logs": "Logs",
+    "manutencao": "Mantenimiento"
+  },
+  "entries": {
+    "up": {
+      "title": "Levantar servicios",
+      "description": "Crea e inicia todos los servicios en segundo plano (detached).",
+      "examples": [
+        "Levanta solo los servicios especificados."
+      ],
+      "arguments": [
+        "Se ejecuta en segundo plano.",
+        "Reconstruye las imágenes antes de levantar."
+      ],
+      "warnings": []
+    },
+    "up-build": {
+      "title": "Levantar reconstruyendo",
+      "description": "Reconstruye las imágenes y levanta los servicios. Úsalo tras modificar el Dockerfile.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "down": {
+      "title": "Derribar servicios",
+      "description": "Detiene y elimina los containers y la red por defecto creados por compose. Los volúmenes se conservan.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Elimina los containers; los datos fuera de volúmenes con nombre se pierden."
+      ]
+    },
+    "down-volumes": {
+      "title": "Derribar y borrar volúmenes",
+      "description": "Además de containers y red, elimina los volúmenes con nombre — borra datos persistidos (p. ej.: base de datos).",
+      "examples": [],
+      "arguments": [
+        "Elimina los volúmenes con nombre declarados en el compose."
+      ],
+      "warnings": [
+        "Destruye los datos de los volúmenes (bases de datos, uploads). Irreversible."
+      ]
+    },
+    "ps": {
+      "title": "Listar servicios",
+      "description": "Muestra el estado de los containers del proyecto (estado, puertos, salud).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "logs": {
+      "title": "Ver logs",
+      "description": "Sigue los logs agregados de todos los servicios; pasa un nombre para filtrar.",
+      "examples": [
+        "Sigue las últimas 100 líneas del servicio web."
+      ],
+      "arguments": [
+        "Sigue en tiempo real.",
+        "Número de líneas iniciales."
+      ],
+      "warnings": []
+    },
+    "build": {
+      "title": "Construir imágenes",
+      "description": "Construye (o reconstruye) las imágenes de los servicios con Dockerfile.",
+      "examples": [
+        "Ignora la caché de capas al construir."
+      ],
+      "arguments": [
+        "No usa caché de build."
+      ],
+      "warnings": []
+    },
+    "pull": {
+      "title": "Descargar imágenes",
+      "description": "Descarga las imágenes más recientes de los servicios definidos con 'image:'.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "restart": {
+      "title": "Reiniciar servicios",
+      "description": "Reinicia los containers en ejecución sin recrearlos.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "No aplica cambios de imagen/config — para eso usa 'up -d --build'."
+      ]
+    },
+    "stop": {
+      "title": "Detener sin eliminar",
+      "description": "Detiene los containers manteniéndolos para un 'start' rápido después.",
+      "examples": [
+        "Vuelve a iniciar containers detenidos."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "exec": {
+      "title": "Ejecutar en container",
+      "description": "Abre un shell (o ejecuta un comando) dentro de un container en ejecución.",
+      "examples": [
+        "Abre psql dentro del servicio de base de datos."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Los cambios hechos dentro del container se pierden si este se recrea."
+      ]
+    },
+    "run": {
+      "title": "Ejecutar container efímero",
+      "description": "Ejecuta un comando único en un nuevo container del servicio y lo elimina al terminar.",
+      "examples": [],
+      "arguments": [
+        "Elimina el container al terminar."
+      ],
+      "warnings": []
+    },
+    "config": {
+      "title": "Validar/expandir config",
+      "description": "Renderiza y valida el compose final (variables resueltas, archivos combinados).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "top": {
+      "title": "Procesos de los containers",
+      "description": "Muestra los procesos en ejecución dentro de cada servicio.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scale": {
+      "title": "Escalar un servicio",
+      "description": "Levanta múltiples réplicas de un servicio (requiere que no fije puertos del host).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rm": {
+      "title": "Eliminar detenidos",
+      "description": "Elimina los containers de servicios ya detenidos.",
+      "examples": [],
+      "arguments": [
+        "No pide confirmación."
+      ],
+      "warnings": []
+    }
+  }
+}

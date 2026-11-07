@@ -1,0 +1,257 @@
+{
+  "description": "표준 준수와 확장성에 중점을 둔 고급 오픈 소스 관계형 데이터베이스.",
+  "categories": {
+    "Conexão": "연결",
+    "Databases": "데이터베이스",
+    "Tabelas": "테이블",
+    "Consultas": "쿼리",
+    "Índices": "인덱스",
+    "Usuários": "사용자",
+    "Backup": "백업",
+    "Diagnóstico": "진단",
+    "psql": "psql"
+  },
+  "entries": {
+    "pg-connect": {
+      "title": "데이터베이스에 연결",
+      "description": "특정 데이터베이스, 사용자, 호스트에 연결된 대화형 psql 클라이언트를 엽니다.",
+      "examples": [
+        "postgres 사용자로 meuapp 데이터베이스에 연결합니다.",
+        "연결 URL을 사용해 연결합니다."
+      ],
+      "arguments": [
+        "사용자.",
+        "데이터베이스.",
+        "호스트.",
+        "포트(기본값 5432)."
+      ],
+      "warnings": [
+        "공유 환경에서는 URL에 비밀번호를 넣지 마세요. PGPASSWORD 변수나 ~/.pgpass를 사용하세요."
+      ]
+    },
+    "pg-list-databases": {
+      "title": "데이터베이스 목록",
+      "description": "서버의 모든 데이터베이스를 나열하는 psql 메타 명령입니다.",
+      "examples": [
+        "소유자와 인코딩과 함께 데이터베이스를 나열합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-connect-db": {
+      "title": "psql에서 데이터베이스 전환",
+      "description": "현재 psql 세션 안에서 다른 데이터베이스에 연결합니다.",
+      "examples": [
+        "meuapp 데이터베이스를 사용하도록 전환합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-list-tables": {
+      "title": "테이블 목록",
+      "description": "현재 스키마의 테이블을 나열합니다. 테이블의 컬럼을 보려면 \\d <테이블>을 사용하세요.",
+      "examples": [
+        "테이블을 나열합니다.",
+        "usuarios 테이블의 컬럼, 타입, 인덱스를 표시합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-database": {
+      "title": "데이터베이스 생성",
+      "description": "새 데이터베이스를 만듭니다. 소유자와 인코딩을 지정할 수 있습니다.",
+      "examples": [
+        "소유자와 인코딩을 지정해 데이터베이스를 만듭니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-drop-database": {
+      "title": "데이터베이스 삭제",
+      "description": "데이터베이스와 그 모든 내용을 영구적으로 삭제합니다.",
+      "examples": [
+        "데이터베이스가 있으면 삭제합니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "데이터베이스의 모든 데이터를 되돌릴 수 없게 삭제합니다.",
+        "해당 데이터베이스에 활성 연결이 있는 동안에는 실행할 수 없습니다."
+      ]
+    },
+    "pg-create-table": {
+      "title": "테이블 생성",
+      "description": "컬럼, 타입, 제약 조건(기본 키, not null 등)을 가진 테이블을 만듭니다.",
+      "examples": [
+        "자동 증가 id와 고유한 email을 가진 usuarios 테이블을 만듭니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-alter-table": {
+      "title": "테이블 변경",
+      "description": "테이블 구조를 수정합니다. 컬럼 추가/삭제, 타입이나 제약 조건 변경 등이 가능합니다.",
+      "examples": [
+        "ativo 컬럼을 추가합니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "큰 테이블에서는 일부 변경이 테이블을 잠급니다. 유지 보수 시간대를 계획하세요."
+      ]
+    },
+    "pg-select": {
+      "title": "데이터 조회",
+      "description": "필터, 정렬, 제한을 사용해 하나 이상의 테이블에서 행을 가져옵니다.",
+      "examples": [
+        "활성 사용자 최근 10명."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-insert": {
+      "title": "데이터 삽입",
+      "description": "테이블에 새 행을 추가합니다. RETURNING은 id 같은 생성된 값을 반환합니다.",
+      "examples": [
+        "삽입하고 생성된 id를 반환합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-update": {
+      "title": "데이터 수정",
+      "description": "기존 행의 값을 변경합니다. 테이블 전체가 수정되지 않도록 WHERE가 필수입니다.",
+      "examples": [
+        "42번 사용자만 비활성화합니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "WHERE 없는 UPDATE는 테이블의 모든 행을 변경합니다."
+      ]
+    },
+    "pg-delete": {
+      "title": "데이터 삭제",
+      "description": "테이블에서 행을 삭제합니다. WHERE가 없으면 모든 행을 삭제합니다.",
+      "examples": [
+        "만료된 세션을 삭제합니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "WHERE 없는 DELETE는 모든 행을 삭제합니다.",
+        "트랜잭션(BEGIN)을 사용하면 ROLLBACK으로 되돌릴 수 있습니다."
+      ]
+    },
+    "pg-join": {
+      "title": "테이블 조인 (JOIN)",
+      "description": "관계 조건을 기준으로 두 테이블의 행을 결합합니다.",
+      "examples": [
+        "주문이 없는 사용자를 포함해 사용자별 주문 수를 셉니다(LEFT JOIN)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-index": {
+      "title": "인덱스 생성",
+      "description": "WHERE와 JOIN에 사용되는 컬럼의 검색 속도를 높이는 인덱스를 만듭니다.",
+      "examples": [
+        "email 검색 속도를 높입니다.",
+        "테이블 쓰기를 막지 않고 인덱스를 만듭니다."
+      ],
+      "arguments": [
+        "테이블을 잠그지 않고 생성합니다(더 느림)."
+      ],
+      "warnings": [
+        "인덱스는 읽기를 빠르게 하지만 쓰기를 느리게 하고 공간을 차지합니다."
+      ]
+    },
+    "pg-explain": {
+      "title": "쿼리 실행 계획 분석",
+      "description": "쿼리의 실제 실행 계획을 소요 시간과 함께 보여 주어 병목과 인덱스 사용 여부를 알려 줍니다.",
+      "examples": [
+        "쿼리가 인덱스를 사용하는지, 순차 스캔을 하는지 확인합니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "ANALYZE를 쓰면 쿼리가 실제로 실행됩니다. INSERT/UPDATE/DELETE에 주의하세요."
+      ]
+    },
+    "pg-create-user": {
+      "title": "사용자/롤 생성",
+      "description": "로그인 가능한 롤(사용자)을 만듭니다. 이후 GRANT로 권한을 부여하세요.",
+      "examples": [
+        "app_user 사용자를 만듭니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "강력한 비밀번호를 사용하고 필요한 권한만 부여하세요(최소 권한 원칙)."
+      ]
+    },
+    "pg-grant": {
+      "title": "권한 부여",
+      "description": "롤에 테이블이나 데이터베이스에 대한 권한(SELECT, INSERT, ALL 등)을 부여합니다.",
+      "examples": [
+        "app_user에게 읽기 및 쓰기 권한을 부여합니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "특정 권한으로 충분하다면 ALL PRIVILEGES는 부여하지 마세요."
+      ]
+    },
+    "pg-dump": {
+      "title": "데이터베이스 백업",
+      "description": "데이터베이스의 구조와 데이터를 파일로 내보내 백업과 마이그레이션에 사용합니다.",
+      "examples": [
+        "SQL 형식 백업.",
+        "custom 형식(압축), pg_restore로 복원할 수 있습니다."
+      ],
+      "arguments": [
+        "custom 형식(압축).",
+        "테이블 하나만 덤프합니다."
+      ],
+      "warnings": [
+        "파일에 민감한 데이터가 있을 수 있으니 안전하게 보관하세요."
+      ]
+    },
+    "pg-restore": {
+      "title": "백업 복원",
+      "description": "pg_dump로 만든 custom 형식 덤프에서 데이터베이스를 복원합니다.",
+      "examples": [
+        "덤프를 기존 데이터베이스로 복원합니다."
+      ],
+      "arguments": [
+        "대상 데이터베이스.",
+        "객체를 다시 만들기 전에 제거합니다."
+      ],
+      "warnings": [
+        "--clean은 복원하기 전에 대상에 있는 객체를 삭제합니다."
+      ]
+    },
+    "pg-vacuum": {
+      "title": "유지 관리 (VACUUM)",
+      "description": "죽은 행(dead tuple)의 공간을 회수하고 쿼리 플래너가 사용하는 통계를 갱신합니다.",
+      "examples": [
+        "usuarios 테이블을 정리하고 통계를 갱신합니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "VACUUM FULL은 테이블을 잠급니다. 피크 시간대에는 피하세요."
+      ]
+    },
+    "pg-active-queries": {
+      "title": "활성 연결 확인",
+      "description": "현재 연결, 실행 중인 쿼리와 그 상태를 보여 줍니다. 진단에 유용합니다.",
+      "examples": [
+        "현재 실행 중인 쿼리를 나열합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-createdb-cli": {
+      "title": "명령줄에서 데이터베이스 생성",
+      "description": "psql을 열지 않고 데이터베이스를 만드는 명령줄 유틸리티입니다.",
+      "examples": [
+        "meuapp 데이터베이스를 만듭니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

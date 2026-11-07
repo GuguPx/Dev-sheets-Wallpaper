@@ -1,0 +1,159 @@
+{
+  "description": "Web サーバー兼リバースプロキシ — サービス制御、server ブロック、プロキシ、SSL、キャッシュ、ログ。",
+  "categories": {
+    "servico": "サービス",
+    "server-blocks": "server ブロック",
+    "proxy": "プロキシ",
+    "ssl": "SSL",
+    "cache": "キャッシュ",
+    "logs": "ログ",
+    "config": "設定"
+  },
+  "entries": {
+    "nginx-test": {
+      "title": "設定をテスト",
+      "description": "設定ファイルの構文を、適用せずに検証する。リロードの前に必ず実行すること。",
+      "examples": [],
+      "arguments": [
+        "設定をテストして終了する。"
+      ],
+      "warnings": []
+    },
+    "nginx-reload": {
+      "title": "ダウンタイムなしでリロード",
+      "description": "接続中の通信を切らずに、設定を穏やかにリロードする。",
+      "examples": [
+        "systemd 経由での同等のコマンド。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "先に 'nginx -t' を実行すること。無効な設定ではリロードできない。"
+      ]
+    },
+    "nginx-stop": {
+      "title": "サービスを停止",
+      "description": "Nginx を即座に終了する。穏やかに停止するには 'quit' を使う。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "リクエストの処理が止まる。接続を捌き切るには 'nginx -s quit' を使うこと。"
+      ]
+    },
+    "nginx-version": {
+      "title": "バージョンとモジュール",
+      "description": "バージョン、コンパイルフラグ、有効なモジュールを表示する (診断に便利)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "server-block": {
+      "title": "基本的な server ブロック",
+      "description": "ドメインに対して、ディレクトリ内の静的ファイルを配信する最小限のブロック。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "location-tryfiles": {
+      "title": "SPA フォールバック (try_files)",
+      "description": "要求されたファイルを返し、なければ index.html にフォールバックする — SPA (React、Vue) の定番設定。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect-301": {
+      "title": "301 リダイレクト",
+      "description": "要求されたパスを保持したまま、恒久的にリダイレクトする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-pass": {
+      "title": "リバースプロキシ",
+      "description": "リクエストをバックエンドアプリケーション (Node など) へ転送する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-headers": {
+      "title": "プロキシヘッダー",
+      "description": "ホストとクライアントの実 IP をバックエンドに渡す。プロキシの背後では必須。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "upstream": {
+      "title": "ロードバランシング (upstream)",
+      "description": "負荷分散のためのバックエンドサーバーのグループを定義する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "websocket-proxy": {
+      "title": "WebSocket プロキシ",
+      "description": "WebSocket を転送するために必要な接続アップグレードを有効にする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssl-cert": {
+      "title": "TLS を設定",
+      "description": "証明書と秘密鍵を指定して HTTPS を有効にする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "秘密鍵 (.pem) は権限を制限し、バージョン管理に含めてはならない。"
+      ]
+    },
+    "force-https": {
+      "title": "HTTPS を強制",
+      "description": "すべての HTTP トラフィックを HTTPS にリダイレクトする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "gzip": {
+      "title": "gzip 圧縮",
+      "description": "テキストのレスポンスを圧縮し、転送サイズを減らす。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expires-cache": {
+      "title": "静的ファイルのキャッシュ",
+      "description": "静的ファイルに長期間のキャッシュヘッダーを設定する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "client-max-body": {
+      "title": "アップロード上限",
+      "description": "リクエストボディ (アップロード) の最大サイズを設定する。デフォルトは 1m。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rate-limit": {
+      "title": "リクエストレートを制限",
+      "description": "IP ごとのレート制限ゾーンを定義する。'limit_req zone=api;' で適用する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "制限が低すぎると、正当なユーザーまでブロックする可能性がある。"
+      ]
+    },
+    "error-log-tail": {
+      "title": "エラーログを追跡",
+      "description": "Nginx のエラーをリアルタイムで追跡する — 502/504 を調査するときの最初の確認先。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "access-log": {
+      "title": "アクセスログを設定",
+      "description": "アクセスログのファイルを定義する。ノイズの多い静的ファイルの location では 'access_log off;' を使う。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

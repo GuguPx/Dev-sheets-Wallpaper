@@ -1,0 +1,487 @@
+{
+  "description": "Distributed version control system for tracking code changes.",
+  "categories": {
+    "Inicialização": "Initialization",
+    "Status": "Status",
+    "Staging": "Staging",
+    "Commits": "Commits",
+    "Branches": "Branches",
+    "Merge": "Merge",
+    "Rebase": "Rebase",
+    "Remoto": "Remote",
+    "Histórico": "History",
+    "Tags": "Tags",
+    "Stash": "Stash",
+    "Recuperação": "Recovery",
+    "Configuração": "Configuration",
+    "Diagnóstico": "Diagnostics"
+  },
+  "entries": {
+    "git-init": {
+      "title": "Initialize repository",
+      "description": "Creates a new empty Git repository in the current directory, generating the .git folder that stores the entire history.",
+      "examples": [
+        "Initializes the repository in the current directory.",
+        "Creates the meu-projeto folder with the initial branch named main."
+      ],
+      "arguments": [
+        "Sets the initial branch name (e.g. main).",
+        "Creates a repository without a working tree, used on servers."
+      ],
+      "warnings": []
+    },
+    "git-clone": {
+      "title": "Clone repository",
+      "description": "Copies a remote repository to your machine, including the full history, and automatically sets up the origin remote.",
+      "examples": [
+        "Clones the repository into the repo folder.",
+        "Shallow clone: downloads only the latest commit, useful for CI."
+      ],
+      "arguments": [
+        "Limits history to the last n commits (shallow clone).",
+        "Directly clones a specific branch."
+      ],
+      "warnings": []
+    },
+    "git-status": {
+      "title": "Check repository status",
+      "description": "Shows the current branch, modified files, files staged for commit and untracked files.",
+      "examples": [
+        "Shows the full state of the working tree.",
+        "Short format: one line per file (M, A, ??)."
+      ],
+      "arguments": [
+        "Short, compact output.",
+        "Shows the branch even in short format."
+      ],
+      "warnings": []
+    },
+    "git-add": {
+      "title": "Add to staging",
+      "description": "Moves changes to the staging area, marking them for inclusion in the next commit.",
+      "examples": [
+        "Adds a specific file to staging.",
+        "Adds all changes in the current directory.",
+        "Interactive mode: choose hunk by hunk what goes into the commit."
+      ],
+      "arguments": [
+        "Adds all changes, including deletions, across the whole repository.",
+        "Interactively selects the hunks to add."
+      ],
+      "warnings": []
+    },
+    "git-reset-file": {
+      "title": "Unstage",
+      "description": "Removes a file from the staging area without discarding the changes in the file. Replaces the old git reset <file>.",
+      "examples": [
+        "Unstages app.ts, keeping the edits."
+      ],
+      "arguments": [
+        "Operates on the staging area (index) instead of the working tree."
+      ],
+      "warnings": []
+    },
+    "git-restore": {
+      "title": "Discard local changes",
+      "description": "Undoes uncommitted changes to a file in the working tree, going back to the last committed state.",
+      "examples": [
+        "Discards the unsaved changes in config.json.",
+        "Discards the changes in all tracked files."
+      ],
+      "arguments": [
+        "Restores from a specific commit."
+      ],
+      "warnings": [
+        "Discarded changes cannot be recovered, since they were never committed."
+      ]
+    },
+    "git-commit": {
+      "title": "Create commit",
+      "description": "Records the changes in the staging area into the repository history with a descriptive message.",
+      "examples": [
+        "Creates a commit with the given message.",
+        "Stages already-tracked files and commits in one step."
+      ],
+      "arguments": [
+        "Sets the commit message on the command line.",
+        "Automatically includes modified tracked files."
+      ],
+      "warnings": []
+    },
+    "git-commit-amend": {
+      "title": "Amend last commit",
+      "description": "Replaces the most recent commit, letting you change the message or include new staged changes.",
+      "examples": [
+        "Rewrites the last commit's message.",
+        "Adds the staged changes to the last commit without changing the message."
+      ],
+      "arguments": [
+        "Keeps the current message."
+      ],
+      "warnings": [
+        "Rewrites the commit hash; never amend commits already pushed to a shared branch."
+      ]
+    },
+    "git-branch-list": {
+      "title": "List branches",
+      "description": "Lists local branches, highlighting the current branch with an asterisk.",
+      "examples": [
+        "Lists local branches.",
+        "Lists local and remote branches."
+      ],
+      "arguments": [
+        "Includes remote branches.",
+        "Shows only remote branches."
+      ],
+      "warnings": []
+    },
+    "git-switch-create": {
+      "title": "Create and switch branch",
+      "description": "Creates a new branch from the current one and switches to it right away. A clearer alternative to git checkout -b.",
+      "examples": [
+        "Creates and switches to the feature/login branch."
+      ],
+      "arguments": [
+        "Creates the branch before switching."
+      ],
+      "warnings": []
+    },
+    "git-switch": {
+      "title": "Switch branch",
+      "description": "Moves the working tree to another existing branch. Replaces using git checkout to switch branches.",
+      "examples": [
+        "Goes back to the main branch.",
+        "Switches to the previous branch."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Uncommitted changes may block the switch; use git stash first if needed."
+      ]
+    },
+    "git-branch-delete": {
+      "title": "Delete branch",
+      "description": "Removes an already-merged local branch. Use -D to force deletion of an unmerged branch.",
+      "examples": [
+        "Deletes the branch if it has already been merged.",
+        "Forces deletion even without a merge (loses the unique commits)."
+      ],
+      "arguments": [
+        "Deletes only if the branch is merged.",
+        "Forces deletion (shortcut for --delete --force)."
+      ],
+      "warnings": [
+        "-D discards commits unique to the branch that exist nowhere else."
+      ]
+    },
+    "git-merge": {
+      "title": "Merge branch",
+      "description": "Integrates another branch's changes into the current branch, creating a merge commit when needed.",
+      "examples": [
+        "Brings the commits from feature/login into the current branch.",
+        "Creates a merge commit even when a fast-forward would be possible."
+      ],
+      "arguments": [
+        "Always creates a merge commit, preserving the branch history.",
+        "Cancels a conflicted merge and returns to the previous state."
+      ],
+      "warnings": [
+        "May produce conflicts that must be resolved manually before finishing."
+      ]
+    },
+    "git-merge-abort": {
+      "title": "Abort conflicted merge",
+      "description": "Stops an in-progress merge with conflicts and restores the branch to its pre-merge state.",
+      "examples": [
+        "Undoes the conflicting merge."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Discards the conflict resolutions made so far."
+      ]
+    },
+    "git-rebase": {
+      "title": "Rebase branch",
+      "description": "Reapplies the current branch's commits on top of another base, creating a linear history with no merge commits.",
+      "examples": [
+        "Reapplies the current branch's commits on top of main.",
+        "Interactive rebase of the last 3 commits (reorder, squash, edit)."
+      ],
+      "arguments": [
+        "Interactive rebase: edit, reorder or combine commits.",
+        "Rebases onto a specific point."
+      ],
+      "warnings": [
+        "Rewrites hashes; don't rebase commits already published on shared branches."
+      ]
+    },
+    "git-rebase-continue": {
+      "title": "Continue rebase after conflict",
+      "description": "Proceeds with the rebase after you resolve the conflicts and stage the files.",
+      "examples": [
+        "Marks the conflicts as resolved and continues the rebase."
+      ],
+      "arguments": [
+        "Cancels the rebase and returns to the initial state.",
+        "Skips the current conflicting commit."
+      ],
+      "warnings": []
+    },
+    "git-remote-add": {
+      "title": "Add remote repository",
+      "description": "Links a remote repository to a short name (usually origin) for pushing and pulling changes.",
+      "examples": [
+        "Sets origin as the main remote.",
+        "Lists the configured remotes and their URLs."
+      ],
+      "arguments": [
+        "Shows the URLs (verbose) when listing."
+      ],
+      "warnings": []
+    },
+    "git-fetch": {
+      "title": "Fetch remote changes",
+      "description": "Downloads commits, branches and tags from the remote without touching your working tree or merging automatically.",
+      "examples": [
+        "Updates origin's remote references.",
+        "Removes local references to branches that no longer exist on the remote."
+      ],
+      "arguments": [
+        "Prunes remote branches that were deleted.",
+        "Fetches from all remotes."
+      ],
+      "warnings": []
+    },
+    "git-pull": {
+      "title": "Update local branch",
+      "description": "Combines fetch and merge: fetches the remote's changes and integrates them into the current branch.",
+      "examples": [
+        "Updates the current branch from the tracked remote.",
+        "Applies your local commits on top of the remote ones, avoiding a merge commit."
+      ],
+      "arguments": [
+        "Uses rebase instead of merge to integrate."
+      ],
+      "warnings": [
+        "May produce conflicts if the changes have diverged."
+      ]
+    },
+    "git-push": {
+      "title": "Push commits to remote",
+      "description": "Sends the current branch's local commits to the corresponding remote repository.",
+      "examples": [
+        "Pushes the current branch to the already-tracked remote.",
+        "Pushes and starts tracking origin/main as upstream."
+      ],
+      "arguments": [
+        "Sets the branch's upstream (tracking).",
+        "Force-pushes safely, aborting if the remote has changed."
+      ],
+      "warnings": [
+        "Avoid --force on shared branches; prefer --force-with-lease."
+      ]
+    },
+    "git-log": {
+      "title": "View commit history",
+      "description": "Shows the commit history with author, date and message, from newest to oldest.",
+      "examples": [
+        "One line per commit, condensed.",
+        "Visualizes branches and merges as a graph."
+      ],
+      "arguments": [
+        "Compact one-line format.",
+        "Draws the branch graph.",
+        "Limits to the given number of commits."
+      ],
+      "warnings": []
+    },
+    "git-diff": {
+      "title": "Compare changes",
+      "description": "Shows the differences between the working tree and staging, or between commits and branches.",
+      "examples": [
+        "Shows changes not yet added to staging.",
+        "Shows what is already staged (will be committed).",
+        "Compares two branches."
+      ],
+      "arguments": [
+        "Compares staging with the last commit."
+      ],
+      "warnings": []
+    },
+    "git-show": {
+      "title": "Inspect a commit",
+      "description": "Shows the details and diff of a specific commit, including metadata and changes.",
+      "examples": [
+        "Shows the latest commit and its changes."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "git-tag": {
+      "title": "Create tag",
+      "description": "Creates an annotated tag, usually used to mark release versions (e.g. v1.0.0).",
+      "examples": [
+        "Creates an annotated tag v1.0.0.",
+        "Pushes the tag to the remote (tags aren't included in a regular push)."
+      ],
+      "arguments": [
+        "Creates an annotated tag (with author and message).",
+        "Tag message."
+      ],
+      "warnings": []
+    },
+    "git-stash": {
+      "title": "Stash changes temporarily",
+      "description": "Saves uncommitted changes onto a stack and cleans the working tree, letting you switch context.",
+      "examples": [
+        "Stashes the current changes.",
+        "Stashes with a description."
+      ],
+      "arguments": [
+        "Includes untracked files.",
+        "Adds a message to the stash."
+      ],
+      "warnings": []
+    },
+    "git-stash-pop": {
+      "title": "Restore stashed changes",
+      "description": "Reapplies the most recent stash to the working tree and removes it from the stack.",
+      "examples": [
+        "Restores and removes the latest stash.",
+        "Applies a specific stash without removing it."
+      ],
+      "arguments": [
+        "Applies without removing from the stack."
+      ],
+      "warnings": [
+        "May produce conflicts when reapplying onto a modified state."
+      ]
+    },
+    "git-reset-soft": {
+      "title": "Undo commit keeping changes",
+      "description": "Removes the last commit from history but keeps its changes staged so you can recommit them.",
+      "examples": [
+        "Undoes the last commit, keeping the changes staged."
+      ],
+      "arguments": [
+        "Keeps the changes staged."
+      ],
+      "warnings": [
+        "Alters local history; don't use on commits already pushed."
+      ]
+    },
+    "git-reset-hard": {
+      "title": "Discard commits and changes",
+      "description": "Moves the branch to a commit and discards ALL local changes and later commits.",
+      "examples": [
+        "Discards all uncommitted changes.",
+        "Forces the local branch to be identical to the remote."
+      ],
+      "arguments": [
+        "Discards staging and working tree."
+      ],
+      "warnings": [
+        "Permanently loses uncommitted changes.",
+        "Rewrites local history; use git reflog to try to recover."
+      ]
+    },
+    "git-revert": {
+      "title": "Safely revert a commit",
+      "description": "Creates a new commit that undoes the changes of a previous commit, without rewriting history.",
+      "examples": [
+        "Creates a commit that undoes the last commit."
+      ],
+      "arguments": [
+        "Applies the revert without committing right away."
+      ],
+      "warnings": [
+        "Ideal for shared branches, since it doesn't rewrite history."
+      ]
+    },
+    "git-reflog": {
+      "title": "Recover lost commits",
+      "description": "Shows the history of where HEAD has been, letting you recover commits after a reset or rebase.",
+      "examples": [
+        "Lists HEAD's previous positions.",
+        "Moves HEAD back to a state listed in the reflog."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "git-cherry-pick": {
+      "title": "Apply a specific commit",
+      "description": "Applies the changes of a specific commit from another branch onto the current branch.",
+      "examples": [
+        "Brings commit a1b2c3d into the current branch."
+      ],
+      "arguments": [
+        "Records the original hash in the message."
+      ],
+      "warnings": [
+        "May produce conflicts; resolve them and use git cherry-pick --continue."
+      ]
+    },
+    "git-config-user": {
+      "title": "Configure identity",
+      "description": "Sets the name and email used in commits. With --global it applies to all of the user's repositories.",
+      "examples": [
+        "Sets the global commit email.",
+        "Sets the name for this repository only."
+      ],
+      "arguments": [
+        "Applies the setting for the current user.",
+        "Lists all active settings."
+      ],
+      "warnings": []
+    },
+    "git-blame": {
+      "title": "Find who changed each line",
+      "description": "Shows, line by line, which commit and author last changed each part of a file.",
+      "examples": [
+        "Shows the author and commit of each line in the file.",
+        "Limits to lines 10 through 20."
+      ],
+      "arguments": [
+        "Restricts to a range of lines."
+      ],
+      "warnings": []
+    },
+    "git-clean": {
+      "title": "Remove untracked files",
+      "description": "Deletes untracked files and directories from the working tree. Useful for cleaning build artifacts.",
+      "examples": [
+        "Dry run: shows what would be removed, without deleting.",
+        "Actually removes untracked files and directories."
+      ],
+      "arguments": [
+        "Dry run: only shows what it would remove.",
+        "Forces removal.",
+        "Includes directories."
+      ],
+      "warnings": [
+        "Removes files permanently; run with -n first to check."
+      ]
+    },
+    "git-log-search": {
+      "title": "Search history",
+      "description": "Finds commits that added or removed a specific string in the code (pickaxe), useful for tracing when something appeared.",
+      "examples": [
+        "Lists commits that introduced or removed the word TODO.",
+        "Filters commits whose message contains 'fix'."
+      ],
+      "arguments": [
+        "Searches for changes that add/remove the text.",
+        "Filters by commit message."
+      ],
+      "warnings": []
+    },
+    "git-remote-set-url": {
+      "title": "Change remote URL",
+      "description": "Updates the address of an existing remote, for example when migrating from HTTPS to SSH.",
+      "examples": [
+        "Switches origin's URL to SSH."
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

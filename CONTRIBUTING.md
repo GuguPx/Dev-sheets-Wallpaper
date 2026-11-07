@@ -51,6 +51,14 @@ Regras de ouro do conteúdo:
 - **Atenção ao idioma:** os enums internos (`risco`, `dificuldade`) são em português de
   propósito — não os traduza. Detalhes no guia.
 
+### Traduções
+
+O wallpaper fala 10 idiomas. Correções de tradução são muito bem-vindas: os textos ficam em
+`wallpaper/src/data/i18n/<idioma>/` (conteúdo) e `wallpaper/src/i18n/locales/<idioma>.ts`
+(interface). Depois de editar, rode `npm run validate:i18n` e `npm test`. O passo a passo
+(e como adicionar um idioma novo) está em
+[CONTENT_GUIDE.md › Traduções](CONTENT_GUIDE.md#traduções).
+
 ## Contribuir com código
 
 Arquitetura em [ARCHITECTURE.md](ARCHITECTURE.md); atalhos em [KEYBINDINGS.md](KEYBINDINGS.md).

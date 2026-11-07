@@ -17,6 +17,8 @@ export interface AppEvents {
   'entry:used': { technologyId: string; entryId: string; action: UsageAction };
   toast: { message: string; kind?: 'info' | 'success' | 'warning' | 'danger'; timeout?: number };
   'theme:changed': { theme: string };
+  /** Idioma efetivo mudou (já resolvido de `auto`). */
+  'locale:changed': { locale: string };
   'data:changed': void;
   'notes:changed': void;
   'favorites:changed': void;

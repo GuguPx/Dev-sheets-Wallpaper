@@ -1,0 +1,160 @@
+{
+  "description": "Node.js 向けプロセスマネージャー — 起動、ダウンタイムなしの再起動、ログ、クラスター、ブート時起動。",
+  "categories": {
+    "processos": "プロセス",
+    "monitoramento": "モニタリング",
+    "logs": "ログ",
+    "startup": "自動起動",
+    "cluster": "クラスター"
+  },
+  "entries": {
+    "pm2-start": {
+      "title": "アプリケーションを起動",
+      "description": "わかりやすい名前を付けて、PM2 が管理するプロセスを起動する。",
+      "examples": [
+        "'--' の後に引数を渡して npm スクリプトを起動する。"
+      ],
+      "arguments": [
+        "プロセス名。",
+        "インスタンス数 (クラスター)。'max' なら全コアを使う。"
+      ],
+      "warnings": []
+    },
+    "pm2-ecosystem": {
+      "title": "ecosystem で起動",
+      "description": "宣言的な設定ファイルからプロセスを起動する (推奨)。",
+      "examples": [
+        "サンプルの ecosystem.config.js を生成する。"
+      ],
+      "arguments": [
+        "環境ブロックを選択する (例: production)。"
+      ],
+      "warnings": []
+    },
+    "pm2-list": {
+      "title": "プロセス一覧",
+      "description": "プロセスの表を表示する: id、名前、ステータス、CPU、メモリ、再起動回数。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-monit": {
+      "title": "リアルタイムモニター",
+      "description": "プロセスごとの CPU、メモリ、ログを表示する対話的なパネル (btop 風)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-describe": {
+      "title": "プロセスの詳細",
+      "description": "プロセスの詳細情報を表示する: パス、環境変数、稼働時間、再起動回数。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-logs": {
+      "title": "ログを表示",
+      "description": "プロセスのログ (stdout/stderr) をリアルタイムでストリーム表示する。",
+      "examples": [
+        "追跡する前に直近 200 行を表示する。"
+      ],
+      "arguments": [
+        "表示する過去の行数。"
+      ],
+      "warnings": []
+    },
+    "pm2-flush": {
+      "title": "ログを消去",
+      "description": "すべてのプロセスのログファイルを空にする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "PM2 が保存しているログの履歴が削除される。"
+      ]
+    },
+    "pm2-reload": {
+      "title": "ダウンタイムなしでリロード",
+      "description": "クラスターのプロセスを順番にリロードし、サービスを止めない (ゼロダウンタイム)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "fork モード (インスタンス 1 つ) では、reload は短時間の停止を伴う restart と同じになる。"
+      ]
+    },
+    "pm2-restart": {
+      "title": "再起動",
+      "description": "プロセスを再起動する (停止してから再度起動)。'all' で全プロセス対象。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "短時間サービスが利用できなくなる。クラスターでは 'reload' を使うこと。"
+      ]
+    },
+    "pm2-stop": {
+      "title": "停止",
+      "description": "プロセスを一覧に残したまま停止する (ステータスは stopped)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-delete": {
+      "title": "一覧から削除",
+      "description": "プロセスを停止し、PM2 の一覧から削除する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "プロセスが管理対象から外れる。新しい状態を永続化するには、その後で 'save' を実行する。"
+      ]
+    },
+    "pm2-delete-all": {
+      "title": "すべて削除",
+      "description": "PM2 が管理するすべてのプロセスを停止して削除する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "すべてのサービスが一度に停止する。本番で実行する前に対象を確認すること。"
+      ]
+    },
+    "pm2-scale": {
+      "title": "インスタンスをスケール",
+      "description": "クラスターのアプリのインスタンス数を、指定した値に調整する。",
+      "examples": [
+        "既存のインスタンスに 2 つ追加する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-startup": {
+      "title": "ブート時に起動",
+      "description": "PM2 がブート時に起動するよう、システムの起動スクリプトを生成してインストールする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "コマンドが sudo 付きの行を出力する。インストールを完了するにはその行を実行する必要がある。"
+      ]
+    },
+    "pm2-save": {
+      "title": "プロセス一覧を保存",
+      "description": "現在のプロセス一覧を永続化し、ブート時に復元できるようにする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-resurrect": {
+      "title": "プロセスを復元",
+      "description": "'pm2 save' で以前に保存したプロセスを再読み込みする。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-kill": {
+      "title": "デーモンを終了",
+      "description": "PM2 のデーモンと、それが管理するすべてのプロセスを終了する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "デーモン自体を含め、すべて停止する。完全なリセットにのみ使うこと。"
+      ]
+    }
+  }
+}

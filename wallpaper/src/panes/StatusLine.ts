@@ -3,7 +3,9 @@ import { appStore } from '@/stores/AppStore';
 import { settingsStore } from '@/stores/SettingsStore';
 import { activeTechnology, currentEntries } from '@/terminal/actions';
 import { search } from '@/services/SearchService';
-import { clockLabel, titleCase } from '@/utils/format';
+import { clockLabel } from '@/utils/format';
+import { content } from '@/services/ContentService';
+import { t, getLocale } from '@/i18n';
 
 /**
  * Barra inferior estilo statusline do Neovim (seção 16). O conteúdo muda
@@ -28,52 +30,76 @@ export class StatusLine {
       case 'search': {
         const n = st.searchQuery ? search.search(st.searchQuery).length : 0;
         segs.push(
-          `query: ${st.searchQuery || '…'}`,
-          `${n} results`,
-          '↑↓ select',
-          'Enter open',
-          'Esc close',
+          t('status.query', { query: st.searchQuery || '…' }),
+          t('search.results', { count: n }),
+          `↑↓ ${t('status.select')}`,
+          `Enter ${t('status.open')}`,
+          `Esc ${t('status.close')}`,
         );
         break;
       }
       case 'manual': {
         const pct = Math.round(st.manualScroll * 100);
         const name = st.manualKey ? st.manualKey.split(':').slice(1).join(':') : '';
-        segs.push(name, `${pct}%`, 'j/k scroll', 'y copy', 'f fav', 'n note', 'q close');
+        segs.push(
+          name,
+          `${pct}%`,
+          `j/k ${t('status.scroll')}`,
+          `y ${t('status.copy')}`,
+          `f ${t('status.fav')}`,
+          `n ${t('status.note')}`,
+          `q ${t('status.close')}`,
+        );
         break;
       }
       case 'command':
-        segs.push(': comando interno', 'Enter run', 'Esc cancel');
+        segs.push(
+          `: ${t('status.internalCommand')}`,
+          `Enter ${t('status.run')}`,
+          `Esc ${t('status.cancel')}`,
+        );
         break;
       case 'notes':
-        segs.push('editando nota', 'Ctrl+Enter salvar', 'Esc cancelar');
+        segs.push(
+          t('status.editingNote'),
+          `Ctrl+Enter ${t('status.save')}`,
+          `Esc ${t('status.cancelNote')}`,
+        );
         break;
       case 'help':
-        segs.push('atalhos', 'q/Esc fechar');
+        segs.push(t('status.shortcuts'), `q/Esc ${t('status.closeHelp')}`);
         break;
       default: {
         if (st.idleView) {
           segs.push(
             '▮ tty',
-            'tela de descanso',
-            'sheets ocultos',
-            st.idleAuto ? 'mexa o mouse para voltar' : 'clique numa aba para voltar',
+            t('status.idle'),
+            t('status.sheetsHidden'),
+            st.idleAuto ? t('status.idleWakeMouse') : t('status.idleWakeClick'),
           );
           break;
         }
         const total = currentEntries().length;
         const pos = `${total ? st.commandIndex + 1 : 0}/${total}`;
         if (st.recommendedView) {
-          segs.push('★ recomendados', 'essenciais', pos);
+          segs.push(`★ ${t('status.recommended')}`, t('status.essentials'), pos);
         } else {
           const tech = activeTechnology();
           segs.push(
             tech ? tech.prompt : '—',
-            st.activeCategory ? titleCase(st.activeCategory) : 'todos',
+            st.activeCategory
+              ? content.categoryLabel(st.activeTechnologyId, st.activeCategory)
+              : t('common.all'),
             pos,
           );
         }
-        segs.push('UTF-8', s.language.toUpperCase(), '/ search', ': cmd', '? help');
+        segs.push(
+          'UTF-8',
+          getLocale().toUpperCase(),
+          `/ ${t('status.search')}`,
+          `: ${t('status.cmd')}`,
+          `? ${t('status.help')}`,
+        );
       }
     }
 

@@ -11,6 +11,8 @@ import { runBoot } from '@/terminal/BootSequence';
 import { keyboard } from '@/terminal/KeyboardManager';
 import { idleTimer } from '@/terminal/IdleTimer';
 import { TerminalShell } from '@/terminal/TerminalShell';
+import { bus } from '@/core/EventBus';
+import { t, getLocale, isLocale } from '@/i18n';
 
 /**
  * Ponto de entrada da aplicação. Inicializa configurações, ponte com o Wallpaper
@@ -27,6 +29,13 @@ export async function bootstrap(): Promise<void> {
   // 3. Conteúdo embutido, validado. Erros não passam em silêncio.
   const { errors } = content.load();
   if (errors.length) console.error('[content] erros de validação:', errors);
+  // Conteúdo no idioma ativo; troca de idioma re-traduz e reindexa a busca.
+  content.setLocale(getLocale());
+  bus.on('locale:changed', ({ locale }) => {
+    if (!isLocale(locale)) return;
+    content.setLocale(locale);
+    search.setIndex(content.getFlatEntries());
+  });
 
   const techs = content.getTechnologies();
   if (techs.length && !content.getTechnology(appStore.getState().activeTechnologyId)) {
@@ -61,7 +70,7 @@ export async function bootstrap(): Promise<void> {
     root.appendChild(
       h('div', {
         class: 'fatal',
-        text: 'Nenhuma tecnologia carregada. Verifique src/data/technologies e o console.',
+        text: t('app.noTechnologies'),
       }),
     );
     return;

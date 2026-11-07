@@ -1,0 +1,190 @@
+{
+  "description": "OpenSSH — connessioni sicure, chiavi, copia di file e tunnel.",
+  "categories": {
+    "conexao": "Connessione",
+    "chaves": "Chiavi",
+    "copia": "Copia",
+    "tuneis": "Tunnel",
+    "config": "Configurazione"
+  },
+  "entries": {
+    "ssh-connect": {
+      "title": "Connettersi a un host",
+      "description": "Apre una sessione shell remota autenticata tramite SSH.",
+      "examples": [],
+      "arguments": [
+        "Porta del server (predefinita 22).",
+        "Modalità verbosa per fare il debug della connessione."
+      ],
+      "warnings": []
+    },
+    "ssh-port": {
+      "title": "Connettersi su una porta specifica",
+      "description": "Si connette quando il server SSH è in ascolto su una porta diversa dalla 22.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-identity": {
+      "title": "Usare una chiave specifica",
+      "description": "Specifica il file della chiave privata usato per autenticarsi.",
+      "examples": [],
+      "arguments": [
+        "Percorso della chiave privata."
+      ],
+      "warnings": [
+        "La chiave privata deve avere permesso 600 (chmod 600), altrimenti SSH la rifiuta."
+      ]
+    },
+    "ssh-jump": {
+      "title": "Host di salto (ProxyJump)",
+      "description": "Si connette a un host interno passando per un bastion/jump host in una sola riga.",
+      "examples": [],
+      "arguments": [
+        "Host intermedio/i."
+      ],
+      "warnings": []
+    },
+    "ssh-keygen": {
+      "title": "Generare una coppia di chiavi",
+      "description": "Crea una coppia di chiavi pubblica/privata. ed25519 è l'algoritmo consigliato.",
+      "examples": [],
+      "arguments": [
+        "Tipo di algoritmo (ed25519, rsa).",
+        "Commento (di solito l'e-mail).",
+        "File di output della chiave."
+      ],
+      "warnings": [
+        "Proteggi la chiave privata con una passphrase; non condividerla mai."
+      ]
+    },
+    "ssh-copy-id": {
+      "title": "Installare la chiave sul server",
+      "description": "Copia la tua chiave pubblica nell'authorized_keys del server, abilitando il login senza password.",
+      "examples": [],
+      "arguments": [
+        "Chiave pubblica specifica da installare."
+      ],
+      "warnings": []
+    },
+    "ssh-add": {
+      "title": "Aggiungere la chiave all'agent",
+      "description": "Carica la chiave privata nell'ssh-agent per non digitare la passphrase a ogni connessione.",
+      "examples": [
+        "Elenca le chiavi caricate nell'agent."
+      ],
+      "arguments": [
+        "Elenca le identità caricate.",
+        "Rimuove tutte le identità dall'agent."
+      ],
+      "warnings": []
+    },
+    "ssh-agent": {
+      "title": "Avviare l'agent",
+      "description": "Avvia l'ssh-agent nella sessione corrente per gestire le chiavi in memoria.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scp": {
+      "title": "Copiare un file (scp)",
+      "description": "Copia file tra macchina locale e remota tramite SSH.",
+      "examples": [
+        "Scarica un file remoto nella directory corrente."
+      ],
+      "arguments": [
+        "Copia le directory in modo ricorsivo.",
+        "Porta (maiuscolo in scp)."
+      ],
+      "warnings": [
+        "Sovrascrive la destinazione senza avvisare."
+      ]
+    },
+    "rsync-ssh": {
+      "title": "Sincronizzare (rsync)",
+      "description": "Sincronizza le directory in modo incrementale tramite SSH, trasferendo solo le differenze.",
+      "examples": [
+        "Replica la sorgente, rimuovendo nella destinazione ciò che non esiste più nella sorgente."
+      ],
+      "arguments": [
+        "Modalità archivio (preserva permessi, link, timestamp).",
+        "Comprime durante il trasferimento.",
+        "Rimuove nella destinazione i file assenti nella sorgente."
+      ],
+      "warnings": [
+        "--delete cancella file nella destinazione; prova prima con --dry-run."
+      ]
+    },
+    "sftp": {
+      "title": "Sessione SFTP",
+      "description": "Apre una sessione interattiva di trasferimento file tramite SSH (get/put/ls).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-local-tunnel": {
+      "title": "Tunnel locale (-L)",
+      "description": "Inoltra una porta locale a un servizio raggiungibile dall'host remoto (es.: database).",
+      "examples": [],
+      "arguments": [
+        "portaLocale:hostDestinazione:portaDestinazione"
+      ],
+      "warnings": [
+        "Esponi porte sensibili solo su localhost, mai su 0.0.0.0."
+      ]
+    },
+    "ssh-remote-tunnel": {
+      "title": "Tunnel inverso (-R)",
+      "description": "Espone un servizio locale su una porta dell'host remoto (tunnel inverso).",
+      "examples": [],
+      "arguments": [
+        "portaRemota:hostLocale:portaLocale"
+      ],
+      "warnings": [
+        "Attenzione a esporre servizi interni su server pubblici."
+      ]
+    },
+    "ssh-dynamic-tunnel": {
+      "title": "Proxy SOCKS (-D)",
+      "description": "Crea un proxy SOCKS dinamico, instradando il traffico delle applicazioni attraverso l'host remoto.",
+      "examples": [
+        "Avvia il proxy in background, senza aprire una shell."
+      ],
+      "arguments": [
+        "Porta locale del proxy SOCKS.",
+        "Non esegue comandi remoti (solo tunnel).",
+        "Va in background."
+      ],
+      "warnings": []
+    },
+    "ssh-config": {
+      "title": "File ~/.ssh/config",
+      "description": "Definisce alias e opzioni per host, permettendo 'ssh prod' invece di una riga lunga.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-known-hosts-remove": {
+      "title": "Rimuovere un host noto",
+      "description": "Rimuove la chiave di un host da known_hosts (dopo una reinstallazione/cambio di chiave del server).",
+      "examples": [],
+      "arguments": [
+        "Rimuove le voci dell'host da known_hosts."
+      ],
+      "warnings": [
+        "Rimuovi solo se ti fidi del cambio di chiave del server; altrimenti potrebbe indicare un attacco MITM."
+      ]
+    },
+    "ssh-keyscan": {
+      "title": "Raccogliere la chiave dell'host",
+      "description": "Ottiene la chiave pubblica di un host e la aggiunge a known_hosts (utile nell'automazione).",
+      "examples": [],
+      "arguments": [
+        "Fa l'hash dei nomi host nel file."
+      ],
+      "warnings": [
+        "Verifica il fingerprint tramite un canale fidato prima di fidarti della chiave."
+      ]
+    }
+  }
+}

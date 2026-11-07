@@ -1,0 +1,156 @@
+{
+  "description": "使用 Docker Compose v2 编排多容器 — 生命周期、服务、日志与构建。",
+  "categories": {
+    "ciclo-de-vida": "生命周期",
+    "servicos": "服务",
+    "build": "构建",
+    "logs": "日志",
+    "manutencao": "维护"
+  },
+  "entries": {
+    "up": {
+      "title": "启动服务",
+      "description": "在后台（detached）创建并启动所有服务。",
+      "examples": [
+        "仅启动指定的服务。"
+      ],
+      "arguments": [
+        "在后台运行。",
+        "启动前重新构建镜像。"
+      ],
+      "warnings": []
+    },
+    "up-build": {
+      "title": "重新构建并启动",
+      "description": "重新构建镜像并启动服务。修改 Dockerfile 后使用。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "down": {
+      "title": "停止并移除服务",
+      "description": "停止并移除 compose 创建的容器和默认网络。卷会被保留。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "会移除容器；不在命名卷中的数据将丢失。"
+      ]
+    },
+    "down-volumes": {
+      "title": "停止并删除卷",
+      "description": "除容器和网络外，还会移除命名卷 — 删除持久化数据（例如：数据库）。",
+      "examples": [],
+      "arguments": [
+        "移除 compose 中声明的命名卷。"
+      ],
+      "warnings": [
+        "会销毁卷中的数据（数据库、上传文件）。不可恢复。"
+      ]
+    },
+    "ps": {
+      "title": "列出服务",
+      "description": "显示项目容器的状态（状态、端口、健康）。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "logs": {
+      "title": "查看日志",
+      "description": "跟踪所有服务的聚合日志；传入名称可进行过滤。",
+      "examples": [
+        "跟踪 web 服务的最近 100 行。"
+      ],
+      "arguments": [
+        "实时跟踪。",
+        "初始显示的行数。"
+      ],
+      "warnings": []
+    },
+    "build": {
+      "title": "构建镜像",
+      "description": "构建（或重新构建）带有 Dockerfile 的服务镜像。",
+      "examples": [
+        "构建时忽略层缓存。"
+      ],
+      "arguments": [
+        "不使用构建缓存。"
+      ],
+      "warnings": []
+    },
+    "pull": {
+      "title": "拉取镜像",
+      "description": "拉取使用 'image:' 定义的服务的最新镜像。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "restart": {
+      "title": "重启服务",
+      "description": "重启正在运行的容器，但不重新创建它们。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "不会应用镜像/配置的更改 — 请使用 'up -d --build'。"
+      ]
+    },
+    "stop": {
+      "title": "停止但不移除",
+      "description": "停止容器并保留它们，以便稍后快速 start。",
+      "examples": [
+        "重新启动已停止的容器。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "exec": {
+      "title": "在容器中执行",
+      "description": "在运行中的容器内打开 shell（或运行命令）。",
+      "examples": [
+        "在数据库服务内打开 psql。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "在容器内所做的更改，容器重新创建后会丢失。"
+      ]
+    },
+    "run": {
+      "title": "运行临时容器",
+      "description": "在服务的新容器中执行一次性命令，结束后将其移除。",
+      "examples": [],
+      "arguments": [
+        "结束后移除容器。"
+      ],
+      "warnings": []
+    },
+    "config": {
+      "title": "验证/展开配置",
+      "description": "渲染并验证最终的 compose（变量已解析、文件已合并）。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "top": {
+      "title": "容器进程",
+      "description": "显示每个服务内正在运行的进程。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scale": {
+      "title": "扩缩服务",
+      "description": "启动服务的多个副本（要求服务未固定主机端口）。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rm": {
+      "title": "移除已停止的容器",
+      "description": "移除已停止服务的容器。",
+      "examples": [],
+      "arguments": [
+        "不要求确认。"
+      ],
+      "warnings": []
+    }
+  }
+}

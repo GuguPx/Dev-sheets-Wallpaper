@@ -1,0 +1,159 @@
+{
+  "description": "Веб-сервер и обратный прокси — управление службой, server blocks, прокси, SSL, кэш и логи.",
+  "categories": {
+    "servico": "Служба",
+    "server-blocks": "Server blocks",
+    "proxy": "Прокси",
+    "ssl": "SSL",
+    "cache": "Кэш",
+    "logs": "Логи",
+    "config": "Конфигурация"
+  },
+  "entries": {
+    "nginx-test": {
+      "title": "Проверить конфигурацию",
+      "description": "Проверяет синтаксис конфигурационных файлов без применения. Делайте это всегда перед перезагрузкой.",
+      "examples": [],
+      "arguments": [
+        "Проверяет конфигурацию и выходит."
+      ],
+      "warnings": []
+    },
+    "nginx-reload": {
+      "title": "Перезагрузить без простоя",
+      "description": "Плавно перезагружает конфигурацию, не разрывая активные соединения.",
+      "examples": [
+        "Эквивалент через systemd."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Сначала выполните 'nginx -t'; неверный конфиг не даст выполнить reload."
+      ]
+    },
+    "nginx-stop": {
+      "title": "Остановить службу",
+      "description": "Немедленно завершает Nginx. Для плавного выключения используйте 'quit'.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Прерывает обслуживание; для плавного завершения соединений лучше 'nginx -s quit'."
+      ]
+    },
+    "nginx-version": {
+      "title": "Версия и модули",
+      "description": "Показывает версию, флаги компиляции и включённые модули (полезно для диагностики).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "server-block": {
+      "title": "Базовый server block",
+      "description": "Минимальный блок, отдающий статические файлы из каталога для домена.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "location-tryfiles": {
+      "title": "SPA fallback (try_files)",
+      "description": "Отдаёт запрошенный файл или переходит на index.html — стандарт для SPA (React, Vue).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect-301": {
+      "title": "Редирект 301",
+      "description": "Постоянно перенаправляет, сохраняя запрошенный путь.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-pass": {
+      "title": "Обратный прокси",
+      "description": "Перенаправляет запросы на backend-приложение (Node и т. п.).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-headers": {
+      "title": "Заголовки прокси",
+      "description": "Передаёт backend-у хост и реальный IP клиента — необходимо за прокси.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "upstream": {
+      "title": "Балансировка нагрузки (upstream)",
+      "description": "Определяет группу backend-серверов для балансировки нагрузки.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "websocket-proxy": {
+      "title": "Прокси WebSocket",
+      "description": "Включает upgrade соединения, необходимый для проксирования WebSocket.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssl-cert": {
+      "title": "Настроить TLS",
+      "description": "Включает HTTPS, указывая сертификат и приватный ключ.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Приватный ключ (.pem) должен иметь строгие права доступа и никогда не попадать в систему контроля версий."
+      ]
+    },
+    "force-https": {
+      "title": "Принудительный HTTPS",
+      "description": "Перенаправляет весь HTTP-трафик на HTTPS.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "gzip": {
+      "title": "Сжатие gzip",
+      "description": "Сжимает текстовые ответы, уменьшая объём передаваемых данных.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expires-cache": {
+      "title": "Кэш статики",
+      "description": "Задаёт заголовки долговременного кэширования для статических файлов.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "client-max-body": {
+      "title": "Лимит загрузки",
+      "description": "Задаёт максимальный размер тела запроса (загрузки). По умолчанию 1m.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rate-limit": {
+      "title": "Ограничить частоту запросов",
+      "description": "Определяет зону rate limiting по IP; применяется через 'limit_req zone=api;'.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Слишком низкие лимиты могут блокировать легитимных пользователей."
+      ]
+    },
+    "error-log-tail": {
+      "title": "Следить за логами ошибок",
+      "description": "Следит в реальном времени за ошибками Nginx — первая остановка при диагностике 502/504.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "access-log": {
+      "title": "Настроить access log",
+      "description": "Задаёт файл лога доступа. Используйте 'access_log off;' в шумных location со статикой.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

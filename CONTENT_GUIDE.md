@@ -78,3 +78,46 @@ A fatia atual (git, docker, docker-compose, linux, bash, ssh, nginx, pm2, postgr
 redis) é a base. Próximos lotes sugeridos pela especificação: SQL, Node.js, TypeScript,
 JavaScript, React, GitHub Actions, systemd, cron, MongoDB, Prisma, etc. Adicione um JSON
 por vez e rode `npm run validate:content`.
+
+## Traduções
+
+O JSON de cada tecnologia é escrito em **pt-BR** e é a fonte. Cada idioma tem um *overlay*
+com **só os textos** em `wallpaper/src/data/i18n/<código>/<tech>.json`:
+
+```json
+{
+  "description": "…",
+  "categories": { "Inicialização": "Initialization" },
+  "entries": {
+    "git-init": {
+      "title": "Initialize repository",
+      "description": "…",
+      "examples": ["explanation do 1º exemplo", "…"],
+      "arguments": ["description do 1º argumento", "…"],
+      "warnings": []
+    }
+  }
+}
+```
+
+Regras:
+
+- **Nunca** traduza chaves: ids de entrada e as chaves de `categories` ficam como no fonte.
+- `examples`, `arguments` e `warnings` têm o **mesmo tamanho e ordem** do fonte.
+- Não traduza comandos, flags, código, caminhos ou nomes de produto.
+- Campo ausente ou `""` usa o texto pt-BR — dá para traduzir aos poucos.
+
+Fluxo:
+
+1. `npm run i18n:extract -- ./tmp-i18n` gera os modelos (texto pt-BR) de todas as tecnologias.
+2. Traduza os valores e salve em `wallpaper/src/data/i18n/<código>/`.
+3. `npm run validate:i18n` (ou `npx tsx scripts/i18n-content.ts check <código>`) valida a
+   estrutura e mostra a cobertura.
+
+Ao **adicionar ou alterar um comando** no pt-BR, rode `npm run validate:i18n`: ids removidos
+ou arrays com tamanho diferente viram erro; textos novos sem tradução aparecem como cobertura
+abaixo de 100% (e caem no pt-BR até alguém traduzir).
+
+**Novo idioma:** registre-o em `wallpaper/src/i18n/languages.ts` (com o código de locale do
+Wallpaper Engine), crie `wallpaper/src/i18n/locales/<código>.ts` copiando `en.ts`, adicione a
+coluna em `scripts/we-localization.mjs` e rode `npm run i18n:we`.

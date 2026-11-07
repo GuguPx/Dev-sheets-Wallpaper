@@ -1,0 +1,156 @@
+{
+  "description": "Docker Compose v2를 이용한 멀티 컨테이너 오케스트레이션 — 수명 주기, 서비스, 로그, 빌드.",
+  "categories": {
+    "ciclo-de-vida": "수명 주기",
+    "servicos": "서비스",
+    "build": "빌드",
+    "logs": "로그",
+    "manutencao": "유지 관리"
+  },
+  "entries": {
+    "up": {
+      "title": "서비스 시작",
+      "description": "모든 서비스를 백그라운드(detached)로 생성하고 시작합니다.",
+      "examples": [
+        "지정한 서비스만 시작합니다."
+      ],
+      "arguments": [
+        "백그라운드에서 실행합니다.",
+        "시작하기 전에 이미지를 다시 빌드합니다."
+      ],
+      "warnings": []
+    },
+    "up-build": {
+      "title": "다시 빌드하며 시작",
+      "description": "이미지를 다시 빌드한 뒤 서비스를 시작합니다. Dockerfile을 수정한 후에 사용하세요.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "down": {
+      "title": "서비스 중지 및 제거",
+      "description": "컴포즈가 만든 컨테이너와 기본 네트워크를 중지하고 제거합니다. 볼륨은 유지됩니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "컨테이너를 제거합니다. 명명된 볼륨 밖의 데이터는 사라집니다."
+      ]
+    },
+    "down-volumes": {
+      "title": "중지 및 볼륨 삭제",
+      "description": "컨테이너와 네트워크뿐 아니라 명명된 볼륨까지 제거합니다. 영구 저장된 데이터(예: 데이터베이스)가 삭제됩니다.",
+      "examples": [],
+      "arguments": [
+        "compose에 선언된 명명된 볼륨을 제거합니다."
+      ],
+      "warnings": [
+        "볼륨의 데이터(데이터베이스, 업로드 파일)가 파괴됩니다. 되돌릴 수 없습니다."
+      ]
+    },
+    "ps": {
+      "title": "서비스 목록",
+      "description": "프로젝트 컨테이너의 상태(상태, 포트, 헬스)를 보여 줍니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "logs": {
+      "title": "로그 보기",
+      "description": "모든 서비스의 로그를 통합해 따라갑니다. 이름을 지정하면 해당 서비스만 필터링합니다.",
+      "examples": [
+        "web 서비스의 마지막 100줄부터 따라갑니다."
+      ],
+      "arguments": [
+        "실시간으로 따라갑니다.",
+        "처음 표시할 줄 수."
+      ],
+      "warnings": []
+    },
+    "build": {
+      "title": "이미지 빌드",
+      "description": "Dockerfile이 있는 서비스의 이미지를 빌드(또는 재빌드)합니다.",
+      "examples": [
+        "빌드할 때 레이어 캐시를 무시합니다."
+      ],
+      "arguments": [
+        "빌드 캐시를 사용하지 않습니다."
+      ],
+      "warnings": []
+    },
+    "pull": {
+      "title": "이미지 받기",
+      "description": "'image:'로 정의된 서비스의 최신 이미지를 내려받습니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "restart": {
+      "title": "서비스 재시작",
+      "description": "실행 중인 컨테이너를 다시 만들지 않고 재시작합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "이미지/설정 변경은 적용되지 않습니다. 그럴 때는 'up -d --build'를 사용하세요."
+      ]
+    },
+    "stop": {
+      "title": "제거 없이 중지",
+      "description": "컨테이너를 제거하지 않고 중지하여 나중에 'start'로 빠르게 다시 시작할 수 있게 합니다.",
+      "examples": [
+        "중지된 컨테이너를 다시 시작합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "exec": {
+      "title": "컨테이너에서 실행",
+      "description": "실행 중인 컨테이너 안에서 셸을 열거나 명령을 실행합니다.",
+      "examples": [
+        "데이터베이스 서비스 안에서 psql을 엽니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "컨테이너 안에서 한 변경 사항은 컨테이너가 다시 생성되면 사라집니다."
+      ]
+    },
+    "run": {
+      "title": "일회용 컨테이너 실행",
+      "description": "서비스의 새 컨테이너에서 명령을 한 번 실행하고 끝나면 컨테이너를 제거합니다.",
+      "examples": [],
+      "arguments": [
+        "끝나면 컨테이너를 제거합니다."
+      ],
+      "warnings": []
+    },
+    "config": {
+      "title": "설정 검증/펼치기",
+      "description": "최종 compose를 렌더링하고 검증합니다(변수 치환, 파일 병합 결과).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "top": {
+      "title": "컨테이너 프로세스",
+      "description": "각 서비스 안에서 실행 중인 프로세스를 보여 줍니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scale": {
+      "title": "서비스 확장",
+      "description": "서비스의 복제본을 여러 개 시작합니다(호스트 포트를 고정하지 않아야 합니다).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rm": {
+      "title": "중지된 컨테이너 제거",
+      "description": "이미 중지된 서비스의 컨테이너를 제거합니다.",
+      "examples": [],
+      "arguments": [
+        "확인을 묻지 않습니다."
+      ],
+      "warnings": []
+    }
+  }
+}

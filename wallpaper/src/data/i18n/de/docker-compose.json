@@ -1,0 +1,156 @@
+{
+  "description": "Multi-Container-Orchestrierung mit Docker Compose v2 — Lebenszyklus, Services, Logs und Build.",
+  "categories": {
+    "ciclo-de-vida": "Lebenszyklus",
+    "servicos": "Services",
+    "build": "Build",
+    "logs": "Logs",
+    "manutencao": "Wartung"
+  },
+  "entries": {
+    "up": {
+      "title": "Services starten",
+      "description": "Erstellt und startet alle Services im Hintergrund (detached).",
+      "examples": [
+        "Startet nur die angegebenen Services."
+      ],
+      "arguments": [
+        "Läuft im Hintergrund.",
+        "Baut die Images vor dem Start neu."
+      ],
+      "warnings": []
+    },
+    "up-build": {
+      "title": "Starten mit Neubau",
+      "description": "Baut die Images neu und startet die Services. Nutze es nach Änderungen am Dockerfile.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "down": {
+      "title": "Services herunterfahren",
+      "description": "Stoppt und entfernt Container sowie das von Compose erstellte Standardnetzwerk. Volumes bleiben erhalten.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Entfernt die Container; Daten außerhalb benannter Volumes gehen verloren."
+      ]
+    },
+    "down-volumes": {
+      "title": "Herunterfahren und Volumes löschen",
+      "description": "Entfernt zusätzlich zu Containern und Netzwerk auch die benannten Volumes — löscht persistierte Daten (z. B. Datenbank).",
+      "examples": [],
+      "arguments": [
+        "Entfernt die in der Compose-Datei deklarierten benannten Volumes."
+      ],
+      "warnings": [
+        "Zerstört die Daten der Volumes (Datenbanken, Uploads). Nicht rückgängig zu machen."
+      ]
+    },
+    "ps": {
+      "title": "Services auflisten",
+      "description": "Zeigt den Status der Projekt-Container (Zustand, Ports, Health).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "logs": {
+      "title": "Logs anzeigen",
+      "description": "Verfolgt die aggregierten Logs aller Services; übergib einen Namen zum Filtern.",
+      "examples": [
+        "Verfolgt die letzten 100 Zeilen des Services web."
+      ],
+      "arguments": [
+        "Verfolgt in Echtzeit.",
+        "Anzahl der anfangs angezeigten Zeilen."
+      ],
+      "warnings": []
+    },
+    "build": {
+      "title": "Images bauen",
+      "description": "Baut die Images der Services mit Dockerfile (neu).",
+      "examples": [
+        "Ignoriert beim Bauen den Layer-Cache."
+      ],
+      "arguments": [
+        "Nutzt keinen Build-Cache."
+      ],
+      "warnings": []
+    },
+    "pull": {
+      "title": "Images herunterladen",
+      "description": "Lädt die neuesten Images der Services herunter, die mit 'image:' definiert sind.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "restart": {
+      "title": "Services neu starten",
+      "description": "Startet die laufenden Container neu, ohne sie neu zu erstellen.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Übernimmt keine Änderungen an Image/Konfiguration — nutze dafür 'up -d --build'."
+      ]
+    },
+    "stop": {
+      "title": "Stoppen ohne Entfernen",
+      "description": "Stoppt die Container und behält sie für einen schnellen 'start' später.",
+      "examples": [
+        "Startet gestoppte Container wieder."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "exec": {
+      "title": "In Container ausführen",
+      "description": "Öffnet eine Shell (oder führt einen Befehl aus) in einem laufenden Container.",
+      "examples": [
+        "Öffnet psql im Datenbank-Service."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Änderungen im Container gehen verloren, wenn er neu erstellt wird."
+      ]
+    },
+    "run": {
+      "title": "Einmal-Container ausführen",
+      "description": "Führt einen einzelnen Befehl in einem neuen Container des Services aus und entfernt ihn danach.",
+      "examples": [],
+      "arguments": [
+        "Entfernt den Container nach Beendigung."
+      ],
+      "warnings": []
+    },
+    "config": {
+      "title": "Konfiguration prüfen/auflösen",
+      "description": "Rendert und validiert die finale Compose-Konfiguration (Variablen aufgelöst, Dateien zusammengeführt).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "top": {
+      "title": "Prozesse der Container",
+      "description": "Zeigt die laufenden Prozesse in jedem Service.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scale": {
+      "title": "Service skalieren",
+      "description": "Startet mehrere Replikate eines Services (setzt voraus, dass er keine Host-Ports festlegt).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rm": {
+      "title": "Gestoppte entfernen",
+      "description": "Entfernt Container bereits gestoppter Services.",
+      "examples": [],
+      "arguments": [
+        "Fragt nicht nach Bestätigung."
+      ],
+      "warnings": []
+    }
+  }
+}

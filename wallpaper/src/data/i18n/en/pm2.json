@@ -1,0 +1,160 @@
+{
+  "description": "Process manager for Node.js — start, zero-downtime restart, logs, cluster and boot.",
+  "categories": {
+    "processos": "Processes",
+    "monitoramento": "Monitoring",
+    "logs": "Logs",
+    "startup": "Startup",
+    "cluster": "Cluster"
+  },
+  "entries": {
+    "pm2-start": {
+      "title": "Start application",
+      "description": "Starts a PM2-managed process with a friendly name.",
+      "examples": [
+        "Starts an npm script, passing arguments after '--'."
+      ],
+      "arguments": [
+        "Process name.",
+        "Number of instances (cluster); 'max' uses all cores."
+      ],
+      "warnings": []
+    },
+    "pm2-ecosystem": {
+      "title": "Start via ecosystem",
+      "description": "Starts processes from a declarative configuration file (recommended).",
+      "examples": [
+        "Generates a sample ecosystem.config.js."
+      ],
+      "arguments": [
+        "Selects the environment block (e.g. production)."
+      ],
+      "warnings": []
+    },
+    "pm2-list": {
+      "title": "List processes",
+      "description": "Shows the process table: id, name, status, CPU, memory and restarts.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-monit": {
+      "title": "Real-time monitor",
+      "description": "Interactive dashboard (btop-style) with CPU, memory and per-process logs.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-describe": {
+      "title": "Process details",
+      "description": "Shows detailed information about a process: path, env, uptime, restarts.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-logs": {
+      "title": "View logs",
+      "description": "Streams a process's logs (stdout/stderr) in real time.",
+      "examples": [
+        "Shows the last 200 lines before following."
+      ],
+      "arguments": [
+        "Number of history lines shown."
+      ],
+      "warnings": []
+    },
+    "pm2-flush": {
+      "title": "Clear logs",
+      "description": "Empties the log files of all processes.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Removes the log history persisted by PM2."
+      ]
+    },
+    "pm2-reload": {
+      "title": "Zero-downtime reload",
+      "description": "Reloads cluster processes one after another, without taking the service down (zero-downtime).",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "In fork mode (1 instance) reload is equivalent to a restart with brief unavailability."
+      ]
+    },
+    "pm2-restart": {
+      "title": "Restart",
+      "description": "Restarts the process (kills and starts it again). Use 'all' for every process.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "There is a brief unavailability; prefer 'reload' in cluster mode."
+      ]
+    },
+    "pm2-stop": {
+      "title": "Stop",
+      "description": "Stops the process while keeping it in the list (status stopped).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-delete": {
+      "title": "Remove from list",
+      "description": "Stops and removes the process from PM2's list.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Removes the process from management; run 'save' afterwards to persist the new state."
+      ]
+    },
+    "pm2-delete-all": {
+      "title": "Remove all",
+      "description": "Stops and removes ALL processes managed by PM2.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Takes down all services at once; confirm the target before running in production."
+      ]
+    },
+    "pm2-scale": {
+      "title": "Scale instances",
+      "description": "Adjusts the number of instances of a cluster app to the given value.",
+      "examples": [
+        "Adds 2 instances to the existing ones."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-startup": {
+      "title": "Start on boot",
+      "description": "Generates and installs the system startup script so PM2 starts on boot.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "The command prints a line with sudo that must be run to complete the installation."
+      ]
+    },
+    "pm2-save": {
+      "title": "Save process list",
+      "description": "Persists the current process list so it can be restored on boot.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-resurrect": {
+      "title": "Restore processes",
+      "description": "Reloads the processes previously saved with 'pm2 save'.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-kill": {
+      "title": "Kill the daemon",
+      "description": "Kills the PM2 daemon and all the processes it manages.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Takes everything down, including the daemon itself. Use only for a full reset."
+      ]
+    }
+  }
+}

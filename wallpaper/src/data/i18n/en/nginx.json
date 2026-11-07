@@ -1,0 +1,159 @@
+{
+  "description": "Web server and reverse proxy — service control, server blocks, proxy, SSL, cache and logs.",
+  "categories": {
+    "servico": "Service",
+    "server-blocks": "Server Blocks",
+    "proxy": "Proxy",
+    "ssl": "SSL",
+    "cache": "Cache",
+    "logs": "Logs",
+    "config": "Config"
+  },
+  "entries": {
+    "nginx-test": {
+      "title": "Test configuration",
+      "description": "Checks the syntax of the configuration files without applying them. Always do this before reloading.",
+      "examples": [],
+      "arguments": [
+        "Tests the configuration and exits."
+      ],
+      "warnings": []
+    },
+    "nginx-reload": {
+      "title": "Reload without downtime",
+      "description": "Gracefully reloads the configuration, without dropping active connections.",
+      "examples": [
+        "Equivalent via systemd."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Run 'nginx -t' first; an invalid config prevents the reload."
+      ]
+    },
+    "nginx-stop": {
+      "title": "Stop the service",
+      "description": "Shuts Nginx down immediately. Use 'quit' for a graceful shutdown.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Interrupts serving requests; prefer 'nginx -s quit' to drain connections."
+      ]
+    },
+    "nginx-version": {
+      "title": "Version and modules",
+      "description": "Shows the version, build flags and enabled modules (useful for diagnostics).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "server-block": {
+      "title": "Basic server block",
+      "description": "Minimal block that serves static files from a directory for a domain.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "location-tryfiles": {
+      "title": "SPA fallback (try_files)",
+      "description": "Serves the requested file or falls back to index.html — the standard for SPAs (React, Vue).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect-301": {
+      "title": "301 redirect",
+      "description": "Permanently redirects while preserving the requested path.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-pass": {
+      "title": "Reverse proxy",
+      "description": "Forwards requests to a backend application (Node, etc.).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-headers": {
+      "title": "Proxy headers",
+      "description": "Passes the host and the client's real IP to the backend, essential behind a proxy.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "upstream": {
+      "title": "Load balancing (upstream)",
+      "description": "Defines a group of backend servers for load balancing.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "websocket-proxy": {
+      "title": "WebSocket proxy",
+      "description": "Enables the connection upgrade needed to forward WebSockets.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssl-cert": {
+      "title": "Configure TLS",
+      "description": "Enables HTTPS by pointing to the certificate and the private key.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "The private key (.pem) must have restricted permissions and never be committed to version control."
+      ]
+    },
+    "force-https": {
+      "title": "Force HTTPS",
+      "description": "Redirects all HTTP traffic to HTTPS.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "gzip": {
+      "title": "gzip compression",
+      "description": "Compresses text responses to reduce the transferred size.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expires-cache": {
+      "title": "Static asset caching",
+      "description": "Sets long-lived cache headers for static files.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "client-max-body": {
+      "title": "Upload limit",
+      "description": "Sets the maximum request body size (uploads). The default is 1m.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rate-limit": {
+      "title": "Rate limiting",
+      "description": "Defines a per-IP rate limiting zone; apply it with 'limit_req zone=api;'.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Limits that are too low can block legitimate users."
+      ]
+    },
+    "error-log-tail": {
+      "title": "Follow error logs",
+      "description": "Follows Nginx errors in real time — the first stop when diagnosing 502/504.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "access-log": {
+      "title": "Configure access log",
+      "description": "Sets the access log file. Use 'access_log off;' on noisy static locations.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

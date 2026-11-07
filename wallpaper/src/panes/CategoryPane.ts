@@ -1,4 +1,5 @@
 import { h, clear } from '@/core/dom';
+import { t } from '@/i18n';
 import { appStore } from '@/stores/AppStore';
 import {
   activeTechnology,
@@ -7,7 +8,6 @@ import {
   ALL_CATEGORY,
 } from '@/terminal/actions';
 import { content } from '@/services/ContentService';
-import { titleCase } from '@/utils/format';
 
 /**
  * Menu lateral de categorias (seção 7) — moderno e discreto: fica recolhido num
@@ -30,7 +30,11 @@ export class CategoryPane {
 
     const activeCat = cats[st.categoryIndex];
     const activeLabel =
-      activeCat === ALL_CATEGORY ? 'todos' : activeCat ? titleCase(activeCat) : '';
+      activeCat === ALL_CATEGORY
+        ? t('common.all')
+        : activeCat
+          ? content.categoryLabel(st.activeTechnologyId, activeCat)
+          : '';
 
     // Rail recolhido — afordância de que há um menu ali.
     const rail = h('div', { class: 'cat-rail', attrs: { 'aria-hidden': 'true' } });
@@ -44,7 +48,7 @@ export class CategoryPane {
       h(
         'div',
         { class: 'pane-title' },
-        h('span', { text: 'CATEGORIES' }),
+        h('span', { text: t('pane.categories') }),
         h('span', { class: 'pane-title-side', text: tech ? tech.shortName : '' }),
       ),
     );
@@ -52,7 +56,10 @@ export class CategoryPane {
     const list = h('div', { class: 'cat-list' });
     cats.forEach((cat, i) => {
       const selected = i === st.categoryIndex;
-      const label = cat === ALL_CATEGORY ? '· todos' : titleCase(cat);
+      const label =
+        cat === ALL_CATEGORY
+          ? `· ${t('common.all')}`
+          : content.categoryLabel(st.activeTechnologyId, cat);
       const count =
         cat === ALL_CATEGORY
           ? (tech?.entries.length ?? 0)

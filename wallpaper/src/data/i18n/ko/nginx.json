@@ -1,0 +1,159 @@
+{
+  "description": "웹 서버 및 리버스 프록시 — 서비스 제어, 서버 블록, 프록시, SSL, 캐시, 로그.",
+  "categories": {
+    "servico": "서비스",
+    "server-blocks": "서버 블록",
+    "proxy": "프록시",
+    "ssl": "SSL",
+    "cache": "캐시",
+    "logs": "로그",
+    "config": "설정"
+  },
+  "entries": {
+    "nginx-test": {
+      "title": "설정 테스트",
+      "description": "설정 파일의 문법을 적용하지 않고 검사합니다. 리로드하기 전에 항상 실행하세요.",
+      "examples": [],
+      "arguments": [
+        "설정을 테스트하고 종료합니다."
+      ],
+      "warnings": []
+    },
+    "nginx-reload": {
+      "title": "다운타임 없이 리로드",
+      "description": "활성 연결을 끊지 않고 설정을 안전하게 다시 불러옵니다.",
+      "examples": [
+        "systemd를 통한 동일한 명령."
+      ],
+      "arguments": [],
+      "warnings": [
+        "먼저 'nginx -t'를 실행하세요. 잘못된 설정은 리로드를 막습니다."
+      ]
+    },
+    "nginx-stop": {
+      "title": "서비스 중지",
+      "description": "Nginx를 즉시 종료합니다. 정상 종료(graceful shutdown)에는 'quit'을 사용하세요.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "서비스가 중단됩니다. 연결을 마무리하려면 'nginx -s quit'을 사용하세요."
+      ]
+    },
+    "nginx-version": {
+      "title": "버전과 모듈",
+      "description": "버전, 컴파일 플래그, 활성화된 모듈을 보여 줍니다(진단에 유용).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "server-block": {
+      "title": "기본 서버 블록",
+      "description": "도메인에 대해 디렉터리의 정적 파일을 제공하는 최소한의 블록입니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "location-tryfiles": {
+      "title": "SPA 폴백 (try_files)",
+      "description": "요청한 파일을 제공하고, 없으면 index.html로 넘깁니다. SPA(React, Vue)의 표준 패턴입니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect-301": {
+      "title": "301 리디렉션",
+      "description": "요청된 경로를 유지한 채 영구 리디렉션합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-pass": {
+      "title": "리버스 프록시",
+      "description": "요청을 백엔드 애플리케이션(Node 등)으로 전달합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-headers": {
+      "title": "프록시 헤더",
+      "description": "호스트와 클라이언트의 실제 IP를 백엔드에 전달합니다. 프록시 뒤에서는 필수입니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "upstream": {
+      "title": "로드 밸런싱 (upstream)",
+      "description": "로드 밸런싱을 위한 백엔드 서버 그룹을 정의합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "websocket-proxy": {
+      "title": "WebSocket 프록시",
+      "description": "WebSocket을 전달하는 데 필요한 연결 업그레이드를 활성화합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssl-cert": {
+      "title": "TLS 설정",
+      "description": "인증서와 개인 키를 지정하여 HTTPS를 활성화합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "개인 키(.pem)는 권한을 제한해야 하며 절대 버전 관리에 올리면 안 됩니다."
+      ]
+    },
+    "force-https": {
+      "title": "HTTPS 강제",
+      "description": "모든 HTTP 트래픽을 HTTPS로 리디렉션합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "gzip": {
+      "title": "gzip 압축",
+      "description": "텍스트 응답을 압축하여 전송 크기를 줄입니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expires-cache": {
+      "title": "정적 파일 캐시",
+      "description": "정적 파일에 장기 캐시 헤더를 설정합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "client-max-body": {
+      "title": "업로드 제한",
+      "description": "요청 본문(업로드)의 최대 크기를 설정합니다. 기본값은 1m입니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rate-limit": {
+      "title": "요청 속도 제한",
+      "description": "IP별 속도 제한(rate limiting) 영역을 정의합니다. 'limit_req zone=api;'로 적용하세요.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "제한이 너무 낮으면 정상 사용자가 차단될 수 있습니다."
+      ]
+    },
+    "error-log-tail": {
+      "title": "오류 로그 따라가기",
+      "description": "Nginx 오류를 실시간으로 따라갑니다. 502/504를 진단할 때 가장 먼저 확인할 곳입니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "access-log": {
+      "title": "access log 설정",
+      "description": "접근 로그 파일을 지정합니다. 로그가 시끄러운 정적 파일 location에는 'access_log off;'를 사용하세요.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

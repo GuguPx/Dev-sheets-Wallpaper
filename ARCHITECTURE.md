@@ -57,6 +57,24 @@ para o Wallpaper Engine.
 - **Pausa quando oculto**: `visibilitychange` marca `data-paused`, congelando animações e o
   relógio (seção 28).
 
+## Idiomas (i18n)
+
+- **Interface:** `i18n/index.ts` expõe `t(chave, params)`. Os catálogos ficam em
+  `i18n/locales/<código>.ts` e são descobertos por `import.meta.glob`. O `pt-BR.ts` é a
+  fonte das chaves: os demais são tipados como `Messages`, então chave faltando é erro de
+  compilação (e `tests/i18n.test.ts` confere também os `{parâmetros}`).
+- **Conteúdo:** os JSONs de `data/technologies/` continuam sendo a fonte (pt-BR). Traduções
+  são *overlays* em `data/i18n/<código>/<tech>.json` (schema em
+  `schemas/translation.schema.ts`) com só os textos. `ContentService.setLocale()` aplica o
+  overlay campo a campo (vazio/ausente → pt-BR), recalcula `searchableText` no idioma e
+  expõe `categoryLabel()` — a **chave** da categoria nunca muda.
+- **Fluxo:** `settings.language` (`auto` ou código) → `SettingsStore.apply()` resolve com
+  `resolveLocale()` (auto = `navigator.languages`, fallback inglês), chama `setLocale()` e
+  emite `locale:changed` → `app.ts` re-traduz o conteúdo e reindexa a busca → a shell
+  redesenha painéis e o overlay aberto.
+- **Wallpaper Engine:** os rótulos do painel de propriedades usam chaves `ui_*` e o bloco
+  `general.localization` do `project.json`, gerado por `scripts/we-localization.mjs`.
+
 ## Wallpaper Engine
 
 `WallpaperEngineService` implementa `window.wallpaperPropertyListener` e mapeia cada

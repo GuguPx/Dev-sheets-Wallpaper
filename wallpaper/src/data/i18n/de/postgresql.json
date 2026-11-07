@@ -1,0 +1,257 @@
+{
+  "description": "Fortschrittliche relationale Open-Source-Datenbank mit Fokus auf Standardkonformität und Erweiterbarkeit.",
+  "categories": {
+    "Conexão": "Verbindung",
+    "Databases": "Datenbanken",
+    "Tabelas": "Tabellen",
+    "Consultas": "Abfragen",
+    "Índices": "Indizes",
+    "Usuários": "Benutzer",
+    "Backup": "Backup",
+    "Diagnóstico": "Diagnose",
+    "psql": "psql"
+  },
+  "entries": {
+    "pg-connect": {
+      "title": "Mit Datenbank verbinden",
+      "description": "Öffnet den interaktiven Client psql, verbunden mit einer bestimmten Datenbank, einem Benutzer und einem Host.",
+      "examples": [
+        "Verbindet mit der Datenbank meuapp als postgres.",
+        "Verbindet über eine Verbindungs-URL."
+      ],
+      "arguments": [
+        "Benutzer.",
+        "Datenbank.",
+        "Host.",
+        "Port (Standard 5432)."
+      ],
+      "warnings": [
+        "Vermeide das Passwort in der URL in gemeinsam genutzten Umgebungen; nutze die Variable PGPASSWORD oder ~/.pgpass."
+      ]
+    },
+    "pg-list-databases": {
+      "title": "Datenbanken auflisten",
+      "description": "psql-Meta-Befehl, der alle Datenbanken des Servers auflistet.",
+      "examples": [
+        "Listet die Datenbanken mit Besitzer und Kodierung auf."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-connect-db": {
+      "title": "Datenbank in psql wechseln",
+      "description": "Verbindet innerhalb der aktuellen psql-Sitzung mit einer anderen Datenbank.",
+      "examples": [
+        "Wechselt zur Datenbank meuapp."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-list-tables": {
+      "title": "Tabellen auflisten",
+      "description": "Listet die Tabellen des aktuellen Schemas auf. Nutze \\d <Tabelle>, um die Spalten einer Tabelle zu sehen.",
+      "examples": [
+        "Listet die Tabellen auf.",
+        "Zeigt Spalten, Typen und Indizes der Tabelle usuarios."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-database": {
+      "title": "Datenbank erstellen",
+      "description": "Erstellt eine neue Datenbank. Besitzer und Kodierung können festgelegt werden.",
+      "examples": [
+        "Erstellt die Datenbank mit festgelegtem Besitzer und Kodierung."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-drop-database": {
+      "title": "Datenbank löschen",
+      "description": "Löscht eine Datenbank samt ihrem gesamten Inhalt endgültig.",
+      "examples": [
+        "Löscht die Datenbank, falls sie existiert."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Löscht ALLE Daten der Datenbank unwiderruflich.",
+        "Kann nicht ausgeführt werden, solange aktive Verbindungen zur Datenbank bestehen."
+      ]
+    },
+    "pg-create-table": {
+      "title": "Tabelle erstellen",
+      "description": "Erstellt eine Tabelle mit Spalten, Typen und Constraints (Primärschlüssel, not null usw.).",
+      "examples": [
+        "Erstellt die Tabelle usuarios mit Auto-Increment-ID und eindeutiger E-Mail."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-alter-table": {
+      "title": "Tabelle ändern",
+      "description": "Ändert die Struktur einer Tabelle: Spalten hinzufügen/entfernen, Typen oder Constraints ändern.",
+      "examples": [
+        "Fügt die Spalte ativo hinzu."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Bei großen Tabellen sperren manche Änderungen die Tabelle; plane Wartungsfenster ein."
+      ]
+    },
+    "pg-select": {
+      "title": "Daten abfragen",
+      "description": "Liest Zeilen aus einer oder mehreren Tabellen, mit Filtern, Sortierung und Limit.",
+      "examples": [
+        "Die letzten 10 aktiven Benutzer."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-insert": {
+      "title": "Daten einfügen",
+      "description": "Fügt einer Tabelle neue Zeilen hinzu. RETURNING liefert erzeugte Werte wie die ID zurück.",
+      "examples": [
+        "Fügt ein und gibt die erzeugte ID zurück."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-update": {
+      "title": "Daten aktualisieren",
+      "description": "Ändert Werte bestehender Zeilen. Das WHERE ist entscheidend, damit nicht die ganze Tabelle aktualisiert wird.",
+      "examples": [
+        "Deaktiviert nur den Benutzer 42."
+      ],
+      "arguments": [],
+      "warnings": [
+        "UPDATE ohne WHERE ändert ALLE Zeilen der Tabelle."
+      ]
+    },
+    "pg-delete": {
+      "title": "Daten löschen",
+      "description": "Entfernt Zeilen aus einer Tabelle. Ohne WHERE werden alle Zeilen gelöscht.",
+      "examples": [
+        "Entfernt abgelaufene Sitzungen."
+      ],
+      "arguments": [],
+      "warnings": [
+        "DELETE ohne WHERE löscht ALLE Zeilen.",
+        "Erwäge eine Transaktion (BEGIN), um mit ROLLBACK zurückrollen zu können."
+      ]
+    },
+    "pg-join": {
+      "title": "Tabellen verknüpfen (JOIN)",
+      "description": "Kombiniert Zeilen zweier Tabellen anhand einer Beziehungsbedingung.",
+      "examples": [
+        "Zählt Bestellungen pro Benutzer, einschließlich derer ohne Bestellungen (LEFT JOIN)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-index": {
+      "title": "Index erstellen",
+      "description": "Erstellt einen Index, um Suchen auf Spalten zu beschleunigen, die in WHERE und JOIN verwendet werden.",
+      "examples": [
+        "Beschleunigt Suchen nach E-Mail.",
+        "Erstellt den Index, ohne Schreibzugriffe auf die Tabelle zu sperren."
+      ],
+      "arguments": [
+        "Erstellt ohne die Tabelle zu blockieren (langsamer)."
+      ],
+      "warnings": [
+        "Indizes beschleunigen Lesezugriffe, verlangsamen aber Schreibzugriffe und belegen Speicherplatz."
+      ]
+    },
+    "pg-explain": {
+      "title": "Abfrageplan analysieren",
+      "description": "Zeigt den tatsächlichen Ausführungsplan einer Query mit Laufzeiten und deckt Engpässe und Indexnutzung auf.",
+      "examples": [
+        "Zeigt, ob die Query einen Index nutzt oder einen Sequential Scan macht."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Mit ANALYZE wird die Query TATSÄCHLICH ausgeführt; Vorsicht bei INSERT/UPDATE/DELETE."
+      ]
+    },
+    "pg-create-user": {
+      "title": "Benutzer/Rolle erstellen",
+      "description": "Erstellt eine Login-Rolle (Benutzer). Vergib danach Privilegien mit GRANT.",
+      "examples": [
+        "Erstellt den Benutzer app_user."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Nutze starke Passwörter und vergib nur die nötigen Privilegien (Prinzip der minimalen Rechte)."
+      ]
+    },
+    "pg-grant": {
+      "title": "Privilegien vergeben",
+      "description": "Erteilt einer Rolle Berechtigungen (SELECT, INSERT, ALL usw.) auf Tabellen oder Datenbanken.",
+      "examples": [
+        "Erteilt app_user Lese- und Schreibrechte."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Vermeide ALL PRIVILEGES, wenn spezifische Berechtigungen genügen."
+      ]
+    },
+    "pg-dump": {
+      "title": "Datenbank-Backup",
+      "description": "Exportiert Struktur und Daten einer Datenbank in eine Datei und ermöglicht so Backup und Migration.",
+      "examples": [
+        "Backup im SQL-Format.",
+        "Custom-Format (komprimiert), wiederherstellbar mit pg_restore."
+      ],
+      "arguments": [
+        "Custom-Format (komprimiert).",
+        "Sichert nur eine Tabelle."
+      ],
+      "warnings": [
+        "Die Datei kann sensible Daten enthalten; bewahre sie sicher auf."
+      ]
+    },
+    "pg-restore": {
+      "title": "Backup wiederherstellen",
+      "description": "Stellt eine Datenbank aus einem mit pg_dump erstellten Dump im Custom-Format wieder her.",
+      "examples": [
+        "Stellt den Dump in einer bestehenden Datenbank wieder her."
+      ],
+      "arguments": [
+        "Zieldatenbank.",
+        "Entfernt Objekte, bevor sie neu erstellt werden."
+      ],
+      "warnings": [
+        "--clean löscht vorhandene Objekte im Ziel vor der Wiederherstellung."
+      ]
+    },
+    "pg-vacuum": {
+      "title": "Wartung (VACUUM)",
+      "description": "Gewinnt Speicherplatz toter Zeilen zurück und aktualisiert die vom Query-Planer genutzten Statistiken.",
+      "examples": [
+        "Bereinigt und aktualisiert die Statistiken der Tabelle usuarios."
+      ],
+      "arguments": [],
+      "warnings": [
+        "VACUUM FULL sperrt die Tabelle; vermeide es zu Spitzenzeiten."
+      ]
+    },
+    "pg-active-queries": {
+      "title": "Aktive Verbindungen anzeigen",
+      "description": "Zeigt die aktuellen Verbindungen, die laufenden Queries und ihren Zustand, nützlich zur Diagnose.",
+      "examples": [
+        "Listet die gerade laufenden Queries auf."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-createdb-cli": {
+      "title": "Datenbank per Kommandozeile erstellen",
+      "description": "Kommandozeilen-Dienstprogramm, um eine Datenbank zu erstellen, ohne psql zu öffnen.",
+      "examples": [
+        "Erstellt die Datenbank meuapp."
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

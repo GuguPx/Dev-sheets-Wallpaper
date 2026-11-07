@@ -1,0 +1,257 @@
+{
+  "description": "標準準拠と拡張性を重視した、高機能なオープンソースのリレーショナルデータベース。",
+  "categories": {
+    "Conexão": "接続",
+    "Databases": "データベース",
+    "Tabelas": "テーブル",
+    "Consultas": "クエリ",
+    "Índices": "インデックス",
+    "Usuários": "ユーザー",
+    "Backup": "バックアップ",
+    "Diagnóstico": "診断",
+    "psql": "psql"
+  },
+  "entries": {
+    "pg-connect": {
+      "title": "データベースに接続",
+      "description": "特定のデータベース、ユーザー、ホストに接続した対話型クライアント psql を開く。",
+      "examples": [
+        "postgres ユーザーとして meuapp データベースに接続する。",
+        "接続 URL を使って接続する。"
+      ],
+      "arguments": [
+        "ユーザー。",
+        "データベース。",
+        "ホスト。",
+        "ポート (デフォルトは 5432)。"
+      ],
+      "warnings": [
+        "共有環境では URL にパスワードを含めないこと。PGPASSWORD 変数または ~/.pgpass を使う。"
+      ]
+    },
+    "pg-list-databases": {
+      "title": "データベース一覧",
+      "description": "サーバー上のすべてのデータベースを一覧表示する psql のメタコマンド。",
+      "examples": [
+        "所有者とエンコーディング付きでデータベースを一覧表示する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-connect-db": {
+      "title": "psql でデータベースを切り替え",
+      "description": "現在の psql セッション内で別のデータベースに接続する。",
+      "examples": [
+        "meuapp データベースを使うように切り替える。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-list-tables": {
+      "title": "テーブル一覧",
+      "description": "現在のスキーマのテーブルを一覧表示する。テーブルの列を見るには \\d <テーブル> を使う。",
+      "examples": [
+        "テーブルを一覧表示する。",
+        "usuarios テーブルの列、型、インデックスを表示する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-database": {
+      "title": "データベースを作成",
+      "description": "新しいデータベースを作成する。所有者とエンコーディングを指定できる。",
+      "examples": [
+        "所有者とエンコーディングを指定してデータベースを作成する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-drop-database": {
+      "title": "データベースを削除",
+      "description": "データベースとその内容をすべて永久に削除する。",
+      "examples": [
+        "データベースが存在すれば削除する。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "データベースのすべてのデータが元に戻せない形で失われる。",
+        "データベースへのアクティブな接続がある間は実行できない。"
+      ]
+    },
+    "pg-create-table": {
+      "title": "テーブルを作成",
+      "description": "列、型、制約 (主キー、not null など) を指定してテーブルを作成する。",
+      "examples": [
+        "自動採番の id と一意なメールアドレスを持つ usuarios テーブルを作成する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-alter-table": {
+      "title": "テーブルを変更",
+      "description": "テーブルの構造を変更する: 列の追加・削除、型や制約の変更。",
+      "examples": [
+        "ativo 列を追加する。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "大きなテーブルでは、変更によってテーブルがロックされるものがある。メンテナンス時間帯を計画すること。"
+      ]
+    },
+    "pg-select": {
+      "title": "データを取得",
+      "description": "1 つ以上のテーブルから、フィルタ、並べ替え、件数制限付きで行を取得する。",
+      "examples": [
+        "アクティブな直近 10 人のユーザー。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-insert": {
+      "title": "データを挿入",
+      "description": "テーブルに新しい行を追加する。RETURNING で id などの生成された値を返す。",
+      "examples": [
+        "挿入して、生成された id を返す。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-update": {
+      "title": "データを更新",
+      "description": "既存の行の値を変更する。テーブル全体を更新しないために WHERE は必須。",
+      "examples": [
+        "ユーザー 42 だけを無効にする。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "WHERE のない UPDATE はテーブルの全行を変更する。"
+      ]
+    },
+    "pg-delete": {
+      "title": "データを削除",
+      "description": "テーブルから行を削除する。WHERE がないと全行が削除される。",
+      "examples": [
+        "期限切れのセッションを削除する。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "WHERE のない DELETE は全行を削除する。",
+        "トランザクション (BEGIN) の利用を検討すること。ROLLBACK で元に戻せる。"
+      ]
+    },
+    "pg-join": {
+      "title": "テーブルを結合 (JOIN)",
+      "description": "関連条件に基づいて、2 つのテーブルの行を結合する。",
+      "examples": [
+        "ユーザーごとの注文数を、注文のないユーザーも含めて数える (LEFT JOIN)。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-index": {
+      "title": "インデックスを作成",
+      "description": "WHERE や JOIN で使う列の検索を高速化するインデックスを作成する。",
+      "examples": [
+        "メールアドレスでの検索を高速化する。",
+        "テーブルへの書き込みをロックせずにインデックスを作成する。"
+      ],
+      "arguments": [
+        "テーブルをブロックせずに作成する (より遅い)。"
+      ],
+      "warnings": [
+        "インデックスは読み取りを速くするが、書き込みを遅くし、容量も消費する。"
+      ]
+    },
+    "pg-explain": {
+      "title": "クエリプランを分析",
+      "description": "クエリの実際の実行プランを所要時間付きで表示し、ボトルネックやインデックスの利用状況を明らかにする。",
+      "examples": [
+        "クエリがインデックスを使っているか、シーケンシャルスキャンかを確認する。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "ANALYZE を付けると、クエリは実際に実行される。INSERT/UPDATE/DELETE には注意すること。"
+      ]
+    },
+    "pg-create-user": {
+      "title": "ユーザー/ロールを作成",
+      "description": "ログイン可能なロール (ユーザー) を作成する。その後、GRANT で権限を付与する。",
+      "examples": [
+        "app_user ユーザーを作成する。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "強力なパスワードを使い、必要な権限だけを付与すること (最小権限の原則)。"
+      ]
+    },
+    "pg-grant": {
+      "title": "権限を付与",
+      "description": "テーブルやデータベースに対する権限 (SELECT、INSERT、ALL など) をロールに付与する。",
+      "examples": [
+        "app_user に読み取りと書き込みの権限を付与する。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "特定の権限で足りる場合、ALL PRIVILEGES の付与は避けること。"
+      ]
+    },
+    "pg-dump": {
+      "title": "データベースをバックアップ",
+      "description": "データベースの構造とデータをファイルにエクスポートし、バックアップや移行を可能にする。",
+      "examples": [
+        "SQL 形式でバックアップする。",
+        "custom 形式 (圧縮)。pg_restore で復元できる。"
+      ],
+      "arguments": [
+        "custom 形式 (圧縮)。",
+        "特定のテーブルのみダンプする。"
+      ],
+      "warnings": [
+        "ファイルに機密データが含まれる可能性がある。安全に保管すること。"
+      ]
+    },
+    "pg-restore": {
+      "title": "バックアップを復元",
+      "description": "pg_dump で作成した custom 形式のダンプからデータベースを復元する。",
+      "examples": [
+        "既存のデータベースにダンプを復元する。"
+      ],
+      "arguments": [
+        "復元先のデータベース。",
+        "再作成の前にオブジェクトを削除する。"
+      ],
+      "warnings": [
+        "--clean は、復元前に復元先の既存オブジェクトを削除する。"
+      ]
+    },
+    "pg-vacuum": {
+      "title": "メンテナンス (VACUUM)",
+      "description": "不要行の領域を回収し、クエリプランナーが使う統計情報を更新する。",
+      "examples": [
+        "usuarios テーブルをクリーンアップし、統計情報を更新する。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "VACUUM FULL はテーブルをロックする。ピーク時間帯は避けること。"
+      ]
+    },
+    "pg-active-queries": {
+      "title": "アクティブな接続を確認",
+      "description": "現在の接続、実行中のクエリ、その状態を表示する。診断に便利。",
+      "examples": [
+        "現在実行中のクエリを一覧表示する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-createdb-cli": {
+      "title": "コマンドラインでデータベースを作成",
+      "description": "psql を開かずにデータベースを作成できるコマンドラインユーティリティ。",
+      "examples": [
+        "meuapp データベースを作成する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

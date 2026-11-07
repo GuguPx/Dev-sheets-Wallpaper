@@ -30,6 +30,9 @@ jobs:
       - name: Conteúdo (schemas Zod)
         run: npm run validate:content
 
+      - name: Traduções de conteúdo (i18n)
+        run: npm run validate:i18n
+
       - name: Testes
         run: npm test
 

@@ -1,0 +1,190 @@
+{
+  "description": "OpenSSH — 安全连接、密钥、文件复制与隧道。",
+  "categories": {
+    "conexao": "连接",
+    "chaves": "密钥",
+    "copia": "复制",
+    "tuneis": "隧道",
+    "config": "配置"
+  },
+  "entries": {
+    "ssh-connect": {
+      "title": "连接到主机",
+      "description": "打开一个通过 SSH 认证的远程 shell 会话。",
+      "examples": [],
+      "arguments": [
+        "服务器端口（默认 22）。",
+        "详细模式，用于调试连接。"
+      ],
+      "warnings": []
+    },
+    "ssh-port": {
+      "title": "连接到指定端口",
+      "description": "当 SSH 服务器监听 22 以外的端口时进行连接。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-identity": {
+      "title": "使用指定密钥",
+      "description": "指定用于认证的私钥文件。",
+      "examples": [],
+      "arguments": [
+        "私钥路径。"
+      ],
+      "warnings": [
+        "私钥必须设置 600 权限 (chmod 600)，否则 SSH 会拒绝使用。"
+      ]
+    },
+    "ssh-jump": {
+      "title": "跳板机 (ProxyJump)",
+      "description": "通过堡垒机/跳板机，用一行命令连接到内部主机。",
+      "examples": [],
+      "arguments": [
+        "中间主机。"
+      ],
+      "warnings": []
+    },
+    "ssh-keygen": {
+      "title": "生成密钥对",
+      "description": "创建公钥/私钥对。推荐使用 ed25519 算法。",
+      "examples": [],
+      "arguments": [
+        "算法类型（ed25519、rsa）。",
+        "注释（通常是电子邮件）。",
+        "密钥的输出文件。"
+      ],
+      "warnings": [
+        "用 passphrase 保护私钥；切勿分享它。"
+      ]
+    },
+    "ssh-copy-id": {
+      "title": "在服务器上安装密钥",
+      "description": "将你的公钥复制到服务器的 authorized_keys，实现免密登录。",
+      "examples": [],
+      "arguments": [
+        "要安装的指定公钥。"
+      ],
+      "warnings": []
+    },
+    "ssh-add": {
+      "title": "将密钥添加到 agent",
+      "description": "将私钥载入 ssh-agent，这样无需每次连接都输入 passphrase。",
+      "examples": [
+        "列出 agent 中已加载的密钥。"
+      ],
+      "arguments": [
+        "列出已加载的身份。",
+        "从 agent 中移除所有身份。"
+      ],
+      "warnings": []
+    },
+    "ssh-agent": {
+      "title": "启动 agent",
+      "description": "在当前会话中启动 ssh-agent，以便在内存中管理密钥。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scp": {
+      "title": "复制文件 (scp)",
+      "description": "通过 SSH 在本地与远程机器之间复制文件。",
+      "examples": [
+        "将远程文件下载到当前目录。"
+      ],
+      "arguments": [
+        "递归复制目录。",
+        "端口（在 scp 中为大写）。"
+      ],
+      "warnings": [
+        "会不加提示地覆盖目标。"
+      ]
+    },
+    "rsync-ssh": {
+      "title": "同步 (rsync)",
+      "description": "通过 SSH 增量同步目录，只传输差异部分。",
+      "examples": [
+        "镜像源目录，并删除目标中源里已不存在的内容。"
+      ],
+      "arguments": [
+        "归档模式（保留权限、链接、时间）。",
+        "传输时压缩。",
+        "删除目标中源里没有的文件。"
+      ],
+      "warnings": [
+        "--delete 会删除目标中的文件；请先使用 --dry-run 测试。"
+      ]
+    },
+    "sftp": {
+      "title": "SFTP 会话",
+      "description": "通过 SSH 打开交互式文件传输会话 (get/put/ls)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-local-tunnel": {
+      "title": "本地隧道 (-L)",
+      "description": "将本地端口转发到可从远程主机访问的服务（例如：数据库）。",
+      "examples": [],
+      "arguments": [
+        "portaLocal:hostDestino:portaDestino"
+      ],
+      "warnings": [
+        "只在 localhost 上暴露敏感端口，切勿暴露在 0.0.0.0 上。"
+      ]
+    },
+    "ssh-remote-tunnel": {
+      "title": "反向隧道 (-R)",
+      "description": "将本地服务暴露在远程主机的某个端口上（反向隧道）。",
+      "examples": [],
+      "arguments": [
+        "portaRemota:hostLocal:portaLocal"
+      ],
+      "warnings": [
+        "在公网服务器上暴露内部服务时要小心。"
+      ]
+    },
+    "ssh-dynamic-tunnel": {
+      "title": "SOCKS 代理 (-D)",
+      "description": "创建动态 SOCKS 代理，让应用程序的流量经由远程主机路由。",
+      "examples": [
+        "在后台启动代理，不打开 shell。"
+      ],
+      "arguments": [
+        "SOCKS 代理的本地端口。",
+        "不执行远程命令（仅隧道）。",
+        "转入后台运行。"
+      ],
+      "warnings": []
+    },
+    "ssh-config": {
+      "title": "~/.ssh/config 文件",
+      "description": "为每个主机定义别名和选项，这样可以用 'ssh prod' 代替冗长的命令行。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-known-hosts-remove": {
+      "title": "移除已知主机",
+      "description": "从 known_hosts 中移除主机的密钥（在服务器重装/更换密钥之后）。",
+      "examples": [],
+      "arguments": [
+        "从 known_hosts 中移除该主机的条目。"
+      ],
+      "warnings": [
+        "仅当你信任服务器密钥的变更时才移除；否则可能意味着 MITM 攻击。"
+      ]
+    },
+    "ssh-keyscan": {
+      "title": "获取主机密钥",
+      "description": "获取主机的公钥并将其添加到 known_hosts（适用于自动化）。",
+      "examples": [],
+      "arguments": [
+        "对文件中的主机名进行哈希。"
+      ],
+      "warnings": [
+        "在信任该密钥之前，请通过可信渠道核对指纹。"
+      ]
+    }
+  }
+}

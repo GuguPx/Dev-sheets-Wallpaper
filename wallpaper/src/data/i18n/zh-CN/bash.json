@@ -1,0 +1,253 @@
+{
+  "description": "GNU Bash Shell — 导航、文件操作、文本处理、变量与脚本编写。",
+  "categories": {
+    "navegacao": "导航",
+    "arquivos": "文件",
+    "texto": "文本",
+    "redirecionamento": "重定向",
+    "variaveis": "变量",
+    "controle": "流程控制",
+    "processos": "进程",
+    "permissoes": "权限",
+    "scripting": "脚本"
+  },
+  "entries": {
+    "pwd": {
+      "title": "当前目录",
+      "description": "打印当前工作目录的绝对路径。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "cd": {
+      "title": "切换目录",
+      "description": "切换当前工作目录。不带参数时进入 HOME；'cd -' 返回上一个目录。",
+      "examples": [
+        "上移一级目录。",
+        "返回上一个目录。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "ls": {
+      "title": "列出文件",
+      "description": "以长格式列出目录内容，包含隐藏文件和易读的大小。",
+      "examples": [],
+      "arguments": [
+        "长格式（权限、所有者、大小、日期）。",
+        "包含隐藏文件（以点开头）。",
+        "易读的大小（K、M、G）。"
+      ],
+      "warnings": []
+    },
+    "cp": {
+      "title": "复制文件",
+      "description": "复制文件或目录；-r 递归复制目录。",
+      "examples": [],
+      "arguments": [
+        "递归复制目录。",
+        "覆盖前询问。"
+      ],
+      "warnings": [
+        "不加 -i 时，cp 会不加提示地覆盖目标文件。"
+      ]
+    },
+    "mv": {
+      "title": "移动或重命名",
+      "description": "移动或重命名文件和目录。这是 shell 中重命名的标准方式。",
+      "examples": [],
+      "arguments": [
+        "覆盖目标前询问。"
+      ],
+      "warnings": [
+        "若目标已存在，会被静默覆盖。"
+      ]
+    },
+    "rm-rf": {
+      "title": "递归删除",
+      "description": "递归删除文件和目录，且不进行确认。不可恢复。",
+      "examples": [],
+      "arguments": [
+        "递归（目录）。",
+        "强制，不询问。"
+      ],
+      "warnings": [
+        "没有回收站：删除是永久的。",
+        "切勿运行 'rm -rf /' 或使用空变量（例如：rm -rf $DIR/）。"
+      ]
+    },
+    "mkdir-p": {
+      "title": "创建目录",
+      "description": "创建目录；-p 会创建中间目录，且目录已存在时不报错。",
+      "examples": [],
+      "arguments": [
+        "按需创建父目录。"
+      ],
+      "warnings": []
+    },
+    "find": {
+      "title": "查找文件",
+      "description": "遍历目录树，按名称、类型、大小或日期搜索。",
+      "examples": [
+        "删除 7 天前修改的 .tmp 文件。"
+      ],
+      "arguments": [
+        "按名称过滤（glob）。",
+        "f（文件）或 d（目录）。",
+        "对每个结果执行一条命令。"
+      ],
+      "warnings": [
+        "'-delete' 和 '-exec rm' 会不经确认直接删除。"
+      ]
+    },
+    "grep": {
+      "title": "文本搜索",
+      "description": "递归搜索匹配模式（正则）的行，且不区分大小写。",
+      "examples": [],
+      "arguments": [
+        "在目录中递归搜索。",
+        "忽略大小写。",
+        "显示行号。",
+        "反转：显示不匹配的行。"
+      ],
+      "warnings": []
+    },
+    "sed": {
+      "title": "文本替换 (sed)",
+      "description": "流编辑器。使用 -i 就地编辑文件，替换所有匹配项。",
+      "examples": [],
+      "arguments": [
+        "就地编辑文件 (in-place)。",
+        "扩展正则表达式。"
+      ],
+      "warnings": [
+        "-i 会修改原文件；在 macOS 上需要后缀：sed -i ''。"
+      ]
+    },
+    "awk": {
+      "title": "按列处理 (awk)",
+      "description": "按字段/列处理文本。非常适合提取和格式化表格数据。",
+      "examples": [
+        "以 ':' 作为字段分隔符列出用户。"
+      ],
+      "arguments": [
+        "设置字段分隔符。"
+      ],
+      "warnings": []
+    },
+    "tail-f": {
+      "title": "跟踪文件",
+      "description": "显示文件末尾并持续跟踪新增的行（适合查看日志）。",
+      "examples": [],
+      "arguments": [
+        "实时跟踪文件。",
+        "初始显示的行数（例如：-n 100）。"
+      ],
+      "warnings": []
+    },
+    "pipe": {
+      "title": "命令串联 (pipe)",
+      "description": "将一个命令的输出作为下一个命令的输入，串联命令。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect": {
+      "title": "重定向输出",
+      "description": "将 stdout 重定向到文件；2>&1 会同时发送 stderr。'>>' 为追加而非覆盖。",
+      "examples": [
+        "追加到文件末尾。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "'>' 会不加提示地覆盖目标文件。"
+      ]
+    },
+    "xargs": {
+      "title": "构造命令 (xargs)",
+      "description": "从标准输入读取条目，并将其作为参数传给另一个命令。",
+      "examples": [
+        "使用 -print0/-0 以安全处理文件名中的空格。"
+      ],
+      "arguments": [
+        "以 NUL 分隔输入（与 find -print0 配对）。",
+        "每次执行时用条目替换 {}。"
+      ],
+      "warnings": [
+        "与 rm/mv 串联时，可能一次删除大量文件。"
+      ]
+    },
+    "export": {
+      "title": "环境变量",
+      "description": "定义一个变量并将其导出给 shell 的子进程。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "不要在共享的历史记录中导出机密；建议使用不纳入版本控制的 .env 文件。"
+      ]
+    },
+    "command-substitution": {
+      "title": "命令替换",
+      "description": "使用 $(...) 将命令的输出捕获到变量中。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "for-loop": {
+      "title": "for 循环",
+      "description": "遍历一组条目（文件、单词、序列）并执行命令。",
+      "examples": [
+        "使用花括号展开从 1 迭代到 5。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "if": {
+      "title": "if 条件判断",
+      "description": "按条件执行命令。[ -f ] 测试文件；[ -d ] 测试目录；[ -z ] 测试空字符串。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "测试中务必给变量加引号：[ -n \"$VAR\" ] 可避免空值导致的错误。"
+      ]
+    },
+    "function": {
+      "title": "定义函数",
+      "description": "在脚本或交互式 shell 中创建可复用的函数；$1..$n 是参数。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "shebang": {
+      "title": "Shebang 与 set -euo",
+      "description": "推荐的脚本头部：指定解释器并启用严格模式（出错、使用未定义变量、管道失败时中止）。",
+      "examples": [],
+      "arguments": [
+        "任何命令失败即中止。",
+        "使用未定义变量时报错。",
+        "管道中任一步骤失败即失败。"
+      ],
+      "warnings": []
+    },
+    "chmod-x": {
+      "title": "设为可执行",
+      "description": "为文件添加执行权限，以便直接运行。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "避免使用 'chmod 777'；只授予必要的权限。"
+      ]
+    },
+    "ps-kill": {
+      "title": "进程与终止",
+      "description": "列出正在运行的进程。配合 kill <PID> 终止进程。",
+      "examples": [
+        "强制终止 (SIGKILL) — 作为最后手段使用。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "kill -9 不允许进程保存状态；请先使用 kill (SIGTERM)。"
+      ]
+    }
+  }
+}

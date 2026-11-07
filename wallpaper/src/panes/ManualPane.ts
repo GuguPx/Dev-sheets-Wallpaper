@@ -1,4 +1,5 @@
 import { h, clear } from '@/core/dom';
+import { t } from '@/i18n';
 import { appStore } from '@/stores/AppStore';
 import { content } from '@/services/ContentService';
 import { copyEntry, toggleFavorite, flatByKey } from '@/terminal/actions';
@@ -41,27 +42,33 @@ export class ManualPane {
     );
 
     const body = h('div', { class: 'manual-body' });
-    body.appendChild(this.section('NAME', [`${e.command.split(' ')[0]} — ${e.title}`]));
+    body.appendChild(this.section(t('manual.name'), [`${e.command.split(' ')[0]} — ${e.title}`]));
 
     const syn = h('div', { class: 'manual-section' });
-    syn.appendChild(h('div', { class: 'manual-h', text: 'SYNOPSIS' }));
+    syn.appendChild(h('div', { class: 'manual-h', text: t('manual.synopsis') }));
     const synLine = h('div', { class: 'manual-p manual-syn' });
     renderCommandInto(synLine, e.command);
     syn.appendChild(synLine);
     body.appendChild(syn);
 
-    body.appendChild(this.section('DESCRIPTION', [e.description]));
+    body.appendChild(this.section(t('manual.description'), [e.description]));
 
     body.appendChild(
-      this.section('META', [
-        `risk: [${tag}]   difficulty: ${e.difficulty}   platforms: ${e.platforms.join(', ')}`,
-        e.tags.length ? `tags: ${e.tags.join(', ')}` : '',
+      this.section(t('manual.meta'), [
+        [
+          `${t('manual.risk')}: [${tag}]`,
+          `${t('manual.difficulty')}: ${t(`difficulty.${e.difficulty}`)}`,
+          `${t('manual.platforms')}: ${e.platforms
+            .map((p) => (p === 'all' ? t('platform.all') : p))
+            .join(', ')}`,
+        ].join('   '),
+        e.tags.length ? `${t('manual.tags')}: ${e.tags.join(', ')}` : '',
       ]),
     );
 
     if (e.arguments.length) {
       const opt = h('div', { class: 'manual-section' });
-      opt.appendChild(h('div', { class: 'manual-h', text: 'OPTIONS' }));
+      opt.appendChild(h('div', { class: 'manual-h', text: t('manual.options') }));
       for (const a of e.arguments) {
         opt.appendChild(
           h(
@@ -77,7 +84,7 @@ export class ManualPane {
 
     if (e.examples.length) {
       const ex = h('div', { class: 'manual-section' });
-      ex.appendChild(h('div', { class: 'manual-h', text: 'EXAMPLES' }));
+      ex.appendChild(h('div', { class: 'manual-h', text: t('manual.examples') }));
       for (const x of e.examples) {
         const code = h('pre', { class: 'manual-ex-code' });
         renderCommandInto(code, x.code);
@@ -91,18 +98,18 @@ export class ManualPane {
 
     if (e.warnings.length) {
       const w = h('div', { class: 'manual-section manual-warnings' });
-      w.appendChild(h('div', { class: 'manual-h manual-h-warn', text: 'WARNINGS' }));
+      w.appendChild(h('div', { class: 'manual-h manual-h-warn', text: t('manual.warnings') }));
       for (const line of e.warnings)
         w.appendChild(h('div', { class: 'manual-warn', text: `! ${line}` }));
       body.appendChild(w);
     }
 
     if (e.relatedCommands.length) {
-      body.appendChild(this.section('SEE ALSO', [this.relatedLabels(e).join(', ')]));
+      body.appendChild(this.section(t('manual.seeAlso'), [this.relatedLabels(e).join(', ')]));
     }
 
     if (e.documentationUrl) {
-      body.appendChild(this.section('DOCUMENTATION', [e.documentationUrl]));
+      body.appendChild(this.section(t('manual.documentation'), [e.documentationUrl]));
     }
 
     box.appendChild(body);
@@ -138,14 +145,16 @@ export class ManualPane {
         text: label,
         on: { click: fn },
       });
-    bar.appendChild(btn('y copy', 'copiar comando', () => void copyEntry(flat)));
-    bar.appendChild(btn('f fav', 'favoritar', () => toggleFavorite(flat)));
     bar.appendChild(
-      btn('n note', 'anotar', () => {
+      btn(`y ${t('status.copy')}`, t('action.copyCommand'), () => void copyEntry(flat)),
+    );
+    bar.appendChild(btn(`f ${t('status.fav')}`, t('action.favorite'), () => toggleFavorite(flat)));
+    bar.appendChild(
+      btn(`n ${t('status.note')}`, t('action.note'), () => {
         if (flat) openNoteEditor(flat.technologyId, flat.entry.id);
       }),
     );
-    bar.appendChild(btn('q close', 'fechar (Esc)', () => modes.toNormal()));
+    bar.appendChild(btn(`q ${t('common.close')}`, t('common.closeEsc'), () => modes.toNormal()));
     return bar;
   }
 

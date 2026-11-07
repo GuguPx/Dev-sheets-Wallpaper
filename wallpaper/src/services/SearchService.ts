@@ -51,7 +51,7 @@ export class SearchService {
     const e = item.entry;
     const title = normalize(e.title);
     const command = normalize(e.command);
-    const category = normalize(e.category);
+    const category = normalize(e.categoryLabel ?? e.category);
     const tags = e.tags.map(normalize);
     const searchable = e.searchableText ?? '';
     const techName = normalize(item.technologyName);

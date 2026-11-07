@@ -18,6 +18,9 @@
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"wallpaper/src/**/*.{ts,css}\" \"tests/**/*.ts\" \"scripts/**/*.ts\"",
     "validate:content": "tsx scripts/validate-content.ts",
+    "validate:i18n": "tsx scripts/i18n-content.ts check",
+    "i18n:extract": "tsx scripts/i18n-content.ts extract",
+    "i18n:we": "node scripts/we-localization.mjs",
     "gen:index": "tsx scripts/generate-search-index.ts",
     "build:wallpaper": "npm run build && node scripts/copy-to-wallpaper.mjs"
   },

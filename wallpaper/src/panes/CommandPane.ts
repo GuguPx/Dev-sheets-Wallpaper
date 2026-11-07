@@ -1,4 +1,5 @@
 import { h, clear } from '@/core/dom';
+import { t } from '@/i18n';
 import { appStore } from '@/stores/AppStore';
 import { settingsStore } from '@/stores/SettingsStore';
 import { favoritesStore } from '@/stores/FavoritesStore';
@@ -16,7 +17,7 @@ import {
   selectTechnology,
 } from '@/terminal/actions';
 import { RISK_DISPLAY } from '@/utils/risk';
-import { pad2, titleCase } from '@/utils/format';
+import { pad2 } from '@/utils/format';
 import { techIcon } from '@/utils/icons';
 import { renderCommandInto } from '@/utils/syntax';
 import type { CheatEntry, FlatEntry, Technology } from '@/types';
@@ -49,7 +50,7 @@ export class CommandPane {
             'div',
             { class: 'pane-title-main' },
             h('span', { class: 'pane-ic pane-ic-rec', text: '★' }),
-            h('span', { text: 'RECOMENDADOS · essenciais' }),
+            h('span', { text: t('pane.recommended') }),
           ),
           h('span', {
             class: 'pane-title-side',
@@ -58,7 +59,7 @@ export class CommandPane {
         ),
       );
       if (!flat.length) {
-        this.el.appendChild(h('div', { class: 'empty', text: 'Sem comandos recomendados.' }));
+        this.el.appendChild(h('div', { class: 'empty', text: t('pane.noRecommended') }));
         return;
       }
       this.renderRecommendedGrid(flat, st.commandIndex, focused, s.showFavorites);
@@ -69,7 +70,9 @@ export class CommandPane {
     const entries = currentEntries();
 
     const gridView = st.activeCategory === null && !!tech;
-    const catLabel = st.activeCategory ? titleCase(st.activeCategory) : 'todos';
+    const catLabel = st.activeCategory
+      ? content.categoryLabel(st.activeTechnologyId, st.activeCategory)
+      : t('common.all');
     this.el.appendChild(
       h(
         'div',
@@ -88,7 +91,7 @@ export class CommandPane {
     );
 
     if (!entries.length) {
-      this.el.appendChild(h('div', { class: 'empty', text: 'Nenhum comando nesta categoria.' }));
+      this.el.appendChild(h('div', { class: 'empty', text: t('pane.noCommands') }));
       return;
     }
 
@@ -141,7 +144,7 @@ export class CommandPane {
       const card = h('div', { class: 'cat-card' });
       const head = h('button', {
         class: 'cat-card-head',
-        attrs: { type: 'button', title: `Abrir ${g.name}` },
+        attrs: { type: 'button', title: t('pane.open', { name: g.name }) },
         on: { click: () => selectTechnology(techId) },
       });
       head.appendChild(techIcon(techId, 'pane-ic', g.color));
@@ -186,9 +189,10 @@ export class CommandPane {
       if (!catEntries.length) return;
 
       const card = h('div', { class: 'cat-card' });
+      const label = content.categoryLabel(tech.id, cat);
       const head = h('button', {
         class: 'cat-card-head',
-        attrs: { type: 'button', title: `Abrir ${titleCase(cat)}` },
+        attrs: { type: 'button', title: t('pane.open', { name: label }) },
         on: {
           click: () => {
             const idx = displayCategories(tech).indexOf(cat);
@@ -196,7 +200,7 @@ export class CommandPane {
           },
         },
       });
-      head.appendChild(h('span', { class: 'cat-card-title', text: titleCase(cat) }));
+      head.appendChild(h('span', { class: 'cat-card-title', text: label }));
       head.appendChild(h('span', { class: 'cat-card-count', text: String(catEntries.length) }));
       card.appendChild(head);
 
@@ -255,13 +259,17 @@ export class CommandPane {
 
     // ações por mouse (fallback sem teclado)
     const actions = h('div', { class: 'cc-actions' });
-    actions.appendChild(this.actionBtn('man', 'abrir manual', () => flat && openManual(flat)));
     actions.appendChild(
-      this.actionBtn('copy', 'copiar', () => {
+      this.actionBtn('man', t('action.openManual'), () => flat && openManual(flat)),
+    );
+    actions.appendChild(
+      this.actionBtn('copy', t('action.copy'), () => {
         void copyEntry(flat);
       }),
     );
-    actions.appendChild(this.actionBtn(fav ? '★' : 'fav', 'favoritar', () => toggleFavorite(flat)));
+    actions.appendChild(
+      this.actionBtn(fav ? '★' : 'fav', t('action.favorite'), () => toggleFavorite(flat)),
+    );
     top.appendChild(actions);
 
     item.appendChild(top);
@@ -316,13 +324,17 @@ export class CommandPane {
 
     // ações por mouse (fallback sem teclado)
     const actions = h('div', { class: 'cmd-actions' });
-    actions.appendChild(this.actionBtn('man', 'abrir manual', () => flat && openManual(flat)));
     actions.appendChild(
-      this.actionBtn('copy', 'copiar', () => {
+      this.actionBtn('man', t('action.openManual'), () => flat && openManual(flat)),
+    );
+    actions.appendChild(
+      this.actionBtn('copy', t('action.copy'), () => {
         void copyEntry(flat);
       }),
     );
-    actions.appendChild(this.actionBtn(fav ? '★' : 'fav', 'favoritar', () => toggleFavorite(flat)));
+    actions.appendChild(
+      this.actionBtn(fav ? '★' : 'fav', t('action.favorite'), () => toggleFavorite(flat)),
+    );
     head.appendChild(actions);
 
     row.appendChild(head);

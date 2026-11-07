@@ -1,0 +1,325 @@
+{
+  "description": "애플리케이션을 격리된 환경에서 패키징, 배포, 실행하기 위한 컨테이너 플랫폼.",
+  "categories": {
+    "Containers": "컨테이너",
+    "Imagens": "이미지",
+    "Volumes": "볼륨",
+    "Redes": "네트워크",
+    "Logs": "로그",
+    "Build": "빌드",
+    "Limpeza": "정리",
+    "Inspeção": "검사",
+    "Registro": "레지스트리",
+    "Segurança": "보안"
+  },
+  "entries": {
+    "docker-run": {
+      "title": "컨테이너 실행",
+      "description": "이미지로 컨테이너를 생성하고 시작합니다. 필요하면 레지스트리에서 이미지를 내려받습니다.",
+      "examples": [
+        "Docker 테스트 이미지를 실행합니다.",
+        "nginx를 백그라운드로 실행하고 80번 포트를 8080으로 공개합니다."
+      ],
+      "arguments": [
+        "분리 모드(백그라운드).",
+        "포트를 공개합니다.",
+        "컨테이너 이름을 지정합니다.",
+        "종료 시 컨테이너를 제거합니다.",
+        "환경 변수를 설정합니다."
+      ],
+      "warnings": []
+    },
+    "docker-ps": {
+      "title": "컨테이너 목록",
+      "description": "실행 중인 컨테이너를 ID, 이미지, 포트, 상태와 함께 나열합니다.",
+      "examples": [
+        "실행 중인 컨테이너를 보여 줍니다.",
+        "중지된 컨테이너도 포함합니다."
+      ],
+      "arguments": [
+        "중지된 컨테이너를 포함합니다.",
+        "ID만 표시합니다."
+      ],
+      "warnings": []
+    },
+    "docker-exec": {
+      "title": "컨테이너에서 명령 실행",
+      "description": "실행 중인 컨테이너 안에서 명령을 실행합니다. 대화형 셸을 여는 데 유용합니다.",
+      "examples": [
+        "web 컨테이너 안에서 셸을 엽니다.",
+        "데이터베이스 컨테이너 안에서 psql을 엽니다."
+      ],
+      "arguments": [
+        "표준 입력을 열어 둡니다(대화형).",
+        "의사 터미널(pseudo-TTY)을 할당합니다."
+      ],
+      "warnings": []
+    },
+    "docker-stop": {
+      "title": "컨테이너 중지",
+      "description": "컨테이너의 메인 프로세스에 SIGTERM을 보내고, 타임아웃 후에는 SIGKILL을 보내 안전하게 중지합니다.",
+      "examples": [
+        "web 컨테이너를 중지합니다.",
+        "실행 중인 모든 컨테이너를 중지합니다."
+      ],
+      "arguments": [
+        "SIGKILL을 보내기 전에 기다릴 초."
+      ],
+      "warnings": [
+        "SIGTERM을 처리하지 않는 프로세스는 저장되지 않은 데이터를 잃을 수 있습니다."
+      ]
+    },
+    "docker-rm": {
+      "title": "컨테이너 제거",
+      "description": "중지된 컨테이너를 하나 이상 제거합니다. 실행 중인 컨테이너를 강제로 제거하려면 -f를 사용합니다.",
+      "examples": [
+        "중지된 web 컨테이너를 제거합니다.",
+        "모든 컨테이너를 강제로 제거합니다."
+      ],
+      "arguments": [
+        "실행 중이어도 강제로 제거합니다.",
+        "연결된 익명 볼륨도 제거합니다."
+      ],
+      "warnings": [
+        "컨테이너를 제거하면 내부 파일 시스템이 삭제됩니다(볼륨 밖의 데이터는 사라집니다)."
+      ]
+    },
+    "docker-logs": {
+      "title": "컨테이너 로그 보기",
+      "description": "컨테이너의 표준 출력과 오류 출력을 표시합니다. 디버깅에 유용합니다.",
+      "examples": [
+        "web 컨테이너의 로그를 표시합니다.",
+        "마지막 100줄부터 실시간으로 따라갑니다."
+      ],
+      "arguments": [
+        "출력을 계속 따라갑니다(follow).",
+        "마지막 n줄만 표시합니다.",
+        "타임스탬프를 추가합니다."
+      ],
+      "warnings": []
+    },
+    "docker-stats": {
+      "title": "리소스 사용량 모니터링",
+      "description": "컨테이너의 CPU, 메모리, 네트워크, I/O 사용량을 실시간으로 보여 줍니다.",
+      "examples": [
+        "실행 중인 모든 컨테이너의 리소스를 표시합니다.",
+        "갱신 없이 한 번만 스냅샷을 표시합니다."
+      ],
+      "arguments": [
+        "한 번 읽고 종료합니다."
+      ],
+      "warnings": []
+    },
+    "docker-inspect": {
+      "title": "객체 검사",
+      "description": "컨테이너, 이미지, 볼륨, 네트워크의 상세 메타데이터를 JSON으로 반환합니다.",
+      "examples": [
+        "web 컨테이너의 모든 메타데이터를 표시합니다.",
+        "Go 템플릿으로 IP만 추출합니다."
+      ],
+      "arguments": [
+        "Go 템플릿으로 출력 형식을 지정합니다."
+      ],
+      "warnings": []
+    },
+    "docker-images": {
+      "title": "이미지 목록",
+      "description": "로컬에 저장된 이미지를 저장소, 태그, ID, 크기와 함께 나열합니다.",
+      "examples": [
+        "로컬 이미지를 나열합니다."
+      ],
+      "arguments": [
+        "ID만 표시합니다."
+      ],
+      "warnings": []
+    },
+    "docker-pull": {
+      "title": "이미지 내려받기",
+      "description": "레지스트리(기본값은 Docker Hub)에서 이미지를 로컬로 내려받습니다.",
+      "examples": [
+        "Node 20의 alpine 변형 이미지를 내려받습니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "항상 특정 태그를 고정하세요. latest 태그는 시간이 지나면 바뀌어 재현성을 해칩니다."
+      ]
+    },
+    "docker-build": {
+      "title": "이미지 빌드",
+      "description": "현재 컨텍스트의 Dockerfile로 이미지를 빌드하고 이름과 태그를 지정합니다.",
+      "examples": [
+        "현재 Dockerfile로 minha-app:1.0 이미지를 빌드합니다.",
+        "prod 스테이지를 대상으로 빌드 인자와 함께 멀티 스테이지 빌드를 합니다."
+      ],
+      "arguments": [
+        "이미지의 이름:태그를 지정합니다.",
+        "다른 Dockerfile을 지정합니다.",
+        "특정 스테이지까지만 빌드합니다(멀티 스테이지).",
+        "빌드 인자를 전달합니다."
+      ],
+      "warnings": [
+        "민감한 파일은 복사하지 마세요. .dockerignore로 컨텍스트를 줄이고 시크릿을 보호하세요."
+      ]
+    },
+    "docker-tag": {
+      "title": "이미지 태그 지정",
+      "description": "기존 이미지에 새 참조(태그)를 만듭니다. 보통 레지스트리로 푸시하기 전에 사용합니다.",
+      "examples": [
+        "프라이빗 레지스트리로 푸시할 이미지를 준비합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-push": {
+      "title": "이미지를 레지스트리에 푸시",
+      "description": "로컬 이미지를 원격 레지스트리로 보냅니다. 프라이빗 레지스트리는 사전에 로그인해야 합니다.",
+      "examples": [
+        "이미지를 레지스트리에 게시합니다."
+      ],
+      "arguments": [],
+      "warnings": [
+        "게시하기 전에 이미지에 시크릿이 없는지 확인하세요."
+      ]
+    },
+    "docker-login": {
+      "title": "레지스트리 인증",
+      "description": "프라이빗 이미지를 pull/push할 수 있도록 레지스트리에 인증합니다.",
+      "examples": [
+        "Docker Hub에 로그인합니다.",
+        "표준 입력에서 토큰을 읽어 비대화형으로 로그인합니다."
+      ],
+      "arguments": [
+        "stdin에서 비밀번호/토큰을 읽습니다(히스토리 노출 방지)."
+      ],
+      "warnings": [
+        "명령줄에서 --password로 비밀번호를 전달하지 마세요. 셸 히스토리에 남습니다."
+      ]
+    },
+    "docker-rmi": {
+      "title": "이미지 제거",
+      "description": "로컬 이미지를 하나 이상 제거합니다. 해당 이미지를 사용하는 컨테이너가 있으면 실패합니다.",
+      "examples": [
+        "node:18 이미지를 제거합니다."
+      ],
+      "arguments": [
+        "강제로 제거합니다."
+      ],
+      "warnings": [
+        "제거한 이미지는 다시 내려받거나 재빌드해야 합니다."
+      ]
+    },
+    "docker-volume-create": {
+      "title": "볼륨 생성",
+      "description": "컨테이너 수명 주기와 무관하게 데이터를 보존하기 위한 Docker 관리 볼륨을 만듭니다.",
+      "examples": [
+        "db-data 볼륨을 만듭니다.",
+        "볼륨을 Postgres 데이터 디렉터리에 마운트합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-volume-ls": {
+      "title": "볼륨 목록",
+      "description": "Docker가 관리하는 볼륨을 나열합니다.",
+      "examples": [
+        "모든 볼륨을 나열합니다."
+      ],
+      "arguments": [
+        "이름만 표시합니다."
+      ],
+      "warnings": []
+    },
+    "docker-network-ls": {
+      "title": "네트워크 목록",
+      "description": "기본 네트워크(bridge, host, none)와 사용자 정의 네트워크를 포함해 Docker 네트워크를 나열합니다.",
+      "examples": [
+        "사용 가능한 네트워크를 나열합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-network-create": {
+      "title": "네트워크 생성",
+      "description": "사용자 정의 bridge 네트워크를 만들어 컨테이너가 서비스 이름으로 서로 통신할 수 있게 합니다.",
+      "examples": [
+        "app-net 네트워크를 만듭니다.",
+        "컨테이너를 app-net 네트워크에 연결합니다."
+      ],
+      "arguments": [
+        "네트워크 드라이버(bridge, overlay...)."
+      ],
+      "warnings": []
+    },
+    "docker-cp": {
+      "title": "컨테이너와 파일 복사",
+      "description": "호스트와 컨테이너 사이에 파일이나 디렉터리를 복사합니다.",
+      "examples": [
+        "컨테이너의 파일을 호스트로 복사합니다.",
+        "호스트의 파일을 컨테이너로 복사합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-restart": {
+      "title": "컨테이너 재시작",
+      "description": "컨테이너를 중지했다가 다시 시작하며, 필요하면 호스트 환경의 새 변수를 반영합니다.",
+      "examples": [
+        "web 컨테이너를 재시작합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-system-df": {
+      "title": "디스크 사용량 확인",
+      "description": "이미지, 컨테이너, 볼륨, 캐시가 차지하는 공간을 보여 줍니다.",
+      "examples": [
+        "Docker 디스크 사용량 요약.",
+        "이미지와 볼륨별로 자세히 표시합니다."
+      ],
+      "arguments": [
+        "자세한 출력."
+      ],
+      "warnings": []
+    },
+    "docker-image-prune": {
+      "title": "사용하지 않는 이미지 정리",
+      "description": "댕글링(dangling) 이미지를 제거합니다. -a를 쓰면 컨테이너와 연결되지 않은 모든 이미지를 제거합니다.",
+      "examples": [
+        "댕글링 이미지만 제거합니다.",
+        "컨테이너가 사용하지 않는 모든 이미지를 제거합니다."
+      ],
+      "arguments": [
+        "사용하지 않는 모든 이미지를 제거합니다.",
+        "확인을 묻지 않습니다."
+      ],
+      "warnings": [
+        "-a는 다시 내려받아야 할 수도 있는 이미지까지 제거합니다."
+      ]
+    },
+    "docker-system-prune": {
+      "title": "Docker 전체 정리",
+      "description": "중지된 컨테이너, 사용하지 않는 네트워크, 댕글링 이미지를 제거하며, -a를 쓰면 사용하지 않는 모든 이미지도 제거합니다.",
+      "examples": [
+        "중지된 컨테이너와 고아 네트워크를 기본적으로 정리합니다.",
+        "사용하지 않는 이미지와 볼륨까지 포함한 공격적인 정리."
+      ],
+      "arguments": [
+        "사용하지 않는 모든 이미지를 포함합니다.",
+        "사용하지 않는 볼륨을 포함합니다(데이터가 삭제됩니다!)."
+      ],
+      "warnings": [
+        "--volumes는 사용 중이 아닌 영구 데이터를 삭제합니다.",
+        "프로덕션 서버에서 무분별하게 사용하지 마세요."
+      ]
+    },
+    "docker-scout": {
+      "title": "취약점 분석",
+      "description": "이미지에서 알려진 취약점(CVE)을 분석하여 공급망(supply chain) 보안에 도움을 줍니다.",
+      "examples": [
+        "이미지에서 발견된 CVE를 나열합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

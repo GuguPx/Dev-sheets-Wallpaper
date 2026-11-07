@@ -1,0 +1,376 @@
+{
+  "description": "Commandes shell essentielles pour l'administration de systèmes Linux (Debian/Ubuntu et dérivés).",
+  "categories": {
+    "Arquivos": "Fichiers",
+    "Diretórios": "Répertoires",
+    "Permissões": "Permissions",
+    "Processos": "Processus",
+    "Rede": "Réseau",
+    "Disco": "Disque",
+    "Memória": "Mémoire",
+    "Usuários": "Utilisateurs",
+    "Serviços": "Services",
+    "Logs": "Logs",
+    "Compactação": "Compression",
+    "Pesquisa": "Recherche",
+    "Pacotes": "Paquets"
+  },
+  "entries": {
+    "linux-ls": {
+      "title": "Lister les fichiers",
+      "description": "Liste fichiers et répertoires avec détails, fichiers cachés et tailles lisibles par un humain inclus.",
+      "examples": [
+        "Liste tout avec permissions, propriétaire, taille et date."
+      ],
+      "arguments": [
+        "Format long avec détails.",
+        "Inclut les fichiers cachés.",
+        "Tailles lisibles (KB, MB)."
+      ],
+      "warnings": []
+    },
+    "linux-cd": {
+      "title": "Changer de répertoire",
+      "description": "Navigue entre les répertoires. Sans argument, revient au répertoire personnel (home) de l'utilisateur.",
+      "examples": [
+        "Entre dans le répertoire /var/www.",
+        "Revient au répertoire précédent."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-pwd": {
+      "title": "Afficher le répertoire courant",
+      "description": "Affiche le chemin absolu du répertoire de travail courant.",
+      "examples": [
+        "Montre où vous vous trouvez dans le système de fichiers."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-mkdir": {
+      "title": "Créer un répertoire",
+      "description": "Crée des répertoires ; avec -p crée toute l'arborescence de parents nécessaire sans erreur si elle existe déjà.",
+      "examples": [
+        "Crée la structure complète de dossiers."
+      ],
+      "arguments": [
+        "Crée les répertoires parents si nécessaire."
+      ],
+      "warnings": []
+    },
+    "linux-cp": {
+      "title": "Copier des fichiers",
+      "description": "Copie fichiers et répertoires ; -r est nécessaire pour copier des répertoires récursivement.",
+      "examples": [
+        "Copie le répertoire site vers backup."
+      ],
+      "arguments": [
+        "Copie les répertoires récursivement.",
+        "Demande confirmation avant d'écraser."
+      ],
+      "warnings": [
+        "Écrase la destination sans prévenir ; utilisez -i pour confirmer."
+      ]
+    },
+    "linux-mv": {
+      "title": "Déplacer ou renommer",
+      "description": "Déplace ou renomme des fichiers et des répertoires. C'est la façon standard de renommer sous Linux.",
+      "examples": [
+        "Renomme le fichier."
+      ],
+      "arguments": [
+        "Demande confirmation avant d'écraser."
+      ],
+      "warnings": [
+        "Écrase silencieusement la destination."
+      ]
+    },
+    "linux-rm": {
+      "title": "Supprimer des fichiers",
+      "description": "Supprime fichiers et répertoires. Avec -rf, efface récursivement et sans confirmation.",
+      "examples": [
+        "Supprime un fichier.",
+        "Supprime tout le répertoire build sans demander."
+      ],
+      "arguments": [
+        "Supprime les répertoires récursivement.",
+        "Force, sans confirmation."
+      ],
+      "warnings": [
+        "rm -rf efface définitivement, sans corbeille.",
+        "Ne lancez jamais rm -rf / ni avec des variables vides (rm -rf $DIR/)."
+      ]
+    },
+    "linux-cat": {
+      "title": "Afficher le contenu d'un fichier",
+      "description": "Concatène et affiche le contenu de fichiers sur la sortie standard.",
+      "examples": [
+        "Affiche le nom de l'hôte."
+      ],
+      "arguments": [
+        "Numérote les lignes."
+      ],
+      "warnings": []
+    },
+    "linux-tail": {
+      "title": "Voir la fin d'un fichier",
+      "description": "Affiche les dernières lignes d'un fichier ; avec -f suit les nouvelles lignes en temps réel (logs).",
+      "examples": [
+        "Suit le log de nginx à partir des 100 dernières lignes."
+      ],
+      "arguments": [
+        "Suit le fichier (follow).",
+        "Nombre de lignes initiales."
+      ],
+      "warnings": []
+    },
+    "linux-chmod": {
+      "title": "Modifier les permissions",
+      "description": "Change les permissions de lecture, écriture et exécution des fichiers et répertoires.",
+      "examples": [
+        "Rend le script exécutable.",
+        "Le propriétaire lit/écrit, les autres lisent seulement."
+      ],
+      "arguments": [
+        "Applique récursivement."
+      ],
+      "warnings": [
+        "Évitez chmod -R 777 : donne tous les droits à tout le monde, un risque de sécurité."
+      ]
+    },
+    "linux-chown": {
+      "title": "Modifier le propriétaire",
+      "description": "Change le propriétaire et le groupe de fichiers et répertoires.",
+      "examples": [
+        "Donne la propriété du site à l'utilisateur du serveur web."
+      ],
+      "arguments": [
+        "Applique récursivement."
+      ],
+      "warnings": [
+        "Changer le propriétaire de fichiers système peut casser des services."
+      ]
+    },
+    "linux-ps": {
+      "title": "Lister les processus",
+      "description": "Liste tous les processus en cours d'exécution avec propriétaire, usage CPU/mémoire et commande.",
+      "examples": [
+        "Filtre les processus Node."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-top": {
+      "title": "Surveiller les processus",
+      "description": "Affiche processus et usage des ressources en temps réel de façon interactive (htop est une version conviviale de top).",
+      "examples": [
+        "Ouvre le moniteur interactif (installez-le avec apt install htop)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-kill": {
+      "title": "Arrêter un processus",
+      "description": "Envoie un signal à un processus via son PID. -9 (SIGKILL) force l'arrêt immédiat.",
+      "examples": [
+        "Envoie SIGTERM (arrêt poli).",
+        "Force l'arrêt (SIGKILL)."
+      ],
+      "arguments": [
+        "Signal SIGKILL (ne peut pas être ignoré)."
+      ],
+      "warnings": [
+        "SIGKILL ne laisse pas le processus sauvegarder son état ni libérer ses ressources."
+      ]
+    },
+    "linux-df": {
+      "title": "Voir l'espace disque",
+      "description": "Affiche l'utilisation de l'espace des partitions montées dans un format lisible.",
+      "examples": [
+        "Espace libre et utilisé par partition."
+      ],
+      "arguments": [
+        "Tailles lisibles."
+      ],
+      "warnings": []
+    },
+    "linux-du": {
+      "title": "Taille des répertoires",
+      "description": "Calcule l'espace occupé par un répertoire ; -s résume et -h utilise un format lisible.",
+      "examples": [
+        "Taille de chaque élément, triée."
+      ],
+      "arguments": [
+        "Résumé (total).",
+        "Format lisible."
+      ],
+      "warnings": []
+    },
+    "linux-free": {
+      "title": "Voir l'utilisation de la mémoire",
+      "description": "Affiche le total, l'utilisé et le libre de la mémoire RAM et du swap dans un format lisible.",
+      "examples": [
+        "Utilisation de la RAM et du swap."
+      ],
+      "arguments": [
+        "Format lisible."
+      ],
+      "warnings": []
+    },
+    "linux-grep": {
+      "title": "Rechercher dans des fichiers",
+      "description": "Cherche un motif de texte dans des fichiers ; -r est récursif et -n affiche le numéro de ligne.",
+      "examples": [
+        "Trouve TODO dans tous les fichiers de src.",
+        "Recherche insensible à la casse par regex dans les logs."
+      ],
+      "arguments": [
+        "Récursif.",
+        "Numéro de ligne.",
+        "Ignore la casse.",
+        "Regex étendue."
+      ],
+      "warnings": []
+    },
+    "linux-find": {
+      "title": "Trouver des fichiers",
+      "description": "Cherche fichiers et répertoires par nom, type, taille ou date, avec des actions optionnelles.",
+      "examples": [
+        "Trouve tous les .log à partir du répertoire courant.",
+        "Supprime les fichiers de plus de 7 jours dans /tmp."
+      ],
+      "arguments": [
+        "Filtre par nom.",
+        "Fichier ou répertoire.",
+        "Filtre par date de modification."
+      ],
+      "warnings": [
+        "L'action -delete efface définitivement ; testez d'abord sans elle."
+      ]
+    },
+    "linux-tar": {
+      "title": "Compresser avec tar",
+      "description": "Crée (ou extrait) des archives tar ; -z applique la compression gzip. Très utilisé pour les sauvegardes.",
+      "examples": [
+        "Crée une sauvegarde compressée.",
+        "Extrait le contenu de l'archive."
+      ],
+      "arguments": [
+        "Crée une archive.",
+        "Extrait.",
+        "Utilise gzip.",
+        "Nom de l'archive."
+      ],
+      "warnings": []
+    },
+    "linux-ip": {
+      "title": "Configuration réseau",
+      "description": "Affiche les interfaces réseau et les adresses IP. Remplace l'ancien ifconfig.",
+      "examples": [
+        "Liste les interfaces et les IPs."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-ss": {
+      "title": "Voir ports et connexions",
+      "description": "Liste les sockets réseau : ports en écoute, protocole et processus. Remplace netstat.",
+      "examples": [
+        "Découvre quel processus écoute sur le port 80."
+      ],
+      "arguments": [
+        "TCP.",
+        "UDP.",
+        "Uniquement en écoute.",
+        "Affiche le processus.",
+        "Ne résout pas les noms."
+      ],
+      "warnings": []
+    },
+    "linux-ping": {
+      "title": "Tester la connectivité",
+      "description": "Envoie des paquets ICMP pour vérifier si un hôte répond et mesurer la latence.",
+      "examples": [
+        "Envoie 4 paquets puis s'arrête."
+      ],
+      "arguments": [
+        "Nombre de paquets."
+      ],
+      "warnings": []
+    },
+    "linux-systemctl-status": {
+      "title": "Statut d'un service",
+      "description": "Indique si un service est actif, son PID et les dernières lignes de log.",
+      "examples": [
+        "Vérifie l'état de nginx."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-journalctl": {
+      "title": "Voir les logs système",
+      "description": "Consulte les logs de systemd ; -u filtre par service et -f suit en temps réel.",
+      "examples": [
+        "Logs de nginx sur la dernière heure."
+      ],
+      "arguments": [
+        "Filtre par unité/service.",
+        "Suit (follow).",
+        "Filtre par période."
+      ],
+      "warnings": []
+    },
+    "linux-useradd": {
+      "title": "Créer un utilisateur",
+      "description": "Crée un utilisateur système ; -m crée le répertoire home et -s définit le shell par défaut.",
+      "examples": [
+        "Crée l'utilisateur deploy et définit son mot de passe."
+      ],
+      "arguments": [
+        "Crée le répertoire home.",
+        "Définit le shell."
+      ],
+      "warnings": [
+        "Sur certaines distros, préférez adduser (plus interactif et plus sûr)."
+      ]
+    },
+    "linux-apt-install": {
+      "title": "Installer un paquet (Debian/Ubuntu)",
+      "description": "Installe des paquets sous Debian/Ubuntu. Lancez apt update avant pour actualiser la liste des paquets.",
+      "examples": [
+        "Met à jour la liste et installe nginx."
+      ],
+      "arguments": [
+        "Confirme automatiquement."
+      ],
+      "warnings": [
+        "N'installez que depuis des dépôts de confiance."
+      ]
+    },
+    "linux-ln": {
+      "title": "Créer un lien symbolique",
+      "description": "Crée un lien symbolique (raccourci) pointant vers un autre fichier ou répertoire.",
+      "examples": [
+        "Crée un raccourci vers le répertoire de l'app."
+      ],
+      "arguments": [
+        "Lien symbolique (au lieu d'un hard link)."
+      ],
+      "warnings": []
+    },
+    "linux-chmod-x-sudo": {
+      "title": "Exécuter en superutilisateur",
+      "description": "Exécute une commande avec les privilèges d'administrateur (root), en demandant le mot de passe de l'utilisateur.",
+      "examples": [
+        "Redémarre nginx avec les privilèges."
+      ],
+      "arguments": [
+        "Ouvre un shell root interactif."
+      ],
+      "warnings": [
+        "Les commandes avec sudo ont un pouvoir total sur le système ; vérifiez avant d'exécuter."
+      ]
+    }
+  }
+}

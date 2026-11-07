@@ -1,0 +1,190 @@
+{
+  "description": "OpenSSH — secure connections, keys, file copy and tunnels.",
+  "categories": {
+    "conexao": "Connection",
+    "chaves": "Keys",
+    "copia": "File Copy",
+    "tuneis": "Tunnels",
+    "config": "Config"
+  },
+  "entries": {
+    "ssh-connect": {
+      "title": "Connect to a host",
+      "description": "Opens a remote shell session authenticated over SSH.",
+      "examples": [],
+      "arguments": [
+        "Server port (default 22).",
+        "Verbose mode to debug the connection."
+      ],
+      "warnings": []
+    },
+    "ssh-port": {
+      "title": "Connect on a specific port",
+      "description": "Connects when the SSH server listens on a port other than 22.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-identity": {
+      "title": "Use a specific key",
+      "description": "Specifies the private key file used to authenticate.",
+      "examples": [],
+      "arguments": [
+        "Path to the private key."
+      ],
+      "warnings": [
+        "The private key must have 600 permissions (chmod 600) or SSH rejects it."
+      ]
+    },
+    "ssh-jump": {
+      "title": "Jump host (ProxyJump)",
+      "description": "Connects to an internal host through a bastion/jump host in a single line.",
+      "examples": [],
+      "arguments": [
+        "Intermediate host(s)."
+      ],
+      "warnings": []
+    },
+    "ssh-keygen": {
+      "title": "Generate key pair",
+      "description": "Creates a public/private key pair. ed25519 is the recommended algorithm.",
+      "examples": [],
+      "arguments": [
+        "Algorithm type (ed25519, rsa).",
+        "Comment (usually the email).",
+        "Key output file."
+      ],
+      "warnings": [
+        "Protect the private key with a passphrase; never share it."
+      ]
+    },
+    "ssh-copy-id": {
+      "title": "Install key on the server",
+      "description": "Copies your public key to the server's authorized_keys, enabling passwordless login.",
+      "examples": [],
+      "arguments": [
+        "Specific public key to install."
+      ],
+      "warnings": []
+    },
+    "ssh-add": {
+      "title": "Add key to the agent",
+      "description": "Loads the private key into ssh-agent so you don't type the passphrase on every connection.",
+      "examples": [
+        "Lists the keys loaded in the agent."
+      ],
+      "arguments": [
+        "Lists the loaded identities.",
+        "Removes all identities from the agent."
+      ],
+      "warnings": []
+    },
+    "ssh-agent": {
+      "title": "Start the agent",
+      "description": "Starts ssh-agent in the current session to manage keys in memory.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scp": {
+      "title": "Copy file (scp)",
+      "description": "Copies files between local and remote machines over SSH.",
+      "examples": [
+        "Downloads a remote file to the current directory."
+      ],
+      "arguments": [
+        "Copies directories recursively.",
+        "Port (uppercase in scp)."
+      ],
+      "warnings": [
+        "Overwrites the destination without warning."
+      ]
+    },
+    "rsync-ssh": {
+      "title": "Sync (rsync)",
+      "description": "Incrementally syncs directories over SSH, transferring only the differences.",
+      "examples": [
+        "Mirrors the source, removing at the destination whatever no longer exists at the source."
+      ],
+      "arguments": [
+        "Archive mode (preserves permissions, links, times).",
+        "Compresses during transfer.",
+        "Removes files at the destination that are missing from the source."
+      ],
+      "warnings": [
+        "--delete removes files at the destination; test first with --dry-run."
+      ]
+    },
+    "sftp": {
+      "title": "SFTP session",
+      "description": "Opens an interactive file transfer session over SSH (get/put/ls).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-local-tunnel": {
+      "title": "Local tunnel (-L)",
+      "description": "Forwards a local port to a service reachable from the remote host (e.g. a database).",
+      "examples": [],
+      "arguments": [
+        "localPort:targetHost:targetPort"
+      ],
+      "warnings": [
+        "Expose sensitive ports only on localhost, never on 0.0.0.0."
+      ]
+    },
+    "ssh-remote-tunnel": {
+      "title": "Reverse tunnel (-R)",
+      "description": "Exposes a local service on a port of the remote host (reverse tunnel).",
+      "examples": [],
+      "arguments": [
+        "remotePort:localHost:localPort"
+      ],
+      "warnings": [
+        "Be careful when exposing internal services on public servers."
+      ]
+    },
+    "ssh-dynamic-tunnel": {
+      "title": "SOCKS proxy (-D)",
+      "description": "Creates a dynamic SOCKS proxy, routing application traffic through the remote host.",
+      "examples": [
+        "Starts the proxy in the background, without opening a shell."
+      ],
+      "arguments": [
+        "Local SOCKS proxy port.",
+        "Doesn't run a remote command (tunnel only).",
+        "Goes to the background."
+      ],
+      "warnings": []
+    },
+    "ssh-config": {
+      "title": "~/.ssh/config file",
+      "description": "Defines per-host aliases and options, allowing 'ssh prod' instead of a long command line.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-known-hosts-remove": {
+      "title": "Remove known host",
+      "description": "Removes a host's key from known_hosts (after a server reinstall/key change).",
+      "examples": [],
+      "arguments": [
+        "Removes the host's entries from known_hosts."
+      ],
+      "warnings": [
+        "Only remove it if you trust the server's key change; otherwise it may indicate a MITM attack."
+      ]
+    },
+    "ssh-keyscan": {
+      "title": "Collect host key",
+      "description": "Fetches a host's public key and adds it to known_hosts (useful in automation).",
+      "examples": [],
+      "arguments": [
+        "Hashes the host names in the file."
+      ],
+      "warnings": [
+        "Verify the fingerprint over a trusted channel before trusting the key."
+      ]
+    }
+  }
+}

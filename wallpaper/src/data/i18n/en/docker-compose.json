@@ -1,0 +1,156 @@
+{
+  "description": "Multi-container orchestration with Docker Compose v2 — lifecycle, services, logs and build.",
+  "categories": {
+    "ciclo-de-vida": "Lifecycle",
+    "servicos": "Services",
+    "build": "Build",
+    "logs": "Logs",
+    "manutencao": "Maintenance"
+  },
+  "entries": {
+    "up": {
+      "title": "Start services",
+      "description": "Creates and starts all services in the background (detached).",
+      "examples": [
+        "Starts only the specified services."
+      ],
+      "arguments": [
+        "Runs in the background.",
+        "Rebuilds images before starting."
+      ],
+      "warnings": []
+    },
+    "up-build": {
+      "title": "Start with rebuild",
+      "description": "Rebuilds images and starts the services. Use after changing the Dockerfile.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "down": {
+      "title": "Tear down services",
+      "description": "Stops and removes the containers and the default network created by compose. Volumes are preserved.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Removes the containers; data outside named volumes is lost."
+      ]
+    },
+    "down-volumes": {
+      "title": "Tear down and delete volumes",
+      "description": "Besides containers and network, removes named volumes — deletes persisted data (e.g. database).",
+      "examples": [],
+      "arguments": [
+        "Removes named volumes declared in the compose file."
+      ],
+      "warnings": [
+        "Destroys volume data (databases, uploads). Irreversible."
+      ]
+    },
+    "ps": {
+      "title": "List services",
+      "description": "Shows the status of the project's containers (state, ports, health).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "logs": {
+      "title": "View logs",
+      "description": "Follows the aggregated logs of all services; pass a name to filter.",
+      "examples": [
+        "Follows the last 100 lines of the web service."
+      ],
+      "arguments": [
+        "Follows in real time.",
+        "Number of initial lines."
+      ],
+      "warnings": []
+    },
+    "build": {
+      "title": "Build images",
+      "description": "Builds (or rebuilds) the images of services that have a Dockerfile.",
+      "examples": [
+        "Ignores the layer cache when building."
+      ],
+      "arguments": [
+        "Doesn't use the build cache."
+      ],
+      "warnings": []
+    },
+    "pull": {
+      "title": "Pull images",
+      "description": "Pulls the latest images for services defined with 'image:'.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "restart": {
+      "title": "Restart services",
+      "description": "Restarts running containers without recreating them.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Doesn't apply image/config changes — use 'up -d --build' for that."
+      ]
+    },
+    "stop": {
+      "title": "Stop without removing",
+      "description": "Stops the containers but keeps them for a quick 'start' later.",
+      "examples": [
+        "Starts stopped containers again."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "exec": {
+      "title": "Run in a container",
+      "description": "Opens a shell (or runs a command) inside a running container.",
+      "examples": [
+        "Opens psql inside the database service."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Changes made inside the container are lost if it is recreated."
+      ]
+    },
+    "run": {
+      "title": "Run a one-off container",
+      "description": "Runs a single command in a new container of the service and removes it when done.",
+      "examples": [],
+      "arguments": [
+        "Removes the container when done."
+      ],
+      "warnings": []
+    },
+    "config": {
+      "title": "Validate/expand config",
+      "description": "Renders and validates the final compose file (variables resolved, files merged).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "top": {
+      "title": "Container processes",
+      "description": "Shows the processes running inside each service.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scale": {
+      "title": "Scale a service",
+      "description": "Starts multiple replicas of a service (requires that it doesn't pin host ports).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rm": {
+      "title": "Remove stopped",
+      "description": "Removes containers of services that are already stopped.",
+      "examples": [],
+      "arguments": [
+        "Doesn't ask for confirmation."
+      ],
+      "warnings": []
+    }
+  }
+}

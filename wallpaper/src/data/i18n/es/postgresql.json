@@ -1,0 +1,257 @@
+{
+  "description": "Base de datos relacional avanzada, open source, centrada en el cumplimiento de estándares y la extensibilidad.",
+  "categories": {
+    "Conexão": "Conexión",
+    "Databases": "Bases de datos",
+    "Tabelas": "Tablas",
+    "Consultas": "Consultas",
+    "Índices": "Índices",
+    "Usuários": "Usuarios",
+    "Backup": "Backup",
+    "Diagnóstico": "Diagnóstico",
+    "psql": "psql"
+  },
+  "entries": {
+    "pg-connect": {
+      "title": "Conectar a la base de datos",
+      "description": "Abre el cliente interactivo psql conectado a una base de datos, usuario y host específicos.",
+      "examples": [
+        "Conecta a la base meuapp como postgres.",
+        "Conecta usando una URL de conexión."
+      ],
+      "arguments": [
+        "Usuario.",
+        "Base de datos.",
+        "Host.",
+        "Puerto (por defecto 5432)."
+      ],
+      "warnings": [
+        "Evita poner la contraseña en la URL en entornos compartidos; usa la variable PGPASSWORD o ~/.pgpass."
+      ]
+    },
+    "pg-list-databases": {
+      "title": "Listar bases de datos",
+      "description": "Metacomando de psql que lista todas las bases de datos del servidor.",
+      "examples": [
+        "Lista las bases con propietario y codificación."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-connect-db": {
+      "title": "Cambiar de base en psql",
+      "description": "Conecta a otra base de datos dentro de la sesión actual de psql.",
+      "examples": [
+        "Pasa a usar la base meuapp."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-list-tables": {
+      "title": "Listar tablas",
+      "description": "Lista las tablas del schema actual. Usa \\d <tabla> para ver las columnas de una tabla.",
+      "examples": [
+        "Lista las tablas.",
+        "Muestra columnas, tipos e índices de la tabla usuarios."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-database": {
+      "title": "Crear base de datos",
+      "description": "Crea una nueva base de datos. Puede definir propietario y codificación.",
+      "examples": [
+        "Crea la base con propietario y codificación definidos."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-drop-database": {
+      "title": "Eliminar base de datos",
+      "description": "Elimina permanentemente una base de datos y todo su contenido.",
+      "examples": [
+        "Elimina la base si existe."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Borra TODOS los datos de la base de forma irreversible.",
+        "No se puede ejecutar mientras haya conexiones activas a la base."
+      ]
+    },
+    "pg-create-table": {
+      "title": "Crear tabla",
+      "description": "Crea una tabla con columnas, tipos y restricciones (clave primaria, not null, etc.).",
+      "examples": [
+        "Crea la tabla usuarios con id autoincremental y email único."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-alter-table": {
+      "title": "Modificar tabla",
+      "description": "Modifica la estructura de una tabla: añade/elimina columnas, cambia tipos o restricciones.",
+      "examples": [
+        "Añade la columna ativo."
+      ],
+      "arguments": [],
+      "warnings": [
+        "En tablas grandes, algunas modificaciones bloquean la tabla; planifica ventanas de mantenimiento."
+      ]
+    },
+    "pg-select": {
+      "title": "Consultar datos",
+      "description": "Recupera filas de una o más tablas, con filtros, ordenación y límite.",
+      "examples": [
+        "Últimos 10 usuarios activos."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-insert": {
+      "title": "Insertar datos",
+      "description": "Añade nuevas filas a una tabla. RETURNING devuelve valores generados como el id.",
+      "examples": [
+        "Inserta y devuelve el id generado."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-update": {
+      "title": "Actualizar datos",
+      "description": "Modifica valores de filas existentes. El WHERE es esencial para no actualizar la tabla entera.",
+      "examples": [
+        "Desactiva solo al usuario 42."
+      ],
+      "arguments": [],
+      "warnings": [
+        "UPDATE sin WHERE modifica TODAS las filas de la tabla."
+      ]
+    },
+    "pg-delete": {
+      "title": "Eliminar datos",
+      "description": "Elimina filas de una tabla. Sin WHERE, borra todas las filas.",
+      "examples": [
+        "Elimina sesiones expiradas."
+      ],
+      "arguments": [],
+      "warnings": [
+        "DELETE sin WHERE borra TODAS las filas.",
+        "Considera una transacción (BEGIN) para poder revertir con ROLLBACK."
+      ]
+    },
+    "pg-join": {
+      "title": "Unir tablas (JOIN)",
+      "description": "Combina filas de dos tablas según una condición de relación.",
+      "examples": [
+        "Cuenta pedidos por usuario, incluyendo los que no tienen pedidos (LEFT JOIN)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-index": {
+      "title": "Crear índice",
+      "description": "Crea un índice para acelerar búsquedas en columnas usadas en WHERE y JOIN.",
+      "examples": [
+        "Acelera las búsquedas por email.",
+        "Crea el índice sin bloquear las escrituras en la tabla."
+      ],
+      "arguments": [
+        "Crea sin bloquear la tabla (más lento)."
+      ],
+      "warnings": [
+        "Los índices aceleran las lecturas, pero ralentizan las escrituras y ocupan espacio."
+      ]
+    },
+    "pg-explain": {
+      "title": "Analizar plan de consulta",
+      "description": "Muestra el plan de ejecución real de una query con tiempos, revelando cuellos de botella y uso de índices.",
+      "examples": [
+        "Revela si la query usa índice o hace un recorrido secuencial."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Con ANALYZE, la query SE EJECUTA realmente; cuidado con INSERT/UPDATE/DELETE."
+      ]
+    },
+    "pg-create-user": {
+      "title": "Crear usuario/rol",
+      "description": "Crea un rol de login (usuario). Después, concede privilegios con GRANT.",
+      "examples": [
+        "Crea el usuario app_user."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Usa contraseñas fuertes y concede solo los privilegios necesarios (principio de mínimo privilegio)."
+      ]
+    },
+    "pg-grant": {
+      "title": "Conceder privilegios",
+      "description": "Concede permisos (SELECT, INSERT, ALL, etc.) sobre tablas o bases de datos a un rol.",
+      "examples": [
+        "Concede permisos de lectura y escritura a app_user."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Evita conceder ALL PRIVILEGES cuando bastan permisos específicos."
+      ]
+    },
+    "pg-dump": {
+      "title": "Backup de la base de datos",
+      "description": "Exporta la estructura y los datos de una base a un archivo, permitiendo backup y migración.",
+      "examples": [
+        "Backup en formato SQL.",
+        "Formato custom (comprimido), restaurable con pg_restore."
+      ],
+      "arguments": [
+        "Formato custom (comprimido).",
+        "Hace dump solo de una tabla."
+      ],
+      "warnings": [
+        "El archivo puede contener datos sensibles; guárdalo de forma segura."
+      ]
+    },
+    "pg-restore": {
+      "title": "Restaurar backup",
+      "description": "Restaura una base de datos a partir de un dump en formato custom creado por pg_dump.",
+      "examples": [
+        "Restaura el dump en una base existente."
+      ],
+      "arguments": [
+        "Base de destino.",
+        "Elimina los objetos antes de recrearlos."
+      ],
+      "warnings": [
+        "--clean borra los objetos existentes en el destino antes de restaurar."
+      ]
+    },
+    "pg-vacuum": {
+      "title": "Mantenimiento (VACUUM)",
+      "description": "Recupera espacio de filas muertas y actualiza las estadísticas usadas por el planificador de consultas.",
+      "examples": [
+        "Limpia y actualiza las estadísticas de la tabla usuarios."
+      ],
+      "arguments": [],
+      "warnings": [
+        "VACUUM FULL bloquea la tabla; evítalo en horas pico."
+      ]
+    },
+    "pg-active-queries": {
+      "title": "Ver conexiones activas",
+      "description": "Muestra las conexiones actuales, las queries en ejecución y su estado, útil para diagnóstico.",
+      "examples": [
+        "Lista las queries en ejecución en este momento."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-createdb-cli": {
+      "title": "Crear base de datos desde la línea de comandos",
+      "description": "Utilidad de línea de comandos para crear una base de datos sin abrir psql.",
+      "examples": [
+        "Crea la base meuapp."
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

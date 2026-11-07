@@ -2,6 +2,7 @@ import { Store } from '@/core/Store';
 import type { Settings, ThemeName } from '@/types';
 import { readLocal, writeLocal } from '@/services/StorageService';
 import { bus } from '@/core/EventBus';
+import { resolveLocale, setLocale, isLocale } from '@/i18n';
 
 const THEMES: ThemeName[] = [
   'graphite',
@@ -16,7 +17,8 @@ const THEMES: ThemeName[] = [
 
 export const DEFAULT_SETTINGS: Settings = {
   theme: 'graphite',
-  language: 'pt-BR',
+  /** `auto` segue o idioma do sistema/navegador (fallback: inglês). */
+  language: 'auto',
   username: 'augusto',
   initialTechnology: 'git',
   fontFamily: '',
@@ -80,6 +82,10 @@ class SettingsStoreImpl extends Store<Settings> {
     const saved = readLocal<Partial<Settings>>('settings', {});
     // 'victor' era o default antigo: quem nunca personalizou herda o novo.
     if (saved.username === 'victor') delete saved.username;
+    // Idioma salvo que deixou de existir volta ao automático.
+    if (saved.language && saved.language !== 'auto' && !isLocale(saved.language)) {
+      delete saved.language;
+    }
     super({ ...DEFAULT_SETTINGS, ...saved });
   }
 
@@ -122,6 +128,13 @@ class SettingsStoreImpl extends Store<Settings> {
     return true;
   }
 
+  /** Define o idioma (`auto` ou código suportado). false se inválido. */
+  setLanguage(language: string): boolean {
+    if (language !== 'auto' && !isLocale(language)) return false;
+    this.set({ language: language as Settings['language'] });
+    return true;
+  }
+
   isTechnologyHidden(id: string): boolean {
     return this.getState().hiddenTechnologies.includes(id);
   }
@@ -139,7 +152,9 @@ class SettingsStoreImpl extends Store<Settings> {
     root.style.setProperty('--max-fps', String(s.maxFps));
     root.dataset.density = s.density;
     root.dataset.syntax = String(s.syntaxHighlight);
-    root.lang = s.language;
+    const locale = resolveLocale(s.language);
+    root.lang = locale;
+    if (setLocale(locale)) bus.emit('locale:changed', { locale });
 
     if (s.fontFamily) root.style.setProperty('--font-user', s.fontFamily);
     else root.style.removeProperty('--font-user');

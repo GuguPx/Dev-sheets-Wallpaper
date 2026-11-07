@@ -11,10 +11,13 @@ export function normalize(text: string): string {
     .trim();
 }
 
-/** Divide uma consulta em tokens normalizados não vazios. */
+/**
+ * Divide uma consulta em tokens normalizados não vazios. Unicode-aware: letras
+ * de qualquer alfabeto (cirílico, CJK, hangul…) contam como parte do token.
+ */
 export function tokenize(query: string): string[] {
   return normalize(query)
-    .split(/[^a-z0-9+#.@/-]+/i)
+    .split(/[^\p{L}\p{N}\p{M}+#.@/-]+/u)
     .filter(Boolean);
 }
 

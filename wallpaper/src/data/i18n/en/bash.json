@@ -1,0 +1,253 @@
+{
+  "description": "GNU Bash shell — navigation, file handling, text, variables and scripting.",
+  "categories": {
+    "navegacao": "Navigation",
+    "arquivos": "Files",
+    "texto": "Text",
+    "redirecionamento": "Redirection",
+    "variaveis": "Variables",
+    "controle": "Control Flow",
+    "processos": "Processes",
+    "permissoes": "Permissions",
+    "scripting": "Scripting"
+  },
+  "entries": {
+    "pwd": {
+      "title": "Current directory",
+      "description": "Prints the absolute path of the current working directory.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "cd": {
+      "title": "Change directory",
+      "description": "Changes the current working directory. With no arguments it goes to HOME; 'cd -' goes back to the previous one.",
+      "examples": [
+        "Goes up one directory level.",
+        "Returns to the previous directory."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "ls": {
+      "title": "List files",
+      "description": "Lists directory contents in long format, including hidden files and human-readable sizes.",
+      "examples": [],
+      "arguments": [
+        "Long format (permissions, owner, size, date).",
+        "Includes hidden files (starting with a dot).",
+        "Human-readable sizes (K, M, G)."
+      ],
+      "warnings": []
+    },
+    "cp": {
+      "title": "Copy files",
+      "description": "Copies files or directories; -r copies directories recursively.",
+      "examples": [],
+      "arguments": [
+        "Copies directories recursively.",
+        "Prompts before overwriting."
+      ],
+      "warnings": [
+        "Without -i, cp overwrites the destination silently."
+      ]
+    },
+    "mv": {
+      "title": "Move or rename",
+      "description": "Moves or renames files and directories. It is the standard way to rename in the shell.",
+      "examples": [],
+      "arguments": [
+        "Prompts before overwriting the destination."
+      ],
+      "warnings": [
+        "Silently overwrites the destination if it already exists."
+      ]
+    },
+    "rm-rf": {
+      "title": "Remove recursively",
+      "description": "Removes files and directories recursively without confirmation. Irreversible.",
+      "examples": [],
+      "arguments": [
+        "Recursive (directories).",
+        "Force, no prompts."
+      ],
+      "warnings": [
+        "There is no trash: removal is permanent.",
+        "Never run 'rm -rf /' or use it with empty variables (e.g. rm -rf $DIR/)."
+      ]
+    },
+    "mkdir-p": {
+      "title": "Create directories",
+      "description": "Creates directories; -p creates intermediate ones and does not fail if they already exist.",
+      "examples": [],
+      "arguments": [
+        "Creates parent directories as needed."
+      ],
+      "warnings": []
+    },
+    "find": {
+      "title": "Find files",
+      "description": "Walks the directory tree searching by name, type, size or date.",
+      "examples": [
+        "Removes .tmp files modified more than 7 days ago."
+      ],
+      "arguments": [
+        "Filters by name (glob).",
+        "f (file) or d (directory).",
+        "Runs a command for each result."
+      ],
+      "warnings": [
+        "'-delete' and '-exec rm' delete without confirmation."
+      ]
+    },
+    "grep": {
+      "title": "Search text",
+      "description": "Finds lines matching a pattern (regex), recursively and case-insensitively.",
+      "examples": [],
+      "arguments": [
+        "Recurses into directories.",
+        "Ignores case.",
+        "Shows the line number.",
+        "Inverts: lines that do NOT match."
+      ],
+      "warnings": []
+    },
+    "sed": {
+      "title": "Replace text (sed)",
+      "description": "Stream editor. With -i it edits the file in place, replacing all occurrences.",
+      "examples": [],
+      "arguments": [
+        "Edits the file in place.",
+        "Extended regex."
+      ],
+      "warnings": [
+        "-i modifies the original file; on macOS it requires a suffix: sed -i ''."
+      ]
+    },
+    "awk": {
+      "title": "Process columns (awk)",
+      "description": "Processes text by fields/columns. Ideal for extracting and formatting tabular data.",
+      "examples": [
+        "Lists users using ':' as the field separator."
+      ],
+      "arguments": [
+        "Sets the field separator."
+      ],
+      "warnings": []
+    },
+    "tail-f": {
+      "title": "Follow a file",
+      "description": "Shows the end of a file and keeps following new lines (useful for logs).",
+      "examples": [],
+      "arguments": [
+        "Follows the file in real time.",
+        "Number of initial lines (e.g. -n 100)."
+      ],
+      "warnings": []
+    },
+    "pipe": {
+      "title": "Chain commands (pipe)",
+      "description": "Chains commands by feeding the output of one as the input of the next.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect": {
+      "title": "Redirect output",
+      "description": "Redirects stdout to a file; 2>&1 sends stderr too. '>>' appends instead of overwriting.",
+      "examples": [
+        "Appends to the end of the file."
+      ],
+      "arguments": [],
+      "warnings": [
+        "'>' overwrites the destination file without warning."
+      ]
+    },
+    "xargs": {
+      "title": "Build commands (xargs)",
+      "description": "Reads items from standard input and passes them as arguments to another command.",
+      "examples": [
+        "Use -print0/-0 to safely handle spaces in names."
+      ],
+      "arguments": [
+        "NUL-separated input (pairs with find -print0).",
+        "Replaces {} with the item on each run."
+      ],
+      "warnings": [
+        "Chained with rm/mv it can delete many files at once."
+      ]
+    },
+    "export": {
+      "title": "Environment variable",
+      "description": "Sets a variable and exports it to the shell's child processes.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Don't export secrets into a shared history; prefer .env files kept out of version control."
+      ]
+    },
+    "command-substitution": {
+      "title": "Command substitution",
+      "description": "Captures a command's output into a variable using $(...).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "for-loop": {
+      "title": "for loop",
+      "description": "Iterates over a list of items (files, words, sequences) running commands.",
+      "examples": [
+        "Iterates from 1 to 5 using brace expansion."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "if": {
+      "title": "if conditional",
+      "description": "Runs commands conditionally. [ -f ] tests for a file; [ -d ] tests for a directory; [ -z ] tests for an empty string.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Always quote variables in tests: [ -n \"$VAR\" ] avoids errors with empty values."
+      ]
+    },
+    "function": {
+      "title": "Define a function",
+      "description": "Creates a reusable function in the script or interactive shell; $1..$n are the arguments.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "shebang": {
+      "title": "Shebang and set -euo",
+      "description": "Recommended script header: sets the interpreter and enables strict mode (errors, unset variables and pipe failures abort).",
+      "examples": [],
+      "arguments": [
+        "Aborts on any failing command.",
+        "Errors when using an unset variable.",
+        "Fails if any step of the pipe fails."
+      ],
+      "warnings": []
+    },
+    "chmod-x": {
+      "title": "Make executable",
+      "description": "Adds execute permission to a file so it can be run directly.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Avoid 'chmod 777'; grant only the permissions needed."
+      ]
+    },
+    "ps-kill": {
+      "title": "Processes and kill",
+      "description": "Lists running processes. Combine with kill <PID> to terminate a process.",
+      "examples": [
+        "Forces termination (SIGKILL) — use as a last resort."
+      ],
+      "arguments": [],
+      "warnings": [
+        "kill -9 doesn't let the process save its state; try kill (SIGTERM) first."
+      ]
+    }
+  }
+}

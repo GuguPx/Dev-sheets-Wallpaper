@@ -1,0 +1,376 @@
+{
+  "description": "用于 Linux 系统管理（Debian/Ubuntu 及类似发行版）的基本 shell 命令。",
+  "categories": {
+    "Arquivos": "文件",
+    "Diretórios": "目录",
+    "Permissões": "权限",
+    "Processos": "进程",
+    "Rede": "网络",
+    "Disco": "磁盘",
+    "Memória": "内存",
+    "Usuários": "用户",
+    "Serviços": "服务",
+    "Logs": "日志",
+    "Compactação": "压缩",
+    "Pesquisa": "搜索",
+    "Pacotes": "软件包"
+  },
+  "entries": {
+    "linux-ls": {
+      "title": "列出文件",
+      "description": "列出文件和目录的详细信息，包含隐藏文件和便于阅读的大小。",
+      "examples": [
+        "列出全部内容，含权限、所有者、大小和日期。"
+      ],
+      "arguments": [
+        "带详细信息的长格式。",
+        "包含隐藏文件。",
+        "易读的大小（KB、MB）。"
+      ],
+      "warnings": []
+    },
+    "linux-cd": {
+      "title": "切换目录",
+      "description": "在目录之间导航。不带参数时返回用户的 home 目录。",
+      "examples": [
+        "进入 /var/www 目录。",
+        "返回上一个目录。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-pwd": {
+      "title": "显示当前目录",
+      "description": "打印当前工作目录的绝对路径。",
+      "examples": [
+        "显示你在文件系统中的位置。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-mkdir": {
+      "title": "创建目录",
+      "description": "创建目录；使用 -p 会创建所需的整个父目录树，已存在时不报错。",
+      "examples": [
+        "创建完整的文件夹结构。"
+      ],
+      "arguments": [
+        "按需创建父目录。"
+      ],
+      "warnings": []
+    },
+    "linux-cp": {
+      "title": "复制文件",
+      "description": "复制文件和目录；复制目录需要 -r 以递归复制。",
+      "examples": [
+        "将 site 目录复制到 backup。"
+      ],
+      "arguments": [
+        "递归复制目录。",
+        "覆盖前询问。"
+      ],
+      "warnings": [
+        "会不加提示地覆盖目标；使用 -i 进行确认。"
+      ]
+    },
+    "linux-mv": {
+      "title": "移动或重命名",
+      "description": "移动或重命名文件和目录。这是 Linux 中重命名的标准方式。",
+      "examples": [
+        "重命名文件。"
+      ],
+      "arguments": [
+        "覆盖前询问。"
+      ],
+      "warnings": [
+        "会静默覆盖目标。"
+      ]
+    },
+    "linux-rm": {
+      "title": "删除文件",
+      "description": "删除文件和目录。使用 -rf 时会递归删除且不确认。",
+      "examples": [
+        "删除一个文件。",
+        "不经询问删除整个 build 目录。"
+      ],
+      "arguments": [
+        "递归删除目录。",
+        "强制，不确认。"
+      ],
+      "warnings": [
+        "rm -rf 永久删除，没有回收站。",
+        "切勿运行 rm -rf / 或使用空变量 (rm -rf $DIR/)。"
+      ]
+    },
+    "linux-cat": {
+      "title": "显示文件内容",
+      "description": "将文件内容连接后输出到标准输出。",
+      "examples": [
+        "显示主机名。"
+      ],
+      "arguments": [
+        "为行编号。"
+      ],
+      "warnings": []
+    },
+    "linux-tail": {
+      "title": "查看文件末尾",
+      "description": "显示文件的最后几行；使用 -f 可实时跟踪新增的行（日志）。",
+      "examples": [
+        "从最后 100 行开始跟踪 nginx 日志。"
+      ],
+      "arguments": [
+        "跟踪文件 (follow)。",
+        "初始显示的行数。"
+      ],
+      "warnings": []
+    },
+    "linux-chmod": {
+      "title": "修改权限",
+      "description": "更改文件和目录的读、写、执行权限。",
+      "examples": [
+        "使脚本可执行。",
+        "所有者可读写，其他人只读。"
+      ],
+      "arguments": [
+        "递归应用。"
+      ],
+      "warnings": [
+        "避免使用 chmod -R 777：它给所有人完全权限，存在安全风险。"
+      ]
+    },
+    "linux-chown": {
+      "title": "修改所有者",
+      "description": "更改文件和目录的所有者和所属组。",
+      "examples": [
+        "将站点的所有权交给 Web 服务器用户。"
+      ],
+      "arguments": [
+        "递归应用。"
+      ],
+      "warnings": [
+        "更改系统文件的所有者可能导致服务损坏。"
+      ]
+    },
+    "linux-ps": {
+      "title": "列出进程",
+      "description": "列出所有正在运行的进程，包含所有者、CPU/内存使用率和命令。",
+      "examples": [
+        "筛选出 Node 进程。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-top": {
+      "title": "监控进程",
+      "description": "以交互方式实时显示进程和资源使用情况（htop 是 top 的友好版本）。",
+      "examples": [
+        "打开交互式监视器（使用 apt install htop 安装）。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-kill": {
+      "title": "终止进程",
+      "description": "通过 PID 向进程发送信号。-9 (SIGKILL) 强制立即终止。",
+      "examples": [
+        "发送 SIGTERM（礼貌地终止）。",
+        "强制终止 (SIGKILL)。"
+      ],
+      "arguments": [
+        "SIGKILL 信号（无法被忽略）。"
+      ],
+      "warnings": [
+        "SIGKILL 不允许进程保存状态或释放资源。"
+      ]
+    },
+    "linux-df": {
+      "title": "查看磁盘空间",
+      "description": "以易读格式显示已挂载分区的空间使用情况。",
+      "examples": [
+        "每个分区的可用和已用空间。"
+      ],
+      "arguments": [
+        "易读的大小。"
+      ],
+      "warnings": []
+    },
+    "linux-du": {
+      "title": "目录大小",
+      "description": "计算目录占用的空间；-s 汇总，-h 使用易读格式。",
+      "examples": [
+        "每一项的大小，已排序。"
+      ],
+      "arguments": [
+        "汇总（总计）。",
+        "易读格式。"
+      ],
+      "warnings": []
+    },
+    "linux-free": {
+      "title": "查看内存使用",
+      "description": "以易读格式显示 RAM 和 swap 的总量、已用和空闲。",
+      "examples": [
+        "RAM 和 swap 的使用情况。"
+      ],
+      "arguments": [
+        "易读格式。"
+      ],
+      "warnings": []
+    },
+    "linux-grep": {
+      "title": "在文件中搜索",
+      "description": "在文件中搜索文本模式；-r 为递归，-n 显示行号。",
+      "examples": [
+        "在 src 的所有文件中查找 TODO。",
+        "在日志中按正则进行不区分大小写的搜索。"
+      ],
+      "arguments": [
+        "递归。",
+        "行号。",
+        "忽略大小写。",
+        "扩展正则表达式。"
+      ],
+      "warnings": []
+    },
+    "linux-find": {
+      "title": "查找文件",
+      "description": "按名称、类型、大小或日期搜索文件和目录，可附加操作。",
+      "examples": [
+        "从当前目录起查找所有 .log 文件。",
+        "删除 /tmp 中超过 7 天的文件。"
+      ],
+      "arguments": [
+        "按名称过滤。",
+        "文件或目录。",
+        "按修改日期过滤。"
+      ],
+      "warnings": [
+        "-delete 操作会永久删除；请先不带它进行测试。"
+      ]
+    },
+    "linux-tar": {
+      "title": "使用 tar 压缩",
+      "description": "创建（或解压）tar 归档；-z 应用 gzip 压缩。常用于备份。",
+      "examples": [
+        "创建压缩备份。",
+        "解压归档内容。"
+      ],
+      "arguments": [
+        "创建归档。",
+        "解压。",
+        "使用 gzip。",
+        "归档文件名。"
+      ],
+      "warnings": []
+    },
+    "linux-ip": {
+      "title": "网络配置",
+      "description": "显示网络接口和 IP 地址。取代旧的 ifconfig。",
+      "examples": [
+        "列出接口和 IP。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-ss": {
+      "title": "查看端口和连接",
+      "description": "列出网络套接字：监听端口、协议和进程。取代 netstat。",
+      "examples": [
+        "找出哪个进程在监听 80 端口。"
+      ],
+      "arguments": [
+        "TCP。",
+        "UDP。",
+        "仅监听状态。",
+        "显示进程。",
+        "不解析名称。"
+      ],
+      "warnings": []
+    },
+    "linux-ping": {
+      "title": "测试连通性",
+      "description": "发送 ICMP 数据包以检查主机是否响应并测量延迟。",
+      "examples": [
+        "发送 4 个数据包后停止。"
+      ],
+      "arguments": [
+        "数据包数量。"
+      ],
+      "warnings": []
+    },
+    "linux-systemctl-status": {
+      "title": "服务状态",
+      "description": "显示服务是否处于活动状态、其 PID 以及最后几行日志。",
+      "examples": [
+        "检查 nginx 的状态。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-journalctl": {
+      "title": "查看系统日志",
+      "description": "查询 systemd 日志；-u 按服务过滤，-f 实时跟踪。",
+      "examples": [
+        "nginx 最近一小时的日志。"
+      ],
+      "arguments": [
+        "按单元/服务过滤。",
+        "跟踪 (follow)。",
+        "按时间段过滤。"
+      ],
+      "warnings": []
+    },
+    "linux-useradd": {
+      "title": "创建用户",
+      "description": "创建系统用户；-m 创建 home 目录，-s 设置默认 shell。",
+      "examples": [
+        "创建用户 deploy 并设置密码。"
+      ],
+      "arguments": [
+        "创建 home 目录。",
+        "设置 shell。"
+      ],
+      "warnings": [
+        "在某些发行版上，建议使用 adduser（更具交互性，也更安全）。"
+      ]
+    },
+    "linux-apt-install": {
+      "title": "安装软件包 (Debian/Ubuntu)",
+      "description": "在 Debian/Ubuntu 上安装软件包。先运行 apt update 以更新软件包列表。",
+      "examples": [
+        "更新列表并安装 nginx。"
+      ],
+      "arguments": [
+        "自动确认。"
+      ],
+      "warnings": [
+        "仅从可信的软件源安装。"
+      ]
+    },
+    "linux-ln": {
+      "title": "创建符号链接",
+      "description": "创建指向另一个文件或目录的符号链接（快捷方式）。",
+      "examples": [
+        "为应用目录创建快捷方式。"
+      ],
+      "arguments": [
+        "符号链接（而非硬链接）。"
+      ],
+      "warnings": []
+    },
+    "linux-chmod-x-sudo": {
+      "title": "以超级用户身份执行",
+      "description": "以管理员 (root) 权限执行命令，需要输入用户密码。",
+      "examples": [
+        "以特权重启 nginx。"
+      ],
+      "arguments": [
+        "打开交互式 root shell。"
+      ],
+      "warnings": [
+        "使用 sudo 的命令对系统拥有完全权力；执行前请仔细检查。"
+      ]
+    }
+  }
+}

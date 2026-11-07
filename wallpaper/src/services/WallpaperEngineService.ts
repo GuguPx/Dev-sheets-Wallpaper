@@ -1,6 +1,7 @@
 import { settingsStore, DEFAULT_SETTINGS } from '@/stores/SettingsStore';
 import { appStore } from '@/stores/AppStore';
 import type { Settings } from '@/types';
+import { isLocale } from '@/i18n/languages';
 
 /**
  * Ponte com o Wallpaper Engine. Implementa `window.wallpaperPropertyListener`
@@ -44,7 +45,12 @@ const str = (v: WEProp['value']) => String(v);
 const MAP: Record<string, (v: WEProp['value']) => Partial<Settings>> = {
   schemecolor: (v) => ({ accentColor: weColorToHex(str(v)) }),
   theme: (v) => ({ theme: str(v) as Settings['theme'] }),
-  language: (v) => ({ language: str(v) as Settings['language'] }),
+  language: (v) => {
+    const lang = str(v);
+    return {
+      language: (lang === 'auto' || isLocale(lang) ? lang : 'auto') as Settings['language'],
+    };
+  },
   username: (v) => ({ username: str(v).trim() || DEFAULT_SETTINGS.username }),
   initialTechnology: (v) => ({ initialTechnology: str(v).toLowerCase().trim() }),
   fontFamily: (v) => ({ fontFamily: str(v).trim() }),

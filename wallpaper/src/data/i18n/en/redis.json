@@ -1,0 +1,194 @@
+{
+  "description": "In-memory key-value database — strings, hashes, lists, sets, expiration and pub/sub.",
+  "categories": {
+    "conexao": "Connection",
+    "strings": "Strings",
+    "keys": "Keys",
+    "hashes": "Hashes",
+    "lists": "Lists",
+    "sets": "Sets",
+    "sorted-sets": "Sorted Sets",
+    "pubsub": "Pub/Sub",
+    "server": "Server"
+  },
+  "entries": {
+    "redis-cli": {
+      "title": "Open the CLI",
+      "description": "Opens the interactive client connected to the local Redis (port 6379).",
+      "examples": [
+        "Connects to a host/port with authentication."
+      ],
+      "arguments": [
+        "Server host.",
+        "Port (default 6379).",
+        "Database number (0-15)."
+      ],
+      "warnings": [
+        "Passing -a <password> can expose the password in shell history."
+      ]
+    },
+    "ping": {
+      "title": "Test connection",
+      "description": "Checks whether the server responds; returns PONG when healthy.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "set": {
+      "title": "Set value",
+      "description": "Writes a string to a key. Options: EX seconds, NX (only if it doesn't exist).",
+      "examples": [
+        "Writes with a 1h TTL only if the key doesn't exist."
+      ],
+      "arguments": [
+        "Expiration in seconds.",
+        "Only sets if the key doesn't exist."
+      ],
+      "warnings": []
+    },
+    "get": {
+      "title": "Get value",
+      "description": "Reads a key's string value; returns nil if it doesn't exist.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "incr": {
+      "title": "Increment counter",
+      "description": "Atomically increments a numeric value; ideal for counters and rate limiting.",
+      "examples": [
+        "Increments by a specific amount."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "del": {
+      "title": "Delete key",
+      "description": "Removes one or more keys. Returns how many were removed.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Deletion is immediate and irreversible."
+      ]
+    },
+    "exists": {
+      "title": "Check existence",
+      "description": "Returns 1 if the key exists, 0 otherwise.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expire": {
+      "title": "Set expiration",
+      "description": "Sets a time to live (TTL) in seconds, after which the key is removed.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ttl": {
+      "title": "Check TTL",
+      "description": "Returns the seconds remaining until expiration (-1 no TTL, -2 nonexistent).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scan": {
+      "title": "Iterate keys (SCAN)",
+      "description": "Walks the keyspace incrementally and without blocking. Prefer SCAN over KEYS in production.",
+      "examples": [],
+      "arguments": [
+        "Filters by glob pattern.",
+        "Hint for the count per iteration."
+      ],
+      "warnings": [
+        "Avoid KEYS * in production: it blocks the server during the scan."
+      ]
+    },
+    "hset": {
+      "title": "Hash: set fields",
+      "description": "Writes fields to a hash (object). Use HGETALL to read everything.",
+      "examples": [
+        "Returns all fields and values of the hash."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "lpush": {
+      "title": "List: push",
+      "description": "Inserts at the head of a list. Combine with RPOP/BRPOP for queues.",
+      "examples": [
+        "Lists all items (0 to the end)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "sadd": {
+      "title": "Set: add",
+      "description": "Adds unique members to a set. SMEMBERS lists them, SISMEMBER tests membership.",
+      "examples": [
+        "Returns all members of the set."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "zadd": {
+      "title": "Sorted set: ranking",
+      "description": "Adds members with a score. Ideal for rankings and leaderboards.",
+      "examples": [
+        "Top 10 with scores, from highest to lowest."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "subscribe": {
+      "title": "Pub/Sub",
+      "description": "Subscribes to a channel; use PUBLISH channel message on another connection to send.",
+      "examples": [
+        "Publishes a message to the channel."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "info": {
+      "title": "Server status",
+      "description": "Returns server metrics: memory, clients, persistence, statistics.",
+      "examples": [
+        "Shows only the memory section."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "dbsize": {
+      "title": "Number of keys",
+      "description": "Returns the number of keys in the current database.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "config-get": {
+      "title": "Read configuration",
+      "description": "Reads configuration parameters at runtime (e.g. memory limit).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "flushdb": {
+      "title": "Flush current database",
+      "description": "Removes ALL keys from the selected database. Destructive and immediate.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Deletes all keys in the current database with no confirmation and no undo."
+      ]
+    },
+    "flushall": {
+      "title": "Flush ALL databases",
+      "description": "Removes all keys from ALL databases in the instance. Extremely destructive.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Wipes the ENTIRE instance. Never run in production without absolute certainty."
+      ]
+    }
+  }
+}

@@ -1,0 +1,253 @@
+{
+  "description": "Shell GNU Bash — navigazione, gestione dei file, testo, variabili e scripting.",
+  "categories": {
+    "navegacao": "Navigazione",
+    "arquivos": "File",
+    "texto": "Testo",
+    "redirecionamento": "Reindirizzamento",
+    "variaveis": "Variabili",
+    "controle": "Controllo di flusso",
+    "processos": "Processi",
+    "permissoes": "Permessi",
+    "scripting": "Scripting"
+  },
+  "entries": {
+    "pwd": {
+      "title": "Directory corrente",
+      "description": "Stampa il percorso assoluto della directory di lavoro corrente.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "cd": {
+      "title": "Cambiare directory",
+      "description": "Cambia la directory di lavoro corrente. Senza argomenti va alla HOME; 'cd -' torna alla precedente.",
+      "examples": [
+        "Sale di un livello di directory.",
+        "Torna alla directory precedente."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "ls": {
+      "title": "Elencare i file",
+      "description": "Elenca il contenuto della directory in formato lungo, inclusi i file nascosti e con dimensioni leggibili.",
+      "examples": [],
+      "arguments": [
+        "Formato lungo (permessi, proprietario, dimensione, data).",
+        "Include i file nascosti (che iniziano con un punto).",
+        "Dimensioni leggibili (K, M, G)."
+      ],
+      "warnings": []
+    },
+    "cp": {
+      "title": "Copiare file",
+      "description": "Copia file o directory; -r copia le directory in modo ricorsivo.",
+      "examples": [],
+      "arguments": [
+        "Copia le directory in modo ricorsivo.",
+        "Chiede conferma prima di sovrascrivere."
+      ],
+      "warnings": [
+        "Senza -i, cp sovrascrive la destinazione senza avvisare."
+      ]
+    },
+    "mv": {
+      "title": "Spostare o rinominare",
+      "description": "Sposta o rinomina file e directory. È il modo standard di rinominare nella shell.",
+      "examples": [],
+      "arguments": [
+        "Chiede conferma prima di sovrascrivere la destinazione."
+      ],
+      "warnings": [
+        "Sovrascrive la destinazione in silenzio se esiste già."
+      ]
+    },
+    "rm-rf": {
+      "title": "Rimuovere ricorsivamente",
+      "description": "Rimuove file e directory in modo ricorsivo e senza conferma. Irreversibile.",
+      "examples": [],
+      "arguments": [
+        "Ricorsivo (directory).",
+        "Forza, senza chiedere."
+      ],
+      "warnings": [
+        "Non c'è cestino: la rimozione è permanente.",
+        "Non eseguire mai 'rm -rf /' né con variabili vuote (es.: rm -rf $DIR/)."
+      ]
+    },
+    "mkdir-p": {
+      "title": "Creare directory",
+      "description": "Crea directory; -p crea quelle intermedie e non fallisce se esistono già.",
+      "examples": [],
+      "arguments": [
+        "Crea le directory padre se necessario."
+      ],
+      "warnings": []
+    },
+    "find": {
+      "title": "Trovare file",
+      "description": "Percorre l'albero delle directory cercando per nome, tipo, dimensione o data.",
+      "examples": [
+        "Rimuove i .tmp modificati da più di 7 giorni."
+      ],
+      "arguments": [
+        "Filtra per nome (glob).",
+        "f (file) o d (directory).",
+        "Esegue un comando per ogni risultato."
+      ],
+      "warnings": [
+        "'-delete' e '-exec rm' eliminano senza conferma."
+      ]
+    },
+    "grep": {
+      "title": "Cercare nel testo",
+      "description": "Cerca le righe che corrispondono a un pattern (regex), in modo ricorsivo e senza distinguere maiuscole e minuscole.",
+      "examples": [],
+      "arguments": [
+        "Ricorsivo nelle directory.",
+        "Ignora maiuscole/minuscole.",
+        "Mostra il numero di riga.",
+        "Inverte: righe che NON corrispondono."
+      ],
+      "warnings": []
+    },
+    "sed": {
+      "title": "Sostituire testo (sed)",
+      "description": "Editor di flusso. Con -i modifica il file sul posto, sostituendo tutte le occorrenze.",
+      "examples": [],
+      "arguments": [
+        "Modifica il file sul posto (in-place).",
+        "Regex estesa."
+      ],
+      "warnings": [
+        "-i modifica il file originale; su macOS richiede un suffisso: sed -i ''."
+      ]
+    },
+    "awk": {
+      "title": "Elaborare colonne (awk)",
+      "description": "Elabora il testo per campi/colonne. Ideale per estrarre e formattare dati tabulari.",
+      "examples": [
+        "Elenca gli utenti usando ':' come separatore di campo."
+      ],
+      "arguments": [
+        "Definisce il separatore di campo."
+      ],
+      "warnings": []
+    },
+    "tail-f": {
+      "title": "Seguire un file",
+      "description": "Mostra la fine del file e continua a seguire le nuove righe (utile per i log).",
+      "examples": [],
+      "arguments": [
+        "Segue il file in tempo reale.",
+        "Numero di righe iniziali (es.: -n 100)."
+      ],
+      "warnings": []
+    },
+    "pipe": {
+      "title": "Concatenare comandi (pipe)",
+      "description": "Concatena comandi inviando l'output di uno come input del successivo.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect": {
+      "title": "Reindirizzare l'output",
+      "description": "Reindirizza stdout su un file; 2>&1 invia anche lo stderr. '>>' accoda invece di sovrascrivere.",
+      "examples": [
+        "Accoda alla fine del file."
+      ],
+      "arguments": [],
+      "warnings": [
+        "'>' sovrascrive il file di destinazione senza avvisare."
+      ]
+    },
+    "xargs": {
+      "title": "Costruire comandi (xargs)",
+      "description": "Legge elementi dallo standard input e li passa come argomenti a un altro comando.",
+      "examples": [
+        "Usa -print0/-0 per gestire in sicurezza gli spazi nei nomi."
+      ],
+      "arguments": [
+        "Input separato da NUL (coppia di find -print0).",
+        "Sostituisce {} con l'elemento a ogni esecuzione."
+      ],
+      "warnings": [
+        "Concatenato con rm/mv può eliminare molti file in una volta."
+      ]
+    },
+    "export": {
+      "title": "Variabile d'ambiente",
+      "description": "Definisce una variabile e la esporta ai processi figli della shell.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Non esportare segreti in una cronologia condivisa; preferisci file .env fuori dal controllo di versione."
+      ]
+    },
+    "command-substitution": {
+      "title": "Sostituzione di comando",
+      "description": "Cattura l'output di un comando in una variabile usando $(...).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "for-loop": {
+      "title": "Ciclo for",
+      "description": "Itera su una lista di elementi (file, parole, sequenze) eseguendo comandi.",
+      "examples": [
+        "Itera da 1 a 5 usando la brace expansion."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "if": {
+      "title": "Condizionale if",
+      "description": "Esegue comandi in modo condizionale. [ -f ] testa un file; [ -d ] testa una directory; [ -z ] stringa vuota.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Racchiudi sempre le variabili tra virgolette nei test: [ -n \"$VAR\" ] evita errori con valori vuoti."
+      ]
+    },
+    "function": {
+      "title": "Definire una funzione",
+      "description": "Crea una funzione riutilizzabile nello script o nella shell interattiva; $1..$n sono gli argomenti.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "shebang": {
+      "title": "Shebang e set -euo",
+      "description": "Intestazione consigliata degli script: definisce l'interprete e attiva la modalità rigorosa (errori, variabili non definite e fallimenti nelle pipe interrompono l'esecuzione).",
+      "examples": [],
+      "arguments": [
+        "Si interrompe a qualsiasi comando che fallisce.",
+        "Errore se si usa una variabile non definita.",
+        "Fallisce se una qualsiasi fase della pipe fallisce."
+      ],
+      "warnings": []
+    },
+    "chmod-x": {
+      "title": "Rendere eseguibile",
+      "description": "Aggiunge il permesso di esecuzione a un file per poterlo lanciare direttamente.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Evita 'chmod 777'; concedi solo i permessi necessari."
+      ]
+    },
+    "ps-kill": {
+      "title": "Processi e terminazione",
+      "description": "Elenca i processi in esecuzione. Combinalo con kill <PID> per terminare un processo.",
+      "examples": [
+        "Forza la terminazione (SIGKILL) — usalo come ultima risorsa."
+      ],
+      "arguments": [],
+      "warnings": [
+        "kill -9 non permette al processo di salvare lo stato; prova prima kill (SIGTERM)."
+      ]
+    }
+  }
+}

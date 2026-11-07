@@ -1,0 +1,325 @@
+{
+  "description": "用于打包、分发和运行隔离应用的容器平台。",
+  "categories": {
+    "Containers": "容器",
+    "Imagens": "镜像",
+    "Volumes": "卷",
+    "Redes": "网络",
+    "Logs": "日志",
+    "Build": "构建",
+    "Limpeza": "清理",
+    "Inspeção": "检查",
+    "Registro": "仓库",
+    "Segurança": "安全"
+  },
+  "entries": {
+    "docker-run": {
+      "title": "运行容器",
+      "description": "基于镜像创建并启动容器，必要时从仓库拉取镜像。",
+      "examples": [
+        "运行 Docker 测试镜像。",
+        "在后台启动 nginx，并将 80 端口发布到 8080。"
+      ],
+      "arguments": [
+        "分离模式（后台）。",
+        "发布端口。",
+        "为容器命名。",
+        "退出时移除容器。",
+        "设置环境变量。"
+      ],
+      "warnings": []
+    },
+    "docker-ps": {
+      "title": "列出容器",
+      "description": "列出正在运行的容器，包含 id、镜像、端口和状态。",
+      "examples": [
+        "显示活动的容器。",
+        "包含已停止的容器。"
+      ],
+      "arguments": [
+        "包含已停止的容器。",
+        "仅显示 ID。"
+      ],
+      "warnings": []
+    },
+    "docker-exec": {
+      "title": "在容器中执行命令",
+      "description": "在运行中的容器内执行命令，常用于打开交互式 shell。",
+      "examples": [
+        "在 web 容器内打开 shell。",
+        "在数据库容器内打开 psql。"
+      ],
+      "arguments": [
+        "保持标准输入打开（交互式）。",
+        "分配伪终端。"
+      ],
+      "warnings": []
+    },
+    "docker-stop": {
+      "title": "停止容器",
+      "description": "向容器的主进程发送 SIGTERM，超时后发送 SIGKILL，从而安全停止容器。",
+      "examples": [
+        "停止 web 容器。",
+        "停止所有正在运行的容器。"
+      ],
+      "arguments": [
+        "发送 SIGKILL 前等待的秒数。"
+      ],
+      "warnings": [
+        "未处理 SIGTERM 的进程可能丢失未保存的数据。"
+      ]
+    },
+    "docker-rm": {
+      "title": "移除容器",
+      "description": "移除一个或多个已停止的容器。使用 -f 可强制移除正在运行的容器。",
+      "examples": [
+        "移除已停止的 web 容器。",
+        "强制移除所有容器。"
+      ],
+      "arguments": [
+        "即使在运行也强制移除。",
+        "同时移除关联的匿名卷。"
+      ],
+      "warnings": [
+        "移除容器会删除其内部文件系统（不在卷中的数据将丢失）。"
+      ]
+    },
+    "docker-logs": {
+      "title": "查看容器日志",
+      "description": "显示容器的标准输出和错误输出，便于调试。",
+      "examples": [
+        "显示 web 容器的日志。",
+        "实时跟踪最近 100 行。"
+      ],
+      "arguments": [
+        "跟踪输出 (follow)。",
+        "仅显示最后 n 行。",
+        "添加时间戳。"
+      ],
+      "warnings": []
+    },
+    "docker-stats": {
+      "title": "监控资源使用",
+      "description": "实时显示容器的 CPU、内存、网络和 I/O 消耗。",
+      "examples": [
+        "显示所有活动容器的资源。",
+        "显示一次快照，不刷新。"
+      ],
+      "arguments": [
+        "输出一次读数后退出。"
+      ],
+      "warnings": []
+    },
+    "docker-inspect": {
+      "title": "检查对象",
+      "description": "以 JSON 返回容器、镜像、卷或网络的详细元数据。",
+      "examples": [
+        "显示 web 容器的全部元数据。",
+        "使用 Go 模板仅提取 IP。"
+      ],
+      "arguments": [
+        "使用 Go 模板格式化输出。"
+      ],
+      "warnings": []
+    },
+    "docker-images": {
+      "title": "列出镜像",
+      "description": "列出本地存储的镜像，包含仓库、标签、id 和大小。",
+      "examples": [
+        "列出本地镜像。"
+      ],
+      "arguments": [
+        "仅显示 ID。"
+      ],
+      "warnings": []
+    },
+    "docker-pull": {
+      "title": "拉取镜像",
+      "description": "从仓库（默认为 Docker Hub）拉取镜像供本地使用。",
+      "examples": [
+        "拉取 alpine 变体的 Node 20 镜像。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "始终固定具体标签；latest 标签会随时间变化，破坏可复现性。"
+      ]
+    },
+    "docker-build": {
+      "title": "构建镜像",
+      "description": "基于当前上下文中的 Dockerfile 构建镜像，并应用名称和标签。",
+      "examples": [
+        "使用当前 Dockerfile 构建镜像 minha-app:1.0。",
+        "多阶段构建，指定 prod 阶段，并传入构建参数。"
+      ],
+      "arguments": [
+        "设置镜像的 名称:标签。",
+        "指定另一个 Dockerfile。",
+        "构建到指定阶段（多阶段）。",
+        "传入构建参数。"
+      ],
+      "warnings": [
+        "避免复制敏感文件；使用 .dockerignore 缩小上下文并保护机密。"
+      ]
+    },
+    "docker-tag": {
+      "title": "重命名/标记镜像",
+      "description": "为已有镜像创建新的引用（标签），通常在推送到仓库之前使用。",
+      "examples": [
+        "为推送到私有仓库准备镜像。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-push": {
+      "title": "推送镜像到仓库",
+      "description": "将本地镜像推送到远程仓库；若为私有仓库，需要先登录。",
+      "examples": [
+        "将镜像发布到仓库。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "发布前请确认镜像中不包含机密。"
+      ]
+    },
+    "docker-login": {
+      "title": "登录仓库",
+      "description": "登录仓库，以便拉取和推送私有镜像。",
+      "examples": [
+        "登录 Docker Hub。",
+        "非交互式登录，从标准输入读取令牌。"
+      ],
+      "arguments": [
+        "从 stdin 读取密码/令牌（避免暴露在历史记录中）。"
+      ],
+      "warnings": [
+        "不要在命令行用 --password 传递密码；它会留在 shell 历史中。"
+      ]
+    },
+    "docker-rmi": {
+      "title": "移除镜像",
+      "description": "移除一个或多个本地镜像。若有容器正在使用该镜像则失败。",
+      "examples": [
+        "移除镜像 node:18。"
+      ],
+      "arguments": [
+        "强制移除。"
+      ],
+      "warnings": [
+        "被移除的镜像需要重新拉取或重新构建。"
+      ]
+    },
+    "docker-volume-create": {
+      "title": "创建卷",
+      "description": "创建由 Docker 管理的卷，使数据独立于容器生命周期而持久保存。",
+      "examples": [
+        "创建卷 db-data。",
+        "将卷挂载到 Postgres 的数据目录。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-volume-ls": {
+      "title": "列出卷",
+      "description": "列出由 Docker 管理的卷。",
+      "examples": [
+        "列出所有卷。"
+      ],
+      "arguments": [
+        "仅名称。"
+      ],
+      "warnings": []
+    },
+    "docker-network-ls": {
+      "title": "列出网络",
+      "description": "列出 Docker 网络，包括默认网络（bridge、host、none）和自定义网络。",
+      "examples": [
+        "列出可用的网络。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-network-create": {
+      "title": "创建网络",
+      "description": "创建自定义 bridge 网络，使容器可以通过服务名称相互通信。",
+      "examples": [
+        "创建网络 app-net。",
+        "将容器连接到网络 app-net。"
+      ],
+      "arguments": [
+        "网络驱动（bridge、overlay...）。"
+      ],
+      "warnings": []
+    },
+    "docker-cp": {
+      "title": "在容器与主机间复制文件",
+      "description": "在主机和容器之间复制文件或目录。",
+      "examples": [
+        "将文件从容器复制到主机。",
+        "从主机复制到容器。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-restart": {
+      "title": "重启容器",
+      "description": "停止并重新启动容器，必要时应用主机环境中的新变量。",
+      "examples": [
+        "重启 web 容器。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-system-df": {
+      "title": "查看磁盘使用",
+      "description": "显示镜像、容器、卷和缓存占用的空间。",
+      "examples": [
+        "Docker 磁盘使用概览。",
+        "按镜像和卷显示详情。"
+      ],
+      "arguments": [
+        "详细输出。"
+      ],
+      "warnings": []
+    },
+    "docker-image-prune": {
+      "title": "清理未使用的镜像",
+      "description": "移除悬空 (dangling) 镜像。使用 -a 时，移除所有没有关联容器的镜像。",
+      "examples": [
+        "仅移除悬空镜像。",
+        "移除所有未被容器使用的镜像。"
+      ],
+      "arguments": [
+        "移除所有未使用的镜像。",
+        "不要求确认。"
+      ],
+      "warnings": [
+        "-a 会移除你之后可能需要重新拉取的镜像。"
+      ]
+    },
+    "docker-system-prune": {
+      "title": "Docker 全面清理",
+      "description": "移除已停止的容器、未使用的网络、悬空镜像；使用 -a 时还会移除所有未使用的镜像。",
+      "examples": [
+        "基础清理：已停止的容器和孤立网络。",
+        "彻底清理，包含未使用的镜像和卷。"
+      ],
+      "arguments": [
+        "包含所有未使用的镜像。",
+        "包含未使用的卷（会删除数据！）。"
+      ],
+      "warnings": [
+        "--volumes 会删除未在使用中的持久化数据。",
+        "不要在生产服务器上随意使用。"
+      ]
+    },
+    "docker-scout": {
+      "title": "分析漏洞",
+      "description": "分析镜像中的已知漏洞 (CVE)，有助于供应链安全。",
+      "examples": [
+        "列出镜像中发现的 CVE。"
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

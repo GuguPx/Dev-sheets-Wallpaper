@@ -9,6 +9,8 @@
  * para os rótulos [safe]/[warning]/[danger] (ver `utils/risk.ts`).
  */
 
+import type { LanguagePref } from '@/i18n/languages';
+
 // ---------------------------------------------------------------------------
 // Conteúdo (cheat sheets)
 // ---------------------------------------------------------------------------
@@ -54,6 +56,8 @@ export interface CheatEntry {
   documentationUrl?: string;
   /** Texto derivado (normalizado, sem acento) para indexação de busca. */
   searchableText?: string;
+  /** Rótulo da categoria no idioma ativo (derivado; `category` é a chave interna). */
+  categoryLabel?: string;
 }
 
 export interface Technology {
@@ -72,6 +76,8 @@ export interface Technology {
   /** ISO date (YYYY-MM-DD) da última revisão de conteúdo. */
   lastReviewedAt: string;
   categories: string[];
+  /** Chave da categoria -> rótulo no idioma ativo (derivado pelo ContentService). */
+  categoryLabels?: Record<string, string>;
   entries: CheatEntry[];
 }
 
@@ -142,7 +148,8 @@ export interface AppState {
 export type ThemeName =
   'graphite' | 'ice' | 'mint' | 'amber' | 'violet' | 'vscode' | 'caderno' | 'classic-green';
 
-export type Language = 'pt-BR' | 'en';
+/** Preferência de idioma: um dos suportados (ver `i18n/languages.ts`) ou `auto`. */
+export type Language = LanguagePref;
 
 /** Nível de qualidade do efeito CRT (seção 21). */
 export type CrtLevel = 'off' | 'low' | 'balanced' | 'high';

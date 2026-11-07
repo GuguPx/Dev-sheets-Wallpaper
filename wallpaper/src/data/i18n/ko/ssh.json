@@ -1,0 +1,190 @@
+{
+  "description": "OpenSSH — 보안 연결, 키, 파일 복사, 터널.",
+  "categories": {
+    "conexao": "연결",
+    "chaves": "키",
+    "copia": "복사",
+    "tuneis": "터널",
+    "config": "설정"
+  },
+  "entries": {
+    "ssh-connect": {
+      "title": "호스트에 연결",
+      "description": "SSH로 인증된 원격 셸 세션을 엽니다.",
+      "examples": [],
+      "arguments": [
+        "서버 포트(기본값 22).",
+        "연결 디버깅을 위한 상세 모드."
+      ],
+      "warnings": []
+    },
+    "ssh-port": {
+      "title": "특정 포트로 연결",
+      "description": "SSH 서버가 22번이 아닌 다른 포트에서 수신 대기할 때 연결합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-identity": {
+      "title": "특정 키 사용",
+      "description": "인증에 사용할 개인 키 파일을 지정합니다.",
+      "examples": [],
+      "arguments": [
+        "개인 키 경로."
+      ],
+      "warnings": [
+        "개인 키는 권한이 600(chmod 600)이어야 하며, 그렇지 않으면 SSH가 거부합니다."
+      ]
+    },
+    "ssh-jump": {
+      "title": "점프 호스트 (ProxyJump)",
+      "description": "배스천/점프 호스트를 거쳐 내부 호스트에 한 줄로 연결합니다.",
+      "examples": [],
+      "arguments": [
+        "중간 호스트."
+      ],
+      "warnings": []
+    },
+    "ssh-keygen": {
+      "title": "키 쌍 생성",
+      "description": "공개/개인 키 쌍을 만듭니다. ed25519가 권장 알고리즘입니다.",
+      "examples": [],
+      "arguments": [
+        "알고리즘 종류(ed25519, rsa).",
+        "주석(보통 이메일).",
+        "키 출력 파일."
+      ],
+      "warnings": [
+        "개인 키는 passphrase로 보호하고 절대 공유하지 마세요."
+      ]
+    },
+    "ssh-copy-id": {
+      "title": "서버에 키 설치",
+      "description": "공개 키를 서버의 authorized_keys에 복사하여 비밀번호 없는 로그인을 가능하게 합니다.",
+      "examples": [],
+      "arguments": [
+        "설치할 특정 공개 키."
+      ],
+      "warnings": []
+    },
+    "ssh-add": {
+      "title": "에이전트에 키 추가",
+      "description": "개인 키를 ssh-agent에 불러와 연결할 때마다 passphrase를 입력하지 않게 합니다.",
+      "examples": [
+        "에이전트에 불러온 키를 나열합니다."
+      ],
+      "arguments": [
+        "불러온 ID를 나열합니다.",
+        "에이전트의 모든 ID를 제거합니다."
+      ],
+      "warnings": []
+    },
+    "ssh-agent": {
+      "title": "에이전트 시작",
+      "description": "현재 세션에서 ssh-agent를 시작하여 메모리의 키를 관리합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scp": {
+      "title": "파일 복사 (scp)",
+      "description": "SSH를 통해 로컬 머신과 원격 머신 사이에 파일을 복사합니다.",
+      "examples": [
+        "원격 파일을 현재 디렉터리로 내려받습니다."
+      ],
+      "arguments": [
+        "디렉터리를 재귀적으로 복사합니다.",
+        "포트(scp에서는 대문자)."
+      ],
+      "warnings": [
+        "대상을 경고 없이 덮어씁니다."
+      ]
+    },
+    "rsync-ssh": {
+      "title": "동기화 (rsync)",
+      "description": "SSH를 통해 디렉터리를 증분 방식으로 동기화하며 차이만 전송합니다.",
+      "examples": [
+        "원본을 그대로 미러링하며, 원본에 없는 파일은 대상에서 삭제합니다."
+      ],
+      "arguments": [
+        "아카이브 모드(권한, 링크, 시간 보존).",
+        "전송 중 압축합니다.",
+        "원본에 없는 파일을 대상에서 삭제합니다."
+      ],
+      "warnings": [
+        "--delete는 대상의 파일을 삭제합니다. 먼저 --dry-run으로 테스트하세요."
+      ]
+    },
+    "sftp": {
+      "title": "SFTP 세션",
+      "description": "SSH를 통한 대화형 파일 전송 세션을 엽니다(get/put/ls).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-local-tunnel": {
+      "title": "로컬 터널 (-L)",
+      "description": "로컬 포트를 원격 호스트에서 접근 가능한 서비스(예: 데이터베이스)로 전달합니다.",
+      "examples": [],
+      "arguments": [
+        "portaLocal:hostDestino:portaDestino"
+      ],
+      "warnings": [
+        "민감한 포트는 localhost에서만 노출하고 0.0.0.0에는 절대 노출하지 마세요."
+      ]
+    },
+    "ssh-remote-tunnel": {
+      "title": "역방향 터널 (-R)",
+      "description": "로컬 서비스를 원격 호스트의 포트로 노출합니다(역방향 터널).",
+      "examples": [],
+      "arguments": [
+        "portaRemota:hostLocal:portaLocal"
+      ],
+      "warnings": [
+        "공개 서버에 내부 서비스를 노출할 때는 주의하세요."
+      ]
+    },
+    "ssh-dynamic-tunnel": {
+      "title": "SOCKS 프록시 (-D)",
+      "description": "동적 SOCKS 프록시를 만들어 애플리케이션 트래픽을 원격 호스트를 통해 라우팅합니다.",
+      "examples": [
+        "셸을 열지 않고 백그라운드에서 프록시를 실행합니다."
+      ],
+      "arguments": [
+        "SOCKS 프록시의 로컬 포트.",
+        "원격 명령을 실행하지 않습니다(터널만).",
+        "백그라운드로 전환합니다."
+      ],
+      "warnings": []
+    },
+    "ssh-config": {
+      "title": "~/.ssh/config 파일",
+      "description": "호스트별 별칭과 옵션을 정의하여 긴 명령줄 대신 'ssh prod'를 쓸 수 있게 합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssh-known-hosts-remove": {
+      "title": "알려진 호스트 제거",
+      "description": "known_hosts에서 호스트의 키를 제거합니다(서버를 재설치하거나 키가 바뀐 후).",
+      "examples": [],
+      "arguments": [
+        "known_hosts에서 해당 호스트의 항목을 제거합니다."
+      ],
+      "warnings": [
+        "서버 키 변경을 신뢰할 수 있을 때만 제거하세요. 그렇지 않으면 MITM 공격일 수 있습니다."
+      ]
+    },
+    "ssh-keyscan": {
+      "title": "호스트 키 수집",
+      "description": "호스트의 공개 키를 가져와 known_hosts에 추가합니다(자동화에 유용).",
+      "examples": [],
+      "arguments": [
+        "파일에서 호스트 이름을 해시 처리합니다."
+      ],
+      "warnings": [
+        "키를 신뢰하기 전에 신뢰할 수 있는 경로로 fingerprint를 확인하세요."
+      ]
+    }
+  }
+}

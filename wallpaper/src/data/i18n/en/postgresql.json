@@ -1,0 +1,257 @@
+{
+  "description": "Advanced open source relational database, focused on standards compliance and extensibility.",
+  "categories": {
+    "Conexão": "Connection",
+    "Databases": "Databases",
+    "Tabelas": "Tables",
+    "Consultas": "Queries",
+    "Índices": "Indexes",
+    "Usuários": "Users",
+    "Backup": "Backup",
+    "Diagnóstico": "Diagnostics",
+    "psql": "psql"
+  },
+  "entries": {
+    "pg-connect": {
+      "title": "Connect to the database",
+      "description": "Opens the interactive psql client connected to a specific database, user and host.",
+      "examples": [
+        "Connects to the meuapp database as postgres.",
+        "Connects using a connection URL."
+      ],
+      "arguments": [
+        "User.",
+        "Database.",
+        "Host.",
+        "Port (default 5432)."
+      ],
+      "warnings": [
+        "Avoid putting the password in the URL in shared environments; use the PGPASSWORD variable or ~/.pgpass."
+      ]
+    },
+    "pg-list-databases": {
+      "title": "List databases",
+      "description": "psql meta-command that lists all databases on the server.",
+      "examples": [
+        "Lists databases with owner and encoding."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-connect-db": {
+      "title": "Switch database in psql",
+      "description": "Connects to another database within the current psql session.",
+      "examples": [
+        "Switches to the meuapp database."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-list-tables": {
+      "title": "List tables",
+      "description": "Lists the tables in the current schema. Use \\d <table> to see a table's columns.",
+      "examples": [
+        "Lists the tables.",
+        "Shows columns, types and indexes of the usuarios table."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-database": {
+      "title": "Create database",
+      "description": "Creates a new database. You can set the owner and encoding.",
+      "examples": [
+        "Creates the database with the owner and encoding set."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-drop-database": {
+      "title": "Drop database",
+      "description": "Permanently deletes a database and all of its contents.",
+      "examples": [
+        "Drops the database if it exists."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Irreversibly deletes ALL of the database's data.",
+        "Cannot run while there are active connections to the database."
+      ]
+    },
+    "pg-create-table": {
+      "title": "Create table",
+      "description": "Creates a table with columns, types and constraints (primary key, not null, etc.).",
+      "examples": [
+        "Creates the usuarios table with an auto-increment id and a unique email."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-alter-table": {
+      "title": "Alter table",
+      "description": "Modifies a table's structure: adds/drops columns, changes types or constraints.",
+      "examples": [
+        "Adds the ativo column."
+      ],
+      "arguments": [],
+      "warnings": [
+        "On large tables, some changes lock the table; plan maintenance windows."
+      ]
+    },
+    "pg-select": {
+      "title": "Query data",
+      "description": "Retrieves rows from one or more tables, with filtering, ordering and limit.",
+      "examples": [
+        "The last 10 active users."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-insert": {
+      "title": "Insert data",
+      "description": "Adds new rows to a table. RETURNING gives back generated values such as the id.",
+      "examples": [
+        "Inserts and returns the generated id."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-update": {
+      "title": "Update data",
+      "description": "Changes values in existing rows. WHERE is essential to avoid updating the whole table.",
+      "examples": [
+        "Deactivates only user 42."
+      ],
+      "arguments": [],
+      "warnings": [
+        "UPDATE without WHERE changes ALL rows in the table."
+      ]
+    },
+    "pg-delete": {
+      "title": "Delete data",
+      "description": "Removes rows from a table. Without WHERE, it deletes all rows.",
+      "examples": [
+        "Removes expired sessions."
+      ],
+      "arguments": [],
+      "warnings": [
+        "DELETE without WHERE deletes ALL rows.",
+        "Consider a transaction (BEGIN) so you can undo it with ROLLBACK."
+      ]
+    },
+    "pg-join": {
+      "title": "Join tables (JOIN)",
+      "description": "Combines rows from two tables based on a relationship condition.",
+      "examples": [
+        "Counts orders per user, including those with no orders (LEFT JOIN)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-create-index": {
+      "title": "Create index",
+      "description": "Creates an index to speed up lookups on columns used in WHERE and JOIN.",
+      "examples": [
+        "Speeds up lookups by email.",
+        "Creates the index without blocking writes to the table."
+      ],
+      "arguments": [
+        "Builds without locking the table (slower)."
+      ],
+      "warnings": [
+        "Indexes speed up reads, but slow down writes and take up space."
+      ]
+    },
+    "pg-explain": {
+      "title": "Analyze query plan",
+      "description": "Shows a query's actual execution plan with timings, revealing bottlenecks and index usage.",
+      "examples": [
+        "Reveals whether the query uses an index or does a sequential scan."
+      ],
+      "arguments": [],
+      "warnings": [
+        "With ANALYZE, the query is ACTUALLY executed; be careful with INSERT/UPDATE/DELETE."
+      ]
+    },
+    "pg-create-user": {
+      "title": "Create user/role",
+      "description": "Creates a login role (user). Then grant privileges with GRANT.",
+      "examples": [
+        "Creates the app_user user."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Use strong passwords and grant only the necessary privileges (principle of least privilege)."
+      ]
+    },
+    "pg-grant": {
+      "title": "Grant privileges",
+      "description": "Grants permissions (SELECT, INSERT, ALL, etc.) on tables or databases to a role.",
+      "examples": [
+        "Grants read and write permissions to app_user."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Avoid granting ALL PRIVILEGES when specific permissions are enough."
+      ]
+    },
+    "pg-dump": {
+      "title": "Database backup",
+      "description": "Exports a database's structure and data to a file, enabling backup and migration.",
+      "examples": [
+        "Backup in SQL format.",
+        "Custom format (compressed), restorable with pg_restore."
+      ],
+      "arguments": [
+        "Custom format (compressed).",
+        "Dumps only one table."
+      ],
+      "warnings": [
+        "The file may contain sensitive data; store it securely."
+      ]
+    },
+    "pg-restore": {
+      "title": "Restore backup",
+      "description": "Restores a database from a custom-format dump created by pg_dump.",
+      "examples": [
+        "Restores the dump into an existing database."
+      ],
+      "arguments": [
+        "Target database.",
+        "Drops objects before recreating them."
+      ],
+      "warnings": [
+        "--clean drops existing objects in the target before restoring."
+      ]
+    },
+    "pg-vacuum": {
+      "title": "Maintenance (VACUUM)",
+      "description": "Reclaims space from dead rows and updates statistics used by the query planner.",
+      "examples": [
+        "Cleans up and updates statistics for the usuarios table."
+      ],
+      "arguments": [],
+      "warnings": [
+        "VACUUM FULL locks the table; avoid it during peak hours."
+      ]
+    },
+    "pg-active-queries": {
+      "title": "View active connections",
+      "description": "Shows current connections, running queries and their state, useful for diagnostics.",
+      "examples": [
+        "Lists queries currently running."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pg-createdb-cli": {
+      "title": "Create database from the command line",
+      "description": "Command-line utility to create a database without opening psql.",
+      "examples": [
+        "Creates the meuapp database."
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

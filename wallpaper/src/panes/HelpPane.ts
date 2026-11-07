@@ -1,62 +1,68 @@
 import { h, clear } from '@/core/dom';
 import { modes } from '@/terminal/ModeManager';
+import { t } from '@/i18n';
 
 interface HelpGroup {
   title: string;
   items: [string, string][];
 }
 
-const GROUPS: HelpGroup[] = [
-  {
-    title: 'NAVIGATION',
-    items: [
-      ['j / ↓', 'Próximo item'],
-      ['k / ↑', 'Item anterior'],
-      ['h / ←', 'Foco: categorias'],
-      ['l / →', 'Foco: comandos'],
-      ['g g', 'Primeiro item'],
-      ['G', 'Último item'],
-      ['Enter', 'Abrir manual do comando'],
-      ['Esc', 'Voltar / modo NORMAL'],
-    ],
-  },
-  {
-    title: 'TABS (tecnologias)',
-    items: [
-      ['1 … 9', 'Selecionar tecnologia'],
-      ['Alt+1 … Alt+9', 'Selecionar tecnologia'],
-      ['Ctrl+Tab', 'Próxima tecnologia'],
-      ['Ctrl+Shift+Tab', 'Tecnologia anterior'],
-    ],
-  },
-  {
-    title: 'SEARCH / COMMAND',
-    items: [
-      ['/', 'Buscar (FZF)'],
-      ['Ctrl+K', 'Buscar (palette)'],
-      [':', 'Linha de comando interna'],
-      ['?', 'Esta ajuda'],
-    ],
-  },
-  {
-    title: 'ACTIONS',
-    items: [
-      ['y', 'Copiar comando'],
-      ['f', 'Favoritar / desfavoritar'],
-      ['n', 'Adicionar/editar nota'],
-      ['t', 'Alternar tema'],
-    ],
-  },
-  {
-    title: 'MANUAL (man page)',
-    items: [
-      ['j / k', 'Rolar'],
-      ['PageDown / PageUp', 'Página'],
-      ['g / G', 'Início / fim'],
-      ['q / Esc', 'Fechar'],
-    ],
-  },
-];
+/** Montado a cada render: os textos seguem o idioma ativo. */
+function groups(): HelpGroup[] {
+  return [
+    {
+      title: t('help.navigation'),
+      items: [
+        ['j / ↓', t('help.nextItem')],
+        ['k / ↑', t('help.prevItem')],
+        ['h / ←', t('help.focusCategories')],
+        ['l / →', t('help.focusCommands')],
+        ['g g', t('help.firstItem')],
+        ['G', t('help.lastItem')],
+        ['Enter', t('help.openManual')],
+        ['Esc', t('help.back')],
+      ],
+    },
+    {
+      title: t('help.tabs'),
+      items: [
+        ['1 … 9', t('help.selectTech')],
+        ['Alt+1 … Alt+9', t('help.selectTech')],
+        ['Ctrl+Tab', t('help.nextTech')],
+        ['Ctrl+Shift+Tab', t('help.prevTech')],
+      ],
+    },
+    {
+      title: t('help.searchCommand'),
+      items: [
+        ['/', t('help.search')],
+        ['Ctrl+K', t('help.palette')],
+        [':', t('help.commandLine')],
+        ['?', t('help.thisHelp')],
+        [':lang', t('help.language')],
+        [':support', t('help.support')],
+      ],
+    },
+    {
+      title: t('help.actions'),
+      items: [
+        ['y', t('help.copy')],
+        ['f', t('help.favorite')],
+        ['n', t('help.note')],
+        ['t', t('help.theme')],
+      ],
+    },
+    {
+      title: t('help.manual'),
+      items: [
+        ['j / k', t('help.scroll')],
+        ['PageDown / PageUp', t('help.page')],
+        ['g / G', t('help.startEnd')],
+        ['q / Esc', t('help.close')],
+      ],
+    },
+  ];
+}
 
 /** Ajuda interativa de atalhos (seção 18). Fecha com q/Esc/?. */
 export class HelpPane {
@@ -69,18 +75,18 @@ export class HelpPane {
       h(
         'div',
         { class: 'help-top' },
-        h('span', { text: 'KEYBINDINGS' }),
+        h('span', { text: t('help.title') }),
         h('button', {
           class: 'manual-btn',
           attrs: { type: 'button' },
-          text: 'q close',
+          text: `q ${t('common.close')}`,
           on: { click: () => modes.toNormal() },
         }),
       ),
     );
 
     const grid = h('div', { class: 'help-grid' });
-    for (const g of GROUPS) {
+    for (const g of groups()) {
       const col = h('div', { class: 'help-group' });
       col.appendChild(h('div', { class: 'help-h', text: g.title }));
       for (const [key, desc] of g.items) {
@@ -99,7 +105,7 @@ export class HelpPane {
     box.appendChild(
       h('div', {
         class: 'help-foot',
-        text: 'devsheet — consulta offline. Nenhum comando é executado.',
+        text: t('help.footer'),
       }),
     );
     this.el.appendChild(box);

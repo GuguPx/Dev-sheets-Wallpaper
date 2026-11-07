@@ -1,0 +1,376 @@
+{
+  "description": "Linux 시스템 관리(Debian/Ubuntu 등)를 위한 필수 셸 명령어.",
+  "categories": {
+    "Arquivos": "파일",
+    "Diretórios": "디렉터리",
+    "Permissões": "권한",
+    "Processos": "프로세스",
+    "Rede": "네트워크",
+    "Disco": "디스크",
+    "Memória": "메모리",
+    "Usuários": "사용자",
+    "Serviços": "서비스",
+    "Logs": "로그",
+    "Compactação": "압축",
+    "Pesquisa": "검색",
+    "Pacotes": "패키지"
+  },
+  "entries": {
+    "linux-ls": {
+      "title": "파일 목록",
+      "description": "숨김 파일과 사람이 읽기 쉬운 크기를 포함해 파일과 디렉터리를 자세히 나열합니다.",
+      "examples": [
+        "권한, 소유자, 크기, 날짜와 함께 모두 나열합니다."
+      ],
+      "arguments": [
+        "자세한 형식.",
+        "숨김 파일을 포함합니다.",
+        "읽기 쉬운 크기(KB, MB)."
+      ],
+      "warnings": []
+    },
+    "linux-cd": {
+      "title": "디렉터리 이동",
+      "description": "디렉터리 사이를 이동합니다. 인자가 없으면 사용자의 홈 디렉터리로 돌아갑니다.",
+      "examples": [
+        "/var/www 디렉터리로 들어갑니다.",
+        "이전 디렉터리로 돌아갑니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-pwd": {
+      "title": "현재 디렉터리 표시",
+      "description": "현재 작업 디렉터리의 절대 경로를 출력합니다.",
+      "examples": [
+        "파일 시스템에서 현재 위치를 보여 줍니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-mkdir": {
+      "title": "디렉터리 생성",
+      "description": "디렉터리를 만듭니다. -p를 쓰면 필요한 상위 경로를 모두 만들고, 이미 있어도 오류가 나지 않습니다.",
+      "examples": [
+        "전체 폴더 구조를 만듭니다."
+      ],
+      "arguments": [
+        "필요한 상위 디렉터리를 함께 만듭니다."
+      ],
+      "warnings": []
+    },
+    "linux-cp": {
+      "title": "파일 복사",
+      "description": "파일과 디렉터리를 복사합니다. 디렉터리를 재귀적으로 복사하려면 -r이 필요합니다.",
+      "examples": [
+        "site 디렉터리를 backup으로 복사합니다."
+      ],
+      "arguments": [
+        "디렉터리를 재귀적으로 복사합니다.",
+        "덮어쓰기 전에 확인합니다."
+      ],
+      "warnings": [
+        "경고 없이 대상을 덮어씁니다. 확인하려면 -i를 사용하세요."
+      ]
+    },
+    "linux-mv": {
+      "title": "이동 또는 이름 변경",
+      "description": "파일과 디렉터리를 이동하거나 이름을 바꿉니다. Linux에서 이름을 바꾸는 표준 방법입니다.",
+      "examples": [
+        "파일 이름을 바꿉니다."
+      ],
+      "arguments": [
+        "덮어쓰기 전에 확인합니다."
+      ],
+      "warnings": [
+        "대상을 조용히 덮어씁니다."
+      ]
+    },
+    "linux-rm": {
+      "title": "파일 삭제",
+      "description": "파일과 디렉터리를 삭제합니다. -rf를 쓰면 확인 없이 재귀적으로 삭제합니다.",
+      "examples": [
+        "파일 하나를 삭제합니다.",
+        "build 디렉터리 전체를 묻지 않고 삭제합니다."
+      ],
+      "arguments": [
+        "디렉터리를 재귀적으로 삭제합니다.",
+        "확인 없이 강제로 실행합니다."
+      ],
+      "warnings": [
+        "rm -rf는 휴지통 없이 영구적으로 삭제합니다.",
+        "rm -rf /나 빈 변수가 포함된 명령(rm -rf $DIR/)은 절대 실행하지 마세요."
+      ]
+    },
+    "linux-cat": {
+      "title": "파일 내용 출력",
+      "description": "파일의 내용을 이어 붙여 표준 출력으로 출력합니다.",
+      "examples": [
+        "호스트 이름을 표시합니다."
+      ],
+      "arguments": [
+        "줄 번호를 붙입니다."
+      ],
+      "warnings": []
+    },
+    "linux-tail": {
+      "title": "파일 끝부분 보기",
+      "description": "파일의 마지막 줄을 표시합니다. -f를 쓰면 새 줄을 실시간으로 따라갑니다(로그).",
+      "examples": [
+        "마지막 100줄부터 nginx 로그를 따라갑니다."
+      ],
+      "arguments": [
+        "파일을 따라갑니다(follow).",
+        "처음 표시할 줄 수."
+      ],
+      "warnings": []
+    },
+    "linux-chmod": {
+      "title": "권한 변경",
+      "description": "파일과 디렉터리의 읽기, 쓰기, 실행 권한을 변경합니다.",
+      "examples": [
+        "스크립트를 실행 가능하게 만듭니다.",
+        "소유자는 읽기/쓰기, 나머지는 읽기만 가능하게 합니다."
+      ],
+      "arguments": [
+        "재귀적으로 적용합니다."
+      ],
+      "warnings": [
+        "chmod -R 777은 피하세요. 모두에게 전체 권한을 주므로 보안 위험이 있습니다."
+      ]
+    },
+    "linux-chown": {
+      "title": "소유자 변경",
+      "description": "파일과 디렉터리의 소유자와 그룹을 변경합니다.",
+      "examples": [
+        "사이트의 소유권을 웹 서버 사용자에게 줍니다."
+      ],
+      "arguments": [
+        "재귀적으로 적용합니다."
+      ],
+      "warnings": [
+        "시스템 파일의 소유자를 바꾸면 서비스가 망가질 수 있습니다."
+      ]
+    },
+    "linux-ps": {
+      "title": "프로세스 목록",
+      "description": "실행 중인 모든 프로세스를 소유자, CPU/메모리 사용량, 명령과 함께 나열합니다.",
+      "examples": [
+        "Node 프로세스를 필터링합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-top": {
+      "title": "프로세스 모니터링",
+      "description": "프로세스와 리소스 사용량을 실시간 대화형으로 보여 줍니다(htop은 top의 사용하기 편한 버전입니다).",
+      "examples": [
+        "대화형 모니터를 엽니다(apt install htop으로 설치)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-kill": {
+      "title": "프로세스 종료",
+      "description": "PID로 프로세스에 시그널을 보냅니다. -9(SIGKILL)는 즉시 강제 종료합니다.",
+      "examples": [
+        "SIGTERM을 보냅니다(정중한 종료).",
+        "강제로 종료합니다(SIGKILL)."
+      ],
+      "arguments": [
+        "SIGKILL 시그널(무시할 수 없음)."
+      ],
+      "warnings": [
+        "SIGKILL은 프로세스가 상태를 저장하거나 리소스를 해제할 기회를 주지 않습니다."
+      ]
+    },
+    "linux-df": {
+      "title": "디스크 공간 확인",
+      "description": "마운트된 파티션의 공간 사용량을 읽기 쉬운 형식으로 보여 줍니다.",
+      "examples": [
+        "파티션별 여유 공간과 사용 공간."
+      ],
+      "arguments": [
+        "읽기 쉬운 크기."
+      ],
+      "warnings": []
+    },
+    "linux-du": {
+      "title": "디렉터리 크기",
+      "description": "디렉터리가 차지하는 공간을 계산합니다. -s는 요약하고 -h는 읽기 쉬운 형식을 사용합니다.",
+      "examples": [
+        "항목별 크기를 정렬해 표시합니다."
+      ],
+      "arguments": [
+        "요약(합계).",
+        "읽기 쉬운 형식."
+      ],
+      "warnings": []
+    },
+    "linux-free": {
+      "title": "메모리 사용량 확인",
+      "description": "RAM과 스왑의 전체, 사용, 여유 용량을 읽기 쉬운 형식으로 보여 줍니다.",
+      "examples": [
+        "RAM과 스왑 사용량."
+      ],
+      "arguments": [
+        "읽기 쉬운 형식."
+      ],
+      "warnings": []
+    },
+    "linux-grep": {
+      "title": "파일에서 검색",
+      "description": "파일에서 텍스트 패턴을 찾습니다. -r은 재귀 검색, -n은 줄 번호를 표시합니다.",
+      "examples": [
+        "src의 모든 파일에서 TODO를 찾습니다.",
+        "로그에서 정규식으로 대소문자 구분 없이 검색합니다."
+      ],
+      "arguments": [
+        "재귀적으로 검색합니다.",
+        "줄 번호.",
+        "대소문자를 무시합니다.",
+        "확장 정규식."
+      ],
+      "warnings": []
+    },
+    "linux-find": {
+      "title": "파일 찾기",
+      "description": "이름, 유형, 크기, 날짜로 파일과 디렉터리를 찾으며, 선택적으로 동작을 수행할 수 있습니다.",
+      "examples": [
+        "현재 디렉터리부터 모든 .log 파일을 찾습니다.",
+        "/tmp에서 7일이 지난 파일을 삭제합니다."
+      ],
+      "arguments": [
+        "이름으로 필터링합니다.",
+        "파일 또는 디렉터리.",
+        "수정 날짜로 필터링합니다."
+      ],
+      "warnings": [
+        "-delete 동작은 영구 삭제합니다. 먼저 이 옵션 없이 테스트하세요."
+      ]
+    },
+    "linux-tar": {
+      "title": "tar로 압축",
+      "description": "tar 아카이브를 만들거나 풉니다. -z는 gzip 압축을 적용합니다. 백업에 많이 사용됩니다.",
+      "examples": [
+        "압축된 백업을 만듭니다.",
+        "아카이브 내용을 추출합니다."
+      ],
+      "arguments": [
+        "아카이브를 만듭니다.",
+        "추출합니다.",
+        "gzip을 사용합니다.",
+        "아카이브 파일 이름."
+      ],
+      "warnings": []
+    },
+    "linux-ip": {
+      "title": "네트워크 설정",
+      "description": "네트워크 인터페이스와 IP 주소를 보여 줍니다. 예전의 ifconfig를 대체합니다.",
+      "examples": [
+        "인터페이스와 IP를 나열합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-ss": {
+      "title": "포트와 연결 확인",
+      "description": "네트워크 소켓(수신 대기 포트, 프로토콜, 프로세스)을 나열합니다. netstat을 대체합니다.",
+      "examples": [
+        "80번 포트에서 수신 대기 중인 프로세스를 찾습니다."
+      ],
+      "arguments": [
+        "TCP.",
+        "UDP.",
+        "수신 대기 중인 것만.",
+        "프로세스를 표시합니다.",
+        "이름을 변환하지 않습니다."
+      ],
+      "warnings": []
+    },
+    "linux-ping": {
+      "title": "연결 테스트",
+      "description": "ICMP 패킷을 보내 호스트가 응답하는지 확인하고 지연 시간을 측정합니다.",
+      "examples": [
+        "패킷 4개를 보내고 멈춥니다."
+      ],
+      "arguments": [
+        "패킷 수."
+      ],
+      "warnings": []
+    },
+    "linux-systemctl-status": {
+      "title": "서비스 상태",
+      "description": "서비스가 활성 상태인지, PID, 최근 로그 몇 줄을 보여 줍니다.",
+      "examples": [
+        "nginx의 상태를 확인합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-journalctl": {
+      "title": "시스템 로그 보기",
+      "description": "systemd 로그를 조회합니다. -u는 서비스로 필터링하고 -f는 실시간으로 따라갑니다.",
+      "examples": [
+        "최근 1시간 동안의 nginx 로그."
+      ],
+      "arguments": [
+        "유닛/서비스로 필터링합니다.",
+        "따라갑니다(follow).",
+        "기간으로 필터링합니다."
+      ],
+      "warnings": []
+    },
+    "linux-useradd": {
+      "title": "사용자 생성",
+      "description": "시스템 사용자를 만듭니다. -m은 홈 디렉터리를 만들고 -s는 기본 셸을 지정합니다.",
+      "examples": [
+        "deploy 사용자를 만들고 비밀번호를 설정합니다."
+      ],
+      "arguments": [
+        "홈 디렉터리를 만듭니다.",
+        "셸을 지정합니다."
+      ],
+      "warnings": [
+        "일부 배포판에서는 더 대화형이고 안전한 adduser를 권장합니다."
+      ]
+    },
+    "linux-apt-install": {
+      "title": "패키지 설치 (Debian/Ubuntu)",
+      "description": "Debian/Ubuntu에서 패키지를 설치합니다. 먼저 apt update로 패키지 목록을 갱신하세요.",
+      "examples": [
+        "목록을 갱신하고 nginx를 설치합니다."
+      ],
+      "arguments": [
+        "자동으로 확인에 동의합니다."
+      ],
+      "warnings": [
+        "신뢰할 수 있는 저장소에서만 설치하세요."
+      ]
+    },
+    "linux-ln": {
+      "title": "심볼릭 링크 생성",
+      "description": "다른 파일이나 디렉터리를 가리키는 심볼릭 링크(바로 가기)를 만듭니다.",
+      "examples": [
+        "앱 디렉터리에 대한 바로 가기를 만듭니다."
+      ],
+      "arguments": [
+        "심볼릭 링크(하드 링크가 아님)."
+      ],
+      "warnings": []
+    },
+    "linux-chmod-x-sudo": {
+      "title": "슈퍼유저로 실행",
+      "description": "관리자(root) 권한으로 명령을 실행하며 사용자 비밀번호를 요구합니다.",
+      "examples": [
+        "권한을 가지고 nginx를 재시작합니다."
+      ],
+      "arguments": [
+        "대화형 root 셸을 엽니다."
+      ],
+      "warnings": [
+        "sudo 명령은 시스템에 대한 완전한 권한을 가집니다. 실행하기 전에 꼭 확인하세요."
+      ]
+    }
+  }
+}

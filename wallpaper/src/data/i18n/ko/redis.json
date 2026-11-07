@@ -1,0 +1,194 @@
+{
+  "description": "인메모리 키-값 데이터베이스 — 문자열, 해시, 리스트, 셋, 만료, pub/sub.",
+  "categories": {
+    "conexao": "연결",
+    "strings": "문자열",
+    "keys": "키",
+    "hashes": "해시",
+    "lists": "리스트",
+    "sets": "셋",
+    "sorted-sets": "정렬된 셋",
+    "pubsub": "pub/sub",
+    "server": "서버"
+  },
+  "entries": {
+    "redis-cli": {
+      "title": "CLI 열기",
+      "description": "로컬 Redis(6379 포트)에 연결된 대화형 클라이언트를 엽니다.",
+      "examples": [
+        "인증을 사용해 호스트/포트에 연결합니다."
+      ],
+      "arguments": [
+        "서버 호스트.",
+        "포트(기본값 6379).",
+        "데이터베이스 번호(0-15)."
+      ],
+      "warnings": [
+        "-a <비밀번호>를 전달하면 셸 히스토리에 비밀번호가 노출될 수 있습니다."
+      ]
+    },
+    "ping": {
+      "title": "연결 테스트",
+      "description": "서버가 응답하는지 확인합니다. 정상이면 PONG을 반환합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "set": {
+      "title": "값 설정",
+      "description": "키에 문자열을 저장합니다. 옵션: EX 초, NX(없을 때만).",
+      "examples": [
+        "키가 없을 때만 TTL 1시간으로 저장합니다."
+      ],
+      "arguments": [
+        "만료 시간(초).",
+        "키가 없을 때만 설정합니다."
+      ],
+      "warnings": []
+    },
+    "get": {
+      "title": "값 조회",
+      "description": "키의 문자열 값을 읽습니다. 키가 없으면 nil을 반환합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "incr": {
+      "title": "카운터 증가",
+      "description": "숫자 값을 원자적으로 증가시킵니다. 카운터와 rate limiting에 적합합니다.",
+      "examples": [
+        "지정한 값만큼 증가시킵니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "del": {
+      "title": "키 삭제",
+      "description": "하나 이상의 키를 삭제합니다. 삭제된 개수를 반환합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "삭제는 즉시 이루어지며 되돌릴 수 없습니다."
+      ]
+    },
+    "exists": {
+      "title": "존재 여부 확인",
+      "description": "키가 있으면 1, 없으면 0을 반환합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expire": {
+      "title": "만료 시간 설정",
+      "description": "초 단위의 수명(TTL)을 설정하며, 이후 키가 삭제됩니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ttl": {
+      "title": "TTL 조회",
+      "description": "만료까지 남은 초를 반환합니다(TTL 없음은 -1, 존재하지 않음은 -2).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scan": {
+      "title": "키 순회 (SCAN)",
+      "description": "키스페이스를 점진적이고 논블로킹 방식으로 순회합니다. 프로덕션에서는 KEYS 대신 SCAN을 사용하세요.",
+      "examples": [],
+      "arguments": [
+        "glob 패턴으로 필터링합니다.",
+        "반복마다 가져올 개수에 대한 힌트."
+      ],
+      "warnings": [
+        "프로덕션에서 KEYS *는 피하세요. 스캔하는 동안 서버가 블로킹됩니다."
+      ]
+    },
+    "hset": {
+      "title": "해시: 필드 설정",
+      "description": "해시(객체)에 필드를 저장합니다. 전체를 읽으려면 HGETALL을 사용하세요.",
+      "examples": [
+        "해시의 모든 필드와 값을 반환합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "lpush": {
+      "title": "리스트: 추가",
+      "description": "리스트의 맨 앞에 삽입합니다. 큐로 쓰려면 RPOP/BRPOP과 함께 사용하세요.",
+      "examples": [
+        "모든 항목을 나열합니다(0부터 끝까지)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "sadd": {
+      "title": "셋: 추가",
+      "description": "집합에 고유한 멤버를 추가합니다. SMEMBERS는 나열하고, SISMEMBER는 포함 여부를 검사합니다.",
+      "examples": [
+        "셋의 모든 멤버를 반환합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "zadd": {
+      "title": "정렬된 셋: 랭킹",
+      "description": "점수와 함께 멤버를 추가합니다. 랭킹과 리더보드에 적합합니다.",
+      "examples": [
+        "점수와 함께 상위 10개를 높은 순으로 표시합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "subscribe": {
+      "title": "Pub/Sub",
+      "description": "채널을 구독합니다. 다른 연결에서 PUBLISH 채널 메시지로 메시지를 보낼 수 있습니다.",
+      "examples": [
+        "채널에 메시지를 게시합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "info": {
+      "title": "서버 상태",
+      "description": "메모리, 클라이언트, 영속성, 통계 같은 서버 지표를 반환합니다.",
+      "examples": [
+        "메모리 섹션만 표시합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "dbsize": {
+      "title": "키 개수",
+      "description": "현재 데이터베이스의 키 개수를 반환합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "config-get": {
+      "title": "설정 조회",
+      "description": "실행 중에 설정 매개변수를 읽습니다(예: 메모리 제한).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "flushdb": {
+      "title": "현재 데이터베이스 비우기",
+      "description": "선택한 데이터베이스의 모든 키를 삭제합니다. 즉시 실행되는 파괴적인 작업입니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "확인 없이 현재 데이터베이스의 모든 키를 삭제하며 되돌릴 수 없습니다."
+      ]
+    },
+    "flushall": {
+      "title": "모든 데이터베이스 비우기",
+      "description": "인스턴스에 있는 모든 데이터베이스의 모든 키를 삭제합니다. 매우 파괴적입니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "인스턴스 전체를 삭제합니다. 확신이 없다면 프로덕션에서 절대 실행하지 마세요."
+      ]
+    }
+  }
+}

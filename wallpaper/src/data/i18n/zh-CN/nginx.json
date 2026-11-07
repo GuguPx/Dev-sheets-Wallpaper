@@ -1,0 +1,159 @@
+{
+  "description": "Web 服务器与反向代理 — 服务控制、server block、代理、SSL、缓存与日志。",
+  "categories": {
+    "servico": "服务",
+    "server-blocks": "server block",
+    "proxy": "代理",
+    "ssl": "SSL",
+    "cache": "缓存",
+    "logs": "日志",
+    "config": "配置"
+  },
+  "entries": {
+    "nginx-test": {
+      "title": "测试配置",
+      "description": "检查配置文件的语法而不应用。重新加载前务必执行。",
+      "examples": [],
+      "arguments": [
+        "测试配置并退出。"
+      ],
+      "warnings": []
+    },
+    "nginx-reload": {
+      "title": "无停机重新加载",
+      "description": "平滑地重新加载配置，不中断活动连接。",
+      "examples": [
+        "通过 systemd 的等效命令。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "重新加载前先运行 'nginx -t'；无效的配置会导致 reload 失败。"
+      ]
+    },
+    "nginx-stop": {
+      "title": "停止服务",
+      "description": "立即终止 Nginx。使用 'quit' 可平滑关闭。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "会中断服务；建议使用 'nginx -s quit' 以排空连接。"
+      ]
+    },
+    "nginx-version": {
+      "title": "版本与模块",
+      "description": "显示版本、编译参数和已启用的模块（便于诊断）。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "server-block": {
+      "title": "基础 server block",
+      "description": "为某个域名提供目录中静态文件的最小配置块。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "location-tryfiles": {
+      "title": "SPA 回退 (try_files)",
+      "description": "返回请求的文件，否则回退到 index.html — SPA（React、Vue）的标准做法。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect-301": {
+      "title": "301 重定向",
+      "description": "永久重定向并保留请求的路径。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-pass": {
+      "title": "反向代理",
+      "description": "将请求转发到后端应用（Node 等）。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-headers": {
+      "title": "代理请求头",
+      "description": "将主机名和客户端真实 IP 传递给后端，在代理之后至关重要。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "upstream": {
+      "title": "负载均衡 (upstream)",
+      "description": "定义一组用于负载均衡的后端服务器。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "websocket-proxy": {
+      "title": "WebSocket 代理",
+      "description": "启用转发 WebSocket 所需的连接升级。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssl-cert": {
+      "title": "配置 TLS",
+      "description": "通过指定证书和私钥启用 HTTPS。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "私钥 (.pem) 必须设置严格的权限，且绝不能纳入版本控制。"
+      ]
+    },
+    "force-https": {
+      "title": "强制 HTTPS",
+      "description": "将所有 HTTP 流量重定向到 HTTPS。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "gzip": {
+      "title": "gzip 压缩",
+      "description": "压缩文本响应以减小传输大小。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expires-cache": {
+      "title": "静态资源缓存",
+      "description": "为静态文件设置长期缓存的响应头。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "client-max-body": {
+      "title": "上传大小限制",
+      "description": "设置请求体（上传）的最大大小。默认为 1m。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rate-limit": {
+      "title": "限制请求速率",
+      "description": "按 IP 定义限流区域；通过 'limit_req zone=api;' 应用。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "限制过低可能会拦截合法用户。"
+      ]
+    },
+    "error-log-tail": {
+      "title": "跟踪错误日志",
+      "description": "实时跟踪 Nginx 的错误 — 诊断 502/504 时的第一站。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "access-log": {
+      "title": "配置 access log",
+      "description": "定义访问日志文件。在日志量大的静态资源 location 中使用 'access_log off;'。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "description": "Database chiave-valore in memoria — stringhe, hash, liste, set, scadenza e pub/sub.",
+  "categories": {
+    "conexao": "Connessione",
+    "strings": "Stringhe",
+    "keys": "Chiavi",
+    "hashes": "Hash",
+    "lists": "Liste",
+    "sets": "Set",
+    "sorted-sets": "Sorted set",
+    "pubsub": "Pub/Sub",
+    "server": "Server"
+  },
+  "entries": {
+    "redis-cli": {
+      "title": "Aprire la CLI",
+      "description": "Apre il client interattivo connesso al Redis locale (porta 6379).",
+      "examples": [
+        "Si connette a un host/porta con autenticazione."
+      ],
+      "arguments": [
+        "Host del server.",
+        "Porta (predefinita 6379).",
+        "Numero del database (0-15)."
+      ],
+      "warnings": [
+        "Passare -a <password> può esporre la password nella cronologia della shell."
+      ]
+    },
+    "ping": {
+      "title": "Testare la connessione",
+      "description": "Verifica se il server risponde; restituisce PONG quando è in salute.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "set": {
+      "title": "Impostare un valore",
+      "description": "Scrive una stringa in una chiave. Opzioni: EX secondi, NX (solo se non esiste).",
+      "examples": [
+        "Scrive con TTL di 1h solo se la chiave non esiste."
+      ],
+      "arguments": [
+        "Scadenza in secondi.",
+        "Imposta solo se la chiave non esiste."
+      ],
+      "warnings": []
+    },
+    "get": {
+      "title": "Ottenere un valore",
+      "description": "Legge il valore stringa di una chiave; restituisce nil se non esiste.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "incr": {
+      "title": "Incrementare un contatore",
+      "description": "Incrementa atomicamente un valore numerico; ideale per contatori e rate limiting.",
+      "examples": [
+        "Incrementa di un valore specifico."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "del": {
+      "title": "Rimuovere una chiave",
+      "description": "Rimuove una o più chiavi. Restituisce quante ne sono state rimosse.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "La rimozione è immediata e irreversibile."
+      ]
+    },
+    "exists": {
+      "title": "Verificare l'esistenza",
+      "description": "Restituisce 1 se la chiave esiste, 0 altrimenti.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expire": {
+      "title": "Impostare la scadenza",
+      "description": "Imposta un tempo di vita (TTL) in secondi, dopo il quale la chiave viene rimossa.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ttl": {
+      "title": "Consultare il TTL",
+      "description": "Restituisce i secondi rimanenti alla scadenza (-1 senza TTL, -2 inesistente).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scan": {
+      "title": "Iterare le chiavi (SCAN)",
+      "description": "Percorre il keyspace in modo incrementale e non bloccante. Preferisci SCAN a KEYS in produzione.",
+      "examples": [],
+      "arguments": [
+        "Filtra per pattern glob.",
+        "Suggerimento sulla quantità per iterazione."
+      ],
+      "warnings": [
+        "Evita KEYS * in produzione: blocca il server durante la scansione."
+      ]
+    },
+    "hset": {
+      "title": "Hash: impostare i campi",
+      "description": "Scrive campi in un hash (oggetto). Usa HGETALL per leggere tutto.",
+      "examples": [
+        "Restituisce tutti i campi e i valori dell'hash."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "lpush": {
+      "title": "Lista: aggiungere",
+      "description": "Inserisce all'inizio di una lista. Combinalo con RPOP/BRPOP per le code.",
+      "examples": [
+        "Elenca tutti gli elementi (da 0 alla fine)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "sadd": {
+      "title": "Set: aggiungere",
+      "description": "Aggiunge membri univoci a un insieme. SMEMBERS elenca, SISMEMBER verifica l'appartenenza.",
+      "examples": [
+        "Restituisce tutti i membri del set."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "zadd": {
+      "title": "Sorted set: classifica",
+      "description": "Aggiunge membri con un punteggio. Ideale per classifiche e leaderboard.",
+      "examples": [
+        "Top 10 con i punteggi, dal più alto al più basso."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "subscribe": {
+      "title": "Pub/Sub",
+      "description": "Si iscrive a un canale; usa PUBLISH canale messaggio su un'altra connessione per inviare.",
+      "examples": [
+        "Pubblica un messaggio sul canale."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "info": {
+      "title": "Stato del server",
+      "description": "Restituisce metriche del server: memoria, client, persistenza, statistiche.",
+      "examples": [
+        "Mostra solo la sezione sulla memoria."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "dbsize": {
+      "title": "Numero di chiavi",
+      "description": "Restituisce il numero di chiavi nel database corrente.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "config-get": {
+      "title": "Leggere la configurazione",
+      "description": "Legge i parametri di configurazione a runtime (es.: limite di memoria).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "flushdb": {
+      "title": "Svuotare il database corrente",
+      "description": "Rimuove TUTTE le chiavi del database selezionato. Azione distruttiva e immediata.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Cancella tutte le chiavi del database corrente senza conferma e senza annullamento possibile."
+      ]
+    },
+    "flushall": {
+      "title": "Svuotare TUTTI i database",
+      "description": "Rimuove tutte le chiavi di TUTTI i database dell'istanza. Estremamente distruttivo.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Cancella l'INTERA istanza. Non eseguirlo mai in produzione senza assoluta certezza."
+      ]
+    }
+  }
+}

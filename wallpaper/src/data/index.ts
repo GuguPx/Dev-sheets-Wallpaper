@@ -21,3 +21,28 @@ export function loadRawTechnologies(): RawTechnologyModule[] {
     }))
     .sort((a, b) => a.path.localeCompare(b.path));
 }
+
+/**
+ * Traduções de conteúdo: `./i18n/<idioma>/<tech>.json` (ver
+ * schemas/translation.schema.ts). Também descobertas automaticamente.
+ */
+const translationModules = import.meta.glob('./i18n/*/*.json', { eager: true });
+
+export interface RawTranslationModule {
+  path: string;
+  locale: string;
+  technologyId: string;
+  data: unknown;
+}
+
+export function loadRawTranslations(): RawTranslationModule[] {
+  return Object.entries(translationModules).map(([path, mod]) => {
+    const [, locale = '', file = ''] = path.match(/\.\/i18n\/([^/]+)\/([^/]+)\.json$/) ?? [];
+    return {
+      path,
+      locale,
+      technologyId: file,
+      data: (mod as { default: unknown }).default ?? mod,
+    };
+  });
+}

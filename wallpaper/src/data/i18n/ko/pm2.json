@@ -1,0 +1,160 @@
+{
+  "description": "Node.js용 프로세스 관리자 — 시작, 무중단 재시작, 로그, 클러스터, 부팅.",
+  "categories": {
+    "processos": "프로세스",
+    "monitoramento": "모니터링",
+    "logs": "로그",
+    "startup": "시작 프로그램",
+    "cluster": "클러스터"
+  },
+  "entries": {
+    "pm2-start": {
+      "title": "애플리케이션 시작",
+      "description": "PM2가 관리하는 프로세스를 알기 쉬운 이름으로 시작합니다.",
+      "examples": [
+        "'--' 뒤에 인자를 전달하여 npm 스크립트를 시작합니다."
+      ],
+      "arguments": [
+        "프로세스 이름.",
+        "인스턴스 수(클러스터). 'max'는 모든 코어를 사용합니다."
+      ],
+      "warnings": []
+    },
+    "pm2-ecosystem": {
+      "title": "ecosystem으로 시작",
+      "description": "선언형 설정 파일로 프로세스를 시작합니다(권장).",
+      "examples": [
+        "예시 ecosystem.config.js를 생성합니다."
+      ],
+      "arguments": [
+        "환경 블록을 선택합니다(예: production)."
+      ],
+      "warnings": []
+    },
+    "pm2-list": {
+      "title": "프로세스 목록",
+      "description": "id, 이름, 상태, CPU, 메모리, 재시작 횟수가 담긴 프로세스 표를 보여 줍니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-monit": {
+      "title": "실시간 모니터",
+      "description": "프로세스별 CPU, 메모리, 로그를 보여 주는 대화형 대시보드입니다(btop 스타일).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-describe": {
+      "title": "프로세스 상세 정보",
+      "description": "경로, env, 가동 시간, 재시작 횟수 등 프로세스의 자세한 정보를 표시합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-logs": {
+      "title": "로그 보기",
+      "description": "프로세스의 로그(stdout/stderr)를 실시간으로 스트리밍합니다.",
+      "examples": [
+        "따라가기 전에 마지막 200줄을 표시합니다."
+      ],
+      "arguments": [
+        "표시할 과거 로그 줄 수."
+      ],
+      "warnings": []
+    },
+    "pm2-flush": {
+      "title": "로그 비우기",
+      "description": "모든 프로세스의 로그 파일을 비웁니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "PM2가 저장한 로그 기록이 삭제됩니다."
+      ]
+    },
+    "pm2-reload": {
+      "title": "다운타임 없이 리로드",
+      "description": "서비스를 중단하지 않고 클러스터 프로세스를 순차적으로 다시 불러옵니다(무중단).",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "fork 모드(인스턴스 1개)에서는 reload가 짧은 중단이 있는 restart와 같습니다."
+      ]
+    },
+    "pm2-restart": {
+      "title": "재시작",
+      "description": "프로세스를 재시작합니다(종료 후 다시 시작). 'all'을 쓰면 전체에 적용됩니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "짧은 중단이 있습니다. 클러스터에서는 'reload'를 사용하세요."
+      ]
+    },
+    "pm2-stop": {
+      "title": "중지",
+      "description": "프로세스를 목록에 남겨 둔 채 중지합니다(상태 stopped).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-delete": {
+      "title": "목록에서 제거",
+      "description": "프로세스를 중지하고 PM2 목록에서 제거합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "프로세스가 관리 대상에서 빠집니다. 새 상태를 유지하려면 이후 'save'를 실행하세요."
+      ]
+    },
+    "pm2-delete-all": {
+      "title": "모두 제거",
+      "description": "PM2가 관리하는 모든 프로세스를 중지하고 제거합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "모든 서비스가 한꺼번에 내려갑니다. 프로덕션에서 실행하기 전에 대상을 확인하세요."
+      ]
+    },
+    "pm2-scale": {
+      "title": "인스턴스 확장",
+      "description": "클러스터 앱의 인스턴스 수를 지정한 값으로 조정합니다.",
+      "examples": [
+        "기존 인스턴스에 2개를 추가합니다."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-startup": {
+      "title": "부팅 시 시작",
+      "description": "PM2가 부팅 시 시작되도록 시스템 시작 스크립트를 생성하고 설치합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "명령이 sudo가 포함된 줄을 출력하며, 설치를 마치려면 그 줄을 실행해야 합니다."
+      ]
+    },
+    "pm2-save": {
+      "title": "프로세스 목록 저장",
+      "description": "현재 프로세스 목록을 저장하여 부팅 시 복원할 수 있게 합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-resurrect": {
+      "title": "프로세스 복원",
+      "description": "이전에 'pm2 save'로 저장한 프로세스를 다시 불러옵니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "pm2-kill": {
+      "title": "데몬 종료",
+      "description": "PM2 데몬과 그가 관리하는 모든 프로세스를 종료합니다.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "데몬 자체를 포함해 모든 것을 내립니다. 완전히 초기화할 때만 사용하세요."
+      ]
+    }
+  }
+}

@@ -90,3 +90,5 @@ Sem `eval`, sem shell — apenas a whitelist abaixo. Aceita aliases.
 | `margin <lado> <px>` | `margem`, `m` | Margem de segurança 0–600px: `margin left 200`, `margin right 0`, `margin bottom 48`. Sem lado (`margin 160`) vale para a esquerda |
 | `clear` | `cls` | Limpa a linha e volta ao início |
 | `about` | — | Sobre o devsheet |
+| `lang <código>` | `language`, `idioma`, `locale` | Troca o idioma: `lang en`, `lang ja`, `lang auto`. Sem argumento lista os códigos (`pt-BR en es fr de it ru zh-CN ja ko`) |
+| `support` | `donate`, `coffee`, `sponsor`, `apoiar`, `apoio` | Mensagem do autor e links de apoio (clique copia o link) |

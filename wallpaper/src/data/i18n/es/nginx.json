@@ -1,0 +1,159 @@
+{
+  "description": "Servidor web y proxy inverso — control del servicio, server blocks, proxy, SSL, caché y logs.",
+  "categories": {
+    "servico": "Servicio",
+    "server-blocks": "Server blocks",
+    "proxy": "Proxy",
+    "ssl": "SSL",
+    "cache": "Caché",
+    "logs": "Logs",
+    "config": "Configuración"
+  },
+  "entries": {
+    "nginx-test": {
+      "title": "Probar configuración",
+      "description": "Verifica la sintaxis de los archivos de configuración sin aplicarla. Hazlo siempre antes de recargar.",
+      "examples": [],
+      "arguments": [
+        "Prueba la configuración y sale."
+      ],
+      "warnings": []
+    },
+    "nginx-reload": {
+      "title": "Recargar sin downtime",
+      "description": "Recarga la configuración de forma elegante, sin cortar las conexiones activas.",
+      "examples": [
+        "Equivalente vía systemd."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Ejecuta 'nginx -t' antes; una config inválida impide el reload."
+      ]
+    },
+    "nginx-stop": {
+      "title": "Detener el servicio",
+      "description": "Termina Nginx de inmediato. Usa 'quit' para un apagado elegante.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Interrumpe la atención de peticiones; prefiere 'nginx -s quit' para drenar conexiones."
+      ]
+    },
+    "nginx-version": {
+      "title": "Versión y módulos",
+      "description": "Muestra la versión, los flags de compilación y los módulos habilitados (útil para diagnóstico).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "server-block": {
+      "title": "Server block básico",
+      "description": "Bloque mínimo que sirve archivos estáticos de un directorio para un dominio.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "location-tryfiles": {
+      "title": "SPA fallback (try_files)",
+      "description": "Sirve el archivo solicitado o cae en index.html — patrón estándar para SPAs (React, Vue).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect-301": {
+      "title": "Redirección 301",
+      "description": "Redirige de forma permanente preservando la ruta solicitada.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-pass": {
+      "title": "Proxy inverso",
+      "description": "Reenvía las peticiones a una aplicación backend (Node, etc.).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "proxy-headers": {
+      "title": "Cabeceras de proxy",
+      "description": "Pasa el host y la IP real del cliente al backend, esencial detrás de un proxy.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "upstream": {
+      "title": "Load balancing (upstream)",
+      "description": "Define un grupo de servidores backend para el balanceo de carga.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "websocket-proxy": {
+      "title": "Proxy de WebSocket",
+      "description": "Habilita el upgrade de conexión necesario para reenviar WebSockets.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ssl-cert": {
+      "title": "Configurar TLS",
+      "description": "Habilita HTTPS apuntando al certificado y a la clave privada.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "La clave privada (.pem) debe tener permisos restringidos y nunca versionarse."
+      ]
+    },
+    "force-https": {
+      "title": "Forzar HTTPS",
+      "description": "Redirige todo el tráfico HTTP a HTTPS.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "gzip": {
+      "title": "Compresión gzip",
+      "description": "Comprime respuestas de texto para reducir el tamaño transferido.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expires-cache": {
+      "title": "Caché de estáticos",
+      "description": "Define cabeceras de caché de larga duración para archivos estáticos.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "client-max-body": {
+      "title": "Límite de subida",
+      "description": "Define el tamaño máximo del cuerpo de la petición (uploads). El valor por defecto es 1m.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rate-limit": {
+      "title": "Limitar tasa de peticiones",
+      "description": "Define una zona de rate limiting por IP; aplícala con 'limit_req zone=api;'.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Límites muy bajos pueden bloquear a usuarios legítimos."
+      ]
+    },
+    "error-log-tail": {
+      "title": "Seguir logs de error",
+      "description": "Sigue en tiempo real los errores de Nginx — primera parada al diagnosticar 502/504.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "access-log": {
+      "title": "Configurar access log",
+      "description": "Define el archivo de log de accesos. Usa 'access_log off;' en locations de estáticos ruidosas.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

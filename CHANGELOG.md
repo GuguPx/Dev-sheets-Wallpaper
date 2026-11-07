@@ -4,6 +4,29 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ## [Não lançado]
 
+### Adicionado — idiomas e apoio
+
+- **10 idiomas** na interface e no conteúdo: pt-BR, en, es, fr, de, it, ru, zh-CN, ja, ko.
+  Todos os 224 comandos (títulos, descrições, exemplos, opções, avisos e categorias) foram
+  traduzidos; o que faltar cai no pt-BR campo a campo.
+- **Seletor de idioma no Wallpaper Engine** (propriedade *Idioma*, padrão **Automático** —
+  segue o sistema, fallback inglês) e rótulos do painel de propriedades traduzidos via
+  `general.localization` do `project.json` (`npm run i18n:we`).
+- Comando interno **`:lang <código>`** para trocar o idioma ao vivo (`:lang auto` volta ao
+  automático).
+- Comando interno **`:support`** (aliases `donate`, `coffee`, `apoiar`…): mensagem do autor
+  traduzida e links de apoio que copiam ao clicar. Links configurados em
+  `wallpaper/src/config/support.ts`; seção "Apoie o projeto" no README.
+- Busca **Unicode**: tokens com cirílico, CJK e hangul agora funcionam.
+- `npm run validate:i18n` (também no CI) e `npm run i18n:extract` para tradutores.
+
+### Alterado
+
+- O idioma padrão passou de `pt-BR` para **`auto`**. Quem já tinha configurado mantém a
+  escolha salva.
+- Linhas em branco nos overlays (`about`, `support`) agora aparecem como espaço entre
+  parágrafos.
+
 ### Corrigido
 
 - **Fonte monoespaçada não era aplicada em lugar nenhum** (o wallpaper inteiro renderizava

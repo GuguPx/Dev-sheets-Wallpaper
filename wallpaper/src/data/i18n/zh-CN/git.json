@@ -1,0 +1,487 @@
+{
+  "description": "用于追踪代码变更的分布式版本控制系统。",
+  "categories": {
+    "Inicialização": "初始化",
+    "Status": "状态",
+    "Staging": "暂存",
+    "Commits": "提交",
+    "Branches": "分支",
+    "Merge": "合并",
+    "Rebase": "变基",
+    "Remoto": "远程",
+    "Histórico": "历史",
+    "Tags": "标签",
+    "Stash": "储藏",
+    "Recuperação": "恢复",
+    "Configuração": "配置",
+    "Diagnóstico": "诊断"
+  },
+  "entries": {
+    "git-init": {
+      "title": "初始化仓库",
+      "description": "在当前目录创建一个空的 Git 仓库，生成存放全部历史的 .git 文件夹。",
+      "examples": [
+        "在当前目录初始化仓库。",
+        "创建 meu-projeto 文件夹，并将初始分支命名为 main。"
+      ],
+      "arguments": [
+        "设置初始分支名称（例如：main）。",
+        "创建不含工作树的仓库，用于服务器。"
+      ],
+      "warnings": []
+    },
+    "git-clone": {
+      "title": "克隆仓库",
+      "description": "将远程仓库复制到本地，包含全部历史，并自动配置 origin 远程。",
+      "examples": [
+        "将仓库克隆到 repo 文件夹。",
+        "浅克隆：只下载最新的提交，适用于 CI。"
+      ],
+      "arguments": [
+        "将历史限制为最近 n 次提交（浅克隆）。",
+        "直接克隆指定分支。"
+      ],
+      "warnings": []
+    },
+    "git-status": {
+      "title": "查看仓库状态",
+      "description": "显示当前分支、已修改的文件、已暂存（staged）待提交的文件以及尚未跟踪的文件。",
+      "examples": [
+        "显示工作树的完整状态。",
+        "短格式：每个文件一行（M、A、??）。"
+      ],
+      "arguments": [
+        "简短紧凑的输出。",
+        "即使在短格式下也显示分支。"
+      ],
+      "warnings": []
+    },
+    "git-add": {
+      "title": "添加到暂存区",
+      "description": "将更改移入暂存区，标记为纳入下一次提交。",
+      "examples": [
+        "将指定文件添加到暂存区。",
+        "添加当前目录下的所有更改。",
+        "交互模式：逐块（hunk）选择要提交的内容。"
+      ],
+      "arguments": [
+        "添加整个仓库中的所有更改，包括删除。",
+        "交互式选择要添加的片段。"
+      ],
+      "warnings": []
+    },
+    "git-reset-file": {
+      "title": "从暂存区移除",
+      "description": "将文件移出暂存区，但不丢弃文件中的修改。取代旧的 git reset <文件>。",
+      "examples": [
+        "将 app.ts 移出暂存区，保留编辑内容。"
+      ],
+      "arguments": [
+        "作用于暂存区（index）而非工作树。"
+      ],
+      "warnings": []
+    },
+    "git-restore": {
+      "title": "丢弃本地更改",
+      "description": "撤销工作树中文件未提交的更改，恢复到最近一次提交的状态。",
+      "examples": [
+        "丢弃 config.json 中未保存的更改。",
+        "丢弃所有已跟踪文件的更改。"
+      ],
+      "arguments": [
+        "从指定的提交恢复。"
+      ],
+      "warnings": [
+        "被丢弃的更改无法找回，因为它们从未被提交。"
+      ]
+    },
+    "git-commit": {
+      "title": "创建提交",
+      "description": "将暂存区的更改以一条描述性消息记录到仓库历史中。",
+      "examples": [
+        "使用给定的消息创建提交。",
+        "添加已跟踪的文件并一步完成提交。"
+      ],
+      "arguments": [
+        "在命令行中设置提交消息。",
+        "自动包含已修改的已跟踪文件。"
+      ],
+      "warnings": []
+    },
+    "git-commit-amend": {
+      "title": "修正最后一次提交",
+      "description": "替换最近一次提交，允许修改消息或加入暂存区中的新更改。",
+      "examples": [
+        "重写最后一次提交的消息。",
+        "将暂存区追加到最后一次提交，不修改消息。"
+      ],
+      "arguments": [
+        "保留当前消息。"
+      ],
+      "warnings": [
+        "会重写提交哈希；切勿对已推送到共享分支的提交执行 amend。"
+      ]
+    },
+    "git-branch-list": {
+      "title": "列出分支",
+      "description": "列出本地分支，当前分支以星号标出。",
+      "examples": [
+        "列出本地分支。",
+        "列出本地和远程分支。"
+      ],
+      "arguments": [
+        "包含远程分支。",
+        "仅显示远程分支。"
+      ],
+      "warnings": []
+    },
+    "git-switch-create": {
+      "title": "创建并切换分支",
+      "description": "基于当前分支创建新分支并立即切换。比 git checkout -b 更清晰的替代方案。",
+      "examples": [
+        "创建并进入分支 feature/login。"
+      ],
+      "arguments": [
+        "切换前先创建分支。"
+      ],
+      "warnings": []
+    },
+    "git-switch": {
+      "title": "切换分支",
+      "description": "将工作树切换到另一个已存在的分支。取代用 git checkout 切换分支的做法。",
+      "examples": [
+        "返回 main 分支。",
+        "切换到上一个分支。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "未提交的更改可能会阻止切换；必要时先使用 git stash。"
+      ]
+    },
+    "git-branch-delete": {
+      "title": "删除分支",
+      "description": "删除已合并的本地分支。使用 -D 可强制删除未合并的分支。",
+      "examples": [
+        "若分支已合并则删除。",
+        "即使未合并也强制删除（会丢失该分支独有的提交）。"
+      ],
+      "arguments": [
+        "仅在分支已合并时删除。",
+        "强制删除（--delete --force 的简写）。"
+      ],
+      "warnings": [
+        "-D 会丢弃该分支独有、且其他地方不存在的提交。"
+      ]
+    },
+    "git-merge": {
+      "title": "合并分支",
+      "description": "将另一个分支的更改整合到当前分支，必要时创建合并提交。",
+      "examples": [
+        "将 feature/login 的提交合并到当前分支。",
+        "即使可以快进 (fast-forward)，也创建合并提交。"
+      ],
+      "arguments": [
+        "始终创建合并提交，保留分支历史。",
+        "取消有冲突的合并并回到之前的状态。"
+      ],
+      "warnings": [
+        "可能产生冲突，必须手动解决后才能完成。"
+      ]
+    },
+    "git-merge-abort": {
+      "title": "取消有冲突的合并",
+      "description": "中止正在进行且有冲突的合并，并将分支恢复到合并之前的状态。",
+      "examples": [
+        "撤销有冲突的合并。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "会丢弃目前已完成的冲突解决。"
+      ]
+    },
+    "git-rebase": {
+      "title": "变基分支",
+      "description": "将当前分支的提交重新应用到另一个基点之上，生成没有合并提交的线性历史。",
+      "examples": [
+        "将当前分支的提交重新应用到 main 之上。",
+        "对最近 3 次提交进行交互式变基（重排、squash、编辑）。"
+      ],
+      "arguments": [
+        "交互式变基：编辑、重排或合并提交。",
+        "变基到指定的位置。"
+      ],
+      "warnings": [
+        "会重写哈希；不要对已发布到共享分支的提交执行变基。"
+      ]
+    },
+    "git-rebase-continue": {
+      "title": "冲突后继续变基",
+      "description": "在解决冲突并将文件加入暂存区后继续变基。",
+      "examples": [
+        "将冲突标记为已解决并继续变基。"
+      ],
+      "arguments": [
+        "取消变基并回到初始状态。",
+        "跳过当前冲突的提交。"
+      ],
+      "warnings": []
+    },
+    "git-remote-add": {
+      "title": "添加远程仓库",
+      "description": "将远程仓库绑定到一个简短名称（通常是 origin），用于推送和接收更改。",
+      "examples": [
+        "将 origin 设为主远程。",
+        "列出已配置的远程及其 URL。"
+      ],
+      "arguments": [
+        "列出时显示 URL (verbose)。"
+      ],
+      "warnings": []
+    },
+    "git-fetch": {
+      "title": "获取远程更改",
+      "description": "从远程下载提交、分支和标签，不改动工作树，也不自动合并。",
+      "examples": [
+        "更新 origin 的远程引用。",
+        "移除远程已不存在的分支所对应的本地引用。"
+      ],
+      "arguments": [
+        "清理已被删除的远程分支。",
+        "从所有远程获取。"
+      ],
+      "warnings": []
+    },
+    "git-pull": {
+      "title": "更新本地分支",
+      "description": "结合 fetch 与 merge：获取远程的更改并整合到当前分支。",
+      "examples": [
+        "用所跟踪的远程更新当前分支。",
+        "将本地提交应用到远程提交之上，避免产生合并提交。"
+      ],
+      "arguments": [
+        "使用 rebase 而非 merge 进行整合。"
+      ],
+      "warnings": [
+        "若存在分歧的更改，可能产生冲突。"
+      ]
+    },
+    "git-push": {
+      "title": "推送提交到远程",
+      "description": "将当前分支的本地提交推送到对应的远程仓库。",
+      "examples": [
+        "将当前分支推送到已跟踪的远程。",
+        "推送并将 origin/main 设为上游进行跟踪。"
+      ],
+      "arguments": [
+        "设置分支的上游（跟踪）。",
+        "安全地强制推送，若远程已变化则中止。"
+      ],
+      "warnings": [
+        "避免在共享分支上使用 --force；请优先使用 --force-with-lease。"
+      ]
+    },
+    "git-log": {
+      "title": "查看提交历史",
+      "description": "显示提交历史，包含作者、日期和消息，从最新到最旧。",
+      "examples": [
+        "每个提交一行，精简显示。",
+        "以图形方式查看分支和合并。"
+      ],
+      "arguments": [
+        "紧凑的单行格式。",
+        "绘制分支图。",
+        "限制提交数量。"
+      ],
+      "warnings": []
+    },
+    "git-diff": {
+      "title": "比较更改",
+      "description": "显示工作树与暂存区之间，或提交与分支之间的差异。",
+      "examples": [
+        "显示尚未加入暂存区的更改。",
+        "显示已在暂存区的内容（将被提交）。",
+        "比较两个分支。"
+      ],
+      "arguments": [
+        "比较暂存区与最近一次提交。"
+      ],
+      "warnings": []
+    },
+    "git-show": {
+      "title": "查看某次提交",
+      "description": "显示指定提交的详情和 diff，包含元数据和更改。",
+      "examples": [
+        "显示最新的提交及其更改。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "git-tag": {
+      "title": "创建标签",
+      "description": "创建附注标签，通常用于标记发布版本（例如：v1.0.0）。",
+      "examples": [
+        "创建附注标签 v1.0.0。",
+        "将标签推送到远程（普通 push 不会推送标签）。"
+      ],
+      "arguments": [
+        "创建附注标签（含作者和消息）。",
+        "标签消息。"
+      ],
+      "warnings": []
+    },
+    "git-stash": {
+      "title": "临时保存更改",
+      "description": "将未提交的更改保存到栈中并清理工作树，方便切换上下文。",
+      "examples": [
+        "保存当前更改。",
+        "带描述地保存。"
+      ],
+      "arguments": [
+        "包含未跟踪的文件。",
+        "为 stash 添加消息。"
+      ],
+      "warnings": []
+    },
+    "git-stash-pop": {
+      "title": "恢复已保存的更改",
+      "description": "将最近的 stash 重新应用到工作树，并将其从栈中移除。",
+      "examples": [
+        "恢复并移除最近一个 stash。",
+        "应用指定的 stash 但不移除。"
+      ],
+      "arguments": [
+        "应用但不从栈中移除。"
+      ],
+      "warnings": [
+        "在已改变的状态上重新应用时可能产生冲突。"
+      ]
+    },
+    "git-reset-soft": {
+      "title": "撤销提交并保留更改",
+      "description": "从历史中移除最后一次提交，但将其更改保留在暂存区，以便重新提交。",
+      "examples": [
+        "撤销最后一次提交，将更改保留在暂存区。"
+      ],
+      "arguments": [
+        "将更改保留在暂存区。"
+      ],
+      "warnings": [
+        "会改变本地历史；不要用于已推送的提交。"
+      ]
+    },
+    "git-reset-hard": {
+      "title": "丢弃提交和更改",
+      "description": "将分支移动到指定提交，并丢弃所有本地更改以及之后的提交。",
+      "examples": [
+        "丢弃所有未提交的更改。",
+        "强制本地分支与远程完全一致。"
+      ],
+      "arguments": [
+        "丢弃暂存区和工作树。"
+      ],
+      "warnings": [
+        "未提交的更改将永久丢失。",
+        "会重写本地历史；可尝试用 git reflog 恢复。"
+      ]
+    },
+    "git-revert": {
+      "title": "安全地回退提交",
+      "description": "创建一个新提交来撤销之前某次提交的更改，不重写历史。",
+      "examples": [
+        "创建一个撤销最后一次提交的提交。"
+      ],
+      "arguments": [
+        "应用回退但不立即提交。"
+      ],
+      "warnings": [
+        "适合共享分支，因为它不会重写历史。"
+      ]
+    },
+    "git-reflog": {
+      "title": "找回丢失的提交",
+      "description": "显示 HEAD 曾经所在位置的历史，使你能在 reset 或 rebase 之后找回提交。",
+      "examples": [
+        "列出 HEAD 之前的位置。",
+        "将 HEAD 回到 reflog 中列出的某个状态。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "git-cherry-pick": {
+      "title": "应用指定提交",
+      "description": "将另一个分支上某个指定提交的更改应用到当前分支。",
+      "examples": [
+        "将提交 a1b2c3d 应用到当前分支。"
+      ],
+      "arguments": [
+        "在消息中记录原始哈希。"
+      ],
+      "warnings": [
+        "可能产生冲突；解决后使用 git cherry-pick --continue。"
+      ]
+    },
+    "git-config-user": {
+      "title": "配置身份",
+      "description": "设置提交中使用的姓名和电子邮件。使用 --global 对该用户的所有仓库生效。",
+      "examples": [
+        "设置全局的提交邮箱。",
+        "仅在此仓库中设置姓名。"
+      ],
+      "arguments": [
+        "对当前用户应用该配置。",
+        "列出所有生效的配置。"
+      ],
+      "warnings": []
+    },
+    "git-blame": {
+      "title": "查看每行的作者",
+      "description": "逐行显示是哪个提交和作者修改了文件的每个部分。",
+      "examples": [
+        "显示文件每一行的作者和提交。",
+        "限定在第 10 到 20 行。"
+      ],
+      "arguments": [
+        "限制在某个行范围内。"
+      ],
+      "warnings": []
+    },
+    "git-clean": {
+      "title": "移除未跟踪的文件",
+      "description": "删除工作树中未跟踪的文件和目录。适合清理构建产物。",
+      "examples": [
+        "模拟（dry-run）：显示将被移除的内容，但不删除。",
+        "实际移除未跟踪的文件和目录。"
+      ],
+      "arguments": [
+        "Dry-run：仅显示将会移除的内容。",
+        "强制移除。",
+        "包含目录。"
+      ],
+      "warnings": [
+        "会永久删除文件；请先使用 -n 运行确认。"
+      ]
+    },
+    "git-log-search": {
+      "title": "在历史中搜索",
+      "description": "查找添加或删除了代码中某个特定字符串的提交 (pickaxe)，便于追溯某内容何时出现。",
+      "examples": [
+        "列出引入或删除了 TODO 一词的提交。",
+        "筛选消息中包含 'fix' 的提交。"
+      ],
+      "arguments": [
+        "搜索添加/删除该文本的更改。",
+        "按提交消息筛选。"
+      ],
+      "warnings": []
+    },
+    "git-remote-set-url": {
+      "title": "修改远程 URL",
+      "description": "更新已有远程的地址，例如从 HTTPS 迁移到 SSH 时。",
+      "examples": [
+        "将 origin 的 URL 改为 SSH。"
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

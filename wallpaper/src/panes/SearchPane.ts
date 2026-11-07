@@ -1,4 +1,5 @@
 import { h, clear, highlight } from '@/core/dom';
+import { t } from '@/i18n';
 import { appStore } from '@/stores/AppStore';
 import { settingsStore } from '@/stores/SettingsStore';
 import { historyStore } from '@/stores/HistoryStore';
@@ -39,8 +40,8 @@ export class SearchPane {
         type: 'text',
         spellcheck: false,
         autocomplete: 'off',
-        placeholder: 'buscar comando, tecnologia, descrição ou tag…',
-        'aria-label': 'busca',
+        placeholder: t('search.placeholder'),
+        'aria-label': t('search.aria'),
       },
     }) as HTMLInputElement;
     input.value = appStore.getState().searchQuery;
@@ -99,15 +100,16 @@ export class SearchPane {
     if (this.index >= this.results.length) this.index = Math.max(0, this.results.length - 1);
 
     const countEl = this.el.querySelector('.search-count');
-    if (countEl) countEl.textContent = query ? `${this.results.length} results` : '';
+    if (countEl)
+      countEl.textContent = query ? t('search.results', { count: this.results.length }) : '';
 
     clear(this.listEl);
     if (!query) {
-      this.listEl.appendChild(h('div', { class: 'search-empty', text: 'digite para buscar…' }));
+      this.listEl.appendChild(h('div', { class: 'search-empty', text: t('search.typeToSearch') }));
       return;
     }
     if (!this.results.length) {
-      this.listEl.appendChild(h('div', { class: 'search-empty', text: 'nenhum resultado' }));
+      this.listEl.appendChild(h('div', { class: 'search-empty', text: t('search.noResults') }));
       return;
     }
 

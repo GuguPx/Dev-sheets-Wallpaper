@@ -1,0 +1,253 @@
+{
+  "description": "GNU-Bash-Shell — Navigation, Dateiverwaltung, Text, Variablen und Scripting.",
+  "categories": {
+    "navegacao": "Navigation",
+    "arquivos": "Dateien",
+    "texto": "Text",
+    "redirecionamento": "Umleitung",
+    "variaveis": "Variablen",
+    "controle": "Kontrollfluss",
+    "processos": "Prozesse",
+    "permissoes": "Berechtigungen",
+    "scripting": "Scripting"
+  },
+  "entries": {
+    "pwd": {
+      "title": "Aktuelles Verzeichnis",
+      "description": "Gibt den absoluten Pfad des aktuellen Arbeitsverzeichnisses aus.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "cd": {
+      "title": "Verzeichnis wechseln",
+      "description": "Wechselt das aktuelle Arbeitsverzeichnis. Ohne Argument geht es ins HOME; 'cd -' springt zum vorherigen zurück.",
+      "examples": [
+        "Geht eine Verzeichnisebene nach oben.",
+        "Wechselt zurück zum vorherigen Verzeichnis."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "ls": {
+      "title": "Dateien auflisten",
+      "description": "Listet den Verzeichnisinhalt im Langformat auf, inklusive versteckter Dateien und lesbarer Größen.",
+      "examples": [],
+      "arguments": [
+        "Langformat (Rechte, Besitzer, Größe, Datum).",
+        "Schließt versteckte Dateien ein (beginnen mit Punkt).",
+        "Lesbare Größen (K, M, G)."
+      ],
+      "warnings": []
+    },
+    "cp": {
+      "title": "Dateien kopieren",
+      "description": "Kopiert Dateien oder Verzeichnisse; -r kopiert Verzeichnisse rekursiv.",
+      "examples": [],
+      "arguments": [
+        "Kopiert Verzeichnisse rekursiv.",
+        "Fragt vor dem Überschreiben nach."
+      ],
+      "warnings": [
+        "Ohne -i überschreibt cp das Ziel ohne Warnung."
+      ]
+    },
+    "mv": {
+      "title": "Verschieben oder umbenennen",
+      "description": "Verschiebt oder benennt Dateien und Verzeichnisse um. Das ist der Standardweg zum Umbenennen in der Shell.",
+      "examples": [],
+      "arguments": [
+        "Fragt vor dem Überschreiben des Ziels nach."
+      ],
+      "warnings": [
+        "Überschreibt das Ziel stillschweigend, falls es bereits existiert."
+      ]
+    },
+    "rm-rf": {
+      "title": "Rekursiv löschen",
+      "description": "Löscht Dateien und Verzeichnisse rekursiv und ohne Rückfrage. Nicht rückgängig zu machen.",
+      "examples": [],
+      "arguments": [
+        "Rekursiv (Verzeichnisse).",
+        "Erzwingt das Löschen, ohne zu fragen."
+      ],
+      "warnings": [
+        "Es gibt keinen Papierkorb: Das Löschen ist endgültig.",
+        "Führe niemals 'rm -rf /' oder Aufrufe mit leeren Variablen aus (z. B. rm -rf $DIR/)."
+      ]
+    },
+    "mkdir-p": {
+      "title": "Verzeichnisse erstellen",
+      "description": "Erstellt Verzeichnisse; -p legt Zwischenverzeichnisse an und schlägt nicht fehl, wenn sie schon existieren.",
+      "examples": [],
+      "arguments": [
+        "Erstellt übergeordnete Verzeichnisse bei Bedarf."
+      ],
+      "warnings": []
+    },
+    "find": {
+      "title": "Dateien finden",
+      "description": "Durchläuft den Verzeichnisbaum und sucht nach Name, Typ, Größe oder Datum.",
+      "examples": [
+        "Löscht .tmp-Dateien, die vor mehr als 7 Tagen geändert wurden."
+      ],
+      "arguments": [
+        "Filtert nach Name (Glob).",
+        "f (Datei) oder d (Verzeichnis).",
+        "Führt pro Treffer einen Befehl aus."
+      ],
+      "warnings": [
+        "'-delete' und '-exec rm' löschen ohne Rückfrage."
+      ]
+    },
+    "grep": {
+      "title": "In Text suchen",
+      "description": "Sucht Zeilen, die auf ein Muster (Regex) passen, rekursiv und ohne Beachtung der Groß-/Kleinschreibung.",
+      "examples": [],
+      "arguments": [
+        "Rekursiv in Verzeichnissen.",
+        "Ignoriert Groß-/Kleinschreibung.",
+        "Zeigt die Zeilennummer an.",
+        "Invertiert: Zeilen, die NICHT passen."
+      ],
+      "warnings": []
+    },
+    "sed": {
+      "title": "Text ersetzen (sed)",
+      "description": "Stream-Editor. Mit -i wird die Datei direkt bearbeitet und alle Vorkommen werden ersetzt.",
+      "examples": [],
+      "arguments": [
+        "Bearbeitet die Datei direkt (in-place).",
+        "Erweiterte Regex."
+      ],
+      "warnings": [
+        "-i ändert die Originaldatei; unter macOS ist ein Suffix nötig: sed -i ''."
+      ]
+    },
+    "awk": {
+      "title": "Spalten verarbeiten (awk)",
+      "description": "Verarbeitet Text nach Feldern/Spalten. Ideal zum Extrahieren und Formatieren tabellarischer Daten.",
+      "examples": [
+        "Listet die Benutzer auf, mit ':' als Feldtrenner."
+      ],
+      "arguments": [
+        "Legt den Feldtrenner fest."
+      ],
+      "warnings": []
+    },
+    "tail-f": {
+      "title": "Datei live verfolgen",
+      "description": "Zeigt das Dateiende an und verfolgt neue Zeilen weiter (nützlich für Logs).",
+      "examples": [],
+      "arguments": [
+        "Verfolgt die Datei in Echtzeit.",
+        "Anzahl der anfangs angezeigten Zeilen (z. B. -n 100)."
+      ],
+      "warnings": []
+    },
+    "pipe": {
+      "title": "Befehle verketten (Pipe)",
+      "description": "Verkettet Befehle, indem die Ausgabe des einen zur Eingabe des nächsten wird.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "redirect": {
+      "title": "Ausgabe umleiten",
+      "description": "Leitet stdout in eine Datei um; 2>&1 leitet zusätzlich stderr um. '>>' hängt an, statt zu überschreiben.",
+      "examples": [
+        "Hängt am Dateiende an."
+      ],
+      "arguments": [],
+      "warnings": [
+        "'>' überschreibt die Zieldatei ohne Warnung."
+      ]
+    },
+    "xargs": {
+      "title": "Befehle aufbauen (xargs)",
+      "description": "Liest Einträge von der Standardeingabe und übergibt sie als Argumente an einen anderen Befehl.",
+      "examples": [
+        "Nutze -print0/-0, um Leerzeichen in Namen sicher zu behandeln."
+      ],
+      "arguments": [
+        "NUL-getrennte Eingabe (Gegenstück zu find -print0).",
+        "Ersetzt {} bei jedem Aufruf durch den Eintrag."
+      ],
+      "warnings": [
+        "In Kombination mit rm/mv können viele Dateien auf einmal gelöscht werden."
+      ]
+    },
+    "export": {
+      "title": "Umgebungsvariable",
+      "description": "Setzt eine Variable und exportiert sie an die Kindprozesse der Shell.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Exportiere keine Secrets in geteilten Verläufen; nutze lieber .env-Dateien außerhalb der Versionskontrolle."
+      ]
+    },
+    "command-substitution": {
+      "title": "Befehlsersetzung",
+      "description": "Speichert die Ausgabe eines Befehls mit $(...) in einer Variablen.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "for-loop": {
+      "title": "for-Schleife",
+      "description": "Durchläuft eine Liste von Einträgen (Dateien, Wörter, Sequenzen) und führt dabei Befehle aus.",
+      "examples": [
+        "Durchläuft 1 bis 5 mit Brace Expansion."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "if": {
+      "title": "if-Bedingung",
+      "description": "Führt Befehle bedingt aus. [ -f ] prüft auf Datei; [ -d ] auf Verzeichnis; [ -z ] auf leeren String.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Setze Variablen in Tests immer in Anführungszeichen: [ -n \"$VAR\" ] vermeidet Fehler bei leeren Werten."
+      ]
+    },
+    "function": {
+      "title": "Funktion definieren",
+      "description": "Erstellt eine wiederverwendbare Funktion im Skript oder in der interaktiven Shell; $1..$n sind die Argumente.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "shebang": {
+      "title": "Shebang und set -euo",
+      "description": "Empfohlener Skript-Header: legt den Interpreter fest und aktiviert den strikten Modus (Fehler, undefinierte Variablen und fehlgeschlagene Pipes brechen ab).",
+      "examples": [],
+      "arguments": [
+        "Bricht bei jedem fehlgeschlagenen Befehl ab.",
+        "Fehler bei Verwendung einer undefinierten Variable.",
+        "Schlägt fehl, wenn irgendein Schritt der Pipe fehlschlägt."
+      ],
+      "warnings": []
+    },
+    "chmod-x": {
+      "title": "Ausführbar machen",
+      "description": "Fügt einer Datei das Ausführungsrecht hinzu, damit sie direkt gestartet werden kann.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Vermeide 'chmod 777'; vergib nur die nötigen Rechte."
+      ]
+    },
+    "ps-kill": {
+      "title": "Prozesse und beenden",
+      "description": "Listet laufende Prozesse auf. Kombiniere mit kill <PID>, um einen Prozess zu beenden.",
+      "examples": [
+        "Erzwingt das Beenden (SIGKILL) — nur als letztes Mittel."
+      ],
+      "arguments": [],
+      "warnings": [
+        "kill -9 lässt dem Prozess keine Möglichkeit, seinen Zustand zu sichern; versuche zuerst kill (SIGTERM)."
+      ]
+    }
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "description": "Base de données clé-valeur en mémoire — strings, hashes, listes, sets, expiration et pub/sub.",
+  "categories": {
+    "conexao": "Connexion",
+    "strings": "Strings",
+    "keys": "Clés",
+    "hashes": "Hashes",
+    "lists": "Listes",
+    "sets": "Sets",
+    "sorted-sets": "Sorted sets",
+    "pubsub": "Pub/Sub",
+    "server": "Serveur"
+  },
+  "entries": {
+    "redis-cli": {
+      "title": "Ouvrir le CLI",
+      "description": "Ouvre le client interactif connecté au Redis local (port 6379).",
+      "examples": [
+        "Se connecte à un hôte/port avec authentification."
+      ],
+      "arguments": [
+        "Hôte du serveur.",
+        "Port (6379 par défaut).",
+        "Numéro de la base (0-15)."
+      ],
+      "warnings": [
+        "Passer -a <mot de passe> peut exposer le mot de passe dans l'historique du shell."
+      ]
+    },
+    "ping": {
+      "title": "Tester la connexion",
+      "description": "Vérifie que le serveur répond ; retourne PONG quand il est en bonne santé.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "set": {
+      "title": "Définir une valeur",
+      "description": "Écrit une string dans une clé. Options : EX secondes, NX (seulement si elle n'existe pas).",
+      "examples": [
+        "Écrit avec un TTL de 1h uniquement si la clé n'existe pas."
+      ],
+      "arguments": [
+        "Expiration en secondes.",
+        "Ne définit que si la clé n'existe pas."
+      ],
+      "warnings": []
+    },
+    "get": {
+      "title": "Obtenir une valeur",
+      "description": "Lit la valeur string d'une clé ; retourne nil si elle n'existe pas.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "incr": {
+      "title": "Incrémenter un compteur",
+      "description": "Incrémente atomiquement une valeur numérique ; idéal pour les compteurs et le rate limiting.",
+      "examples": [
+        "Incrémente d'une valeur précise."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "del": {
+      "title": "Supprimer une clé",
+      "description": "Supprime une ou plusieurs clés. Retourne le nombre de clés supprimées.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "La suppression est immédiate et irréversible."
+      ]
+    },
+    "exists": {
+      "title": "Vérifier l'existence",
+      "description": "Retourne 1 si la clé existe, 0 sinon.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expire": {
+      "title": "Définir l'expiration",
+      "description": "Définit une durée de vie (TTL) en secondes, après laquelle la clé est supprimée.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ttl": {
+      "title": "Consulter le TTL",
+      "description": "Retourne les secondes restantes avant l'expiration (-1 sans TTL, -2 inexistante).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scan": {
+      "title": "Itérer sur les clés (SCAN)",
+      "description": "Parcourt le keyspace de façon incrémentale et non bloquante. Préférez SCAN à KEYS en production.",
+      "examples": [],
+      "arguments": [
+        "Filtre par motif glob.",
+        "Indication de quantité par itération."
+      ],
+      "warnings": [
+        "Évitez KEYS * en production : il bloque le serveur pendant le parcours."
+      ]
+    },
+    "hset": {
+      "title": "Hash : définir des champs",
+      "description": "Écrit des champs dans un hash (objet). Utilisez HGETALL pour tout lire.",
+      "examples": [
+        "Retourne tous les champs et valeurs du hash."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "lpush": {
+      "title": "Liste : ajouter",
+      "description": "Insère au début d'une liste. Combinez avec RPOP/BRPOP pour des files d'attente.",
+      "examples": [
+        "Liste tous les éléments (de 0 jusqu'à la fin)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "sadd": {
+      "title": "Set : ajouter",
+      "description": "Ajoute des membres uniques à un ensemble. SMEMBERS les liste, SISMEMBER teste l'appartenance.",
+      "examples": [
+        "Retourne tous les membres du set."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "zadd": {
+      "title": "Sorted set : classement",
+      "description": "Ajoute des membres avec un score. Idéal pour les classements et leaderboards.",
+      "examples": [
+        "Top 10 avec les scores, du plus grand au plus petit."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "subscribe": {
+      "title": "Pub/Sub",
+      "description": "S'abonne à un canal ; utilisez PUBLISH canal message sur une autre connexion pour envoyer.",
+      "examples": [
+        "Publie un message dans le canal."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "info": {
+      "title": "État du serveur",
+      "description": "Retourne les métriques du serveur : mémoire, clients, persistance, statistiques.",
+      "examples": [
+        "Affiche uniquement la section mémoire."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "dbsize": {
+      "title": "Nombre de clés",
+      "description": "Retourne le nombre de clés dans la base courante.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "config-get": {
+      "title": "Lire la configuration",
+      "description": "Lit des paramètres de configuration à l'exécution (ex. : limite de mémoire).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "flushdb": {
+      "title": "Vider la base courante",
+      "description": "Supprime TOUTES les clés de la base sélectionnée. Action destructrice et immédiate.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Efface toutes les clés de la base courante sans confirmation et sans retour en arrière."
+      ]
+    },
+    "flushall": {
+      "title": "Vider TOUTES les bases",
+      "description": "Supprime toutes les clés de TOUTES les bases de l'instance. Extrêmement destructeur.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Efface TOUTE l'instance. Ne l'exécutez jamais en production sans certitude absolue."
+      ]
+    }
+  }
+}

@@ -1,0 +1,376 @@
+{
+  "description": "Essential shell commands for administering Linux systems (Debian/Ubuntu and relatives).",
+  "categories": {
+    "Arquivos": "Files",
+    "Diretórios": "Directories",
+    "Permissões": "Permissions",
+    "Processos": "Processes",
+    "Rede": "Network",
+    "Disco": "Disk",
+    "Memória": "Memory",
+    "Usuários": "Users",
+    "Serviços": "Services",
+    "Logs": "Logs",
+    "Compactação": "Compression",
+    "Pesquisa": "Search",
+    "Pacotes": "Packages"
+  },
+  "entries": {
+    "linux-ls": {
+      "title": "List files",
+      "description": "Lists files and directories with details, including hidden ones and human-readable sizes.",
+      "examples": [
+        "Lists everything with permissions, owner, size and date."
+      ],
+      "arguments": [
+        "Long format with details.",
+        "Includes hidden files.",
+        "Human-readable sizes (KB, MB)."
+      ],
+      "warnings": []
+    },
+    "linux-cd": {
+      "title": "Change directory",
+      "description": "Navigates between directories. With no argument, returns to the user's home directory.",
+      "examples": [
+        "Enters the /var/www directory.",
+        "Returns to the previous directory."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-pwd": {
+      "title": "Show current directory",
+      "description": "Prints the absolute path of the current working directory.",
+      "examples": [
+        "Shows where you are in the filesystem."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-mkdir": {
+      "title": "Create directory",
+      "description": "Creates directories; with -p it creates the whole parent tree as needed, with no error if it already exists.",
+      "examples": [
+        "Creates the full folder structure."
+      ],
+      "arguments": [
+        "Creates parent directories as needed."
+      ],
+      "warnings": []
+    },
+    "linux-cp": {
+      "title": "Copy files",
+      "description": "Copies files and directories; -r is required to copy directories recursively.",
+      "examples": [
+        "Copies the site directory to backup."
+      ],
+      "arguments": [
+        "Copies directories recursively.",
+        "Prompts before overwriting."
+      ],
+      "warnings": [
+        "Overwrites the destination without warning; use -i to confirm."
+      ]
+    },
+    "linux-mv": {
+      "title": "Move or rename",
+      "description": "Moves or renames files and directories. It is the standard way to rename on Linux.",
+      "examples": [
+        "Renames the file."
+      ],
+      "arguments": [
+        "Prompts before overwriting."
+      ],
+      "warnings": [
+        "Silently overwrites the destination."
+      ]
+    },
+    "linux-rm": {
+      "title": "Remove files",
+      "description": "Removes files and directories. With -rf, it deletes recursively and without confirmation.",
+      "examples": [
+        "Removes a file.",
+        "Removes the entire build directory without asking."
+      ],
+      "arguments": [
+        "Removes directories recursively.",
+        "Force, no confirmation."
+      ],
+      "warnings": [
+        "rm -rf deletes permanently, with no trash.",
+        "Never run rm -rf / or use it with empty variables (rm -rf $DIR/)."
+      ]
+    },
+    "linux-cat": {
+      "title": "Show file contents",
+      "description": "Concatenates and prints the contents of files to standard output.",
+      "examples": [
+        "Shows the hostname."
+      ],
+      "arguments": [
+        "Numbers the lines."
+      ],
+      "warnings": []
+    },
+    "linux-tail": {
+      "title": "View end of file",
+      "description": "Shows the last lines of a file; with -f it follows new lines in real time (logs).",
+      "examples": [
+        "Follows the nginx log starting from the last 100 lines."
+      ],
+      "arguments": [
+        "Follows the file.",
+        "Number of initial lines."
+      ],
+      "warnings": []
+    },
+    "linux-chmod": {
+      "title": "Change permissions",
+      "description": "Changes the read, write and execute permissions of files and directories.",
+      "examples": [
+        "Makes the script executable.",
+        "Owner reads/writes, others read only."
+      ],
+      "arguments": [
+        "Applies recursively."
+      ],
+      "warnings": [
+        "Avoid chmod -R 777: it gives everyone full permissions, a security risk."
+      ]
+    },
+    "linux-chown": {
+      "title": "Change owner",
+      "description": "Changes the owner and group of files and directories.",
+      "examples": [
+        "Gives ownership of the site to the web server user."
+      ],
+      "arguments": [
+        "Applies recursively."
+      ],
+      "warnings": [
+        "Changing the owner of system files can break services."
+      ]
+    },
+    "linux-ps": {
+      "title": "List processes",
+      "description": "Lists all running processes with owner, CPU/memory usage and command.",
+      "examples": [
+        "Filters the Node processes."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-top": {
+      "title": "Monitor processes",
+      "description": "Shows processes and resource usage in real time, interactively (htop is a friendlier version of top).",
+      "examples": [
+        "Opens the interactive monitor (install with apt install htop)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-kill": {
+      "title": "Terminate process",
+      "description": "Sends a signal to a process by PID. -9 (SIGKILL) forces immediate termination.",
+      "examples": [
+        "Sends SIGTERM (graceful termination).",
+        "Forces termination (SIGKILL)."
+      ],
+      "arguments": [
+        "SIGKILL signal (cannot be ignored)."
+      ],
+      "warnings": [
+        "SIGKILL doesn't let the process save state or release resources."
+      ]
+    },
+    "linux-df": {
+      "title": "Check disk space",
+      "description": "Shows the space usage of mounted partitions in a readable format.",
+      "examples": [
+        "Free and used space per partition."
+      ],
+      "arguments": [
+        "Human-readable sizes."
+      ],
+      "warnings": []
+    },
+    "linux-du": {
+      "title": "Directory size",
+      "description": "Calculates the space used by a directory; -s summarizes and -h uses a readable format.",
+      "examples": [
+        "Size of each item, sorted."
+      ],
+      "arguments": [
+        "Summary (total).",
+        "Human-readable format."
+      ],
+      "warnings": []
+    },
+    "linux-free": {
+      "title": "Check memory usage",
+      "description": "Shows total, used and free RAM and swap in a readable format.",
+      "examples": [
+        "RAM and swap usage."
+      ],
+      "arguments": [
+        "Human-readable format."
+      ],
+      "warnings": []
+    },
+    "linux-grep": {
+      "title": "Search in files",
+      "description": "Searches for a text pattern in files; -r is recursive and -n shows the line number.",
+      "examples": [
+        "Finds TODO in all files under src.",
+        "Case-insensitive regex search in logs."
+      ],
+      "arguments": [
+        "Recursive.",
+        "Line number.",
+        "Ignores case.",
+        "Extended regex."
+      ],
+      "warnings": []
+    },
+    "linux-find": {
+      "title": "Find files",
+      "description": "Searches for files and directories by name, type, size or date, with optional actions.",
+      "examples": [
+        "Finds all .log files starting from the current directory.",
+        "Removes files older than 7 days in /tmp."
+      ],
+      "arguments": [
+        "Filters by name.",
+        "File or directory.",
+        "Filters by modification time."
+      ],
+      "warnings": [
+        "The -delete action removes permanently; test without it first."
+      ]
+    },
+    "linux-tar": {
+      "title": "Compress with tar",
+      "description": "Creates (or extracts) tar archives; -z applies gzip compression. Widely used for backups.",
+      "examples": [
+        "Creates a compressed backup.",
+        "Extracts the archive contents."
+      ],
+      "arguments": [
+        "Creates an archive.",
+        "Extracts.",
+        "Uses gzip.",
+        "Archive file name."
+      ],
+      "warnings": []
+    },
+    "linux-ip": {
+      "title": "Network configuration",
+      "description": "Shows network interfaces and IP addresses. Replaces the old ifconfig.",
+      "examples": [
+        "Lists interfaces and IPs."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-ss": {
+      "title": "View ports and connections",
+      "description": "Lists network sockets: listening ports, protocol and process. Replaces netstat.",
+      "examples": [
+        "Finds which process is listening on port 80."
+      ],
+      "arguments": [
+        "TCP.",
+        "UDP.",
+        "Listening only.",
+        "Shows the process.",
+        "Doesn't resolve names."
+      ],
+      "warnings": []
+    },
+    "linux-ping": {
+      "title": "Test connectivity",
+      "description": "Sends ICMP packets to check whether a host responds and to measure latency.",
+      "examples": [
+        "Sends 4 packets and stops."
+      ],
+      "arguments": [
+        "Number of packets."
+      ],
+      "warnings": []
+    },
+    "linux-systemctl-status": {
+      "title": "Service status",
+      "description": "Shows whether a service is active, its PID and the last log lines.",
+      "examples": [
+        "Checks the state of nginx."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "linux-journalctl": {
+      "title": "View system logs",
+      "description": "Queries systemd logs; -u filters by service and -f follows in real time.",
+      "examples": [
+        "nginx logs from the last hour."
+      ],
+      "arguments": [
+        "Filters by unit/service.",
+        "Follows (tail).",
+        "Filters by time range."
+      ],
+      "warnings": []
+    },
+    "linux-useradd": {
+      "title": "Create user",
+      "description": "Creates a system user; -m creates the home directory and -s sets the default shell.",
+      "examples": [
+        "Creates the deploy user and sets its password."
+      ],
+      "arguments": [
+        "Creates the home directory.",
+        "Sets the shell."
+      ],
+      "warnings": [
+        "On some distros, prefer adduser (more interactive and safer)."
+      ]
+    },
+    "linux-apt-install": {
+      "title": "Install package (Debian/Ubuntu)",
+      "description": "Installs packages on Debian/Ubuntu. Run apt update first to refresh the package list.",
+      "examples": [
+        "Updates the list and installs nginx."
+      ],
+      "arguments": [
+        "Answers yes automatically."
+      ],
+      "warnings": [
+        "Install only from trusted repositories."
+      ]
+    },
+    "linux-ln": {
+      "title": "Create symbolic link",
+      "description": "Creates a symbolic link (shortcut) pointing to another file or directory.",
+      "examples": [
+        "Creates a shortcut to the app directory."
+      ],
+      "arguments": [
+        "Symbolic link (instead of a hard link)."
+      ],
+      "warnings": []
+    },
+    "linux-chmod-x-sudo": {
+      "title": "Run as superuser",
+      "description": "Runs a command with administrator (root) privileges, requiring the user's password.",
+      "examples": [
+        "Restarts nginx with privileges."
+      ],
+      "arguments": [
+        "Opens an interactive root shell."
+      ],
+      "warnings": [
+        "sudo commands have full power over the system; double-check before running."
+      ]
+    }
+  }
+}

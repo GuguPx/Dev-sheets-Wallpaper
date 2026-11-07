@@ -1,4 +1,5 @@
 import { h, clear } from '@/core/dom';
+import { t } from '@/i18n';
 import { appStore } from '@/stores/AppStore';
 import { notesStore } from '@/stores/NotesStore';
 import { content, ContentService } from '@/services/ContentService';
@@ -32,7 +33,7 @@ export class NotesPane {
     const [tech, ...rest] = st.noteEntryKey.split(':');
     const entryId = rest.join(':');
     void notesStore.setForEntry(tech, entryId, this.textarea?.value ?? '').then(() => {
-      bus.emit('toast', { message: '[ nota salva ]', kind: 'success' });
+      bus.emit('toast', { message: t('toast.noteSaved'), kind: 'success' });
       modes.toNormal();
       bus.emit('render');
     });
@@ -47,11 +48,11 @@ export class NotesPane {
     const command = flat ? flat.entry.command : st.noteEntryKey;
 
     const box = h('div', { class: 'notes-box' });
-    box.appendChild(h('div', { class: 'notes-head', text: `NOTE: ${command}` }));
+    box.appendChild(h('div', { class: 'notes-head', text: t('notes.head', { command }) }));
 
     const ta = h('textarea', {
       class: 'notes-area',
-      attrs: { spellcheck: false, 'aria-label': 'conteúdo da nota', rows: 8 },
+      attrs: { spellcheck: false, 'aria-label': t('notes.aria'), rows: 8 },
     }) as HTMLTextAreaElement;
     ta.value = st.noteDraft;
     ta.addEventListener('input', () => appStore.setState({ noteDraft: ta.value }));
@@ -73,7 +74,7 @@ export class NotesPane {
       h('button', {
         class: 'manual-btn',
         attrs: { type: 'button' },
-        text: 'Ctrl+Enter salvar',
+        text: `Ctrl+Enter ${t('notes.save')}`,
         on: { click: () => this.save() },
       }),
     );
@@ -81,7 +82,7 @@ export class NotesPane {
       h('button', {
         class: 'manual-btn',
         attrs: { type: 'button' },
-        text: 'Esc cancelar',
+        text: `Esc ${t('notes.cancel')}`,
         on: {
           click: () => {
             modes.toNormal();

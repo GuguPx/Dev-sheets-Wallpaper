@@ -1,0 +1,194 @@
+{
+  "description": "内存键值数据库 — 字符串、哈希、列表、集合、过期与发布/订阅。",
+  "categories": {
+    "conexao": "连接",
+    "strings": "字符串",
+    "keys": "键",
+    "hashes": "哈希",
+    "lists": "列表",
+    "sets": "集合",
+    "sorted-sets": "有序集合",
+    "pubsub": "发布/订阅",
+    "server": "服务器"
+  },
+  "entries": {
+    "redis-cli": {
+      "title": "打开 CLI",
+      "description": "打开连接到本地 Redis（端口 6379）的交互式客户端。",
+      "examples": [
+        "带认证连接到指定主机/端口。"
+      ],
+      "arguments": [
+        "服务器主机。",
+        "端口（默认 6379）。",
+        "数据库编号 (0-15)。"
+      ],
+      "warnings": [
+        "传递 -a <密码> 可能会把密码暴露在 shell 历史中。"
+      ]
+    },
+    "ping": {
+      "title": "测试连接",
+      "description": "检查服务器是否响应；正常时返回 PONG。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "set": {
+      "title": "设置值",
+      "description": "将字符串写入某个键。选项：EX 秒数，NX（仅在不存在时）。",
+      "examples": [
+        "写入并设置 1 小时 TTL，仅当键不存在时。"
+      ],
+      "arguments": [
+        "过期时间（秒）。",
+        "仅在键不存在时设置。"
+      ],
+      "warnings": []
+    },
+    "get": {
+      "title": "获取值",
+      "description": "读取某个键的字符串值；不存在时返回 nil。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "incr": {
+      "title": "递增计数器",
+      "description": "原子地递增数值；非常适合计数器和限流。",
+      "examples": [
+        "按指定的值递增。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "del": {
+      "title": "删除键",
+      "description": "删除一个或多个键。返回被删除的数量。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "删除立即生效且不可逆。"
+      ]
+    },
+    "exists": {
+      "title": "检查是否存在",
+      "description": "键存在时返回 1，否则返回 0。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expire": {
+      "title": "设置过期时间",
+      "description": "设置以秒为单位的存活时间 (TTL)，到期后该键被删除。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ttl": {
+      "title": "查询 TTL",
+      "description": "返回距离过期的剩余秒数（-1 表示无 TTL，-2 表示不存在）。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scan": {
+      "title": "遍历键 (SCAN)",
+      "description": "以增量、非阻塞的方式遍历 keyspace。在生产环境中请优先使用 SCAN 而非 KEYS。",
+      "examples": [],
+      "arguments": [
+        "按 glob 模式过滤。",
+        "每次迭代的数量提示。"
+      ],
+      "warnings": [
+        "避免在生产环境使用 KEYS *：它在扫描期间会阻塞服务器。"
+      ]
+    },
+    "hset": {
+      "title": "哈希：设置字段",
+      "description": "向哈希（对象）写入字段。使用 HGETALL 读取全部。",
+      "examples": [
+        "返回哈希的所有字段和值。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "lpush": {
+      "title": "列表：添加",
+      "description": "在列表头部插入。配合 RPOP/BRPOP 可实现队列。",
+      "examples": [
+        "列出所有条目（从 0 到末尾）。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "sadd": {
+      "title": "集合：添加",
+      "description": "向集合添加唯一成员。SMEMBERS 列出成员，SISMEMBER 判断是否属于集合。",
+      "examples": [
+        "返回集合的所有成员。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "zadd": {
+      "title": "有序集合：排行",
+      "description": "添加带分数的成员。非常适合排名和排行榜。",
+      "examples": [
+        "带分数的前 10 名，按从高到低排序。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "subscribe": {
+      "title": "发布/订阅",
+      "description": "订阅一个频道；在另一个连接中使用 PUBLISH 频道 消息 来发送。",
+      "examples": [
+        "向频道发布一条消息。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "info": {
+      "title": "服务器状态",
+      "description": "返回服务器指标：内存、客户端、持久化、统计信息。",
+      "examples": [
+        "仅显示内存部分。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "dbsize": {
+      "title": "键的数量",
+      "description": "返回当前数据库中的键数量。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "config-get": {
+      "title": "读取配置",
+      "description": "读取运行时的配置参数（例如：内存上限）。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "flushdb": {
+      "title": "清空当前数据库",
+      "description": "删除所选数据库中的所有键。破坏性操作，立即生效。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "不经确认就删除当前数据库中的所有键，且无法撤销。"
+      ]
+    },
+    "flushall": {
+      "title": "清空所有数据库",
+      "description": "删除实例中所有数据库的全部键。破坏性极强。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "会清空整个实例。没有绝对把握时，切勿在生产环境执行。"
+      ]
+    }
+  }
+}

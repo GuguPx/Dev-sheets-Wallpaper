@@ -1,4 +1,5 @@
 import { appStore } from '@/stores/AppStore';
+import { t } from '@/i18n';
 import { settingsStore } from '@/stores/SettingsStore';
 import { bus } from '@/core/EventBus';
 import { comboFromEvent, isTypingTarget } from '@/utils/keyboard';
@@ -195,7 +196,10 @@ class KeyboardManager {
         break;
       case 'theme':
         settingsStore.cycleTheme();
-        bus.emit('toast', { message: `tema: ${settingsStore.getState().theme}`, kind: 'info' });
+        bus.emit('toast', {
+          message: t('toast.theme', { name: settingsStore.getState().theme }),
+          kind: 'info',
+        });
         break;
       case 'tab':
         selectTechnologyByOrdinal(a.n);

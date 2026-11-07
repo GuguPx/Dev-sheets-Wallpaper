@@ -1,6 +1,8 @@
 import { h, clear } from '@/core/dom';
 import { appStore } from '@/stores/AppStore';
 import { settingsStore } from '@/stores/SettingsStore';
+import { t as tr } from '@/i18n';
+import { displayWidth } from '@/utils/format';
 
 /**
  * Aba "tty": tela de descanso que **esconde os cheat sheets**. Roda uma sessão
@@ -12,7 +14,9 @@ import { settingsStore } from '@/stores/SettingsStore';
  */
 
 type Step =
-  { t: 'cmd'; text: string } | { t: 'out'; text: string; cls?: string } | { t: 'wait'; ms: number };
+  | { t: 'cmd'; text: string }
+  | { t: 'out'; text: string; cls?: string; cell?: number }
+  | { t: 'wait'; ms: number };
 
 const TYPE_MIN = 26; // ms por caractere digitado
 const TYPE_JITTER = 42; // variação para não soar mecânico
@@ -30,19 +34,22 @@ const COL_CHARS = 74;
 const COL_SEPARATOR_PX = 48; // gap + padding da borda entre colunas
 const MAX_COLS = 3;
 
-/** Moldura alinhada por construção (evita contar colunas na mão). */
+/**
+ * Moldura alinhada por construção (evita contar colunas na mão). A largura usa
+ * colunas de terminal — CJK/hangul ocupam 2 — para a borda fechar em qualquer
+ * idioma; textos longos alargam a moldura.
+ */
 function banner(): Step[] {
-  const w = 46;
+  const lines = ['devsheet · tty', tr('idle.banner')];
+  const w = Math.max(46, ...lines.map((l) => displayWidth(l) + 4));
   const rule = '─'.repeat(w - 2);
-  const row = (s: string): Step => ({
-    t: 'out',
-    text: `│ ${s.padEnd(w - 4)} │`,
-    cls: 'idle-banner',
-  });
+  // A célula interna tem largura fixa em `ch` (ver pushLine): mesmo que a fonte
+  // de fallback desenhe CJK um pouco mais estreito que 2 colunas, a borda direita
+  // continua alinhada com os cantos.
+  const row = (s: string): Step => ({ t: 'out', text: s, cls: 'idle-banner', cell: w - 4 });
   return [
     { t: 'out', text: `╭${rule}╮`, cls: 'idle-banner' },
-    row('devsheet · tty'),
-    row('sessão ociosa — sheets ocultos'),
+    ...lines.map(row),
     { t: 'out', text: `╰${rule}╯`, cls: 'idle-banner' },
   ];
 }
@@ -294,7 +301,7 @@ class Feed {
         this.typeCommand(step.text);
         return;
       case 'out':
-        this.pushLine(step.text, step.cls);
+        this.pushLine(step.text, step.cls, step.cell);
         this.step++;
         this.schedule(OUT_STEP);
         return;
@@ -341,8 +348,21 @@ class Feed {
     this.schedule(AFTER_CMD);
   }
 
-  private pushLine(text: string, cls?: string): void {
-    this.append(h('div', { class: ['idle-line', cls], text }));
+  private pushLine(text: string, cls?: string, cell?: number): void {
+    if (cell === undefined) {
+      this.append(h('div', { class: ['idle-line', cls], text }));
+      return;
+    }
+    // Linha de moldura: "│ " + célula de largura fixa + " │".
+    this.append(
+      h(
+        'div',
+        { class: ['idle-line', cls] },
+        '│ ',
+        h('span', { class: 'idle-cell', style: { width: `${cell}ch` }, text }),
+        ' │',
+      ),
+    );
   }
 
   private append(row: HTMLElement): void {
@@ -357,7 +377,7 @@ class Feed {
   private renderStatic(): void {
     for (const s of this.steps) {
       if (this.el.childElementCount >= STATIC_LINES) break;
-      if (s.t === 'out') this.pushLine(s.text, s.cls);
+      if (s.t === 'out') this.pushLine(s.text, s.cls, s.cell);
       else if (s.t === 'cmd') {
         const row = h('div', { class: 'idle-line' });
         row.appendChild(h('span', { class: 'idle-prompt', text: this.prompt }));
@@ -378,6 +398,14 @@ export class IdlePane {
   private resizeTimer = 0;
   /** Guardado em campo: um ResizeObserver sem referência pode ser coletado. */
   private readonly ro: ResizeObserver;
+  private readonly titleEl = h('span', { text: tr('idle.title') });
+  private readonly sideEl = h('span', { class: 'pane-title-side', text: tr('idle.fictional') });
+
+  /** Re-traduz o título (chamado pela shell em cada render). */
+  private syncTitle(): void {
+    this.titleEl.textContent = tr('idle.title');
+    this.sideEl.textContent = tr('idle.fictional');
+  }
 
   constructor() {
     this.el.appendChild(
@@ -388,9 +416,9 @@ export class IdlePane {
           'div',
           { class: 'pane-title-main' },
           h('span', { class: 'pane-ic pane-ic-tty', text: '▮' }),
-          h('span', { text: 'TTY · tela de descanso' }),
+          this.titleEl,
         ),
-        h('span', { class: 'pane-title-side', text: 'saída fictícia' }),
+        this.sideEl,
       ),
     );
     this.el.appendChild(this.screen);
@@ -417,6 +445,7 @@ export class IdlePane {
   }
 
   start(): void {
+    this.syncTitle();
     // Já rodando: não reinicia a animação, mas revalida as colunas — este é o
     // caminho que sempre funciona, mesmo se nenhum evento de resize chegar.
     if (this.running) {

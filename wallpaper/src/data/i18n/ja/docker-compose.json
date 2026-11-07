@@ -1,0 +1,156 @@
+{
+  "description": "Docker Compose v2 によるマルチコンテナのオーケストレーション — ライフサイクル、サービス、ログ、ビルド。",
+  "categories": {
+    "ciclo-de-vida": "ライフサイクル",
+    "servicos": "サービス",
+    "build": "ビルド",
+    "logs": "ログ",
+    "manutencao": "メンテナンス"
+  },
+  "entries": {
+    "up": {
+      "title": "サービスを起動",
+      "description": "すべてのサービスを作成し、バックグラウンド (detached) で起動する。",
+      "examples": [
+        "指定したサービスのみ起動する。"
+      ],
+      "arguments": [
+        "バックグラウンドで実行する。",
+        "起動前にイメージを再ビルドする。"
+      ],
+      "warnings": []
+    },
+    "up-build": {
+      "title": "再ビルドして起動",
+      "description": "イメージを再ビルドしてサービスを起動する。Dockerfile を変更した後に使う。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "down": {
+      "title": "サービスを停止・削除",
+      "description": "コンテナと compose が作成したデフォルトネットワークを停止・削除する。ボリュームは保持される。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "コンテナが削除されるため、名前付きボリューム以外のデータは失われる。"
+      ]
+    },
+    "down-volumes": {
+      "title": "停止してボリュームも削除",
+      "description": "コンテナとネットワークに加え、名前付きボリュームも削除する — 永続化されたデータ (例: データベース) が消える。",
+      "examples": [],
+      "arguments": [
+        "compose で宣言された名前付きボリュームを削除する。"
+      ],
+      "warnings": [
+        "ボリューム内のデータ (データベース、アップロード) が破壊される。元に戻せない。"
+      ]
+    },
+    "ps": {
+      "title": "サービス一覧",
+      "description": "プロジェクトのコンテナの状態 (ステータス、ポート、ヘルス) を表示する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "logs": {
+      "title": "ログを表示",
+      "description": "全サービスの集約ログを追跡する。名前を渡すと絞り込める。",
+      "examples": [
+        "web サービスの直近 100 行から追跡する。"
+      ],
+      "arguments": [
+        "リアルタイムで追跡する。",
+        "最初に表示する行数。"
+      ],
+      "warnings": []
+    },
+    "build": {
+      "title": "イメージをビルド",
+      "description": "Dockerfile を持つサービスのイメージをビルド (または再ビルド) する。",
+      "examples": [
+        "ビルド時にレイヤーキャッシュを使わない。"
+      ],
+      "arguments": [
+        "ビルドキャッシュを使わない。"
+      ],
+      "warnings": []
+    },
+    "pull": {
+      "title": "イメージを取得",
+      "description": "'image:' で定義されたサービスの最新イメージを取得する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "restart": {
+      "title": "サービスを再起動",
+      "description": "実行中のコンテナを再作成せずに再起動する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "イメージや設定の変更は反映されない — その場合は 'up -d --build' を使う。"
+      ]
+    },
+    "stop": {
+      "title": "削除せずに停止",
+      "description": "コンテナを削除せずに停止し、後で 'start' ですぐ再開できるようにする。",
+      "examples": [
+        "停止したコンテナを再び起動する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "exec": {
+      "title": "コンテナ内で実行",
+      "description": "実行中のコンテナ内でシェルを開く (またはコマンドを実行する)。",
+      "examples": [
+        "データベースサービス内で psql を開く。"
+      ],
+      "arguments": [],
+      "warnings": [
+        "コンテナ内で行った変更は、コンテナが再作成されると失われる。"
+      ]
+    },
+    "run": {
+      "title": "使い捨てコンテナを実行",
+      "description": "サービスの新しいコンテナで単発のコマンドを実行し、終了後に削除する。",
+      "examples": [],
+      "arguments": [
+        "終了時にコンテナを削除する。"
+      ],
+      "warnings": []
+    },
+    "config": {
+      "title": "設定の検証・展開",
+      "description": "最終的な compose を出力し検証する (変数の解決、ファイルのマージ済み)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "top": {
+      "title": "コンテナのプロセス",
+      "description": "各サービス内で実行中のプロセスを表示する。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scale": {
+      "title": "サービスをスケール",
+      "description": "サービスの複数レプリカを起動する (ホストのポートを固定していないことが条件)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "rm": {
+      "title": "停止済みを削除",
+      "description": "既に停止しているサービスのコンテナを削除する。",
+      "examples": [],
+      "arguments": [
+        "確認を求めない。"
+      ],
+      "warnings": []
+    }
+  }
+}

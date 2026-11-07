@@ -1,4 +1,5 @@
 import { h } from '@/core/dom';
+import { t } from '@/i18n';
 
 /**
  * Confirmação de comando destrutivo (seção 14). Bloqueia o teclado global
@@ -14,7 +15,7 @@ export function confirmDanger(command: string, warnings: string[]): Promise<bool
     const box = h(
       'div',
       { class: 'confirm-box', role: 'alertdialog' },
-      h('div', { class: 'confirm-head', text: 'WARNING: destructive command' }),
+      h('div', { class: 'confirm-head', text: t('confirm.title') }),
       h('pre', { class: 'confirm-cmd', text: command }),
       warnings.length
         ? h(
@@ -24,11 +25,11 @@ export function confirmDanger(command: string, warnings: string[]): Promise<bool
           )
         : h('div', {
             class: 'confirm-warn',
-            text: 'Este comando pode ser destrutivo. Copie com cautela.',
+            text: t('confirm.generic'),
           }),
       h('div', {
         class: 'confirm-hint',
-        text: 'Press Y again to copy · Esc to cancel',
+        text: t('confirm.hint'),
       }),
     );
     const overlay = h('div', { class: 'overlay confirm-overlay' }, box);

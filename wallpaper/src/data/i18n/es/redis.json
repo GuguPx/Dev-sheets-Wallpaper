@@ -1,0 +1,194 @@
+{
+  "description": "Base de datos clave-valor en memoria — strings, hashes, listas, sets, expiración y pub/sub.",
+  "categories": {
+    "conexao": "Conexión",
+    "strings": "Strings",
+    "keys": "Keys",
+    "hashes": "Hashes",
+    "lists": "Listas",
+    "sets": "Sets",
+    "sorted-sets": "Sorted sets",
+    "pubsub": "Pub/Sub",
+    "server": "Servidor"
+  },
+  "entries": {
+    "redis-cli": {
+      "title": "Abrir el CLI",
+      "description": "Abre el cliente interactivo conectado al Redis local (puerto 6379).",
+      "examples": [
+        "Conecta a un host/puerto con autenticación."
+      ],
+      "arguments": [
+        "Host del servidor.",
+        "Puerto (por defecto 6379).",
+        "Número de la base (0-15)."
+      ],
+      "warnings": [
+        "Pasar -a <contraseña> puede exponer la contraseña en el historial del shell."
+      ]
+    },
+    "ping": {
+      "title": "Probar conexión",
+      "description": "Verifica si el servidor responde; devuelve PONG cuando está sano.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "set": {
+      "title": "Definir valor",
+      "description": "Guarda un string en una clave. Opciones: EX segundos, NX (solo si no existe).",
+      "examples": [
+        "Guarda con TTL de 1h solo si la clave no existe."
+      ],
+      "arguments": [
+        "Expiración en segundos.",
+        "Solo define si la clave no existe."
+      ],
+      "warnings": []
+    },
+    "get": {
+      "title": "Obtener valor",
+      "description": "Lee el valor string de una clave; devuelve nil si no existe.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "incr": {
+      "title": "Incrementar contador",
+      "description": "Incrementa atómicamente un valor numérico; ideal para contadores y rate limiting.",
+      "examples": [
+        "Incrementa en un valor específico."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "del": {
+      "title": "Eliminar clave",
+      "description": "Elimina una o más claves. Devuelve cuántas se eliminaron.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "La eliminación es inmediata e irreversible."
+      ]
+    },
+    "exists": {
+      "title": "Verificar existencia",
+      "description": "Devuelve 1 si la clave existe, 0 en caso contrario.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expire": {
+      "title": "Definir expiración",
+      "description": "Define un tiempo de vida (TTL) en segundos, tras el cual la clave se elimina.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ttl": {
+      "title": "Consultar TTL",
+      "description": "Devuelve los segundos restantes hasta la expiración (-1 sin TTL, -2 inexistente).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scan": {
+      "title": "Iterar claves (SCAN)",
+      "description": "Recorre el keyspace de forma incremental y no bloqueante. Prefiere SCAN a KEYS en producción.",
+      "examples": [],
+      "arguments": [
+        "Filtra por patrón glob.",
+        "Pista de cantidad por iteración."
+      ],
+      "warnings": [
+        "Evita KEYS * en producción: bloquea el servidor durante el recorrido."
+      ]
+    },
+    "hset": {
+      "title": "Hash: definir campos",
+      "description": "Guarda campos en un hash (objeto). Usa HGETALL para leerlo todo.",
+      "examples": [
+        "Devuelve todos los campos y valores del hash."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "lpush": {
+      "title": "Lista: añadir",
+      "description": "Inserta al inicio de una lista. Combínalo con RPOP/BRPOP para colas.",
+      "examples": [
+        "Lista todos los elementos (de 0 hasta el final)."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "sadd": {
+      "title": "Set: añadir",
+      "description": "Añade miembros únicos a un conjunto. SMEMBERS lista, SISMEMBER comprueba pertenencia.",
+      "examples": [
+        "Devuelve todos los miembros del set."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "zadd": {
+      "title": "Sorted set: ranking",
+      "description": "Añade miembros con puntuación. Ideal para rankings y leaderboards.",
+      "examples": [
+        "Top 10 con puntuaciones, de mayor a menor."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "subscribe": {
+      "title": "Pub/Sub",
+      "description": "Se suscribe a un canal; usa PUBLISH canal mensaje en otra conexión para enviar.",
+      "examples": [
+        "Publica un mensaje en el canal."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "info": {
+      "title": "Estado del servidor",
+      "description": "Devuelve métricas del servidor: memoria, clientes, persistencia, estadísticas.",
+      "examples": [
+        "Muestra solo la sección de memoria."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "dbsize": {
+      "title": "Número de claves",
+      "description": "Devuelve la cantidad de claves en la base actual.",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "config-get": {
+      "title": "Leer configuración",
+      "description": "Lee parámetros de configuración en tiempo de ejecución (p. ej.: límite de memoria).",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "flushdb": {
+      "title": "Vaciar base actual",
+      "description": "Elimina TODAS las claves de la base seleccionada. Acción destructiva e inmediata.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Borra todas las claves de la base actual sin confirmación y sin posibilidad de deshacer."
+      ]
+    },
+    "flushall": {
+      "title": "Vaciar TODAS las bases",
+      "description": "Elimina todas las claves de TODAS las bases de la instancia. Extremadamente destructivo.",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "Borra TODA la instancia. Nunca lo ejecutes en producción sin certeza absoluta."
+      ]
+    }
+  }
+}

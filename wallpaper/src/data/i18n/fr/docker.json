@@ -1,0 +1,325 @@
+{
+  "description": "Plateforme de containers pour empaqueter, distribuer et exécuter des applications isolées.",
+  "categories": {
+    "Containers": "Containers",
+    "Imagens": "Images",
+    "Volumes": "Volumes",
+    "Redes": "Réseaux",
+    "Logs": "Logs",
+    "Build": "Build",
+    "Limpeza": "Nettoyage",
+    "Inspeção": "Inspection",
+    "Registro": "Registry",
+    "Segurança": "Sécurité"
+  },
+  "entries": {
+    "docker-run": {
+      "title": "Exécuter un container",
+      "description": "Crée et démarre un container à partir d'une image, en la téléchargeant depuis le registry si nécessaire.",
+      "examples": [
+        "Exécute l'image de test de Docker.",
+        "Lance nginx en arrière-plan, en publiant le port 80 sur 8080."
+      ],
+      "arguments": [
+        "Mode détaché (background).",
+        "Publie un port.",
+        "Nomme le container.",
+        "Supprime le container à l'arrêt.",
+        "Définit une variable d'environnement."
+      ],
+      "warnings": []
+    },
+    "docker-ps": {
+      "title": "Lister les containers",
+      "description": "Liste les containers en cours d'exécution, avec id, image, ports et statut.",
+      "examples": [
+        "Affiche les containers actifs.",
+        "Inclut les containers arrêtés."
+      ],
+      "arguments": [
+        "Inclut les containers arrêtés.",
+        "Affiche uniquement les IDs."
+      ],
+      "warnings": []
+    },
+    "docker-exec": {
+      "title": "Exécuter une commande dans un container",
+      "description": "Exécute une commande dans un container en cours d'exécution, utile pour ouvrir un shell interactif.",
+      "examples": [
+        "Ouvre un shell dans le container web.",
+        "Ouvre psql dans le container de la base de données."
+      ],
+      "arguments": [
+        "Garde l'entrée standard ouverte (interactif).",
+        "Alloue un pseudo-terminal."
+      ],
+      "warnings": []
+    },
+    "docker-stop": {
+      "title": "Arrêter un container",
+      "description": "Envoie SIGTERM au processus principal du container puis, après le timeout, SIGKILL, pour l'arrêter proprement.",
+      "examples": [
+        "Arrête le container web.",
+        "Arrête tous les containers en cours d'exécution."
+      ],
+      "arguments": [
+        "Secondes à attendre avant le SIGKILL."
+      ],
+      "warnings": [
+        "Les processus qui ne gèrent pas SIGTERM peuvent perdre des données non sauvegardées."
+      ]
+    },
+    "docker-rm": {
+      "title": "Supprimer un container",
+      "description": "Supprime un ou plusieurs containers arrêtés. Utilisez -f pour forcer la suppression de containers en cours d'exécution.",
+      "examples": [
+        "Supprime le container arrêté web.",
+        "Force la suppression de tous les containers."
+      ],
+      "arguments": [
+        "Force la suppression même en cours d'exécution.",
+        "Supprime les volumes anonymes associés."
+      ],
+      "warnings": [
+        "Supprimer un container efface son système de fichiers interne (les données hors volumes sont perdues)."
+      ]
+    },
+    "docker-logs": {
+      "title": "Voir les logs du container",
+      "description": "Affiche la sortie standard et d'erreur d'un container, utile pour le débogage.",
+      "examples": [
+        "Affiche les logs du container web.",
+        "Suit en temps réel les 100 dernières lignes."
+      ],
+      "arguments": [
+        "Suit la sortie (follow).",
+        "Affiche uniquement les n dernières lignes.",
+        "Ajoute des timestamps."
+      ],
+      "warnings": []
+    },
+    "docker-stats": {
+      "title": "Surveiller l'utilisation des ressources",
+      "description": "Affiche la consommation de CPU, mémoire, réseau et I/O des containers en temps réel.",
+      "examples": [
+        "Affiche les ressources de tous les containers actifs.",
+        "Affiche un instantané unique, sans rafraîchir."
+      ],
+      "arguments": [
+        "Affiche une lecture puis quitte."
+      ],
+      "warnings": []
+    },
+    "docker-inspect": {
+      "title": "Inspecter un objet",
+      "description": "Retourne des métadonnées détaillées en JSON sur des containers, images, volumes ou réseaux.",
+      "examples": [
+        "Affiche toutes les métadonnées du container web.",
+        "Extrait uniquement l'IP avec un template Go."
+      ],
+      "arguments": [
+        "Formate la sortie avec un template Go."
+      ],
+      "warnings": []
+    },
+    "docker-images": {
+      "title": "Lister les images",
+      "description": "Liste les images stockées localement, avec dépôt, tag, id et taille.",
+      "examples": [
+        "Liste les images locales."
+      ],
+      "arguments": [
+        "Affiche uniquement les IDs."
+      ],
+      "warnings": []
+    },
+    "docker-pull": {
+      "title": "Télécharger une image",
+      "description": "Télécharge une image depuis un registry (par défaut Docker Hub) pour un usage local.",
+      "examples": [
+        "Télécharge l'image Node 20 en variante alpine."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Fixez toujours un tag précis ; le tag latest change avec le temps et nuit à la reproductibilité."
+      ]
+    },
+    "docker-build": {
+      "title": "Construire une image",
+      "description": "Construit une image à partir d'un Dockerfile dans le contexte courant, en appliquant un nom et un tag.",
+      "examples": [
+        "Construit l'image mon-app:1.0 avec le Dockerfile courant.",
+        "Build multi-stage ciblant l'étape prod, avec un argument de build."
+      ],
+      "arguments": [
+        "Définit le nom:tag de l'image.",
+        "Désigne un Dockerfile alternatif.",
+        "Construit jusqu'à une étape précise (multi-stage).",
+        "Passe des arguments de build."
+      ],
+      "warnings": [
+        "Évitez de copier des fichiers sensibles ; utilisez .dockerignore pour réduire le contexte et protéger les secrets."
+      ]
+    },
+    "docker-tag": {
+      "title": "Renommer/étiqueter une image",
+      "description": "Crée une nouvelle référence (tag) pour une image existante, généralement avant de l'envoyer à un registry.",
+      "examples": [
+        "Prépare l'image pour un push vers le registry privé."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-push": {
+      "title": "Envoyer une image au registry",
+      "description": "Envoie une image locale vers un registry distant, avec login préalable requis s'il est privé.",
+      "examples": [
+        "Publie l'image dans le registry."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Vérifiez que l'image ne contient pas de secrets avant de la publier."
+      ]
+    },
+    "docker-login": {
+      "title": "S'authentifier auprès d'un registry",
+      "description": "S'authentifie auprès du registry pour permettre le pull et le push d'images privées.",
+      "examples": [
+        "S'authentifie sur Docker Hub.",
+        "Login non interactif lisant le token sur l'entrée standard."
+      ],
+      "arguments": [
+        "Lit le mot de passe/token depuis stdin (évite de l'exposer dans l'historique)."
+      ],
+      "warnings": [
+        "Ne passez pas le mot de passe via --password en ligne de commande ; il reste dans l'historique du shell."
+      ]
+    },
+    "docker-rmi": {
+      "title": "Supprimer une image",
+      "description": "Supprime une ou plusieurs images locales. Échoue si des containers utilisent l'image.",
+      "examples": [
+        "Supprime l'image node:18."
+      ],
+      "arguments": [
+        "Force la suppression."
+      ],
+      "warnings": [
+        "Les images supprimées devront être retéléchargées ou reconstruites."
+      ]
+    },
+    "docker-volume-create": {
+      "title": "Créer un volume",
+      "description": "Crée un volume géré par Docker pour persister des données en dehors du cycle de vie du container.",
+      "examples": [
+        "Crée le volume db-data.",
+        "Monte le volume sur le répertoire de données de Postgres."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-volume-ls": {
+      "title": "Lister les volumes",
+      "description": "Liste les volumes gérés par Docker.",
+      "examples": [
+        "Liste tous les volumes."
+      ],
+      "arguments": [
+        "Uniquement les noms."
+      ],
+      "warnings": []
+    },
+    "docker-network-ls": {
+      "title": "Lister les réseaux",
+      "description": "Liste les réseaux Docker, y compris ceux par défaut (bridge, host, none) et les personnalisés.",
+      "examples": [
+        "Liste les réseaux disponibles."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-network-create": {
+      "title": "Créer un réseau",
+      "description": "Crée un réseau bridge personnalisé, permettant aux containers de communiquer par le nom du service.",
+      "examples": [
+        "Crée le réseau app-net.",
+        "Connecte le container au réseau app-net."
+      ],
+      "arguments": [
+        "Driver du réseau (bridge, overlay...)."
+      ],
+      "warnings": []
+    },
+    "docker-cp": {
+      "title": "Copier des fichiers vers/depuis un container",
+      "description": "Copie des fichiers ou répertoires entre l'hôte et un container.",
+      "examples": [
+        "Copie un fichier du container vers l'hôte.",
+        "Copie de l'hôte vers le container."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-restart": {
+      "title": "Redémarrer un container",
+      "description": "Arrête puis redémarre un container, en appliquant les nouvelles variables d'environnement de l'hôte si nécessaire.",
+      "examples": [
+        "Redémarre le container web."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "docker-system-df": {
+      "title": "Voir l'utilisation du disque",
+      "description": "Affiche l'espace occupé par les images, containers, volumes et le cache.",
+      "examples": [
+        "Résumé de l'utilisation du disque par Docker.",
+        "Détaille par image et par volume."
+      ],
+      "arguments": [
+        "Sortie détaillée."
+      ],
+      "warnings": []
+    },
+    "docker-image-prune": {
+      "title": "Nettoyer les images inutilisées",
+      "description": "Supprime les images pendantes (dangling). Avec -a, supprime toutes les images sans container associé.",
+      "examples": [
+        "Supprime uniquement les images dangling.",
+        "Supprime toutes les images non utilisées par des containers."
+      ],
+      "arguments": [
+        "Supprime toutes les images non utilisées.",
+        "Ne demande pas de confirmation."
+      ],
+      "warnings": [
+        "-a supprime des images que vous devrez peut-être retélécharger."
+      ]
+    },
+    "docker-system-prune": {
+      "title": "Nettoyage général de Docker",
+      "description": "Supprime les containers arrêtés, les réseaux inutilisés, les images pendantes et, avec -a, toutes les images inutilisées.",
+      "examples": [
+        "Nettoyage de base des containers arrêtés et des réseaux orphelins.",
+        "Nettoyage agressif incluant les images et volumes inutilisés."
+      ],
+      "arguments": [
+        "Inclut toutes les images inutilisées.",
+        "Inclut les volumes inutilisés (efface des données !)."
+      ],
+      "warnings": [
+        "--volumes efface les données persistées qui ne sont pas utilisées.",
+        "Ne l'utilisez pas à la légère sur des serveurs de production."
+      ]
+    },
+    "docker-scout": {
+      "title": "Analyser les vulnérabilités",
+      "description": "Analyse une image à la recherche de vulnérabilités connues (CVE), pour renforcer la sécurité de la supply chain.",
+      "examples": [
+        "Liste les CVE trouvées dans l'image."
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

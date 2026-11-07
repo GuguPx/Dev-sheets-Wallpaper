@@ -1,0 +1,7 @@
+# Botão "Sponsor" do GitHub. Use o usuário de cada plataforma (não a URL).
+# Mantenha em sincronia com wallpaper/src/config/support.ts e a seção
+# "Apoie o projeto" do README.
+# Docs: https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+
+buy_me_a_coffee: gataodemane
+ko_fi: gataodemane

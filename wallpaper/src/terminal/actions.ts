@@ -13,6 +13,7 @@ import { copyToClipboard } from '@/services/ClipboardService';
 import { isDestructive } from '@/utils/risk';
 import { modes } from '@/terminal/ModeManager';
 import { confirmDanger } from '@/panes/ConfirmOverlay';
+import { t } from '@/i18n';
 import type { CheatEntry, EntryKey, FlatEntry, Technology } from '@/types';
 
 /** Categoria sintética "todos" (primeiro item da CategoryPane). */
@@ -118,7 +119,7 @@ function clamp(i: number, len: number): number {
 export function selectTechnology(id: string, log = true): void {
   const tech = content.getTechnology(id);
   if (!tech) {
-    bus.emit('toast', { message: `tecnologia não encontrada: ${id}`, kind: 'warning' });
+    bus.emit('toast', { message: t('toast.techNotFound', { tech: id }), kind: 'warning' });
     return;
   }
   appStore.setState({
@@ -236,20 +237,20 @@ export async function copyEntry(flat: FlatEntry | null): Promise<void> {
   if (isDestructive(flat.entry.risk)) {
     const ok = await confirmDanger(cmd, flat.entry.warnings);
     if (!ok) {
-      bus.emit('toast', { message: 'cópia cancelada', kind: 'info' });
+      bus.emit('toast', { message: t('toast.copyCancelled'), kind: 'info' });
       return;
     }
   }
   const ok = await copyToClipboard(cmd);
   if (ok) {
-    bus.emit('toast', { message: `[ copied ] ${cmd}`, kind: 'success' });
+    bus.emit('toast', { message: t('toast.copied', { command: cmd }), kind: 'success' });
     bus.emit('entry:used', {
       technologyId: flat.technologyId,
       entryId: flat.entry.id,
       action: 'copy',
     });
   } else {
-    bus.emit('toast', { message: 'falha ao copiar', kind: 'danger' });
+    bus.emit('toast', { message: t('toast.copyFailed'), kind: 'danger' });
   }
 }
 
@@ -257,7 +258,7 @@ export function toggleFavorite(flat: FlatEntry | null): void {
   if (!flat) return;
   const added = favoritesStore.toggle(flat.technologyId, flat.entry.id);
   bus.emit('toast', {
-    message: `${added ? '★ favoritado' : '☆ removido'}: ${flat.entry.command}`,
+    message: t(added ? 'toast.favorited' : 'toast.unfavorited', { command: flat.entry.command }),
     kind: 'info',
   });
   if (added) {

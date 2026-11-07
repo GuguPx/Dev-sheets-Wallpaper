@@ -1,0 +1,194 @@
+{
+  "description": "インメモリのキーバリューデータベース — 文字列、ハッシュ、リスト、セット、有効期限、Pub/Sub。",
+  "categories": {
+    "conexao": "接続",
+    "strings": "文字列",
+    "keys": "キー",
+    "hashes": "ハッシュ",
+    "lists": "リスト",
+    "sets": "セット",
+    "sorted-sets": "ソート済みセット",
+    "pubsub": "Pub/Sub",
+    "server": "サーバー"
+  },
+  "entries": {
+    "redis-cli": {
+      "title": "CLI を開く",
+      "description": "ローカルの Redis (ポート 6379) に接続した対話型クライアントを開く。",
+      "examples": [
+        "認証付きでホスト/ポートに接続する。"
+      ],
+      "arguments": [
+        "サーバーのホスト。",
+        "ポート (デフォルトは 6379)。",
+        "データベース番号 (0-15)。"
+      ],
+      "warnings": [
+        "-a <パスワード> を渡すと、シェルの履歴にパスワードが残る可能性がある。"
+      ]
+    },
+    "ping": {
+      "title": "接続をテスト",
+      "description": "サーバーが応答するかを確認する。正常なら PONG を返す。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "set": {
+      "title": "値を設定",
+      "description": "キーに文字列を書き込む。オプション: EX 秒数、NX (存在しない場合のみ)。",
+      "examples": [
+        "キーが存在しない場合のみ、TTL 1 時間で書き込む。"
+      ],
+      "arguments": [
+        "有効期限 (秒)。",
+        "キーが存在しない場合のみ設定する。"
+      ],
+      "warnings": []
+    },
+    "get": {
+      "title": "値を取得",
+      "description": "キーの文字列値を読み取る。存在しなければ nil を返す。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "incr": {
+      "title": "カウンターを加算",
+      "description": "数値をアトミックに加算する。カウンターやレート制限に最適。",
+      "examples": [
+        "指定した値だけ加算する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "del": {
+      "title": "キーを削除",
+      "description": "1 つ以上のキーを削除する。削除した件数を返す。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "削除は即座に行われ、元に戻せない。"
+      ]
+    },
+    "exists": {
+      "title": "存在を確認",
+      "description": "キーが存在すれば 1、そうでなければ 0 を返す。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "expire": {
+      "title": "有効期限を設定",
+      "description": "秒単位の生存時間 (TTL) を設定する。経過後にキーが削除される。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "ttl": {
+      "title": "TTL を確認",
+      "description": "有効期限までの残り秒数を返す (-1 は TTL なし、-2 は存在しない)。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "scan": {
+      "title": "キーを反復 (SCAN)",
+      "description": "キースペースを増分的かつブロックせずにたどる。本番では KEYS より SCAN を使うこと。",
+      "examples": [],
+      "arguments": [
+        "glob パターンで絞り込む。",
+        "1 回の反復あたりの件数のヒント。"
+      ],
+      "warnings": [
+        "本番では KEYS * を避けること。走査中にサーバーをブロックする。"
+      ]
+    },
+    "hset": {
+      "title": "ハッシュ: フィールドを設定",
+      "description": "ハッシュ (オブジェクト) にフィールドを書き込む。すべて読むには HGETALL を使う。",
+      "examples": [
+        "ハッシュのすべてのフィールドと値を返す。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "lpush": {
+      "title": "リスト: 追加",
+      "description": "リストの先頭に挿入する。RPOP/BRPOP と組み合わせてキューとして使える。",
+      "examples": [
+        "すべての項目を一覧表示する (0 から末尾まで)。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "sadd": {
+      "title": "セット: 追加",
+      "description": "セットに重複のないメンバーを追加する。SMEMBERS で一覧表示、SISMEMBER で所属を確認する。",
+      "examples": [
+        "セットのすべてのメンバーを返す。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "zadd": {
+      "title": "ソート済みセット: ランキング",
+      "description": "スコア付きでメンバーを追加する。ランキングやリーダーボードに最適。",
+      "examples": [
+        "スコア付きの上位 10 件を、高い順に表示する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "subscribe": {
+      "title": "Pub/Sub",
+      "description": "チャンネルを購読する。別の接続で PUBLISH チャンネル メッセージ を使って送信する。",
+      "examples": [
+        "チャンネルにメッセージを発行する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "info": {
+      "title": "サーバーの状態",
+      "description": "サーバーのメトリクス (メモリ、クライアント、永続化、統計) を返す。",
+      "examples": [
+        "メモリのセクションのみ表示する。"
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "dbsize": {
+      "title": "キーの数",
+      "description": "現在のデータベース内のキーの数を返す。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "config-get": {
+      "title": "設定を読み取る",
+      "description": "実行時の設定パラメータ (例: メモリ上限) を読み取る。",
+      "examples": [],
+      "arguments": [],
+      "warnings": []
+    },
+    "flushdb": {
+      "title": "現在のデータベースを消去",
+      "description": "選択中のデータベースのすべてのキーを削除する。破壊的で即時に実行される。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "確認なしで、元に戻せない形で現在のデータベースのすべてのキーを削除する。"
+      ]
+    },
+    "flushall": {
+      "title": "すべてのデータベースを消去",
+      "description": "インスタンスのすべてのデータベースの全キーを削除する。極めて破壊的。",
+      "examples": [],
+      "arguments": [],
+      "warnings": [
+        "インスタンス全体を消去する。絶対に確信がない限り、本番では実行しないこと。"
+      ]
+    }
+  }
+}

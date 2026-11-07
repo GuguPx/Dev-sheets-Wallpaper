@@ -1,0 +1,487 @@
+{
+  "description": "Système de contrôle de version distribué pour suivre les modifications du code.",
+  "categories": {
+    "Inicialização": "Initialisation",
+    "Status": "Statut",
+    "Staging": "Staging",
+    "Commits": "Commits",
+    "Branches": "Branches",
+    "Merge": "Merge",
+    "Rebase": "Rebase",
+    "Remoto": "Distant",
+    "Histórico": "Historique",
+    "Tags": "Tags",
+    "Stash": "Stash",
+    "Recuperação": "Récupération",
+    "Configuração": "Configuration",
+    "Diagnóstico": "Diagnostic"
+  },
+  "entries": {
+    "git-init": {
+      "title": "Initialiser un dépôt",
+      "description": "Crée un nouveau dépôt Git vide dans le répertoire courant, en générant le dossier .git qui stocke tout l'historique.",
+      "examples": [
+        "Initialise le dépôt dans le répertoire courant.",
+        "Crée le dossier meu-projeto avec la branche initiale nommée main."
+      ],
+      "arguments": [
+        "Définit le nom de la branche initiale (ex. : main).",
+        "Crée un dépôt sans arbre de travail, utilisé sur les serveurs."
+      ],
+      "warnings": []
+    },
+    "git-clone": {
+      "title": "Cloner un dépôt",
+      "description": "Copie un dépôt distant sur la machine locale, historique complet inclus, et configure automatiquement le remote origin.",
+      "examples": [
+        "Clone le dépôt dans le dossier repo.",
+        "Clone superficiel : ne télécharge que le commit le plus récent, utile en CI."
+      ],
+      "arguments": [
+        "Limite l'historique aux n derniers commits (shallow clone).",
+        "Clone directement une branche précise."
+      ],
+      "warnings": []
+    },
+    "git-status": {
+      "title": "Vérifier l'état du dépôt",
+      "description": "Affiche la branche courante, les fichiers modifiés, ceux préparés pour le commit (staged) et ceux pas encore suivis.",
+      "examples": [
+        "Affiche l'état complet de l'arbre de travail.",
+        "Format court : une ligne par fichier (M, A, ??)."
+      ],
+      "arguments": [
+        "Sortie courte et compacte.",
+        "Affiche la branche même au format court."
+      ],
+      "warnings": []
+    },
+    "git-add": {
+      "title": "Ajouter au staging",
+      "description": "Déplace des modifications vers la zone de staging, en les marquant pour le prochain commit.",
+      "examples": [
+        "Ajoute un fichier précis au staging.",
+        "Ajoute toutes les modifications du répertoire courant.",
+        "Mode interactif : choisit morceau par morceau (hunk) ce qui entre dans le commit."
+      ],
+      "arguments": [
+        "Ajoute toutes les modifications, suppressions comprises, dans tout le dépôt.",
+        "Sélectionne interactivement les portions à ajouter."
+      ],
+      "warnings": []
+    },
+    "git-reset-file": {
+      "title": "Retirer du staging",
+      "description": "Retire un fichier de la zone de staging sans perdre les modifications du fichier. Remplace l'ancien git reset <fichier>.",
+      "examples": [
+        "Retire app.ts du staging en conservant les modifications."
+      ],
+      "arguments": [
+        "Agit sur la zone de staging (index) au lieu de l'arbre de travail."
+      ],
+      "warnings": []
+    },
+    "git-restore": {
+      "title": "Annuler les modifications locales",
+      "description": "Annule les modifications non commitées d'un fichier dans l'arbre de travail, en revenant au dernier état commité.",
+      "examples": [
+        "Annule les modifications non enregistrées de config.json.",
+        "Annule les modifications de tous les fichiers suivis."
+      ],
+      "arguments": [
+        "Restaure à partir d'un commit précis."
+      ],
+      "warnings": [
+        "Les modifications annulées ne peuvent pas être récupérées, car elles n'étaient pas commitées."
+      ]
+    },
+    "git-commit": {
+      "title": "Créer un commit",
+      "description": "Enregistre les modifications de la zone de staging dans l'historique du dépôt avec un message descriptif.",
+      "examples": [
+        "Crée un commit avec le message indiqué.",
+        "Ajoute les fichiers déjà suivis et commite en une étape."
+      ],
+      "arguments": [
+        "Définit le message du commit en ligne de commande.",
+        "Inclut automatiquement les fichiers suivis modifiés."
+      ],
+      "warnings": []
+    },
+    "git-commit-amend": {
+      "title": "Corriger le dernier commit",
+      "description": "Remplace le commit le plus récent, permettant de modifier le message ou d'inclure de nouvelles modifications du staging.",
+      "examples": [
+        "Réécrit le message du dernier commit.",
+        "Ajoute le staging au dernier commit sans changer le message."
+      ],
+      "arguments": [
+        "Conserve le message actuel."
+      ],
+      "warnings": [
+        "Réécrit le hash du commit ; ne faites jamais d'amend sur des commits déjà envoyés sur une branche partagée."
+      ]
+    },
+    "git-branch-list": {
+      "title": "Lister les branches",
+      "description": "Liste les branches locales, en signalant la branche courante par un astérisque.",
+      "examples": [
+        "Liste les branches locales.",
+        "Liste les branches locales et distantes."
+      ],
+      "arguments": [
+        "Inclut les branches distantes.",
+        "Affiche uniquement les branches distantes."
+      ],
+      "warnings": []
+    },
+    "git-switch-create": {
+      "title": "Créer et changer de branche",
+      "description": "Crée une nouvelle branche à partir de la courante et bascule directement dessus. Alternative plus claire à git checkout -b.",
+      "examples": [
+        "Crée et bascule sur la branche feature/login."
+      ],
+      "arguments": [
+        "Crée la branche avant de basculer."
+      ],
+      "warnings": []
+    },
+    "git-switch": {
+      "title": "Changer de branche",
+      "description": "Bascule l'arbre de travail vers une autre branche existante. Remplace l'usage de git checkout pour changer de branche.",
+      "examples": [
+        "Revient sur la branche main.",
+        "Bascule sur la branche précédente."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Des modifications non commitées peuvent empêcher le changement ; utilisez git stash avant si nécessaire."
+      ]
+    },
+    "git-branch-delete": {
+      "title": "Supprimer une branche",
+      "description": "Supprime une branche locale déjà fusionnée. Utilisez -D pour forcer la suppression d'une branche non fusionnée.",
+      "examples": [
+        "Supprime la branche si elle a déjà été fusionnée.",
+        "Force la suppression même sans merge (perd les commits exclusifs)."
+      ],
+      "arguments": [
+        "Supprime uniquement si la branche est fusionnée.",
+        "Force la suppression (raccourci de --delete --force)."
+      ],
+      "warnings": [
+        "-D abandonne les commits propres à la branche qui n'existent nulle part ailleurs."
+      ]
+    },
+    "git-merge": {
+      "title": "Fusionner une branche",
+      "description": "Intègre les modifications d'une autre branche dans la branche courante, en créant un commit de merge si nécessaire.",
+      "examples": [
+        "Ramène les commits de feature/login dans la branche courante.",
+        "Crée un commit de merge même quand un fast-forward serait possible."
+      ],
+      "arguments": [
+        "Crée toujours un commit de merge, en préservant l'historique de la branche.",
+        "Annule un merge en conflit et revient à l'état précédent."
+      ],
+      "warnings": [
+        "Peut générer des conflits à résoudre manuellement avant de conclure."
+      ]
+    },
+    "git-merge-abort": {
+      "title": "Annuler un merge en conflit",
+      "description": "Interrompt un merge en cours avec conflits et restaure la branche à l'état précédant le merge.",
+      "examples": [
+        "Annule le merge conflictuel."
+      ],
+      "arguments": [],
+      "warnings": [
+        "Abandonne les résolutions de conflits faites jusqu'ici."
+      ]
+    },
+    "git-rebase": {
+      "title": "Rebaser une branche",
+      "description": "Rejoue les commits de la branche courante sur une autre base, pour un historique linéaire sans commits de merge.",
+      "examples": [
+        "Rejoue les commits de la branche courante sur main.",
+        "Rebase interactif des 3 derniers commits (réordonner, squash, modifier)."
+      ],
+      "arguments": [
+        "Rebase interactif : modifie, réordonne ou combine des commits.",
+        "Rebase sur un point précis."
+      ],
+      "warnings": [
+        "Réécrit les hashes ; ne rebasez pas des commits déjà publiés sur des branches partagées."
+      ]
+    },
+    "git-rebase-continue": {
+      "title": "Continuer le rebase après un conflit",
+      "description": "Poursuit le rebase après avoir résolu les conflits et ajouté les fichiers au staging.",
+      "examples": [
+        "Marque les conflits comme résolus et continue le rebase."
+      ],
+      "arguments": [
+        "Annule le rebase et revient à l'état initial.",
+        "Saute le commit courant en conflit."
+      ],
+      "warnings": []
+    },
+    "git-remote-add": {
+      "title": "Ajouter un dépôt distant",
+      "description": "Associe un dépôt distant à un nom court (généralement origin) pour envoyer et recevoir des modifications.",
+      "examples": [
+        "Définit origin comme remote principal.",
+        "Liste les remotes configurés et leurs URLs."
+      ],
+      "arguments": [
+        "Affiche les URLs (verbose) lors de la liste."
+      ],
+      "warnings": []
+    },
+    "git-fetch": {
+      "title": "Récupérer les modifications distantes",
+      "description": "Télécharge commits, branches et tags du remote sans modifier votre arbre de travail ni faire de merge automatique.",
+      "examples": [
+        "Met à jour les références distantes d'origin.",
+        "Supprime les références locales de branches qui n'existent plus sur le remote."
+      ],
+      "arguments": [
+        "Nettoie les branches distantes qui ont été supprimées.",
+        "Récupère depuis tous les remotes."
+      ],
+      "warnings": []
+    },
+    "git-pull": {
+      "title": "Mettre à jour la branche locale",
+      "description": "Combine fetch et merge : récupère les modifications du remote et les intègre dans la branche courante.",
+      "examples": [
+        "Met à jour la branche courante avec le remote suivi.",
+        "Applique vos commits locaux par-dessus les distants, en évitant un commit de merge."
+      ],
+      "arguments": [
+        "Utilise rebase au lieu de merge pour intégrer."
+      ],
+      "warnings": [
+        "Peut générer des conflits en cas de modifications divergentes."
+      ]
+    },
+    "git-push": {
+      "title": "Envoyer les commits au remote",
+      "description": "Envoie les commits locaux de la branche courante vers le dépôt distant correspondant.",
+      "examples": [
+        "Envoie la branche courante vers le remote déjà suivi.",
+        "Envoie et se met à suivre origin/main comme upstream."
+      ],
+      "arguments": [
+        "Définit l'upstream (suivi) de la branche.",
+        "Force le push en sécurité, en abandonnant si le remote a changé."
+      ],
+      "warnings": [
+        "Évitez --force sur les branches partagées ; préférez --force-with-lease."
+      ]
+    },
+    "git-log": {
+      "title": "Voir l'historique des commits",
+      "description": "Affiche l'historique des commits avec auteur, date et message, du plus récent au plus ancien.",
+      "examples": [
+        "Une ligne par commit, résumé.",
+        "Visualise branches et merges sous forme de graphe."
+      ],
+      "arguments": [
+        "Format compact d'une ligne.",
+        "Dessine le graphe des branches.",
+        "Limite au nombre de commits."
+      ],
+      "warnings": []
+    },
+    "git-diff": {
+      "title": "Comparer les modifications",
+      "description": "Affiche les différences entre l'arbre de travail et le staging, ou entre commits et branches.",
+      "examples": [
+        "Affiche les modifications pas encore ajoutées au staging.",
+        "Affiche ce qui est déjà dans le staging (sera commité).",
+        "Compare deux branches."
+      ],
+      "arguments": [
+        "Compare le staging avec le dernier commit."
+      ],
+      "warnings": []
+    },
+    "git-show": {
+      "title": "Inspecter un commit",
+      "description": "Affiche les détails et le diff d'un commit précis, avec métadonnées et modifications.",
+      "examples": [
+        "Affiche le commit le plus récent et ses modifications."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "git-tag": {
+      "title": "Créer un tag",
+      "description": "Crée un tag annoté, généralement utilisé pour marquer des versions de release (ex. : v1.0.0).",
+      "examples": [
+        "Crée un tag annoté v1.0.0.",
+        "Envoie le tag au remote (les tags ne partent pas avec un push classique)."
+      ],
+      "arguments": [
+        "Crée un tag annoté (avec auteur et message).",
+        "Message du tag."
+      ],
+      "warnings": []
+    },
+    "git-stash": {
+      "title": "Mettre de côté temporairement les modifications",
+      "description": "Enregistre les modifications non commitées dans une pile et nettoie l'arbre de travail, pour changer de contexte.",
+      "examples": [
+        "Met de côté les modifications actuelles.",
+        "Met de côté avec une description."
+      ],
+      "arguments": [
+        "Inclut les fichiers non suivis.",
+        "Ajoute un message au stash."
+      ],
+      "warnings": []
+    },
+    "git-stash-pop": {
+      "title": "Restaurer les modifications mises de côté",
+      "description": "Réapplique le stash le plus récent dans l'arbre de travail et le retire de la pile.",
+      "examples": [
+        "Restaure et supprime le dernier stash.",
+        "Applique un stash précis sans le supprimer."
+      ],
+      "arguments": [
+        "Applique sans retirer de la pile."
+      ],
+      "warnings": [
+        "Peut générer des conflits lors de la réapplication sur un état modifié."
+      ]
+    },
+    "git-reset-soft": {
+      "title": "Annuler un commit en gardant les modifications",
+      "description": "Retire le dernier commit de l'historique mais garde ses modifications dans le staging pour les recommiter.",
+      "examples": [
+        "Annule le dernier commit en préservant les modifications dans le staging."
+      ],
+      "arguments": [
+        "Garde les modifications dans le staging."
+      ],
+      "warnings": [
+        "Modifie l'historique local ; ne l'utilisez pas sur des commits déjà envoyés."
+      ]
+    },
+    "git-reset-hard": {
+      "title": "Abandonner commits et modifications",
+      "description": "Déplace la branche vers un commit et abandonne TOUTES les modifications locales et les commits suivants.",
+      "examples": [
+        "Abandonne toutes les modifications non commitées.",
+        "Force la branche locale à devenir identique au remote."
+      ],
+      "arguments": [
+        "Abandonne le staging et l'arbre de travail."
+      ],
+      "warnings": [
+        "Perd définitivement les modifications non commitées.",
+        "Réécrit l'historique local ; utilisez git reflog pour tenter de récupérer."
+      ]
+    },
+    "git-revert": {
+      "title": "Annuler un commit en toute sécurité",
+      "description": "Crée un nouveau commit qui annule les modifications d'un commit précédent, sans réécrire l'historique.",
+      "examples": [
+        "Crée un commit qui annule le dernier commit."
+      ],
+      "arguments": [
+        "Applique l'annulation sans commiter immédiatement."
+      ],
+      "warnings": [
+        "Idéal pour les branches partagées, car il ne réécrit pas l'historique."
+      ]
+    },
+    "git-reflog": {
+      "title": "Récupérer des commits perdus",
+      "description": "Affiche l'historique des positions du HEAD, permettant de récupérer des commits après un reset ou un rebase.",
+      "examples": [
+        "Liste les positions précédentes du HEAD.",
+        "Ramène le HEAD à un état listé dans le reflog."
+      ],
+      "arguments": [],
+      "warnings": []
+    },
+    "git-cherry-pick": {
+      "title": "Appliquer un commit précis",
+      "description": "Applique les modifications d'un commit précis d'une autre branche dans la branche courante.",
+      "examples": [
+        "Ramène le commit a1b2c3d dans la branche courante."
+      ],
+      "arguments": [
+        "Enregistre le hash d'origine dans le message."
+      ],
+      "warnings": [
+        "Peut générer des conflits ; résolvez-les puis utilisez git cherry-pick --continue."
+      ]
+    },
+    "git-config-user": {
+      "title": "Configurer l'identité",
+      "description": "Définit le nom et l'e-mail utilisés dans les commits. Avec --global, s'applique à tous les dépôts de l'utilisateur.",
+      "examples": [
+        "Définit l'e-mail global des commits.",
+        "Définit le nom uniquement dans ce dépôt."
+      ],
+      "arguments": [
+        "Applique la configuration à l'utilisateur courant.",
+        "Liste toutes les configurations actives."
+      ],
+      "warnings": []
+    },
+    "git-blame": {
+      "title": "Trouver l'auteur de chaque ligne",
+      "description": "Affiche, ligne par ligne, quel commit et quel auteur ont modifié chaque partie d'un fichier.",
+      "examples": [
+        "Affiche l'auteur et le commit de chaque ligne du fichier.",
+        "Limite aux lignes 10 à 20."
+      ],
+      "arguments": [
+        "Restreint à un intervalle de lignes."
+      ],
+      "warnings": []
+    },
+    "git-clean": {
+      "title": "Supprimer les fichiers non suivis",
+      "description": "Efface les fichiers et répertoires non suivis de l'arbre de travail. Utile pour nettoyer les artefacts de build.",
+      "examples": [
+        "Simule (dry-run) : montre ce qui serait supprimé, sans effacer.",
+        "Supprime réellement les fichiers et répertoires non suivis."
+      ],
+      "arguments": [
+        "Dry-run : montre seulement ce qui serait supprimé.",
+        "Force la suppression.",
+        "Inclut les répertoires."
+      ],
+      "warnings": [
+        "Supprime les fichiers définitivement ; lancez d'abord avec -n pour vérifier."
+      ]
+    },
+    "git-log-search": {
+      "title": "Rechercher dans l'historique",
+      "description": "Trouve les commits qui ont ajouté ou supprimé une chaîne précise dans le code (pickaxe), utile pour retracer l'apparition d'un élément.",
+      "examples": [
+        "Liste les commits qui ont introduit ou supprimé le mot TODO.",
+        "Filtre les commits dont le message contient 'fix'."
+      ],
+      "arguments": [
+        "Cherche les modifications qui ajoutent/suppriment le texte.",
+        "Filtre sur le message du commit."
+      ],
+      "warnings": []
+    },
+    "git-remote-set-url": {
+      "title": "Modifier l'URL du remote",
+      "description": "Met à jour l'adresse d'un remote existant, par exemple lors du passage de HTTPS à SSH.",
+      "examples": [
+        "Passe l'URL d'origin en SSH."
+      ],
+      "arguments": [],
+      "warnings": []
+    }
+  }
+}

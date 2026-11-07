@@ -1,4 +1,5 @@
 import { h, clear } from '@/core/dom';
+import { t } from '@/i18n';
 
 export interface BootOptions {
   enabled: boolean;
@@ -20,12 +21,12 @@ export function runBoot(host: HTMLElement, opts: BootOptions): Promise<void> {
 
   const lines = [
     { text: 'DEVSHEET Knowledge System v1.0', cls: 'boot-title' },
-    { text: '[ OK ] Loading technology index', cls: 'boot-ok' },
-    { text: '[ OK ] Loading local favorites', cls: 'boot-ok' },
-    { text: '[ OK ] Building search cache', cls: 'boot-ok' },
-    { text: '[ OK ] Restoring last session', cls: 'boot-ok' },
+    { text: `[ OK ] ${t('boot.loadIndex')}`, cls: 'boot-ok' },
+    { text: `[ OK ] ${t('boot.loadFavorites')}`, cls: 'boot-ok' },
+    { text: `[ OK ] ${t('boot.buildCache')}`, cls: 'boot-ok' },
+    { text: `[ OK ] ${t('boot.restoreSession')}`, cls: 'boot-ok' },
     {
-      text: `${opts.commands} commands indexed · ${opts.technologies} technologies available`,
+      text: t('boot.stats', { commands: opts.commands, technologies: opts.technologies }),
       cls: 'boot-stat',
     },
     { text: `${opts.username}@devsheet:~$ `, cls: 'boot-prompt' },

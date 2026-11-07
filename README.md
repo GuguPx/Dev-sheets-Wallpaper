@@ -8,6 +8,9 @@ estilo **Neovim**, busca estilo **FZF** e detalhes estilo **man page**.
 > Ferramenta **somente de consulta**. O terminal **não executa nenhum comando do sistema** —
 > apenas navega, exibe e copia texto (ver [Segurança](#segurança)).
 
+🌎 **10 idiomas** — Português (Brasil), English, Español, Français, Deutsch, Italiano,
+Русский, 简体中文, 日本語, 한국어 · ☕ [Apoie o projeto](#-apoie-o-projeto--support-the-project)
+
 ```
 ┌─ devsheet ─────────────────────────────────────────────────────────────────┐
 │ [1:git*] [2:docker] [3:compose] [4:linux] [5:bash] [6:ssh] [7:nginx]  …    │
@@ -74,11 +77,14 @@ Abra a URL no navegador. Tudo funciona **offline**, sem back-end.
 | `npm test` | Testes (Vitest). |
 | `npm run typecheck` | Checagem de tipos (sem emitir). |
 | `npm run validate:content` | Valida todos os JSONs de conteúdo com Zod. |
+| `npm run validate:i18n` | Valida as traduções de conteúdo e mostra a cobertura por idioma. |
+| `npm run i18n:extract -- <pasta>` | Gera modelos de tradução (texto pt-BR) por tecnologia. |
+| `npm run i18n:we` | Regera os rótulos traduzidos do painel do Wallpaper Engine (`project.json`). |
 | `npm run gen:index` | Gera `search-index.json` (artefato de inspeção; o bundle não usa). |
 | `npm run lint` / `npm run format` | ESLint / Prettier. |
 
 O CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) roda formatação, lint, tipos,
-validação de conteúdo, testes e build a cada push e pull request.
+validação de conteúdo e das traduções, testes e build a cada push e pull request.
 
 Também há um script único: `pwsh scripts/build.ps1` (valida, testa, builda e empacota).
 
@@ -101,7 +107,7 @@ O build é um **único HTML** com JS, CSS e dados embutidos: nada é baixado em 
 - **Mouse** (fallback): tudo é clicável — abas, categorias, comandos e os botões
   `man`/`copy`/`fav` de cada linha. Importante no Wallpaper Engine (ver abaixo).
 - **Linha de comando interna** (`:`): `open docker`, `search rebase`, `theme ice`,
-  `favorites`, `history`, `about`… (whitelist; nunca toca no sistema).
+  `lang en`, `favorites`, `history`, `about`, `support`… (whitelist; nunca toca no sistema).
 
 ### Aba `tty` — esconder os sheets
 
@@ -146,6 +152,31 @@ cheat sheets de caderno. Efeitos CRT opcionais (scanlines, flicker, glow,
 ruído, vinheta, aberração cromática, curvatura) com nível `off/low/balanced/high` — sutis
 por padrão e desligáveis.
 
+## Idiomas
+
+A interface **e** todo o conteúdo (títulos, descrições, exemplos, opções, avisos e
+categorias dos 224 comandos) estão traduzidos para **10 idiomas**:
+
+| Código | Idioma | Código | Idioma |
+| --- | --- | --- | --- |
+| `pt-BR` | Português (Brasil) — fonte | `it` | Italiano |
+| `en` | English | `ru` | Русский |
+| `es` | Español | `zh-CN` | 简体中文 |
+| `fr` | Français | `ja` | 日本語 |
+| `de` | Deutsch | `ko` | 한국어 |
+
+- **No Wallpaper Engine:** propriedade **Idioma** (seletor) no painel *Customize*. O padrão
+  é **Automático**, que segue o idioma do sistema (fallback: inglês). Os próprios rótulos do
+  painel de propriedades também são traduzidos — o WE usa o idioma escolhido na aba *Geral*
+  das configurações dele.
+- **No navegador/preview:** `:lang ja`, `:lang pt-BR`, `:lang auto` (`:lang` sozinho lista
+  os códigos). A troca é instantânea, sem recarregar.
+- Comandos, flags, ids, risco e chaves de categoria **não mudam** com o idioma — favoritos,
+  notas e histórico continuam valendo. A busca indexa o texto no idioma ativo e entende
+  qualquer alfabeto (cirílico, CJK, hangul).
+- Algo faltando numa tradução cai no pt-BR, campo a campo. Para corrigir ou adicionar um
+  idioma, veja [CONTENT_GUIDE.md](CONTENT_GUIDE.md#traduções).
+
 ## Conteúdo
 
 Atualmente **10 tecnologias / 224 comandos**: git, docker, docker-compose, linux, bash,
@@ -166,15 +197,40 @@ devsheet-wallpaper/
 │       ├── panes/        # abas, categorias, comandos, manual, busca, ajuda, statusline…
 │       ├── services/     # conteúdo, busca, storage, clipboard, wallpaper engine
 │       ├── stores/       # settings, app, favorites, history, notes
-│       ├── schemas/ · types/ · utils/ · data/technologies/ · styles/
-├── scripts/             # validate-content, generate-search-index, build.ps1, copy-to-wallpaper
-├── tests/               # parser, keyboard, search, storage, schemas, modes
+│       ├── i18n/         # t(), idiomas suportados, catálogos da interface (locales/*.ts)
+│       ├── config/       # links de apoio (support.ts)
+│       ├── data/         # technologies/*.json (fonte pt-BR) + i18n/<idioma>/*.json
+│       ├── schemas/ · types/ · utils/ · styles/
+├── scripts/             # validate-content, i18n-content, we-localization, build.ps1, copy-to-wallpaper…
+├── tests/               # parser, keyboard, search, storage, schemas, modes, i18n
 └── README · ARCHITECTURE · CONTENT_GUIDE · KEYBINDINGS · CHANGELOG
 ```
 
 > **Nota de estrutura:** por decisão de DX, há **um único `package.json`/`node_modules`**
 > na raiz (o `wallpaper/package.json` é apenas um marcador). Um segundo tree de
 > dependências seria redundante para um wallpaper.
+
+## ☕ Apoie o projeto · Support the project
+
+Oi! Sou o **Augusto**, um desenvolvedor brasileiro que mora no **interior da Bahia**. O
+devsheet é gratuito, open source e feito no meu tempo livre.
+
+Aqui o real (BRL) vale bem menos que o dólar — **US$ 1 dá cerca de R$ 5** —, então qualquer
+ajuda, por menor que seja, faz muita diferença e me fortalece a produzir mais wallpapers
+incríveis como este. Muito obrigado! 💛
+
+> *Hi! I'm Augusto, a Brazilian developer living in the countryside of Bahia. devsheet is
+> free and made in my spare time. Here the Brazilian real is worth far less than the
+> dollar — **US$ 1 is about R$ 5** — so any help, however small, makes a real difference
+> and gives me the strength to make more amazing wallpapers like this one. Thank you!*
+
+<!-- Links de apoio: mantenha em sincronia com wallpaper/src/config/support.ts e .github/FUNDING.yml -->
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/gataodemane)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white)](https://ko-fi.com/gataodemane)
+
+Dentro do wallpaper, digite **`:support`** (ou `:apoiar`, `:donate`) para ver esta mensagem
+no seu idioma e copiar o link com um clique. Também ajuda muito: deixar uma ⭐ no repositório
+e avaliar/favoritar o wallpaper na Steam Workshop.
 
 ## Contribuindo
 

@@ -1,4 +1,5 @@
 import { h, clear } from '@/core/dom';
+import { t } from '@/i18n';
 import { appStore } from '@/stores/AppStore';
 import {
   visibleTechnologies,
@@ -28,7 +29,7 @@ export class TechnologyTabs {
     const recActive = st.recommendedView && !st.idleView;
     const recTab = h('button', {
       class: ['tab', 'tab-rec', recActive && 'tab-active'],
-      attrs: { type: 'button', title: 'Recomendados / mais usados por desenvolvedores' },
+      attrs: { type: 'button', title: t('tabs.recommendedTitle') },
       style: { '--tab-accent': '#f5b041' },
       on: { click: () => showRecommended() },
     });
@@ -40,7 +41,7 @@ export class TechnologyTabs {
     // Aba "tty": tela de descanso que esconde os sheets (tecla 0).
     const ttyTab = h('button', {
       class: ['tab', 'tab-tty', st.idleView && 'tab-active'],
-      attrs: { type: 'button', title: 'Tela de descanso — esconde os cheat sheets (0)' },
+      attrs: { type: 'button', title: t('tabs.ttyTitle') },
       style: { '--tab-accent': '#7f8c8d' },
       on: { click: () => showIdle() },
     });

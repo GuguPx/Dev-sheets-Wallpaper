@@ -5,6 +5,7 @@ import './styles/crt.css';
 import './styles/responsive.css';
 
 import { bootstrap } from './app';
+import { t } from './i18n';
 
 bootstrap().catch((err) => {
   console.error('Falha ao iniciar devsheet:', err);
@@ -12,7 +13,7 @@ bootstrap().catch((err) => {
   if (root) {
     const pre = document.createElement('pre');
     pre.className = 'fatal';
-    pre.textContent = `Erro ao iniciar: ${String(err)}`;
+    pre.textContent = t('app.startError', { error: String(err) });
     root.appendChild(pre);
   }
 });

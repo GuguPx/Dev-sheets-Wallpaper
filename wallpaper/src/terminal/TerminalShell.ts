@@ -39,7 +39,10 @@ import { ManualPane } from '@/panes/ManualPane';
 import { SearchPane } from '@/panes/SearchPane';
 import { HelpPane } from '@/panes/HelpPane';
 import { NotesPane } from '@/panes/NotesPane';
-import { showInfo } from '@/panes/InfoOverlay';
+import { showInfo, type InfoLine } from '@/panes/InfoOverlay';
+import { t, LANGUAGES, languageName, resolveLocale } from '@/i18n';
+import { activeSupportLinks } from '@/config/support';
+import { copyToClipboard } from '@/services/ClipboardService';
 
 /**
  * Orquestra o layout estilo Tmux (seção 4): abas no topo, grade de painéis
@@ -192,6 +195,13 @@ export class TerminalShell {
       this.renderStatus();
     });
     bus.on('command:submit', ({ line }) => this.runCommand(line));
+    // Troca de idioma: o conteúdo já foi re-traduzido (app.ts); redesenha tudo,
+    // inclusive o overlay aberto (busca/manual/ajuda).
+    bus.on('locale:changed', () => {
+      this.renderMain();
+      this.renderStatus();
+      this.syncOverlay();
+    });
   }
 
   private startClock(): void {
@@ -226,9 +236,12 @@ export class TerminalShell {
       case 'open': {
         if (content.getTechnology(p.tech)) {
           selectTechnology(p.tech);
-          bus.emit('toast', { message: `Loading sheet: ${p.tech}…`, kind: 'info' });
+          bus.emit('toast', { message: t('toast.loadingSheet', { tech: p.tech }), kind: 'info' });
         } else {
-          bus.emit('toast', { message: `tecnologia não encontrada: ${p.tech}`, kind: 'warning' });
+          bus.emit('toast', {
+            message: t('toast.techNotFound', { tech: p.tech }),
+            kind: 'warning',
+          });
         }
         done();
         break;
@@ -236,12 +249,20 @@ export class TerminalShell {
       case 'category': {
         const cats = displayCategories();
         const target = normalize(p.name);
+        const techId = appStore.getState().activeTechnologyId;
         const idx = cats.findIndex(
           (c) =>
-            c !== ALL_CATEGORY && (normalize(c) === target || normalize(titleCase(c)) === target),
+            c !== ALL_CATEGORY &&
+            (normalize(c) === target ||
+              normalize(titleCase(c)) === target ||
+              normalize(content.categoryLabel(techId, c)) === target),
         );
         if (idx >= 0) applyCategoryIndex(idx);
-        else bus.emit('toast', { message: `categoria não encontrada: ${p.name}`, kind: 'warning' });
+        else
+          bus.emit('toast', {
+            message: t('toast.categoryNotFound', { name: p.name }),
+            kind: 'warning',
+          });
         done();
         break;
       }
@@ -267,7 +288,7 @@ export class TerminalShell {
       case 'theme': {
         const ok = settingsStore.setTheme(p.name);
         bus.emit('toast', {
-          message: ok ? `tema: ${p.name}` : `tema inválido: ${p.name}`,
+          message: t(ok ? 'toast.theme' : 'toast.themeInvalid', { name: p.name }),
           kind: ok ? 'info' : 'warning',
         });
         done();
@@ -276,9 +297,9 @@ export class TerminalShell {
       case 'font': {
         if (Number.isFinite(p.size) && p.size >= 8 && p.size <= 40) {
           settingsStore.set({ fontScale: Number((p.size / 15).toFixed(3)) });
-          bus.emit('toast', { message: `fonte: ${p.size}px`, kind: 'info' });
+          bus.emit('toast', { message: t('toast.font', { size: p.size }), kind: 'info' });
         } else {
-          bus.emit('toast', { message: 'tamanho de fonte inválido (8–40)', kind: 'warning' });
+          bus.emit('toast', { message: t('toast.fontInvalid'), kind: 'warning' });
         }
         done();
         break;
@@ -286,11 +307,11 @@ export class TerminalShell {
       case 'margin': {
         if (!p.side) {
           bus.emit('toast', {
-            message: 'lado inválido — use left, right ou bottom',
+            message: t('toast.marginSideInvalid'),
             kind: 'warning',
           });
         } else if (!Number.isFinite(p.px) || p.px < 0 || p.px > 600) {
-          bus.emit('toast', { message: 'margem inválida (0–600px)', kind: 'warning' });
+          bus.emit('toast', { message: t('toast.marginInvalid'), kind: 'warning' });
         } else {
           settingsStore.set(
             p.side === 'left'
@@ -299,8 +320,8 @@ export class TerminalShell {
                 ? { safeRight: p.px }
                 : { safeBottom: p.px },
           );
-          const label = { left: 'esquerda', right: 'direita', bottom: 'base' }[p.side];
-          bus.emit('toast', { message: `margem ${label}: ${p.px}px`, kind: 'info' });
+          const side = t(`margin.${p.side}`);
+          bus.emit('toast', { message: t('toast.margin', { side, px: p.px }), kind: 'info' });
         }
         done();
         break;
@@ -314,9 +335,41 @@ export class TerminalShell {
         modes.toNormal();
         this.showAbout();
         break;
+      case 'lang': {
+        const list = ['auto', ...LANGUAGES.map((l) => l.code)].join(' · ');
+        if (!p.name) {
+          bus.emit('toast', { message: list, kind: 'info', timeout: 4000 });
+        } else {
+          const wanted = p.name.trim();
+          const match =
+            wanted.toLowerCase() === 'auto'
+              ? 'auto'
+              : LANGUAGES.find((l) => l.code.toLowerCase() === wanted.toLowerCase())?.code;
+          if (match && settingsStore.setLanguage(match)) {
+            const name = languageName(resolveLocale(match));
+            bus.emit('toast', {
+              message: t('toast.language', { name: match === 'auto' ? `auto (${name})` : name }),
+              kind: 'info',
+            });
+          } else {
+            bus.emit('toast', {
+              message: t('toast.languageInvalid', { name: wanted, list }),
+              kind: 'warning',
+              timeout: 4000,
+            });
+          }
+        }
+        done();
+        break;
+      }
+      case 'support':
+        appStore.setState({ commandLine: '' });
+        modes.toNormal();
+        this.showSupport();
+        break;
       case 'unknown':
         bus.emit('toast', {
-          message: `comando desconhecido: ${p.input} — digite "help"`,
+          message: t('toast.unknownCommand', { input: p.input }),
           kind: 'warning',
         });
         break;
@@ -330,14 +383,14 @@ export class TerminalShell {
       const cmd = flat ? flat.entry.command : f.entryId;
       return `${pad2(i + 1)}  [${short}]  ${cmd}`;
     });
-    showInfo('FAVORITES', lines);
+    showInfo(t('info.favorites'), lines);
   }
 
   private showHistory(): void {
     const lines = historyStore
       .recentActivity(40)
       .map((a) => `${timeLabel(a.at)}  ${a.kind} ${a.label}`);
-    showInfo('HISTORY', lines);
+    showInfo(t('info.history'), lines);
   }
 
   private showNotes(): void {
@@ -351,18 +404,56 @@ export class TerminalShell {
         const excerpt = n.content.replace(/\s+/g, ' ').slice(0, 60);
         return `${head} — ${excerpt}`;
       });
-    showInfo('NOTES', lines);
+    showInfo(t('info.notes'), lines);
   }
 
   private showAbout(): void {
-    showInfo('ABOUT', [
-      'devsheet — terminal de consulta de cheat sheets (dev & DevOps).',
+    showInfo(t('info.about'), [
+      t('about.tagline'),
       '',
-      'Consulta, busca e cópia 100% offline. Nenhum comando é executado.',
-      'Favoritos e histórico em localStorage; notas em IndexedDB.',
+      t('about.offline'),
+      t('about.storage'),
       '',
-      `${content.totalEntries} comandos · ${content.totalTechnologies} tecnologias`,
-      'Feito com TypeScript puro + Vite para o Wallpaper Engine.',
+      t('about.stats', {
+        commands: content.totalEntries,
+        technologies: content.totalTechnologies,
+      }),
+      t('about.builtWith'),
+      '',
+      { text: t('about.supportHint'), cls: 'info-support', onClick: () => this.showSupport() },
     ]);
+  }
+
+  /** `:support` — mensagem do autor + links de apoio (clique copia). */
+  private showSupport(): void {
+    const links = activeSupportLinks();
+    const lines: InfoLine[] = [
+      t('support.intro'),
+      '',
+      t('support.currency'),
+      '',
+      { text: t('support.thanks'), cls: 'info-support' },
+      '',
+      t('support.links'),
+    ];
+    if (!links.length) {
+      lines.push({ text: t('support.noLinks'), cls: 'info-empty' });
+    }
+    for (const l of links) {
+      lines.push({
+        text: `  ♥ ${l.label.padEnd(16)} ${l.value}`,
+        cls: 'info-support-link',
+        title: l.value,
+        onClick: () => {
+          void copyToClipboard(l.value).then((ok) => {
+            bus.emit('toast', {
+              message: ok ? t('support.copied', { url: l.value }) : t('toast.copyFailed'),
+              kind: ok ? 'success' : 'danger',
+            });
+          });
+        },
+      });
+    }
+    showInfo(t('info.support'), lines);
   }
 }

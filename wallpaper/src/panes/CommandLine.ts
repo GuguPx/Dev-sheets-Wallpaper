@@ -1,4 +1,5 @@
 import { h, clear } from '@/core/dom';
+import { t } from '@/i18n';
 import { appStore } from '@/stores/AppStore';
 import { settingsStore } from '@/stores/SettingsStore';
 import { activeTechnology } from '@/terminal/actions';
@@ -40,7 +41,7 @@ export class CommandLine {
           type: 'text',
           spellcheck: false,
           autocomplete: 'off',
-          'aria-label': 'comando interno',
+          'aria-label': t('cmdline.aria'),
         },
       }) as HTMLInputElement;
       input.value = st.commandLine;
@@ -60,8 +61,8 @@ export class CommandLine {
     } else {
       const hint = h('button', {
         class: 'cl-hint',
-        attrs: { type: 'button', title: 'abrir linha de comando (:)' },
-        text: 'digite : para comandos internos · / para buscar',
+        attrs: { type: 'button', title: t('cmdline.title') },
+        text: t('cmdline.hint'),
         on: { click: () => modes.toCommand() },
       });
       this.el.appendChild(hint);

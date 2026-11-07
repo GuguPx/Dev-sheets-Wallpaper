@@ -571,6 +571,13 @@
   color: var(--accent);
   opacity: 0.85;
 }
+/* célula interna da moldura: largura fixa em ch alinha a borda em qualquer idioma */
+.idle-cell {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  white-space: pre;
+}
 .idle-head {
   color: var(--accent);
   font-weight: 600;
@@ -970,8 +977,34 @@
   color: var(--fg);
   white-space: pre-wrap;
 }
+/* linha em branco ('') separa parágrafos */
+.info-line:empty {
+  min-height: 1.2em;
+}
 .info-empty {
   color: var(--dim);
+}
+/* Itens clicáveis (ex.: links de apoio — copiam ao clicar) */
+.info-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 0.1em 0;
+  cursor: pointer;
+}
+.info-link:hover,
+.info-link:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+.info-support {
+  color: var(--accent);
+}
+.info-support-link {
+  color: var(--fg);
 }
 
 /* Confirmação de comando destrutivo */
