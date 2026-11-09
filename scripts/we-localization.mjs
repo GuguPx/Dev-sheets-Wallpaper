@@ -148,21 +148,21 @@ const OPTION_LABELS = {
 
 /**
  * Bloco "apoie o autor" no fim do painel de propriedades. O WE renderiza HTML no
- * `text` de propriedades `type: "text"` (links abrem no navegador; imagens por URL).
- * Links e imagem ficam fora da tradução (marcas + URLs); título e mensagem usam ui_*.
- * A imagem é servida do próprio repositório (docs/support/support-card.png).
+ * `text` de propriedades `type: "text"` (links abrem no navegador).
+ * Links ficam fora da tradução (marcas + URLs); título e mensagem usam ui_*.
+ * Só texto e links, sem imagem externa: o primeiro item publicado na Workshop foi
+ * barrado pela Steam sem motivo informado e, por cautela, o painel não carrega nada
+ * de fora. (O cartão com QR codes segue no README: docs/support/support-card.png.)
  * Orders 1000+ garantem que o bloco fique sempre no fim do painel (ver renumeração abaixo).
  */
 const KOFI = 'https://ko-fi.com/gataodemane';
 const BMC = 'https://buymeacoffee.com/gataodemane';
 const REPO = 'https://github.com/GuguPx/Dev-sheets-Wallpaper';
 const EDITOR = 'https://gugupx.github.io/Dev-sheets-Wallpaper/editor/';
-const CARD = 'https://raw.githubusercontent.com/GuguPx/Dev-sheets-Wallpaper/main/docs/support/support-card.png';
 const SUPPORT_PROPS = {
   supportRule: { order: 10000, text: '<hr>' },
   supportTitle: { order: 10001, text: 'ui_support_title' },
   supportMessage: { order: 10002, text: 'ui_support_message' },
-  supportCard: { order: 10003, text: `<center><a href='${KOFI}'><img src='${CARD}'></a></center>` },
   supportKofi: { order: 10004, text: `<a href='${KOFI}'>☕ Ko-fi — ko-fi.com/gataodemane</a>` },
   supportBmc: { order: 10005, text: `<a href='${BMC}'>🍵 Buy Me a Coffee — buymeacoffee.com/gataodemane</a>` },
   supportContribute: { order: 10006, text: 'ui_support_contribute' },
@@ -179,6 +179,10 @@ for (const [key, row] of Object.entries(T)) {
 const project = JSON.parse(readFileSync(projectPath, 'utf8'));
 const props = project.general.properties;
 
+// Remove itens de apoio que saíram da lista (ex.: o antigo cartão com imagem).
+for (const key of Object.keys(props)) {
+  if (key.startsWith('support') && !(key in SUPPORT_PROPS)) delete props[key];
+}
 for (const [key, prop] of Object.entries(SUPPORT_PROPS)) {
   props[key] = { order: prop.order, text: prop.text, type: 'text' };
 }

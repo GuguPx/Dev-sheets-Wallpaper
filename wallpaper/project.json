@@ -414,39 +414,33 @@
         "text": "ui_support_message",
         "type": "text"
       },
-      "supportCard": {
+      "supportKofi": {
         "index": 38,
         "order": 138,
-        "text": "<center><a href='https://ko-fi.com/gataodemane'><img src='https://raw.githubusercontent.com/GuguPx/Dev-sheets-Wallpaper/main/docs/support/support-card.png'></a></center>",
-        "type": "text"
-      },
-      "supportKofi": {
-        "index": 39,
-        "order": 139,
         "text": "<a href='https://ko-fi.com/gataodemane'>☕ Ko-fi — ko-fi.com/gataodemane</a>",
         "type": "text"
       },
       "supportBmc": {
-        "index": 40,
-        "order": 140,
+        "index": 39,
+        "order": 139,
         "text": "<a href='https://buymeacoffee.com/gataodemane'>🍵 Buy Me a Coffee — buymeacoffee.com/gataodemane</a>",
         "type": "text"
       },
       "supportContribute": {
-        "index": 41,
-        "order": 141,
+        "index": 40,
+        "order": 140,
         "text": "ui_support_contribute",
         "type": "text"
       },
       "supportEditor": {
-        "index": 42,
-        "order": 142,
+        "index": 41,
+        "order": 141,
         "text": "<a href='https://gugupx.github.io/Dev-sheets-Wallpaper/editor/'>✍️ devsheet editor ↗</a>",
         "type": "text"
       },
       "supportRepo": {
-        "index": 43,
-        "order": 143,
+        "index": 42,
+        "order": 142,
         "text": "<a href='https://github.com/GuguPx/Dev-sheets-Wallpaper'>⭐ GitHub · Dev-sheets-Wallpaper ↗</a>",
         "type": "text"
       }
